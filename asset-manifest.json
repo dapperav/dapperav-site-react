@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/dapperav-site-react/static/css/main.e6c13ad2.css",
-    "main.js": "/dapperav-site-react/static/js/main.b99aa2ab.js",
+    "main.css": "/dapperav-site-react/static/css/main.7fd6d30f.css",
+    "main.js": "/dapperav-site-react/static/js/main.941c924a.js",
     "index.html": "/dapperav-site-react/index.html",
-    "main.e6c13ad2.css.map": "/dapperav-site-react/static/css/main.e6c13ad2.css.map",
-    "main.b99aa2ab.js.map": "/dapperav-site-react/static/js/main.b99aa2ab.js.map"
+    "main.7fd6d30f.css.map": "/dapperav-site-react/static/css/main.7fd6d30f.css.map",
+    "main.941c924a.js.map": "/dapperav-site-react/static/js/main.941c924a.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.b99aa2ab.js"
+    "static/css/main.7fd6d30f.css",
+    "static/js/main.941c924a.js"
   ]
 }
