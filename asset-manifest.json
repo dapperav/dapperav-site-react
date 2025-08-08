@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/dapperav-site-react/static/css/main.e6c13ad2.css",
+    "main.js": "/dapperav-site-react/static/js/main.b99aa2ab.js",
+    "index.html": "/dapperav-site-react/index.html",
+    "main.e6c13ad2.css.map": "/dapperav-site-react/static/css/main.e6c13ad2.css.map",
+    "main.b99aa2ab.js.map": "/dapperav-site-react/static/js/main.b99aa2ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.b99aa2ab.js"
+  ]
+}
