@@ -1,28 +1,34 @@
-// src/components/HowItWorksStep.jsx
+// components/HowItWorksStep.jsx
 import React from 'react';
 
-const HowItWorksStep = ({ number, title, text }) => (
-  <div style={{ maxWidth: '300px', textAlign: 'center', margin: '0 auto' }}>
-    <div
-      style={{
-        width: '60px',
-        height: '60px',
-        borderRadius: '50%',
-        backgroundColor: '#FFD700',
-        color: '#000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 'bold',
-        margin: '0 auto 1rem auto',
-        fontSize: '1.5rem',
-      }}
+const HowItWorksStep = ({ number, title, text }) => {
+  return (
+    <div style={{
+      background: '#fff',
+      padding: '2rem',
+      borderRadius: '12px',
+      width: '260px',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
+      textAlign: 'center',
+      transition: 'transform 0.3s ease',
+    }}
+    onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-5px)')}
+    onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
     >
-      {number}
+      <div style={{
+        background: '#FFD700',
+        color: '#000',
+        borderRadius: '50%',
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        margin: '0 auto 1rem',
+        fontWeight: 'bold'
+      }}>{number}</div>
+      <h3 style={{ marginBottom: '0.5rem' }}>{title}</h3>
+      <p style={{ fontSize: '0.95rem', color: '#555' }}>{text}</p>
     </div>
-    <h3>{title}</h3>
-    <p>{text}</p>
-  </div>
-);
+  );
+};
 
 export default HowItWorksStep;
