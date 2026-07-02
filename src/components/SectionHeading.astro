@@ -1,0 +1,34 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: 'left' | 'center';
+  tone?: 'light' | 'dark';
+}
+
+const { eyebrow, title, lead, align = 'center', tone = 'light' } = Astro.props;
+const alignCls = align === 'center' ? 'text-center mx-auto' : 'text-left';
+const titleCls = tone === 'dark' ? 'text-cream' : 'text-espresso';
+const leadCls = tone === 'dark' ? 'text-cream/70' : 'text-cocoa';
+---
+
+<div class={`max-w-2xl ${alignCls}`}>
+  <p class="text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+    {eyebrow}
+  </p>
+  <h2
+    class={`font-display mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-[2.75rem] ${titleCls}`}
+    data-reveal
+    style="--rd: 80ms"
+  >
+    {title}
+  </h2>
+  {
+    lead && (
+      <p class={`mt-5 text-base leading-relaxed sm:text-lg ${leadCls}`} data-reveal style="--rd: 160ms">
+        {lead}
+      </p>
+    )
+  }
+</div>

@@ -1,0 +1,38 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  body?: string;
+}
+
+const {
+  title = 'Ready to transform your space?',
+  body = `Tell us about your project and we'll respond within one business day — or call or text ${site.phone} right now.`,
+} = Astro.props;
+---
+
+<section class="bg-espresso">
+  <div class="mx-auto max-w-6xl px-5 py-20 text-center sm:px-8 sm:py-24">
+    <h2 class="font-display text-3xl font-semibold text-balance text-cream sm:text-4xl" data-reveal>
+      {title}
+    </h2>
+    <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-cream/70" data-reveal style="--rd: 80ms">
+      {body}
+    </p>
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-4" data-reveal style="--rd: 160ms">
+      <a
+        href="/quote"
+        class="btn-sheen rounded-sm bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
+      >
+        Request a Quote
+      </a>
+      <a
+        href={site.phoneHref}
+        class="rounded-sm border border-cream/30 px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:border-gold hover:text-gold"
+      >
+        Call {site.phone}
+      </a>
+    </div>
+  </div>
+</section>
