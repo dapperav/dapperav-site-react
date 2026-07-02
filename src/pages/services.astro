@@ -1,0 +1,157 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services } from '../data/site';
+
+const packages = [
+  {
+    name: 'Basic TV Mount',
+    price: '$150 – $200',
+    popular: false,
+    features: [
+      'Single TV wall mounting (up to 65")',
+      'Basic cable management',
+      'Level & secure installation',
+      'Post-install testing',
+    ],
+  },
+  {
+    name: 'Premium TV Package',
+    price: '$250 – $350',
+    popular: true,
+    features: [
+      'TV wall mounting (any size)',
+      'In-wall cable concealment',
+      'Soundbar mounting & setup',
+      'Universal remote programming',
+      'Power outlet relocation (if needed)',
+    ],
+  },
+  {
+    name: 'Smart Home Bundle',
+    price: '$500 – $800',
+    popular: false,
+    features: [
+      'Premium TV mounting package',
+      'Smart home hub setup',
+      'Voice control integration',
+      'Smart lighting setup (3 switches)',
+      'Streaming device optimization',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Services & Pricing — Dapper AV Solutions"
+  description="TV mounting, home theater, whole-home audio, smart home automation, networking, and commercial AV in Greater Houston — with transparent price ranges up front."
+>
+  <section class="mx-auto max-w-6xl px-5 pt-36 pb-20 sm:px-8 sm:pt-44">
+    <SectionHeading
+      eyebrow="Services"
+      title="Professional AV, tailored to your space"
+      lead="From simple TV mounting to complete smart-home automation. Honest price ranges below — every project gets a free on-site consultation and an itemized quote before any work begins."
+      align="left"
+    />
+  </section>
+
+  <!-- ── Service detail sections ─────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
+    {
+      services.map((s, i) => (
+        <article
+          id={s.id}
+          class="grid gap-8 rounded-sm border border-tan/60 bg-parchment/60 p-8 sm:p-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14"
+          data-reveal
+        >
+          <div>
+            <p class="text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase">
+              {s.category === 'commercial' ? 'Commercial' : 'Residential'} · {String(i + 1).padStart(2, '0')}
+            </p>
+            <h2 class="font-display mt-3 text-2xl font-semibold sm:text-3xl">{s.title}</h2>
+            <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
+            <p class="font-display mt-6 text-xl font-semibold text-gold-deep">{s.price}</p>
+            <a
+              href={`/quote?service=${encodeURIComponent(s.title)}`}
+              class="btn-sheen mt-7 inline-block rounded-sm bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-roast"
+            >
+              Quote this service
+            </a>
+          </div>
+          <ul class="grid content-start gap-3 sm:grid-cols-2">
+            {s.features.map((f) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed">
+                <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rotate-45 bg-gold" aria-hidden="true" />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <!-- ── Popular packages ─────────────────────────────────────────── -->
+  <section class="bg-espresso">
+    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+      <SectionHeading
+        eyebrow="Popular packages"
+        title="Straightforward bundles, straightforward prices"
+        tone="dark"
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+        {
+          packages.map((p, i) => (
+            <div
+              class={`relative rounded-sm p-8 ${
+                p.popular
+                  ? 'border-2 border-gold bg-cream text-espresso'
+                  : 'border border-cream/20 bg-roast/40 text-cream'
+              }`}
+              data-reveal
+              style={`--rd: ${i * 100}ms`}
+            >
+              {p.popular && (
+                <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-sm bg-gold px-3 py-1 text-xs font-bold tracking-widest text-espresso uppercase">
+                  Most popular
+                </span>
+              )}
+              <h3 class="font-display text-xl font-semibold">{p.name}</h3>
+              <p class={`font-display mt-2 text-3xl font-semibold ${p.popular ? 'text-gold-deep' : 'text-gold'}`}>
+                {p.price}
+              </p>
+              <ul class={`mt-6 space-y-3 text-sm leading-relaxed ${p.popular ? 'text-cocoa' : 'text-cream/75'}`}>
+                {p.features.map((f) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rotate-45 bg-gold" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`/quote?service=${encodeURIComponent(p.name)}`}
+                class={`mt-8 block rounded-sm px-5 py-3 text-center text-sm font-semibold transition-colors duration-300 ${
+                  p.popular
+                    ? 'btn-sheen bg-gold text-espresso hover:bg-gold-deep'
+                    : 'border border-cream/30 text-cream hover:border-gold hover:text-gold'
+                }`}
+              >
+                Start with this package
+              </a>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-10 text-center text-sm text-cream/60" data-reveal>
+        Every project is different — final pricing depends on your space, equipment, and scope. That's why the
+        consultation is free.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Not sure which service you need?"
+    body="Describe what you're trying to do and we'll recommend the right approach — no jargon, no upsell."
+  />
+</Layout>

@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+
+<Layout
+  title="Page not found — Dapper AV Solutions"
+  description="That page doesn't exist. Head back to Dapper AV Solutions."
+>
+  <section class="mx-auto flex min-h-[70svh] max-w-3xl flex-col items-center justify-center px-5 pt-28 pb-20 text-center sm:px-8">
+    <p class="text-xs font-semibold tracking-[0.3em] text-gold-deep uppercase">404</p>
+    <h1 class="font-display mt-5 text-4xl font-semibold text-balance sm:text-5xl">
+      This page isn't dressed for the occasion.
+    </h1>
+    <p class="mt-5 max-w-md leading-relaxed text-cocoa">
+      The page you're looking for doesn't exist or has moved. Let's get you somewhere useful.
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-4">
+      <a
+        href="/"
+        class="btn-sheen rounded-sm bg-gold px-7 py-3.5 text-sm font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
+      >
+        Back to home
+      </a>
+      <a
+        href="/quote"
+        class="rounded-sm border border-espresso/30 px-7 py-3.5 text-sm font-medium transition-colors duration-300 hover:border-gold-deep hover:text-gold-deep"
+      >
+        Request a quote
+      </a>
+    </div>
+    <p class="mt-8 text-sm text-cocoa">
+      Or call us: <a href={site.phoneHref} class="link-draw font-semibold text-gold-deep">{site.phone}</a>
+    </p>
+  </section>
+</Layout>

@@ -1,0 +1,200 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import heroImage from '../assets/header-bg.jpg';
+import { site, commitments, services, process } from '../data/site';
+import { gallery } from '../data/gallery';
+
+const featured = gallery.slice(0, 3);
+---
+
+<Layout
+  title="Dapper AV Solutions — Home Theater, Audio & Smart Home Installation in Houston"
+  description="Professional, precise, and personal AV installation for Houston homes and businesses: TV mounting, home theater, whole-home audio, smart home automation, and commercial AV. Free on-site consultations."
+>
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="relative flex min-h-[92svh] items-center overflow-hidden bg-roast">
+    <div class="absolute inset-0">
+      <Image
+        src={heroImage}
+        alt=""
+        class="kenburns h-full w-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        widths={[640, 1024, 1536, 2048]}
+        sizes="100vw"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-roast/95 via-roast/70 to-roast/30"></div>
+      <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-roast/80 to-transparent"></div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-6xl px-5 pt-28 pb-20 sm:px-8">
+      <p class="text-xs font-semibold tracking-[0.3em] text-gold uppercase" data-reveal>
+        Houston's AV specialists
+      </p>
+      <h1
+        class="font-display mt-6 max-w-3xl text-4xl leading-[1.08] font-semibold text-balance text-cream sm:text-6xl lg:text-7xl"
+        data-reveal
+        style="--rd: 120ms"
+      >
+        Experience the <span class="text-gold">Dapper AV</span> difference
+      </h1>
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-cream/80" data-reveal style="--rd: 240ms">
+        {site.tagline}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--rd: 360ms">
+        <a
+          href="/quote"
+          class="btn-sheen rounded-sm bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
+        >
+          Get a Free Quote
+        </a>
+        <a
+          href="/services"
+          class="rounded-sm border border-cream/40 px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:border-gold hover:text-gold"
+        >
+          View Our Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The Dapper Standard ──────────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+    <SectionHeading
+      eyebrow="The Dapper Standard"
+      title="Precision meets artistry in every installation"
+      lead="We don't just install technology — we craft experiences that enhance the way you live. Every detail handled with the care of a well-tailored suit."
+    />
+    <div class="mt-16 grid gap-px overflow-hidden rounded-sm border border-tan/60 bg-tan/60 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        commitments.map((c, i) => (
+          <div class="bg-cream p-8" data-reveal style={`--rd: ${i * 90}ms`}>
+            <span class="font-display text-3xl text-gold-deep" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="font-display mt-4 text-xl font-semibold">{c.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-cocoa">{c.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ── Services ─────────────────────────────────────────────────── -->
+  <section class="bg-parchment">
+    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+      <SectionHeading
+        eyebrow="What we do"
+        title="From a single TV to a whole building"
+        lead="Six core services, one standard of workmanship. Transparent price ranges up front — the full breakdown is a click away."
+      />
+      <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((s, i) => (
+            <a
+              href={`/services#${s.id}`}
+              class="group flex flex-col rounded-sm border border-tan/60 bg-cream p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+              data-reveal
+              style={`--rd: ${(i % 3) * 90}ms`}
+            >
+              <h3 class="font-display text-xl font-semibold">{s.title}</h3>
+              <p class="mt-3 grow text-sm leading-relaxed text-cocoa">{s.blurb}</p>
+              <div class="mt-6 flex items-center justify-between border-t border-tan/50 pt-5">
+                <span class="text-sm font-semibold text-gold-deep">{s.price}</span>
+                <span class="text-sm font-medium text-espresso transition-transform duration-300 group-hover:translate-x-1">
+                  Details →
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured work ────────────────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+    <SectionHeading
+      eyebrow="Our work"
+      title="Rooms we've dressed up"
+      lead="A look at the kind of spaces we build — clean lines, hidden wires, and technology that disappears into the design."
+    />
+    <div class="mt-16 grid gap-6 sm:grid-cols-3">
+      {
+        featured.map((item, i) => (
+          <a
+            href="/work"
+            class="card-zoom group block overflow-hidden rounded-sm"
+            data-reveal
+            style={`--rd: ${i * 100}ms`}
+          >
+            <div class="aspect-[4/3] overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.alt}
+                class="h-full w-full object-cover"
+                widths={[480, 768, 1024]}
+                sizes="(min-width: 640px) 33vw, 100vw"
+              />
+            </div>
+            <div class="border border-t-0 border-tan/60 bg-cream p-5">
+              <h3 class="font-display font-semibold">{item.title}</h3>
+              <p class="mt-1 text-sm text-cocoa">{item.caption}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+    <div class="mt-12 text-center" data-reveal>
+      <a href="/work" class="link-draw font-medium text-gold-deep">See the full gallery →</a>
+    </div>
+  </section>
+
+  <!-- ── Process ──────────────────────────────────────────────────── -->
+  <section class="bg-espresso">
+    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+      <SectionHeading
+        eyebrow="How we work"
+        title="Four steps, zero surprises"
+        tone="dark"
+      />
+      <ol class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          process.map((p, i) => (
+            <li data-reveal style={`--rd: ${i * 110}ms`}>
+              <span class="font-display text-4xl font-semibold text-gold" aria-hidden="true">
+                {p.step}
+              </span>
+              <h3 class="font-display mt-4 text-lg font-semibold text-cream">{p.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-cream/65">{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Story ────────────────────────────────────────────────────── -->
+  <section class="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8 sm:py-32">
+    <p class="text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+      The Dapper Difference
+    </p>
+    <blockquote
+      class="font-display mt-8 text-2xl leading-snug font-medium text-balance italic sm:text-3xl"
+      data-reveal
+      style="--rd: 100ms"
+    >
+      "Excellence isn't an accident — it's our standard."
+    </blockquote>
+    <p class="mt-8 leading-relaxed text-cocoa" data-reveal style="--rd: 200ms">
+      Every project begins with understanding your vision. From the initial consultation to the final
+      calibration, we handle every detail with precision and care — because your space deserves nothing
+      less than tailored.
+    </p>
+  </section>
+
+  <CtaBand />
+</Layout>

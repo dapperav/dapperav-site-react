@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-roast text-cream/85">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-3">
+    <div>
+      <a href="/" class="inline-flex items-center gap-3" aria-label="Dapper AV Solutions — home">
+        <Image src={logo} alt="" width="112" height="112" class="h-14 w-14 object-contain" />
+        <span class="font-display text-xl font-semibold text-cream">
+          Dapper AV
+          <span class="block text-[0.65rem] font-normal tracking-[0.28em] text-cream/60 uppercase">Solutions</span>
+        </span>
+      </a>
+      <p class="mt-5 max-w-xs text-sm leading-relaxed text-cream/70">
+        {site.tagline}
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-[0.22em] text-gold uppercase">Get in touch</h2>
+      <ul class="mt-5 space-y-3 text-sm">
+        <li>
+          <a href={site.phoneHref} class="link-draw">Call {site.phone}</a>
+        </li>
+        <li>
+          <a href={site.smsHref} class="link-draw">Text {site.phone}</a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`} class="link-draw">{site.email}</a>
+        </li>
+        <li class="text-cream/70">{site.serviceArea}</li>
+        <li class="text-cream/70">{site.hours}</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-[0.22em] text-gold uppercase">Explore</h2>
+      <ul class="mt-5 space-y-3 text-sm">
+        <li><a href="/services" class="link-draw">Services</a></li>
+        <li><a href="/work" class="link-draw">Our Work</a></li>
+        <li><a href="/quote" class="link-draw">Request a Quote</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-cream/10">
+    <p class="mx-auto max-w-6xl px-5 py-6 text-xs text-cream/50 sm:px-8">
+      © {year} {site.name}. All rights reserved.
+    </p>
+  </div>
+</footer>
