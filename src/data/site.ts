@@ -22,7 +22,7 @@ export const site = {
  * Placeholder until Mark provides the real key; the form detects the
  * placeholder and falls back to phone/email guidance instead of failing silently.
  */
-export const WEB3FORMS_ACCESS_KEY = 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY';
+export const WEB3FORMS_ACCESS_KEY = '0c3d3eeb-24db-4aca-9eb2-a24cd6a36dca';
 
 export const commitments = [
   {
