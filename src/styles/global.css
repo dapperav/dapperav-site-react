@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ── Palette drawn from the Dapper AV logo ─────────────────────── */
+  --color-espresso: #3b1005; /* deep logo brown — primary ink & dark sections */
+  --color-roast: #2b0c03; /* darkest roast — footer / hero overlay */
+  --color-cocoa: #6b4a33; /* muted brown — secondary text */
+  --color-cream: #f7f0e0; /* logo cream — page canvas */
+  --color-parchment: #efe3cb; /* deeper cream — alternating sections */
+  --color-tan: #d8c6a4; /* hairlines & borders */
+  --color-gold: #f0b010; /* logo gold — the one sharp accent */
+  --color-gold-deep: #c98f08; /* gold hover / active */
+
+  --font-display: 'Fraunces Variable', 'Georgia', serif;
+  --font-sans: 'Inter Variable', 'Segoe UI', sans-serif;
+
+  --ease-tailored: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  @apply bg-cream font-sans text-espresso antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+}
+
+/* Fraunces: lean on its optical-size + soft axes for a warm, vintage voice */
+.font-display {
+  font-variation-settings:
+    'opsz' 144,
+    'SOFT' 60,
+    'WONK' 0;
+}
+
+/* ── Scroll reveals ────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.8s var(--ease-tailored),
+    transform 0.8s var(--ease-tailored);
+  transition-delay: var(--rd, 0ms);
+}
+
+[data-reveal].is-inview {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hero Ken Burns ────────────────────────────────────────────────── */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.kenburns {
+  animation: kenburns 24s var(--ease-tailored) both;
+  will-change: transform;
+}
+
+/* ── Link underline that draws in ──────────────────────────────────── */
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s var(--ease-tailored);
+  padding-bottom: 2px;
+}
+
+.link-draw:hover,
+.link-draw[aria-current='page'] {
+  background-size: 100% 1.5px;
+}
+
+/* ── Gold sheen pass on primary buttons ───────────────────────────── */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-tailored);
+  pointer-events: none;
+}
+
+.btn-sheen:hover::after {
+  transform: translateX(120%);
+}
+
+/* ── Gallery image lift ────────────────────────────────────────────── */
+.card-zoom img {
+  transition: transform 0.7s var(--ease-tailored);
+}
+
+.card-zoom:hover img {
+  transform: scale(1.045);
+}
+
+/* ── Reduced motion: everything lands instantly ───────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .kenburns {
+    animation: none;
+  }
+  .btn-sheen::after {
+    display: none;
+  }
+  .card-zoom img {
+    transition: none;
+  }
+}
