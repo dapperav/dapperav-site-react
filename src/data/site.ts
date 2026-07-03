@@ -35,11 +35,11 @@ export const GOOGLE_SITE_VERIFICATION = '';
 export const faqs = [
   {
     q: 'How much does TV mounting cost in the Richmond and Katy area?',
-    a: 'Most single-TV mounts run $150–$400 depending on TV size, wall type (drywall, brick, stone, or tile), and whether you want cables concealed inside the wall. You get an exact itemized price before any work starts — never a surprise on install day.',
+    a: 'Single-TV mounts start at $150 and scale with TV size, wall type (drywall, brick, stone, or tile), and whether you want cables concealed inside the wall. You get an exact itemized price before any work starts — never a surprise on install day.',
   },
   {
     q: 'How much does a home theater installation cost?',
-    a: 'Living-room surround systems typically start around $2,000 installed, while dedicated theater rooms with projection, Dolby Atmos, and acoustic treatment range up to $15,000+. The free on-site consultation is where we scope what your room and budget actually call for.',
+    a: 'Living-room surround systems start around $2,000 installed; dedicated theater rooms with projection, Dolby Atmos, and acoustic treatment scale from there. The free on-site consultation is where we scope what your room and budget actually call for.',
   },
   {
     q: 'Do you do free consultations?',
@@ -55,7 +55,7 @@ export const faqs = [
   },
   {
     q: 'Do you handle commercial jobs?',
-    a: 'Yes — video walls, digital signage, conference rooms, and restaurant/bar entertainment systems, with service contracts available. Commercial projects range from about $1,000 to $25,000+ depending on scope.',
+    a: 'Yes — commercial AV (video walls, signage, conference rooms, restaurant and bar systems) plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, Microsoft 365, and access control. Business work is custom-quoted after a free site survey.',
   },
 ];
 
@@ -82,7 +82,7 @@ export const services = [
   {
     id: 'tv-mounting',
     title: 'TV Mounting & Installation',
-    price: '$150 – $400',
+    price: 'From $150',
     blurb:
       'Any TV, any wall — drywall, brick, stone, or tile — mounted dead level with cables concealed in-wall.',
     features: [
@@ -98,7 +98,7 @@ export const services = [
   {
     id: 'home-theater',
     title: 'Home Theater Systems',
-    price: '$2,000 – $15,000+',
+    price: 'From $2,000',
     blurb:
       'Dedicated theaters and living-room cinemas: projection, Dolby Atmos, acoustic treatment, and one-remote control.',
     features: [
@@ -114,7 +114,7 @@ export const services = [
   {
     id: 'whole-home-audio',
     title: 'Whole Home Audio',
-    price: '$800 – $5,000+',
+    price: 'From $800',
     blurb:
       'Multi-zone music that follows you room to room — in-ceiling, in-wall, and outdoor speakers, controlled from your phone.',
     features: [
@@ -130,7 +130,7 @@ export const services = [
   {
     id: 'smart-home',
     title: 'Smart Home Automation',
-    price: '$300 – $3,000+',
+    price: 'From $300',
     blurb:
       'Lighting, climate, cameras, locks, and voice control — programmed into scenes that actually get used.',
     features: [
@@ -146,7 +146,7 @@ export const services = [
   {
     id: 'networks',
     title: 'Smart Networks & Wi-Fi',
-    price: '$500 – $2,500',
+    price: 'From $500',
     blurb:
       'Wi-Fi that reaches every corner: professionally placed access points, structured cabling, and secure guest networks.',
     features: [
@@ -162,7 +162,7 @@ export const services = [
   {
     id: 'commercial',
     title: 'Commercial AV Solutions',
-    price: '$1,000 – $25,000+',
+    price: null,
     blurb:
       'Video walls, conference rooms, restaurant and bar entertainment — designed, installed, and serviced under contract.',
     features: [
@@ -172,6 +172,22 @@ export const services = [
       'Retail audio & background music',
       'Paging systems',
       'Service contracts',
+    ],
+    category: 'commercial',
+  },
+  {
+    id: 'managed-it',
+    title: 'Managed IT & Networking',
+    price: null,
+    blurb:
+      'Your outsourced IT department: UniFi networks and cameras, firewall policies and VLANs, Microsoft 365, and access control — installed, then managed.',
+    features: [
+      'UniFi network design, install & management',
+      'UniFi Protect camera systems',
+      'Firewall policies, VLANs & dedicated Wi-Fi',
+      'Microsoft 365 tenant setup & user provisioning',
+      'Access control, door entry & intercoms',
+      'Ongoing monitoring & support plans',
     ],
     category: 'commercial',
   },
@@ -219,6 +235,7 @@ export const quoteFormOptions = {
     'Smart Home Automation',
     'Network & Wi-Fi',
     'Commercial AV',
+    'Managed IT / Networking (Business)',
     'Consultation Only',
     'Other',
   ],

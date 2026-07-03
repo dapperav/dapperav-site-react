@@ -51,7 +51,9 @@ const jsonLd = {
     itemListElement: services.map((s) => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: s.title, description: s.blurb },
-      priceSpecification: { '@type': 'PriceSpecification', price: s.price, priceCurrency: 'USD' },
+      ...(s.price
+        ? { priceSpecification: { '@type': 'PriceSpecification', price: s.price, priceCurrency: 'USD' } }
+        : {}),
     })),
   },
 };

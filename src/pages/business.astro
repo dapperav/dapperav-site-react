@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+
+const capabilities = [
+  {
+    title: 'Business networks, built on UniFi',
+    body: 'Enterprise-grade UniFi networking designed for your floor plan — switches, access points, and structured cabling installed clean and documented properly.',
+    features: ['UniFi network design & installation', 'Professional AP placement & tuning', 'Structured cabling & rack builds'],
+  },
+  {
+    title: 'Camera & surveillance systems',
+    body: 'UniFi Protect camera systems you actually own — no monthly per-camera cloud fees. Clear coverage, local storage, and remote viewing from your phone.',
+    features: ['UniFi Protect cameras & NVRs', 'Coverage design & installation', 'Remote viewing & retention setup'],
+  },
+  {
+    title: 'Security, segmentation & Wi-Fi',
+    body: 'Firewall policies that make sense for your business, VLANs that keep point-of-sale, cameras, and guests separated, and dedicated Wi-Fi for staff and customers.',
+    features: ['Firewall policy configuration', 'VLAN design & segmentation', 'Dedicated staff & guest Wi-Fi'],
+  },
+  {
+    title: 'Microsoft 365',
+    body: 'Tenant setup, migrations, and day-to-day user management — accounts, licenses, email, and security done right from the start.',
+    features: ['M365 tenant setup & configuration', 'User provisioning & offboarding', 'Email, licensing & security baseline'],
+  },
+  {
+    title: 'Access control & entry',
+    body: 'Door access, entry intercoms, and visitor management — who gets in, when, and a record of it. Integrated with your cameras and network.',
+    features: ['Door access control systems', 'Entry intercoms & video doorbells', 'Schedules, credentials & audit trails'],
+  },
+  {
+    title: 'Commercial AV',
+    body: 'Video walls, digital signage, conference rooms, and restaurant or bar entertainment — designed, installed, and serviced by the same person who runs your network.',
+    features: ['Conference room AV & video walls', 'Digital signage & TV matrices', 'Restaurant & bar entertainment'],
+  },
+];
+
+const clients = [
+  { type: 'Offices', need: 'Conference rooms, M365, secure Wi-Fi, door access' },
+  { type: 'Restaurants & bars', need: 'TV walls, music, POS-safe networks, cameras' },
+  { type: 'Retail & showrooms', need: 'Signage, background audio, guest Wi-Fi, surveillance' },
+  { type: 'Warehouses & shops', need: 'Wide-area Wi-Fi, cameras, access control, paging' },
+];
+---
+
+<Layout
+  title="Managed IT, Networks & Commercial AV for Businesses — Richmond, Katy & Sugar Land | Dapper AV Solutions"
+  description="An IT department for businesses that don't have one: UniFi networks and cameras, firewall and VLAN configuration, Microsoft 365, access control, and commercial AV across Fort Bend County — installed, then managed."
+>
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="pinstripe bg-espresso">
+    <div class="mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
+      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase" data-reveal>
+        <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
+        For business
+      </p>
+      <h1
+        class="font-display mt-6 max-w-3xl text-4xl leading-[1.1] font-semibold text-balance text-cream sm:text-5xl lg:text-6xl"
+        data-reveal
+        style="--rd: 100ms"
+      >
+        An IT department for businesses that don't have one
+      </h1>
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75" data-reveal style="--rd: 200ms">
+        Networks, cameras, Microsoft 365, door access, and AV — designed, installed, and then actually
+        managed. One local point of contact with IT-director experience, instead of four vendors
+        pointing at each other.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--rd: 300ms">
+        <a
+          href="/quote?service=Managed%20IT%20%2F%20Networking%20(Business)"
+          class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
+        >
+          Request a Site Survey
+        </a>
+        <a
+          href={site.phoneHref}
+          class="glass-dark rounded-full px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:text-gold"
+        >
+          Call {site.phone}
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-cream/55" data-reveal style="--rd: 400ms">
+        Business work is custom-quoted — every site survey is free.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Capabilities ─────────────────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+    <SectionHeading
+      eyebrow="What we handle"
+      title="Install once. Managed always."
+      lead="Everything below is available as a one-time project or under an ongoing management plan — monitoring, updates, user changes, and a person who picks up the phone."
+    />
+    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        capabilities.map((c, i) => (
+          <div class="glass flex flex-col rounded-3xl p-8" data-reveal style={`--rd: ${(i % 3) * 90}ms`}>
+            <h3 class="font-display text-xl font-semibold">{c.title}</h3>
+            <p class="mt-3 grow text-sm leading-relaxed text-cocoa">{c.body}</p>
+            <ul class="mt-6 space-y-2.5 border-t border-tan/50 pt-5">
+              {c.features.map((f) => (
+                <li class="flex items-start gap-3 text-sm leading-relaxed">
+                  <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ── Who it's for ─────────────────────────────────────────────── -->
+  <section class="bg-parchment">
+    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+      <SectionHeading eyebrow="Who we work with" title="Built for businesses without an IT guy" />
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          clients.map((c, i) => (
+            <div class="glass rounded-3xl p-7" data-reveal style={`--rd: ${i * 90}ms`}>
+              <h3 class="font-display text-lg font-semibold">{c.type}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-cocoa">{c.need}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-cocoa" data-reveal>
+        This is the same work I do as an IT director — networks, security, Microsoft 365, and the systems
+        that keep a business running — brought to businesses that need the expertise without the head count.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Let's look at your building"
+    body={`A free site survey tells us both exactly what your business needs — no prices pulled out of thin air, no obligation. Call or text ${site.phone}, or send the details.`}
+  />
+</Layout>

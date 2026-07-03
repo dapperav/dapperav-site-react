@@ -5,6 +5,9 @@ import CtaBand from '../components/CtaBand.astro';
 import FaqSection from '../components/FaqSection.astro';
 import { services, faqs } from '../data/site';
 
+const residential = services.filter((s) => s.category === 'residential');
+const commercial = services.filter((s) => s.category === 'commercial');
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -18,7 +21,7 @@ const faqSchema = {
 const packages = [
   {
     name: 'Basic TV Mount',
-    price: '$150 – $200',
+    price: 'From $150',
     popular: false,
     features: [
       'Single TV wall mounting (up to 65")',
@@ -29,7 +32,7 @@ const packages = [
   },
   {
     name: 'Premium TV Package',
-    price: '$250 – $350',
+    price: 'From $250',
     popular: true,
     features: [
       'TV wall mounting (any size)',
@@ -41,7 +44,7 @@ const packages = [
   },
   {
     name: 'Smart Home Bundle',
-    price: '$500 – $800',
+    price: 'From $500',
     popular: false,
     features: [
       'Premium TV mounting package',
@@ -68,10 +71,14 @@ const packages = [
     />
   </section>
 
-  <!-- ── Service detail sections ─────────────────────────────────── -->
+  <!-- ── Residential services ─────────────────────────────────────── -->
   <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
+    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+      <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
+      For your home
+    </p>
     {
-      services.map((s, i) => (
+      residential.map((s, i) => (
         <article
           id={s.id}
           class="glass grid gap-8 rounded-3xl p-8 sm:p-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14"
@@ -79,7 +86,7 @@ const packages = [
         >
           <div>
             <p class="text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase">
-              {s.category === 'commercial' ? 'Commercial' : 'Residential'} · {String(i + 1).padStart(2, '0')}
+              {String(i + 1).padStart(2, '0')}
             </p>
             <h2 class="font-display mt-3 text-2xl font-semibold sm:text-3xl">{s.title}</h2>
             <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
@@ -90,6 +97,53 @@ const packages = [
             >
               Quote this service
             </a>
+          </div>
+          <ul class="grid content-start gap-3 sm:grid-cols-2">
+            {s.features.map((f) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed">
+                <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <!-- ── Business services ────────────────────────────────────────── -->
+  <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
+    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+      <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
+      For your business
+    </p>
+    {
+      commercial.map((s) => (
+        <article
+          id={s.id}
+          class="glass grid gap-8 rounded-3xl p-8 sm:p-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14"
+          data-reveal
+        >
+          <div>
+            <h2 class="font-display text-2xl font-semibold sm:text-3xl">{s.title}</h2>
+            <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
+            <p class="mt-6 text-sm font-semibold tracking-wide text-gold-deep uppercase">
+              Custom-quoted · free site survey
+            </p>
+            <div class="mt-7 flex flex-wrap gap-3">
+              <a
+                href={`/quote?service=${encodeURIComponent(s.title)}`}
+                class="btn-sheen inline-block rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-roast"
+              >
+                Request a quote
+              </a>
+              <a
+                href="/business"
+                class="glass inline-block rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 hover:text-gold-deep"
+              >
+                Business services →
+              </a>
+            </div>
           </div>
           <ul class="grid content-start gap-3 sm:grid-cols-2">
             {s.features.map((f) => (
