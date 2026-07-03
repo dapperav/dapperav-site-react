@@ -17,6 +17,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
      into the full pill on hover, focus, or at the top of the page, and
      folds back to the badge as you scroll. ── -->
 <header id="site-nav" class="at-top pointer-events-none fixed inset-x-0 top-3 z-50 hidden justify-center md:flex">
+  <div class="nav-wrap flex flex-col items-center">
   <nav
     class="nav-shell glass pointer-events-auto flex items-center rounded-full p-1.5"
     aria-label="Main"
@@ -52,7 +53,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
     <div class="nav-group">
       <div class="nav-inner">
-        <div class="flex items-center gap-7 pr-2 pl-4">
+        <div class="flex items-center gap-7 pr-6 pl-4">
           {
             links.slice(2).map((l) => (
               <a
@@ -64,16 +65,19 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
               </a>
             ))
           }
-          <a
-            href="/quote"
-            class="btn-sheen rounded-full bg-gold px-6 py-2.5 text-sm font-semibold tracking-wide whitespace-nowrap text-espresso shadow-sm transition-colors duration-300 hover:bg-gold-deep"
-          >
-            Request a Quote
-          </a>
         </div>
       </div>
     </div>
   </nav>
+
+  <!-- CTA pendant: drops in centered under the logo when the nav is open -->
+  <a
+    href="/quote"
+    class="nav-cta btn-sheen mt-2 rounded-full bg-gold px-7 py-2.5 text-sm font-semibold tracking-wide whitespace-nowrap text-espresso shadow-md transition-colors duration-300 hover:bg-gold-deep"
+  >
+    Request a Quote
+  </a>
+  </div>
 </header>
 
 <style>
@@ -93,10 +97,27 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   }
 
   #site-nav.at-top .nav-group,
-  .nav-shell:hover .nav-group,
-  .nav-shell:focus-within .nav-group {
+  .nav-wrap:hover .nav-group,
+  .nav-wrap:focus-within .nav-group {
     grid-template-columns: 1fr;
     opacity: 1;
+  }
+
+  .nav-cta {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease 0.1s,
+      transform 0.45s var(--ease-tailored) 0.05s;
+  }
+
+  #site-nav.at-top .nav-cta,
+  .nav-wrap:hover .nav-cta,
+  .nav-wrap:focus-within .nav-cta {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 
   /* The roundel spins like a record on the platter. */
@@ -114,7 +135,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     .logo-spin {
       animation: none;
     }
-    .nav-group {
+    .nav-group,
+    .nav-cta {
       transition: none;
     }
   }
