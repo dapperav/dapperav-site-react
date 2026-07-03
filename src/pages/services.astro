@@ -2,7 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { services } from '../data/site';
+import FaqSection from '../components/FaqSection.astro';
+import { services, faqs } from '../data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 
 const packages = [
   {
@@ -44,10 +55,11 @@ const packages = [
 ---
 
 <Layout
-  title="Services & Pricing — Dapper AV Solutions"
-  description="TV mounting, home theater, whole-home audio, smart home automation, networking, and commercial AV in Greater Houston — with transparent price ranges up front."
+  title="TV Mounting, Home Theater & Smart Home Services in Houston — Pricing | Dapper AV Solutions"
+  description="Houston AV installation services with transparent pricing: TV mounting from $150, home theater from $2,000, whole-home audio, smart home automation, Wi-Fi networks, and commercial AV. Free on-site consultations."
+  extraSchema={[faqSchema]}
 >
-  <section class="mx-auto max-w-6xl px-5 pt-36 pb-20 sm:px-8 sm:pt-44">
+  <section class="mx-auto max-w-6xl px-5 pt-16 pb-20 sm:px-8 md:pt-44">
     <SectionHeading
       eyebrow="Services"
       title="Professional AV, tailored to your space"
@@ -149,6 +161,8 @@ const packages = [
       </p>
     </div>
   </section>
+
+  <FaqSection />
 
   <CtaBand
     title="Not sure which service you need?"

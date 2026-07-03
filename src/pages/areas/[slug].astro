@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { areas } from '../../data/areas';
+import { site, services } from '../../data/site';
+
+export function getStaticPaths() {
+  return areas.map((area) => ({ params: { slug: area.slug }, props: { area } }));
+}
+
+const { area } = Astro.props;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `AV Installation in ${area.city}, TX`,
+  serviceType: 'Audio visual installation',
+  provider: { '@id': `${site.url}/#business` },
+  areaServed: { '@type': 'City', name: `${area.city}, TX` },
+  description: area.blurb,
+};
+---
+
+<Layout
+  title={`${area.headline} — TV Mounting, Home Theater & Smart Home | Dapper AV Solutions`}
+  description={`TV mounting, home theater, whole-home audio, and smart home installation in ${area.city}, TX. Owner-operated, free on-site consultations, transparent pricing. Call or text ${site.phone}.`}
+  extraSchema={[serviceSchema]}
+>
+  <section class="mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-44">
+    <SectionHeading eyebrow={`Serving ${area.county}`} title={area.headline} align="left" />
+    <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cocoa" data-reveal style="--rd: 200ms">
+      {area.blurb}
+    </p>
+    <p class="mt-5 max-w-2xl text-sm leading-relaxed text-cocoa" data-reveal style="--rd: 280ms">
+      Neighborhoods we're regularly in: <strong class="text-espresso">{area.neighborhoods.join(', ')}</strong> — and
+      everywhere in between.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-4" data-reveal style="--rd: 360ms">
+      <a
+        href="/quote"
+        class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
+      >
+        Get a Free Quote in {area.city}
+      </a>
+      <a
+        href={site.phoneHref}
+        class="glass rounded-full px-8 py-4 text-base font-medium transition-colors duration-300 hover:text-gold-deep"
+      >
+        Call {site.phone}
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-parchment">
+    <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+      <SectionHeading
+        eyebrow="What we do here"
+        title={`Every Dapper AV service, available in ${area.city}`}
+      />
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((s, i) => (
+            <a
+              href={`/services#${s.id}`}
+              class="glass group flex flex-col rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              data-reveal
+              style={`--rd: ${(i % 3) * 90}ms`}
+            >
+              <h3 class="font-display text-xl font-semibold">{s.title}</h3>
+              <p class="mt-3 grow text-sm leading-relaxed text-cocoa">{s.blurb}</p>
+              <div class="mt-6 flex items-center justify-between border-t border-tan/50 pt-5">
+                <span class="text-sm font-semibold text-gold-deep">{s.price}</span>
+                <span class="text-sm font-medium text-espresso transition-transform duration-300 group-hover:translate-x-1">
+                  Details →
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title={`Ready to upgrade your ${area.city} home?`}
+    body={`Free on-site consultations across ${area.county}. Tell us about your project and we'll respond within one business day — or call or text ${site.phone} right now.`}
+  />
+</Layout>

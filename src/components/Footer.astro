@@ -2,12 +2,13 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 import { site } from '../data/site';
+import { areas } from '../data/areas';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="bg-roast text-cream/85">
-  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-3">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-4">
     <div>
       <a href="/" class="inline-flex items-center gap-3" aria-label="Dapper AV Solutions — home">
         <Image src={logo} alt="" width="112" height="112" class="h-14 w-14 object-contain" />
@@ -44,6 +45,21 @@ const year = new Date().getFullYear();
         <li><a href="/services" class="link-draw">Services</a></li>
         <li><a href="/work" class="link-draw">Our Work</a></li>
         <li><a href="/quote" class="link-draw">Request a Quote</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-[0.22em] text-gold uppercase">Areas we serve</h2>
+      <ul class="mt-5 space-y-3 text-sm">
+        {
+          areas.map((a) => (
+            <li>
+              <a href={`/areas/${a.slug}`} class="link-draw">
+                {a.city}, TX
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>

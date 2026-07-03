@@ -1,0 +1,30 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { faqs } from '../data/site';
+---
+
+<section class="mx-auto max-w-3xl px-5 py-24 sm:px-8 sm:py-28">
+  <SectionHeading
+    eyebrow="Questions"
+    title="Straight answers, up front"
+    lead="The things Houston homeowners ask us most — answered the same way we quote: honestly."
+  />
+  <div class="mt-12 space-y-4">
+    {
+      faqs.map((f, i) => (
+        <details class="glass group rounded-3xl px-7 py-5" data-reveal style={`--rd: ${i * 60}ms`}>
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-semibold [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-xl leading-none text-gold-deep transition-transform duration-300 group-open:rotate-45"
+              aria-hidden="true"
+            >
+              +
+            </span>
+          </summary>
+          <p class="mt-4 leading-relaxed text-cocoa">{f.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
