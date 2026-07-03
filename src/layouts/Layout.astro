@@ -68,6 +68,8 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+    <!-- keeps the last content clear of the mobile bottom dock -->
+    <div class="h-24 md:hidden" aria-hidden="true"></div>
 
     <script>
       // Scroll reveals — fire once, then let the browser forget about them.
