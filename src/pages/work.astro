@@ -52,7 +52,7 @@ const filters = [
       {
         gallery.map((item, i) => (
           <figure
-            class="card-zoom gallery-item glass overflow-hidden rounded-3xl"
+            class="sleeve gallery-item glass overflow-hidden rounded-3xl"
             data-category={item.category}
             data-reveal
             style={`--rd: ${(i % 3) * 90}ms`}
@@ -67,10 +67,11 @@ const filters = [
               aria-label={`View larger: ${item.title}`}
             >
               <div class="relative aspect-[4/3] overflow-hidden">
+                <div class="sleeve-disc" aria-hidden="true"></div>
                 <Image
                   src={item.image}
                   alt={item.alt}
-                  class="h-full w-full object-cover"
+                  class="sleeve-cover h-full w-full object-cover"
                   widths={[480, 768, 1024, 1536]}
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
