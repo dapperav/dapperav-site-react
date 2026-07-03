@@ -12,6 +12,11 @@ export default defineConfig({
   },
   // Old CRA routes → new pages (static meta-refresh redirects)
   redirects: {
+    // Briefly-published area pages outside the real service footprint
+    '/areas/houston': '/',
+    '/areas/cypress': '/areas/katy',
+    '/areas/the-woodlands': '/',
+    '/areas/spring': '/areas/katy',
     '/contact': '/quote',
     '/portfolio': '/work',
     '/pricing': '/services',

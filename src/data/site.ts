@@ -12,7 +12,7 @@ export const site = {
   phoneHref: 'tel:+19728241303',
   smsHref: 'sms:+19728241303',
   email: 'contact@dapperav.com',
-  serviceArea: 'Greater Houston Area',
+  serviceArea: 'Richmond, TX & surrounding Fort Bend County',
   hours: 'Mon–Fri 8am–6pm · Evenings & weekends by appointment',
 };
 
@@ -34,7 +34,7 @@ export const GOOGLE_SITE_VERIFICATION = '';
 
 export const faqs = [
   {
-    q: 'How much does TV mounting cost in Houston?',
+    q: 'How much does TV mounting cost in the Richmond and Katy area?',
     a: 'Most single-TV mounts run $150–$400 depending on TV size, wall type (drywall, brick, stone, or tile), and whether you want cables concealed inside the wall. You get an exact itemized price before any work starts — never a surprise on install day.',
   },
   {
@@ -43,7 +43,7 @@ export const faqs = [
   },
   {
     q: 'Do you do free consultations?',
-    a: "Yes — every project starts with a free on-site consultation anywhere in the Greater Houston area. We look at the room, the walls, and the wiring, then send an itemized quote. No pressure, no obligation.",
+    a: "Yes — every project starts with a free on-site consultation across our Fort Bend County service area. We look at the room, the walls, and the wiring, then send an itemized quote. No pressure, no obligation.",
   },
   {
     q: 'Can you hide the wires when you mount a TV?',
@@ -51,7 +51,7 @@ export const faqs = [
   },
   {
     q: 'What areas do you serve?',
-    a: 'The Greater Houston area: Harris, Fort Bend, and Montgomery counties — including Houston, Katy, Sugar Land, Cypress, Spring, Tomball, The Woodlands, Pearland, and surrounding communities. Not sure if we reach you? Ask — we can often make it work.',
+    a: 'Richmond, Rosenberg, Fulshear, Sugar Land, Stafford, Katy, and the surrounding communities. Not sure if we reach you? Ask — we can often make it work.',
   },
   {
     q: 'Do you handle commercial jobs?',
@@ -202,20 +202,12 @@ export const process = [
 
 export const serviceAreas = [
   {
-    county: 'Harris County',
-    cities: ['Houston', 'Sugar Land', 'Katy', 'Cypress', 'Spring', 'Tomball'],
-  },
-  {
     county: 'Fort Bend County',
-    cities: ['Richmond', 'Rosenberg', 'Missouri City', 'Stafford', 'Pearland'],
+    cities: ['Richmond', 'Rosenberg', 'Fulshear', 'Sugar Land', 'Stafford'],
   },
   {
-    county: 'Montgomery County',
-    cities: ['The Woodlands', 'Conroe', 'Montgomery', 'Magnolia', 'Willis'],
-  },
-  {
-    county: 'Surrounding Areas',
-    cities: ['Galveston County', 'Liberty County', 'Waller County', 'Brazoria County'],
+    county: 'Katy Area',
+    cities: ['Katy', 'Cinco Ranch', 'Cane Island', 'Firethorne'],
   },
 ];
 
