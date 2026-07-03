@@ -23,6 +23,20 @@ html {
   scroll-padding-top: 6rem;
 }
 
+/* Cross-document view transitions: soft cross-fade between pages in
+   supporting browsers; plain navigation everywhere else. */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 body {
   @apply bg-cream font-sans text-espresso antialiased;
   text-rendering: optimizeLegibility;
