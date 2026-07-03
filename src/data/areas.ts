@@ -14,22 +14,31 @@ export interface Area {
 
 export const areas: Area[] = [
   {
-    slug: 'houston',
-    city: 'Houston',
-    county: 'Harris County',
-    headline: 'AV Installation in Houston, TX',
+    slug: 'richmond',
+    city: 'Richmond',
+    county: 'Fort Bend County',
+    headline: 'AV Installation in Richmond, TX',
     blurb:
-      "From high-rise condos inside the Loop to sprawling suburban media rooms, Houston homes come in every shape — and so do their walls. We mount on drywall, brick, stone, and tile, conceal every cable, and design audio and Wi-Fi that actually covers the square footage Houston is famous for.",
-    neighborhoods: ['River Oaks', 'Memorial', 'The Heights', 'West University', 'Galleria', 'Midtown'],
+      "Richmond is home base for us — from the master-planned streets of Harvest Green and Veranda to established Pecan Grove, we're in these neighborhoods constantly. TV mounting, home theaters, and whole-home audio installed clean, with the kind of response time you only get from a local.",
+    neighborhoods: ['Harvest Green', 'Veranda', 'Long Meadow Farms', 'Pecan Grove', 'Del Webb Sweetgrass'],
   },
   {
-    slug: 'katy',
-    city: 'Katy',
-    county: 'Harris / Fort Bend County',
-    headline: 'AV Installation in Katy, TX',
+    slug: 'rosenberg',
+    city: 'Rosenberg',
+    county: 'Fort Bend County',
+    headline: 'AV Installation in Rosenberg, TX',
     blurb:
-      "Katy's newer construction is a gift for clean installs — pre-wired media niches, open floor plans, and attics that make in-wall cable runs straightforward. We turn builder-grade living rooms in Cinco Ranch and Elyson into proper theaters and get Wi-Fi to the upstairs game room without a single visible wire.",
-    neighborhoods: ['Cinco Ranch', 'Elyson', 'Cross Creek Ranch', 'Firethorne', 'Seven Meadows'],
+      "Rosenberg mixes historic homes near downtown with brand-new builds off the Brazos — two very different install jobs, and we do both weekly. Older plaster walls get the careful treatment; new construction gets in-wall wiring done right the first time.",
+    neighborhoods: ['Bonbrook Plantation', 'Summer Lakes', 'The Reserve at Brazos Town Center', 'Walnut Creek', 'Historic Downtown'],
+  },
+  {
+    slug: 'fulshear',
+    city: 'Fulshear',
+    county: 'Fort Bend County',
+    headline: 'AV Installation in Fulshear, TX',
+    blurb:
+      "Fulshear's newer estates are built for serious entertainment — media rooms, covered patios, and open living spaces that deserve better than a soundbar on a console. We design and install theaters, outdoor AV, and Wi-Fi that covers acreage lots.",
+    neighborhoods: ['Cross Creek Ranch', 'Fulbrook on Fulshear Creek', 'Weston Lakes', 'Jordan Ranch', 'Polo Ranch'],
   },
   {
     slug: 'sugar-land',
@@ -41,30 +50,21 @@ export const areas: Area[] = [
     neighborhoods: ['Telfair', 'Riverstone', 'First Colony', 'Greatwood', 'New Territory'],
   },
   {
-    slug: 'cypress',
-    city: 'Cypress',
-    county: 'Harris County',
-    headline: 'AV Installation in Cypress, TX',
+    slug: 'stafford',
+    city: 'Stafford',
+    county: 'Fort Bend County',
+    headline: 'AV Installation in Stafford, TX',
     blurb:
-      "Big lots, big houses, big expectations for movie night. In Cypress we spend a lot of time on dedicated media rooms and outdoor living — weather-rated TVs under the patio cover, speakers by the pool, and mesh Wi-Fi that reaches the back fence.",
-    neighborhoods: ['Bridgeland', 'Towne Lake', 'Fairfield', 'Coles Crossing', 'Cypress Creek Lakes'],
+      "Stafford is where our residential and commercial work meet — established neighborhoods on one side, one of the area's busiest business corridors on the other. Home TV mounting and audio, plus conference rooms, digital signage, and restaurant AV for Stafford businesses.",
+    neighborhoods: ['Stafford Run', 'Colony Lakes', 'The Grove', 'Promenade at Stafford Run', 'the US-59 business corridor'],
   },
   {
-    slug: 'the-woodlands',
-    city: 'The Woodlands',
-    county: 'Montgomery County',
-    headline: 'AV Installation in The Woodlands, TX',
+    slug: 'katy',
+    city: 'Katy',
+    county: 'Harris / Fort Bend County',
+    headline: 'AV Installation in Katy, TX',
     blurb:
-      "Technology in The Woodlands should behave like the town itself: present, but never loud about it. We specialize in installs that disappear into the architecture — invisible speakers, concealed wiring, and lighting scenes that make the house feel effortless.",
-    neighborhoods: ['Creekside Park', 'Sterling Ridge', 'Alden Bridge', 'Panther Creek', 'Grogan’s Mill'],
-  },
-  {
-    slug: 'spring',
-    city: 'Spring',
-    county: 'Harris County',
-    headline: 'AV Installation in Spring, TX',
-    blurb:
-      "Spring and Klein-area homes range from established neighborhoods with plaster walls to brand-new builds off the Grand Parkway — we've got the right mounts, anchors, and fish tape for both. TV mounting, surround sound, and smart home setups done clean and done once.",
-    neighborhoods: ['Klein', 'Gleannloch Farms', 'Augusta Pines', 'Harmony', 'Northgate Forest'],
+      "Katy's newer construction is a gift for clean installs — pre-wired media niches, open floor plans, and attics that make in-wall cable runs straightforward. We turn builder-grade living rooms in Cinco Ranch and Cane Island into proper theaters and get Wi-Fi to the upstairs game room without a single visible wire.",
+    neighborhoods: ['Cinco Ranch', 'Cane Island', 'Firethorne', 'Seven Meadows', 'Grand Lakes'],
   },
 ];
