@@ -17,7 +17,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
      into the full pill on hover, focus, or at the top of the page, and
      folds back to the badge as you scroll. ── -->
 <header id="site-nav" class="at-top pointer-events-none fixed inset-x-0 top-3 z-50 hidden justify-center md:flex">
-  <div class="nav-wrap flex flex-col items-center">
+  <div class="nav-wrap pointer-events-auto flex flex-col items-center">
   <nav
     class="nav-shell glass pointer-events-auto flex items-center rounded-full p-1.5"
     aria-label="Main"
@@ -86,9 +86,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     display: grid;
     grid-template-columns: 0fr;
     opacity: 0;
+    /* base = collapsing: delayed so a brief mouse slip doesn't slam it shut */
     transition:
-      grid-template-columns 0.55s var(--ease-tailored),
-      opacity 0.3s ease 0.05s;
+      grid-template-columns 0.55s var(--ease-tailored) 0.35s,
+      opacity 0.3s ease 0.4s;
   }
 
   .nav-inner {
@@ -101,6 +102,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   .nav-wrap:focus-within .nav-group {
     grid-template-columns: 1fr;
     opacity: 1;
+    /* expanding: no delay */
+    transition:
+      grid-template-columns 0.55s var(--ease-tailored),
+      opacity 0.3s ease 0.05s;
   }
 
   .nav-cta {
@@ -108,8 +113,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     transform: translateY(-10px);
     pointer-events: none;
     transition:
-      opacity 0.3s ease 0.1s,
-      transform 0.45s var(--ease-tailored) 0.05s;
+      opacity 0.3s ease 0.4s,
+      transform 0.45s var(--ease-tailored) 0.35s;
   }
 
   #site-nav.at-top .nav-cta,
@@ -118,6 +123,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     opacity: 1;
     transform: none;
     pointer-events: auto;
+    transition:
+      opacity 0.3s ease 0.1s,
+      transform 0.45s var(--ease-tailored) 0.05s;
   }
 
   /* The roundel spins like a record on the platter. */
