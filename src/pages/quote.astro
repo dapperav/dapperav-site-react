@@ -1,10 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import markAvatar from '../assets/mark-avatar.jpg';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
 
-const inputCls =
-  'mt-2 w-full rounded-sm border border-tan bg-cream px-4 py-3 text-sm text-espresso placeholder:text-cocoa/50 focus:border-gold-deep focus:outline-none focus:ring-2 focus:ring-gold/40 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-700';
+const selectCls =
+  'mt-2 w-full rounded-sm border border-tan bg-cream px-4 py-3 text-sm text-espresso placeholder:text-cocoa/50 focus:border-gold-deep focus:outline-none focus:ring-2 focus:ring-gold/40';
+const inputCls = `${selectCls} invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-700`;
 const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-cocoa';
 ---
 
@@ -40,21 +43,21 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
           </div>
           <div>
             <label for="qf-service" class={labelCls}>Service needed *</label>
-            <select id="qf-service" name="service" required class={inputCls}>
+            <select id="qf-service" name="service" required class={selectCls}>
               <option value="" selected disabled>Select a service…</option>
               {quoteFormOptions.services.map((s) => <option value={s}>{s}</option>)}
             </select>
           </div>
           <div>
             <label for="qf-timeline" class={labelCls}>Timeline</label>
-            <select id="qf-timeline" name="timeline" class={inputCls}>
+            <select id="qf-timeline" name="timeline" class={selectCls}>
               <option value="" selected>When would you like this done?</option>
               {quoteFormOptions.timelines.map((t) => <option value={t}>{t}</option>)}
             </select>
           </div>
           <div>
             <label for="qf-budget" class={labelCls}>Budget</label>
-            <select id="qf-budget" name="budget" class={inputCls}>
+            <select id="qf-budget" name="budget" class={selectCls}>
               <option value="" selected>Rough budget range (optional)</option>
               {quoteFormOptions.budgets.map((b) => <option value={b}>{b}</option>)}
             </select>
@@ -120,10 +123,26 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
     <!-- ── Sidebar ──────────────────────────────────────────────────── -->
     <aside class="space-y-8" data-reveal style="--rd: 120ms">
       <div class="rounded-sm bg-espresso p-8 text-cream">
-        <h2 class="text-xs font-semibold tracking-[0.22em] text-gold uppercase">Talk to us directly</h2>
+        <div class="flex items-center gap-4">
+          <Image
+            src={markAvatar}
+            alt="Mark Immler, owner of Dapper AV Solutions"
+            class="h-16 w-16 rounded-full border-2 border-gold object-cover"
+            widths={[128, 192]}
+            sizes="4rem"
+          />
+          <div>
+            <p class="font-display font-semibold">Mark Immler</p>
+            <p class="text-xs tracking-[0.18em] text-cream/60 uppercase">Owner</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-cream/75">
+          You'll be talking with me — the owner, not a call center.
+        </p>
+        <h2 class="mt-6 text-xs font-semibold tracking-[0.22em] text-gold uppercase">Talk to me directly</h2>
         <ul class="mt-5 space-y-3 text-sm">
           <li><a href={site.phoneHref} class="link-draw text-base font-semibold">Call {site.phone}</a></li>
-          <li><a href={site.smsHref} class="link-draw">Text us — we reply fast</a></li>
+          <li><a href={site.smsHref} class="link-draw">Text me — I reply fast</a></li>
           <li><a href={`mailto:${site.email}`} class="link-draw">{site.email}</a></li>
           <li class="pt-2 text-cream/65">{site.hours}</li>
         </ul>

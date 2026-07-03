@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import heroImage from '../assets/header-bg.jpg';
+import markPortrait from '../assets/mark-portrait.jpg';
 import { site, commitments, services, process } from '../data/site';
 import { gallery } from '../data/gallery';
 
@@ -188,28 +189,52 @@ const featured = gallery.slice(0, 3);
     </div>
   </section>
 
-  <!-- ── Story ────────────────────────────────────────────────────── -->
-  <section class="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8 sm:py-32">
-    <p
-      class="flex items-center justify-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase"
-      data-reveal
-    >
-      <span class="block h-2 w-2 rotate-45 bg-gold" aria-hidden="true"></span>
-      The Dapper Difference
-      <span class="block h-2 w-2 rotate-45 bg-gold" aria-hidden="true"></span>
-    </p>
-    <blockquote
-      class="font-display mt-8 text-2xl leading-snug font-medium text-balance italic sm:text-3xl"
-      data-reveal
-      style="--rd: 100ms"
-    >
-      "Excellence isn't an accident — it's our standard."
-    </blockquote>
-    <p class="mt-8 leading-relaxed text-cocoa" data-reveal style="--rd: 200ms">
-      Every project begins with understanding your vision. From the initial consultation to the final
-      calibration, we handle every detail with precision and care — because your space deserves nothing
-      less than tailored.
-    </p>
+  <!-- ── Meet the owner ───────────────────────────────────────────── -->
+  <section class="mx-auto grid max-w-6xl items-center gap-12 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[2fr_3fr] lg:gap-20">
+    <div class="relative mx-auto w-full max-w-md" data-reveal>
+      <!-- offset gold frame — the tailored detail -->
+      <div class="absolute -inset-0 translate-x-3 translate-y-3 rounded-sm border-2 border-gold" aria-hidden="true"></div>
+      <Image
+        src={markPortrait}
+        alt="Mark Immler, owner of Dapper AV Solutions, in a blue plaid blazer"
+        class="relative aspect-[4/5] w-full rounded-sm object-cover"
+        widths={[480, 768, 1024, 1440]}
+        sizes="(min-width: 1024px) 40vw, (min-width: 640px) 28rem, 100vw"
+      />
+    </div>
+
+    <div>
+      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+        <span class="block h-2 w-2 rotate-45 bg-gold" aria-hidden="true"></span>
+        Meet the owner
+      </p>
+      <h2
+        class="font-display mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl"
+        data-reveal
+        style="--rd: 80ms"
+      >
+        The Dapper Difference has a face
+      </h2>
+      <blockquote
+        class="font-display mt-7 border-l-2 border-gold pl-5 text-xl leading-snug font-medium italic sm:text-2xl"
+        data-reveal
+        style="--rd: 160ms"
+      >
+        "Excellence isn't an accident — it's our standard."
+      </blockquote>
+      <p class="mt-7 leading-relaxed text-cocoa" data-reveal style="--rd: 240ms">
+        I'm Mark Immler, and Dapper AV is mine — which means it's my name on every quote, my hands on
+        every install, and my cell number at the top of this page. Every project begins with
+        understanding your vision. From the initial consultation to the final calibration, I handle
+        every detail with precision and care — because your space deserves nothing less than tailored.
+      </p>
+      <p class="font-display mt-8 text-lg font-semibold" data-reveal style="--rd: 320ms">
+        Mark Immler
+        <span class="mt-0.5 block text-xs font-normal tracking-[0.22em] text-cocoa uppercase">
+          Owner · Dapper AV Solutions
+        </span>
+      </p>
+    </div>
   </section>
 
   <CtaBand />
