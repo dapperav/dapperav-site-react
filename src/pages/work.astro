@@ -1,9 +1,14 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { gallery } from '../data/gallery';
+
+// Full-size variants for the lightbox
+const fullImages = await Promise.all(
+  gallery.map((g) => getImage({ src: g.image, width: 1600, format: 'webp' }))
+);
 
 const filters = [
   { id: 'all', label: 'All projects' },
@@ -52,15 +57,35 @@ const filters = [
             data-reveal
             style={`--rd: ${(i % 3) * 90}ms`}
           >
-            <div class="aspect-[4/3] overflow-hidden">
-              <Image
-                src={item.image}
-                alt={item.alt}
-                class="h-full w-full object-cover"
-                widths={[480, 768, 1024, 1536]}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              />
-            </div>
+            <button
+              type="button"
+              class="lightbox-open group/lb block w-full cursor-zoom-in"
+              data-full={fullImages[i].src}
+              data-alt={item.alt}
+              data-title={item.title}
+              data-caption={item.caption}
+              aria-label={`View larger: ${item.title}`}
+            >
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  class="h-full w-full object-cover"
+                  widths={[480, 768, 1024, 1536]}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+                <span
+                  class="absolute inset-0 flex items-center justify-center bg-roast/0 transition-colors duration-300 group-hover/lb:bg-roast/30"
+                  aria-hidden="true"
+                >
+                  <span
+                    class="rounded-sm bg-cream/90 px-3 py-1.5 text-xs font-semibold tracking-widest text-espresso uppercase opacity-0 transition-opacity duration-300 group-hover/lb:opacity-100"
+                  >
+                    View
+                  </span>
+                </span>
+              </div>
+            </button>
             <figcaption class="p-5">
               <p class="text-[0.65rem] font-semibold tracking-[0.24em] text-gold-deep uppercase">
                 {item.category}
@@ -81,6 +106,28 @@ const filters = [
 
   <CtaBand title="Picture your space here" />
 
+  <!-- Lightbox -->
+  <dialog
+    id="lightbox"
+    class="m-auto w-[min(94vw,72rem)] rounded-sm border border-tan/40 bg-roast p-0 backdrop:bg-roast/85 backdrop:backdrop-blur-sm"
+  >
+    <div class="relative">
+      <img id="lb-img" src="" alt="" class="max-h-[78svh] w-full rounded-t-sm object-contain" />
+      <button
+        type="button"
+        id="lb-close"
+        class="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-sm bg-roast/70 text-xl leading-none text-cream transition-colors duration-300 hover:bg-gold hover:text-espresso"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+      <div class="px-6 py-5">
+        <h2 id="lb-title" class="font-display text-lg font-semibold text-cream"></h2>
+        <p id="lb-caption" class="mt-1 text-sm text-cream/70"></p>
+      </div>
+    </div>
+  </dialog>
+
   <script>
     const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
     const items = document.querySelectorAll<HTMLElement>('.gallery-item');
@@ -92,6 +139,27 @@ const filters = [
           item.classList.toggle('hidden', filter !== 'all' && item.dataset.category !== filter);
         });
       });
+    });
+
+    const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
+    const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+    const lbTitle = document.getElementById('lb-title')!;
+    const lbCaption = document.getElementById('lb-caption')!;
+
+    document.querySelectorAll<HTMLButtonElement>('.lightbox-open').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        lbImg.src = btn.dataset.full!;
+        lbImg.alt = btn.dataset.alt || '';
+        lbTitle.textContent = btn.dataset.title || '';
+        lbCaption.textContent = btn.dataset.caption || '';
+        lightbox.showModal();
+      });
+    });
+
+    document.getElementById('lb-close')!.addEventListener('click', () => lightbox.close());
+    // Click on the backdrop (outside the content box) closes too
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.close();
     });
   </script>
 </Layout>

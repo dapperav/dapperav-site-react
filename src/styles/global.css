@@ -41,6 +41,54 @@ body {
     'WONK' 0;
 }
 
+/* Gold focus ring on keyboard navigation, everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Buttons settle slightly under the pointer — a firm handshake, not a bounce */
+.btn-sheen:active,
+a[class*='border']:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* ── Pinstripe: the suit motif, barely-there on dark sections ──────── */
+.pinstripe {
+  background-image: repeating-linear-gradient(
+    115deg,
+    transparent 0px,
+    transparent 11px,
+    rgba(247, 240, 224, 0.035) 11px,
+    rgba(247, 240, 224, 0.035) 12px
+  );
+}
+
+/* ── Hero scroll cue ───────────────────────────────────────────────── */
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-cue-line {
+  animation: scroll-cue 2.2s var(--ease-tailored) infinite;
+}
+
 /* ── Scroll reveals ────────────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
@@ -126,6 +174,9 @@ body {
     transition: none;
   }
   .kenburns {
+    animation: none;
+  }
+  .scroll-cue-line {
     animation: none;
   }
   .btn-sheen::after {
