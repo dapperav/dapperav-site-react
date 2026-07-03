@@ -150,7 +150,16 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       inset 0 1px 0 rgba(255, 255, 255, 0.65);
   }
 
-  /* The roundel spins like a record on the platter. */
+  /* The roundel spins like a record: quick spin-up to speed, then cruise. */
+  @keyframes logo-spin-up {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(720deg);
+    }
+  }
+
   @keyframes logo-spin {
     to {
       transform: rotate(360deg);
@@ -158,7 +167,15 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   }
 
   .logo-spin {
-    animation: logo-spin 12s linear infinite;
+    animation:
+      logo-spin-up 1.6s cubic-bezier(0.3, 0.6, 0.5, 1) 1,
+      logo-spin 12s linear 1.6s infinite;
+  }
+
+  /* A finger on the platter stops the record. */
+  .logo-spin:hover,
+  .logo-spin:active {
+    animation-play-state: paused;
   }
 
   @media (prefers-reduced-motion: reduce) {
