@@ -19,7 +19,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 <header id="site-nav" class="at-top pointer-events-none fixed inset-x-0 top-3 z-50 hidden justify-center md:flex">
   <div class="nav-wrap pointer-events-auto flex flex-col items-center">
   <nav
-    class="nav-shell glass pointer-events-auto flex items-center rounded-full p-1.5"
+    class="nav-shell pointer-events-auto flex items-center rounded-full p-1.5"
     aria-label="Main"
   >
     <div class="nav-group">
@@ -40,13 +40,13 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       </div>
     </div>
 
-    <a href="/" class="logo-disc shrink-0 rounded-full p-1" aria-label="Dapper AV Solutions — home">
+    <a href="/" class="shrink-0 rounded-full" aria-label="Dapper AV Solutions — home">
       <Image
         src={logo}
         alt=""
-        width="112"
-        height="112"
-        class="logo-spin h-11 w-11 object-contain"
+        width="160"
+        height="160"
+        class="logo-spin h-[4.5rem] w-[4.5rem] object-contain drop-shadow-lg"
         loading="eager"
       />
     </a>
@@ -73,7 +73,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   <!-- CTA pendant: drops in centered under the logo when the nav is open -->
   <a
     href="/quote"
-    class="nav-cta btn-sheen mt-2 rounded-full bg-gold px-7 py-2.5 text-sm font-semibold tracking-wide whitespace-nowrap text-espresso shadow-md transition-colors duration-300 hover:bg-gold-deep"
+    class="nav-cta btn-sheen mt-3 rounded-full bg-gold px-7 py-2.5 text-sm font-semibold tracking-wide whitespace-nowrap text-espresso shadow-md transition-colors duration-300 hover:bg-gold-deep"
   >
     Request a Quote
   </a>
@@ -128,22 +128,26 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       transform 0.45s var(--ease-tailored) 0.05s;
   }
 
-  /* Vinyl grooves in the rim around the roundel. */
-  .logo-disc {
-    position: relative;
+  /* The pill is invisible when collapsed — just the floating roundel —
+     and frosts in behind it when the nav expands. */
+  .nav-shell {
+    border: 1px solid transparent;
+    transition:
+      background 0.4s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease;
   }
 
-  .logo-disc::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: inherit;
-    background: repeating-radial-gradient(
-      circle at center,
-      transparent 0 3px,
-      rgba(59, 16, 5, 0.07) 3px 4px
-    );
-    pointer-events: none;
+  #site-nav.at-top .nav-shell,
+  .nav-wrap:hover .nav-shell,
+  .nav-wrap:focus-within .nav-shell {
+    background: linear-gradient(135deg, rgba(255, 253, 247, 0.62), rgba(255, 251, 240, 0.38));
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow:
+      0 10px 34px rgba(59, 16, 5, 0.09),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
   }
 
   /* The roundel spins like a record on the platter. */
