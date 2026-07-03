@@ -1,0 +1,39 @@
+---
+interface Props {
+  tone?: 'light' | 'dark';
+}
+
+const { tone = 'light' } = Astro.props;
+
+const brands = [
+  'Ubiquiti UniFi',
+  'Sonos',
+  'Samsung',
+  'LG',
+  'Epson',
+  'Klipsch',
+  'Microsoft 365',
+  'Alexa & Google Home',
+];
+
+const labelCls = tone === 'dark' ? 'text-cream/50' : 'text-cocoa/70';
+const brandCls = tone === 'dark' ? 'text-cream/80' : 'text-espresso/80';
+---
+
+<div class="mx-auto max-w-6xl px-5 py-10 text-center sm:px-8" data-reveal>
+  <p class={`text-[0.65rem] font-semibold tracking-[0.3em] uppercase ${labelCls}`}>
+    Brands we install &amp; manage
+  </p>
+  <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+    {
+      brands.map((b, i) => (
+        <>
+          <li class={`font-display text-base font-medium whitespace-nowrap sm:text-lg ${brandCls}`}>{b}</li>
+          {i < brands.length - 1 && (
+            <li class="hidden h-1.5 w-1.5 rounded-full bg-gold/60 sm:block" aria-hidden="true" />
+          )}
+        </>
+      ))
+    }
+  </ul>
+</div>
