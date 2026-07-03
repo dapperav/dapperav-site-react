@@ -40,13 +40,13 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       </div>
     </div>
 
-    <a href="/" class="shrink-0" aria-label="Dapper AV Solutions — home">
+    <a href="/" class="logo-disc shrink-0 rounded-full p-1" aria-label="Dapper AV Solutions — home">
       <Image
         src={logo}
         alt=""
         width="112"
         height="112"
-        class="logo-spin h-12 w-12 object-contain"
+        class="logo-spin h-11 w-11 object-contain"
         loading="eager"
       />
     </a>
@@ -128,6 +128,24 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       transform 0.45s var(--ease-tailored) 0.05s;
   }
 
+  /* Vinyl grooves in the rim around the roundel. */
+  .logo-disc {
+    position: relative;
+  }
+
+  .logo-disc::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: repeating-radial-gradient(
+      circle at center,
+      transparent 0 3px,
+      rgba(59, 16, 5, 0.07) 3px 4px
+    );
+    pointer-events: none;
+  }
+
   /* The roundel spins like a record on the platter. */
   @keyframes logo-spin {
     to {
@@ -188,7 +206,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       <span
         class="glass -mt-8 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 group-aria-[current=page]:ring-2 group-aria-[current=page]:ring-gold"
       >
-        <Image src={logo} alt="" width="80" height="80" class="h-10 w-10 object-contain" loading="eager" />
+        <Image src={logo} alt="" width="80" height="80" class="logo-spin h-10 w-10 object-contain" loading="eager" />
       </span>
       Home
     </a>
