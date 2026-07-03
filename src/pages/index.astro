@@ -59,6 +59,17 @@ const featured = gallery.slice(0, 3);
         </a>
       </div>
     </div>
+
+    <!-- Scroll cue -->
+    <div
+      class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
+      data-reveal
+      style="--rd: 900ms"
+      aria-hidden="true"
+    >
+      <span class="text-[0.6rem] font-semibold tracking-[0.3em] text-cream/60 uppercase">Scroll</span>
+      <span class="scroll-cue-line block h-10 w-px bg-gold"></span>
+    </div>
   </section>
 
   <!-- ── The Dapper Standard ──────────────────────────────────────── -->
@@ -154,7 +165,7 @@ const featured = gallery.slice(0, 3);
   </section>
 
   <!-- ── Process ──────────────────────────────────────────────────── -->
-  <section class="bg-espresso">
+  <section class="pinstripe bg-espresso">
     <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
       <SectionHeading
         eyebrow="How we work"
@@ -179,8 +190,13 @@ const featured = gallery.slice(0, 3);
 
   <!-- ── Story ────────────────────────────────────────────────────── -->
   <section class="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8 sm:py-32">
-    <p class="text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+    <p
+      class="flex items-center justify-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase"
+      data-reveal
+    >
+      <span class="block h-2 w-2 rotate-45 bg-gold" aria-hidden="true"></span>
       The Dapper Difference
+      <span class="block h-2 w-2 rotate-45 bg-gold" aria-hidden="true"></span>
     </p>
     <blockquote
       class="font-display mt-8 text-2xl leading-snug font-medium text-balance italic sm:text-3xl"
