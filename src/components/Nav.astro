@@ -5,7 +5,7 @@ import { site } from '../data/site';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
+  { href: '/services', label: 'For Residential' },
   { href: '/business', label: 'For Business' },
   { href: '/work', label: 'Our Work' },
 ];
@@ -21,7 +21,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   >
     <a href="/" class="flex items-center gap-3" aria-label="Dapper AV Solutions — home">
       <Image src={logo} alt="" width="96" height="96" class="h-11 w-11 object-contain sm:h-12 sm:w-12" loading="eager" />
-      <span class="font-display text-lg leading-tight font-semibold tracking-wide whitespace-nowrap">
+      <span class="font-display hidden text-lg leading-tight font-semibold tracking-wide whitespace-nowrap lg:block">
         Dapper AV
         <span class="block text-[0.65rem] font-normal tracking-[0.28em] text-cocoa uppercase">Solutions</span>
       </span>
@@ -41,7 +41,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       }
       <a
         href={site.phoneHref}
-        class="link-draw hidden text-sm font-medium tracking-wide whitespace-nowrap text-cocoa lg:inline-block"
+        class="link-draw hidden text-sm font-medium tracking-wide whitespace-nowrap text-cocoa xl:inline-block"
       >
         {site.phone}
       </a>
@@ -71,7 +71,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
         <rect x="2" y="4" width="20" height="13" rx="2.5" />
         <path d="M8 21h8m-4-4v4" />
       </svg>
-      Services
+      Residential
     </a>
     <a
       href="/work"
