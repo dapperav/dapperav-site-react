@@ -12,37 +12,39 @@ const links = [
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-<header
-  id="site-nav"
-  class="fixed inset-x-0 top-0 z-50 border-b border-tan/40 bg-cream/90 backdrop-blur-md transition-all duration-300"
->
+<header id="site-nav" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
   <div
-    class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 transition-all duration-300 [#site-nav.is-condensed_&]:py-2 sm:px-8"
+    class="glass mx-auto flex max-w-6xl items-center justify-between rounded-full px-5 py-3 transition-all duration-300 [#site-nav.is-condensed_&]:py-2 [#site-nav.is-condensed_&]:shadow-xl sm:px-7"
   >
     <a href="/" class="flex items-center gap-3" aria-label="Dapper AV Solutions — home">
       <Image src={logo} alt="" width="96" height="96" class="h-12 w-12 object-contain" loading="eager" />
-      <span class="font-display text-lg leading-tight font-semibold tracking-wide">
+      <span class="font-display text-lg leading-tight font-semibold tracking-wide whitespace-nowrap">
         Dapper AV
         <span class="block text-[0.65rem] font-normal tracking-[0.28em] text-cocoa uppercase">Solutions</span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 md:flex" aria-label="Main">
+    <nav class="hidden items-center gap-6 md:flex lg:gap-8" aria-label="Main">
       {
         links.map((l) => (
           <a
             href={l.href}
             aria-current={path === l.href ? 'page' : undefined}
-            class="link-draw text-sm font-medium tracking-wide text-espresso"
+            class="link-draw text-sm font-medium tracking-wide whitespace-nowrap text-espresso"
           >
             {l.label}
           </a>
         ))
       }
-      <a href={site.phoneHref} class="link-draw text-sm font-medium tracking-wide text-cocoa">{site.phone}</a>
+      <a
+        href={site.phoneHref}
+        class="link-draw hidden text-sm font-medium tracking-wide whitespace-nowrap text-cocoa lg:inline-block"
+      >
+        {site.phone}
+      </a>
       <a
         href="/quote"
-        class="btn-sheen rounded-sm bg-gold px-5 py-2.5 text-sm font-semibold tracking-wide text-espresso shadow-sm transition-colors duration-300 hover:bg-gold-deep"
+        class="btn-sheen rounded-full bg-gold px-6 py-2.5 text-sm font-semibold tracking-wide whitespace-nowrap text-espresso shadow-sm transition-colors duration-300 hover:bg-gold-deep"
       >
         Request a Quote
       </a>
@@ -71,7 +73,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
   <div
     id="mobile-menu"
-    class="hidden border-t border-tan/40 bg-cream px-5 pt-2 pb-6 md:hidden"
+    class="glass mx-auto mt-2 hidden max-w-6xl rounded-3xl px-6 pt-2 pb-6 md:hidden"
   >
     <nav class="flex flex-col" aria-label="Mobile">
       {
@@ -88,7 +90,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       <a href={site.phoneHref} class="border-b border-tan/30 py-4 text-lg text-cocoa">Call {site.phone}</a>
       <a
         href="/quote"
-        class="mt-5 rounded-sm bg-gold px-5 py-3.5 text-center text-base font-semibold text-espresso"
+        class="mt-5 rounded-full bg-gold px-5 py-3.5 text-center text-base font-semibold text-espresso"
       >
         Request a Quote
       </a>
@@ -109,7 +111,6 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       ticking = true;
       requestAnimationFrame(() => {
         nav.classList.toggle('is-condensed', scrollY > 24);
-        nav.classList.toggle('shadow-md', scrollY > 24);
         ticking = false;
       });
     },

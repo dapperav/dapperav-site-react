@@ -45,7 +45,28 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 12px;
+}
+
+/* ── Liquid glass panels ───────────────────────────────────────────── */
+.glass {
+  background: linear-gradient(135deg, rgba(255, 253, 247, 0.62), rgba(255, 251, 240, 0.38));
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 10px 34px rgba(59, 16, 5, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.glass-dark {
+  background: linear-gradient(135deg, rgba(247, 240, 224, 0.1), rgba(247, 240, 224, 0.05));
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(247, 240, 224, 0.16);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(247, 240, 224, 0.12);
 }
 
 /* Buttons settle slightly under the pointer — a firm handshake, not a bounce */

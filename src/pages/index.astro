@@ -48,13 +48,13 @@ const featured = gallery.slice(0, 3);
       <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--rd: 360ms">
         <a
           href="/quote"
-          class="btn-sheen rounded-sm bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
+          class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
         >
           Get a Free Quote
         </a>
         <a
           href="/services"
-          class="rounded-sm border border-cream/40 px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:border-gold hover:text-gold"
+          class="glass-dark rounded-full px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:text-gold"
         >
           View Our Services
         </a>
@@ -80,10 +80,10 @@ const featured = gallery.slice(0, 3);
       title="Precision meets artistry in every installation"
       lead="We don't just install technology — we craft experiences that enhance the way you live. Every detail handled with the care of a well-tailored suit."
     />
-    <div class="mt-16 grid gap-px overflow-hidden rounded-sm border border-tan/60 bg-tan/60 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {
         commitments.map((c, i) => (
-          <div class="bg-cream p-8" data-reveal style={`--rd: ${i * 90}ms`}>
+          <div class="glass rounded-3xl p-8" data-reveal style={`--rd: ${i * 90}ms`}>
             <span class="font-display text-3xl text-gold-deep" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
@@ -108,7 +108,7 @@ const featured = gallery.slice(0, 3);
           services.map((s, i) => (
             <a
               href={`/services#${s.id}`}
-              class="group flex flex-col rounded-sm border border-tan/60 bg-cream p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+              class="glass group flex flex-col rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               data-reveal
               style={`--rd: ${(i % 3) * 90}ms`}
             >
@@ -139,7 +139,7 @@ const featured = gallery.slice(0, 3);
         featured.map((item, i) => (
           <a
             href="/work"
-            class="card-zoom group block overflow-hidden rounded-sm"
+            class="card-zoom glass group block overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             data-reveal
             style={`--rd: ${i * 100}ms`}
           >
@@ -152,7 +152,7 @@ const featured = gallery.slice(0, 3);
                 sizes="(min-width: 640px) 33vw, 100vw"
               />
             </div>
-            <div class="border border-t-0 border-tan/60 bg-cream p-5">
+            <div class="p-5">
               <h3 class="font-display font-semibold">{item.title}</h3>
               <p class="mt-1 text-sm text-cocoa">{item.caption}</p>
             </div>
@@ -193,11 +193,11 @@ const featured = gallery.slice(0, 3);
   <section class="mx-auto grid max-w-6xl items-center gap-12 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[2fr_3fr] lg:gap-20">
     <div class="relative mx-auto w-full max-w-md" data-reveal>
       <!-- offset gold frame — the tailored detail -->
-      <div class="absolute -inset-0 translate-x-3 translate-y-3 rounded-sm border-2 border-gold" aria-hidden="true"></div>
+      <div class="absolute -inset-0 translate-x-3 translate-y-3 rounded-[2rem] border-2 border-gold" aria-hidden="true"></div>
       <Image
         src={markPortrait}
         alt="Mark Immler, owner of Dapper AV Solutions, in a blue plaid blazer"
-        class="relative aspect-[4/5] w-full rounded-sm object-cover"
+        class="relative aspect-[4/5] w-full rounded-[2rem] object-cover"
         widths={[480, 768, 1024, 1440]}
         sizes="(min-width: 1024px) 40vw, (min-width: 640px) 28rem, 100vw"
       />
@@ -205,7 +205,7 @@ const featured = gallery.slice(0, 3);
 
     <div>
       <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
-        <span class="block h-2 w-2 rotate-45 bg-gold" aria-hidden="true"></span>
+        <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         Meet the owner
       </p>
       <h2
