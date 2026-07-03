@@ -204,9 +204,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       class="group relative flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-deep"
     >
       <span
-        class="glass -mt-8 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 group-aria-[current=page]:ring-2 group-aria-[current=page]:ring-gold"
+        class="-mt-8 flex h-14 w-14 items-center justify-center rounded-full transition-shadow duration-300 group-aria-[current=page]:ring-2 group-aria-[current=page]:ring-gold"
       >
-        <Image src={logo} alt="" width="112" height="112" class="logo-spin h-[3.3rem] w-[3.3rem] object-contain" loading="eager" />
+        <Image src={logo} alt="" width="112" height="112" class="logo-spin h-full w-full object-contain drop-shadow-lg" loading="eager" />
       </span>
       Home
     </a>
