@@ -1,0 +1,60 @@
+name: Sync Google Reviews
+
+on:
+  schedule:
+    - cron: '0 11 * * *' # daily, ~6am Central
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Fetch reviews from Places API
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: node scripts/sync-reviews.mjs
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet src/data/reviews.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit updated reviews
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "reviews-bot"
+          git config user.email "actions@github.com"
+          git add src/data/reviews.json
+          git commit -m "chore: sync Google reviews"
+          git push
+
+      # Pushes made with GITHUB_TOKEN don't trigger other workflows,
+      # so build and publish here directly when reviews changed.
+      - name: Install dependencies
+        if: steps.diff.outputs.changed == 'true'
+        run: npm ci
+
+      - name: Build
+        if: steps.diff.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Deploy to gh-pages branch
+        if: steps.diff.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

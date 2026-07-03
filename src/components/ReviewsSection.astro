@@ -1,0 +1,54 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import reviewsData from '../data/reviews.json';
+
+interface Review {
+  author: string;
+  rating: number;
+  text: string;
+  when: string;
+}
+
+const { placeId, rating, total } = reviewsData;
+const reviews = (reviewsData.reviews as Review[]) ?? [];
+const hasReviews = reviews.length > 0;
+const reviewsUrl = placeId ? `https://search.google.com/local/reviews?placeid=${placeId}` : null;
+---
+
+{
+  hasReviews && (
+    <section class="bg-parchment">
+      <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+        <SectionHeading
+          eyebrow="Reviews"
+          title="What neighbors are saying"
+          lead={rating ? `${rating.toFixed(1)} ★ on Google across ${total} review${total === 1 ? '' : 's'} — unedited, straight from the source.` : undefined}
+        />
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {reviews.map((r, i) => (
+            <figure class="glass flex flex-col rounded-3xl p-8" data-reveal style={`--rd: ${(i % 3) * 90}ms`}>
+              <p class="text-gold" aria-label={`${r.rating} out of 5 stars`}>
+                {'★'.repeat(Math.round(r.rating))}
+                <span class="text-tan">{'★'.repeat(5 - Math.round(r.rating))}</span>
+              </p>
+              <blockquote class="mt-4 grow text-sm leading-relaxed text-cocoa">"{r.text}"</blockquote>
+              <figcaption class="mt-6 border-t border-tan/50 pt-4">
+                <span class="font-display font-semibold">{r.author}</span>
+                <span class="mt-0.5 block text-xs tracking-wide text-cocoa">
+                  Google review{r.when ? ` · ${r.when}` : ''}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        {reviewsUrl && (
+          <p class="mt-12 text-center" data-reveal>
+            <a href={reviewsUrl} target="_blank" rel="noopener" class="link-draw font-medium text-gold-deep">
+              Read all {total} reviews on Google →
+            </a>
+          </p>
+        )}
+      </div>
+    </section>
+  )
+}
