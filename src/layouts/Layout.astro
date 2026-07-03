@@ -4,28 +4,53 @@ import '@fontsource-variable/fraunces';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { site } from '../data/site';
+import { site, services, GA4_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION } from '../data/site';
 
 interface Props {
   title: string;
   description: string;
+  /** Additional JSON-LD blocks (FAQPage, Service, etc.) injected by pages */
+  extraSchema?: object[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, extraSchema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
+  '@id': `${site.url}/#business`,
   name: site.name,
   url: site.url,
   telephone: '+19728241303',
   email: site.email,
-  image: `${site.url}/icon-512.png`,
+  image: `${site.url}/og-image.png`,
   logo: `${site.url}/icon-512.png`,
   description: site.tagline,
-  areaServed: ['Houston TX', 'Harris County TX', 'Fort Bend County TX', 'Montgomery County TX'],
   priceRange: '$$',
+  areaServed: [
+    { '@type': 'City', name: 'Houston' },
+    { '@type': 'AdministrativeArea', name: 'Harris County, TX' },
+    { '@type': 'AdministrativeArea', name: 'Fort Bend County, TX' },
+    { '@type': 'AdministrativeArea', name: 'Montgomery County, TX' },
+  ],
+  geo: { '@type': 'GeoCoordinates', latitude: 29.7604, longitude: -95.3698 },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '08:00',
+    closes: '18:00',
+  },
+  founder: { '@type': 'Person', name: 'Mark Immler' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'AV Installation Services',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.title, description: s.blurb },
+      priceSpecification: { '@type': 'PriceSpecification', price: s.price, priceCurrency: 'USD' },
+    })),
+  },
 };
 ---
 
@@ -54,7 +79,19 @@ const jsonLd = {
     <meta property="og:image:alt" content="Dapper AV Solutions — Professional. Precise. Personal." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={`${site.url}/og-image.png`} />
+    {GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {extraSchema.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+    {
+      GA4_MEASUREMENT_ID && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`} />
+          <script
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA4_MEASUREMENT_ID}');`}
+          />
+        </>
+      )
+    }
   </head>
   <body>
     <a

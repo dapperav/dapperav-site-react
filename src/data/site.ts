@@ -24,6 +24,41 @@ export const site = {
  */
 export const WEB3FORMS_ACCESS_KEY = '0c3d3eeb-24db-4aca-9eb2-a24cd6a36dca';
 
+/**
+ * Analytics & search-engine verification — both optional and off until filled in.
+ * GA4_MEASUREMENT_ID: from analytics.google.com → Admin → Data streams (looks like G-XXXXXXXXXX)
+ * GOOGLE_SITE_VERIFICATION: from search.google.com/search-console → HTML tag method (content="...")
+ */
+export const GA4_MEASUREMENT_ID = '';
+export const GOOGLE_SITE_VERIFICATION = '';
+
+export const faqs = [
+  {
+    q: 'How much does TV mounting cost in Houston?',
+    a: 'Most single-TV mounts run $150–$400 depending on TV size, wall type (drywall, brick, stone, or tile), and whether you want cables concealed inside the wall. You get an exact itemized price before any work starts — never a surprise on install day.',
+  },
+  {
+    q: 'How much does a home theater installation cost?',
+    a: 'Living-room surround systems typically start around $2,000 installed, while dedicated theater rooms with projection, Dolby Atmos, and acoustic treatment range up to $15,000+. The free on-site consultation is where we scope what your room and budget actually call for.',
+  },
+  {
+    q: 'Do you do free consultations?',
+    a: "Yes — every project starts with a free on-site consultation anywhere in the Greater Houston area. We look at the room, the walls, and the wiring, then send an itemized quote. No pressure, no obligation.",
+  },
+  {
+    q: 'Can you hide the wires when you mount a TV?',
+    a: 'Yes. In-wall cable concealment is our standard for a clean install — power and signal cables route inside the wall so nothing dangles. Where code requires it, we relocate or add an outlet behind the TV.',
+  },
+  {
+    q: 'What areas do you serve?',
+    a: 'The Greater Houston area: Harris, Fort Bend, and Montgomery counties — including Houston, Katy, Sugar Land, Cypress, Spring, Tomball, The Woodlands, Pearland, and surrounding communities. Not sure if we reach you? Ask — we can often make it work.',
+  },
+  {
+    q: 'Do you handle commercial jobs?',
+    a: 'Yes — video walls, digital signage, conference rooms, and restaurant/bar entertainment systems, with service contracts available. Commercial projects range from about $1,000 to $25,000+ depending on scope.',
+  },
+];
+
 export const commitments = [
   {
     title: 'Owner-operated',
