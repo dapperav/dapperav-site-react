@@ -21,11 +21,11 @@ const filters = [
   title="Our Work — AV Installations Across Fort Bend County | Dapper AV Solutions"
   description="A gallery of Dapper AV installations across Richmond, Katy, Sugar Land and Fort Bend County: media walls, home theaters, sports bar video walls, and conference room AV."
 >
-  <section class="mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-44">
+  <section class="grooves mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-44">
     <SectionHeading
-      eyebrow="Our work"
-      title="Spaces, tailored"
-      lead="Clean lines, hidden wires, technology that disappears into the design. Here's the kind of work we do for Fort Bend County homes and businesses."
+      eyebrow="The collection"
+      title="Work worth putting on the record"
+      lead="Clean lines, hidden wires, technology that disappears into the design — every Fort Bend County install gets the same signature. Go ahead, pull a sleeve."
       align="left"
     />
   </section>
@@ -39,7 +39,7 @@ const filters = [
             type="button"
             data-filter={f.id}
             aria-pressed={f.id === 'all' ? 'true' : 'false'}
-            class="glass rounded-full px-6 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-deep aria-pressed:border-espresso aria-pressed:bg-espresso aria-pressed:text-cream"
+            class="glass rounded-full px-6 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-deep aria-pressed:font-semibold aria-pressed:text-cream aria-pressed:shadow-md"
           >
             {f.label}
           </button>
@@ -88,8 +88,9 @@ const filters = [
               </div>
             </button>
             <figcaption class="p-5">
-              <p class="text-[0.65rem] font-semibold tracking-[0.24em] text-gold-deep uppercase">
-                {item.category}
+              <p class="flex items-baseline justify-between text-[0.65rem] font-semibold tracking-[0.24em] uppercase">
+                <span class="text-gold-deep">{item.category}</span>
+                <span class="font-normal tracking-[0.18em] text-cocoa/60">DAV-{String(i + 1).padStart(3, '0')}</span>
               </p>
               <h2 class="font-display mt-1.5 text-lg font-semibold">{item.title}</h2>
               <p class="mt-1 text-sm leading-relaxed text-cocoa">{item.caption}</p>
