@@ -184,6 +184,7 @@ const featured = gallery.slice(0, 3);
                 src={item.image}
                 alt={item.alt}
                 class="h-full w-full object-cover"
+                style={item.pos ? `object-position: ${item.pos}` : undefined}
                 widths={[480, 768, 1024]}
                 sizes="(min-width: 640px) 33vw, 100vw"
               />
