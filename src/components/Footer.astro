@@ -20,6 +20,41 @@ const year = new Date().getFullYear();
       <p class="mt-5 max-w-xs text-sm leading-relaxed text-cream/70">
         {site.tagline}
       </p>
+      <ul class="mt-5 flex items-center gap-4">
+        {
+          site.socials.map((s) => (
+            <li>
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noopener"
+                aria-label={`Dapper AV Solutions on ${s.name}`}
+                class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-cream/20 text-cream/70 transition hover:border-gold hover:text-gold"
+              >
+                {s.name === 'Facebook' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4" aria-hidden="true">
+                    <path d="M13.5 21v-7.5h2.52l.48-3h-3V8.6c0-.87.24-1.46 1.5-1.46h1.6V4.44A21 21 0 0 0 14.27 4c-2.3 0-3.87 1.4-3.87 3.98v2.52H7.88v3h2.52V21h3.1Z" />
+                  </svg>
+                )}
+                {s.name === 'Instagram' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-4 w-4" aria-hidden="true">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+                    <circle cx="12" cy="12" r="3.8" />
+                    <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                )}
+                {s.name === 'Nextdoor' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-4 w-4" aria-hidden="true">
+                    <path d="M3.5 11.5 12 4l8.5 7.5" />
+                    <path d="M6 10v9h12v-9" />
+                    <path d="M10 19v-5h4v5" />
+                  </svg>
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
     <div>

@@ -45,6 +45,7 @@ const jsonLd = {
     closes: '18:00',
   },
   founder: { '@type': 'Person', name: 'Mark Immler' },
+  sameAs: site.socials.map((s) => s.url),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'AV Installation Services',
