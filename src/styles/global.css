@@ -73,6 +73,12 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
+/* A pressed glass control drops its frost and goes solid — readable selection */
+.glass[aria-pressed='true'] {
+  background: var(--color-espresso);
+  border-color: var(--color-espresso);
+}
+
 .glass-dark {
   background: linear-gradient(135deg, rgba(247, 240, 224, 0.1), rgba(247, 240, 224, 0.05));
   backdrop-filter: blur(18px) saturate(140%);
@@ -199,6 +205,13 @@ a[class*='border']:active {
 
 .sleeve:hover .sleeve-cover {
   transform: translateX(-13%) scale(1.02);
+}
+
+/* No hover on touch screens — leave every record half-pulled from its sleeve */
+@media (hover: none) {
+  .sleeve .sleeve-cover {
+    transform: translateX(-9%);
+  }
 }
 
 .sleeve-disc {
