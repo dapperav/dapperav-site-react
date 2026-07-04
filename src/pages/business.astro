@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import BrandStrip from '../components/BrandStrip.astro';
-import { site } from '../data/site';
+import { site, carePlans } from '../data/site';
 
 const capabilities = [
   {
@@ -113,6 +113,63 @@ const clients = [
           </div>
         ))
       }
+    </div>
+  </section>
+
+  <!-- ── Care plans ───────────────────────────────────────────────── -->
+  <section class="pinstripe bg-espresso">
+    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+      <SectionHeading
+        eyebrow="Care plans"
+        title="Pick a plan. Forget about IT."
+        lead="Monthly plans that keep your network, cameras, and Microsoft 365 healthy — with one local person who answers. Every plan is custom-quoted to your site after a free survey."
+        tone="dark"
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+        {
+          carePlans.map((plan, i) => (
+            <div
+              class={`relative rounded-3xl p-8 ${
+                plan.popular ? 'border-2 border-gold bg-cream text-espresso shadow-xl' : 'glass-dark text-cream'
+              }`}
+              data-reveal
+              style={`--rd: ${i * 100}ms`}
+            >
+              {plan.popular && (
+                <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gold px-4 py-1 text-xs font-bold tracking-widest text-espresso uppercase">
+                  Most popular
+                </span>
+              )}
+              <h3 class="font-display text-xl font-semibold">{plan.name}</h3>
+              <p class={`mt-1 text-sm italic ${plan.popular ? 'text-cocoa' : 'text-cream/60'}`}>{plan.tagline}</p>
+              <ul class={`mt-6 space-y-3 text-sm leading-relaxed ${plan.popular ? 'text-cocoa' : 'text-cream/75'}`}>
+                {plan.features.map((f) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <p class={`mt-6 text-xs font-semibold tracking-wide uppercase ${plan.popular ? 'text-gold-deep' : 'text-gold'}`}>
+                Custom-quoted · free site survey
+              </p>
+              <a
+                href={`/quote?service=${encodeURIComponent('Managed IT / Networking (Business)')}`}
+                class={`mt-6 block rounded-full px-5 py-3 text-center text-sm font-semibold transition-colors duration-300 ${
+                  plan.popular
+                    ? 'btn-sheen bg-gold text-espresso hover:bg-gold-deep'
+                    : 'glass-dark text-cream hover:text-gold'
+                }`}
+              >
+                Start with a site survey
+              </a>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-10 text-center text-sm text-cream/60" data-reveal>
+        Month to month, no long contracts — plans earn their keep or you cancel.
+      </p>
     </div>
   </section>
 
