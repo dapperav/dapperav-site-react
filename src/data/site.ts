@@ -30,7 +30,7 @@ export const WEB3FORMS_ACCESS_KEY = '0c3d3eeb-24db-4aca-9eb2-a24cd6a36dca';
  * GOOGLE_SITE_VERIFICATION: from search.google.com/search-console → HTML tag method (content="...")
  */
 export const GA4_MEASUREMENT_ID = '';
-export const GOOGLE_SITE_VERIFICATION = '';
+export const GOOGLE_SITE_VERIFICATION = 'iYv1B2NPcnjfuSLeMi5jD0lzPu2rFpR4vf_iK6AEypU';
 
 export const faqs = [
   {
