@@ -44,7 +44,7 @@ const reviewsUrl = placeId ? `https://search.google.com/local/reviews?placeid=${
         {reviewsUrl && (
           <p class="mt-12 text-center" data-reveal>
             <a href={reviewsUrl} target="_blank" rel="noopener" class="link-draw font-medium text-gold-deep">
-              Read all {total} reviews on Google →
+              {total === 1 ? 'Read our review on Google →' : `Read all ${total} reviews on Google →`}
             </a>
           </p>
         )}
