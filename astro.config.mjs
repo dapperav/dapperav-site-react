@@ -12,6 +12,8 @@ export default defineConfig({
   },
   // Old CRA routes → new pages (static meta-refresh redirects)
   redirects: {
+    // Short link for review requests (invoices, texts, QR stickers)
+    '/review': 'https://search.google.com/local/writereview?placeid=ChIJu1Q7sb3Sk6gRbGDmkUJWSq4',
     // Briefly-published area pages outside the real service footprint
     '/areas/houston': '/',
     '/areas/cypress': '/areas/katy',
