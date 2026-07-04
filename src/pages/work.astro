@@ -72,6 +72,7 @@ const filters = [
                   src={item.image}
                   alt={item.alt}
                   class="sleeve-cover h-full w-full object-cover"
+                  style={item.pos ? `object-position: ${item.pos}` : undefined}
                   widths={[480, 768, 1024, 1536]}
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
