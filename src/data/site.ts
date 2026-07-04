@@ -54,8 +54,50 @@ export const faqs = [
     a: 'Richmond, Rosenberg, Fulshear, Sugar Land, Stafford, Katy, and the surrounding communities. Not sure if we reach you? Ask — we can often make it work.',
   },
   {
+    q: 'Do you charge a trip fee?',
+    a: "Within our regular Fort Bend County service area — never. For simple jobs beyond roughly 50 miles we add a modest trip fee to cover travel time and fuel. It's always quoted up front, never a surprise on the invoice.",
+  },
+  {
     q: 'Do you handle commercial jobs?',
     a: 'Yes — commercial AV (video walls, signage, conference rooms, restaurant and bar systems) plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, Microsoft 365, and access control. Business work is custom-quoted after a free site survey.',
+  },
+];
+
+/** Monthly managed-service tiers shown on /business — custom-quoted, no public prices. */
+export const carePlans = [
+  {
+    name: 'Network Care',
+    tagline: 'The essentials, watched.',
+    features: [
+      'UniFi network monitoring & updates',
+      'Wi-Fi performance checks & tuning',
+      'Firewall & VLAN upkeep',
+      'Priority support response',
+      'Monthly network health report',
+    ],
+  },
+  {
+    name: 'Network + Camera Care',
+    tagline: 'Eyes on everything.',
+    popular: true,
+    features: [
+      'Everything in Network Care',
+      'UniFi Protect camera health checks',
+      'Firmware & storage management',
+      'Retention policy upkeep',
+      'Footage export when you need it',
+    ],
+  },
+  {
+    name: 'Full Stack Care',
+    tagline: 'Your entire IT, handled.',
+    features: [
+      'Everything in Network + Camera Care',
+      'Microsoft 365 users, licenses & email',
+      'Security baseline & reviews',
+      'Access control & door entry management',
+      'Quarterly on-site checkup',
+    ],
   },
 ];
 
