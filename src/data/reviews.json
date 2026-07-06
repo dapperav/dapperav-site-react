@@ -1,9 +1,15 @@
 {
   "placeId": "ChIJu1Q7sb3Sk6gRbGDmkUJWSq4",
   "rating": 5,
-  "total": 1,
-  "updated": "2026-07-04T11:32:02.466Z",
+  "total": 2,
+  "updated": "2026-07-06T12:19:45.405Z",
   "reviews": [
+    {
+      "author": "Micaela Sarcone",
+      "rating": 5,
+      "text": "Super detailed and extremely knowledgeable! Mark is amazing. Did the install for my business speakers super quick and he is also super neat an clean! 10/10 would recommend!",
+      "when": "in the last week"
+    },
     {
       "author": "Kenneth Durbin",
       "rating": 5,
