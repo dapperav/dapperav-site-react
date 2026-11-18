@@ -1,0 +1,72 @@
+[
+ {
+  "file": "design-system/gear/unifi-ac-lite-access-point.jpg",
+  "media": "image",
+  "ref": "commons:77494973",
+  "title": "Unifi AC Lite Access Point",
+  "creator": "ServerGuruBrisbane",
+  "creatorUrl": null,
+  "date": "2018-11-24",
+  "license": "CC BY-SA 4.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/wiki/File:Unifi_AC_Lite_Access_Point.jpg",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Unifi_AC_Lite_Access_Point.jpg/1920px-Unifi_AC_Lite_Access_Point.jpg",
+  "width": 1920,
+  "height": 3413,
+  "bytes": 1001254,
+  "credit": "\"Unifi AC Lite Access Point\" by ServerGuruBrisbane, CC BY-SA 4.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-11-18T21:29:20.126Z"
+ },
+ {
+  "file": "design-system/gear/sonos-one-speaker-49671374307.jpg",
+  "media": "image",
+  "ref": "openverse:c25b4060-095d-486b-a986-c0c6b4ecb710",
+  "title": "Sonos One Speaker (49671374307)",
+  "creator": "Ajay Suresh from New York, NY, USA",
+  "creatorUrl": "https://www.flickr.com/people/83136374@N05",
+  "date": null,
+  "license": "CC BY 2.0",
+  "licenseCode": "by",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/w/index.php?curid=88233787",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Sonos_One_Speaker_%2849671374307%29.jpg/1920px-Sonos_One_Speaker_%2849671374307%29.jpg",
+  "width": 1920,
+  "height": 1440,
+  "bytes": 482055,
+  "credit": "\"Sonos One Speaker (49671374307)\" by Ajay Suresh from New York, NY, USA, CC BY 2.0, via Wikimedia Commons",
+  "notes": [],
+  "saved": "2026-11-18T21:29:23.421Z"
+ },
+ {
+  "file": "design-system/gear/switch.jpg",
+  "media": "image",
+  "ref": "openverse:e9007962-00f1-4bf8-b488-ccabc307e4ec",
+  "title": "Switch!",
+  "creator": "andrewfhart",
+  "creatorUrl": "https://www.flickr.com/photos/83711730@N06",
+  "date": null,
+  "license": "CC BY-SA 2.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "creditRequired": true,
+  "page": "https://www.flickr.com/photos/83711730@N06/8106189987",
+  "via": "Flickr",
+  "image": "https://live.staticflickr.com/8327/8106189987_120ffcb6f1_b.jpg",
+  "width": 1024,
+  "height": 683,
+  "bytes": 243652,
+  "credit": "\"Switch!\" by andrewfhart, CC BY-SA 2.0, via Flickr",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-11-18T21:29:26.984Z"
+ }
+]
