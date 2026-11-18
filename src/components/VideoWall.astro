@@ -1,0 +1,277 @@
+---
+/**
+ * Hero centerpiece: a drawn wall of screens showing what Dapper AV installs
+ * (menu board, bar TV, cameras, Wi-Fi coverage, video call, signage).
+ * Decorative geometry + type, not a photo of a real job. Screens power on once
+ * at load (staggered); nothing loops. Position it with `class`.
+ */
+interface Props {
+  class?: string;
+}
+const { class: cls = '' } = Astro.props;
+---
+
+<div class={`vw ${cls}`} aria-hidden="true">
+  <div class="vw-wall">
+    <!-- Menu board -->
+    <div class="vw-screen" style="--i: 0">
+      <div class="vw-content vw-menu">
+        <p class="vw-kicker">Today</p>
+        <p><span>Brisket plate</span><span>16</span></p>
+        <p><span>Smoked wings</span><span>12</span></p>
+        <p><span>Draft pints</span><span>6</span></p>
+      </div>
+    </div>
+
+    <!-- Bar TV: the game -->
+    <div class="vw-screen" style="--i: 1">
+      <div class="vw-content vw-game">
+        <p class="vw-kicker">Q4 · 2:14</p>
+        <p class="vw-score">21<span>–</span>17</p>
+        <p class="vw-teams"><span>Home</span><span>Away</span></p>
+      </div>
+    </div>
+
+    <!-- Cameras -->
+    <div class="vw-screen" style="--i: 2">
+      <div class="vw-content vw-cams">
+        {
+          ['Front door', 'Register', 'Patio', 'Back lot'].map((c) => (
+            <div class="vw-cam">
+              <span>{c}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Wi-Fi coverage map -->
+    <div class="vw-screen" style="--i: 3">
+      <div class="vw-content vw-wifi">
+        <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1">
+            <rect x="6" y="6" width="148" height="78" rx="2" />
+            <path d="M70 6v34M70 56v28M6 46h40M100 46h54M110 6v40" />
+          </g>
+          {
+            [
+              [38, 26],
+              [124, 26],
+              [86, 66],
+            ].map(([x, y]) => (
+              <g>
+                <circle cx={x} cy={y} r="22" fill="#f0b010" fill-opacity="0.08" />
+                <circle cx={x} cy={y} r="13" fill="#f0b010" fill-opacity="0.14" />
+                <circle cx={x} cy={y} r="3.5" fill="#f0b010" />
+              </g>
+            ))
+          }
+        </svg>
+        <p class="vw-tag">Wi-Fi · 3 APs</p>
+      </div>
+    </div>
+
+    <!-- Video call -->
+    <div class="vw-screen" style="--i: 4">
+      <div class="vw-content vw-meet">
+        {[0, 1, 2, 3].map(() => <div class="vw-person"><i /></div>)}
+        <p class="vw-tag">Meeting · 4 joined</p>
+      </div>
+    </div>
+
+    <!-- Signage -->
+    <div class="vw-screen" style="--i: 5">
+      <div class="vw-content vw-sign">
+        <p class="vw-open">Open</p>
+        <p class="vw-kicker">Happy hour 3–6</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .vw {
+    position: absolute;
+    perspective: 1600px;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+  .vw-wall {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.55rem;
+    padding: 0.55rem;
+    border-radius: 14px;
+    background: #120502;
+    border: 1px solid rgb(240 176 16 / 0.18);
+    transform: rotateY(-16deg) rotateX(4deg);
+    transform-origin: right center;
+    box-shadow:
+      0 40px 70px rgb(10 3 1 / 0.6),
+      0 10px 24px rgb(10 3 1 / 0.45);
+  }
+  .vw-screen {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 6px;
+    background: radial-gradient(120% 120% at 30% 20%, #2a0c03 0%, #170602 60%, #0e0401 100%);
+    box-shadow: inset 0 0 0 1px rgb(247 240 224 / 0.06);
+    container-type: inline-size;
+  }
+  .vw-content {
+    position: absolute;
+    inset: 0;
+    padding: 7cqw 8cqw;
+    color: #f7f0e0;
+    font-size: 6.4cqw;
+    line-height: 1.35;
+  }
+  .vw-kicker {
+    font-size: 5.6cqw;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #f0b010;
+  }
+  .vw-tag {
+    position: absolute;
+    left: 6cqw;
+    bottom: 5cqw;
+    font-size: 5.4cqw;
+    color: rgb(247 240 224 / 0.75);
+  }
+
+  .vw-menu p:not(.vw-kicker) {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5cqw;
+    border-bottom: 1px dotted rgb(247 240 224 / 0.22);
+  }
+  .vw-menu p span:last-child {
+    color: #f0b010;
+    font-weight: 600;
+  }
+
+  .vw-game {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, transparent 55%, rgb(240 176 16 / 0.08));
+  }
+  .vw-score {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 22cqw;
+    line-height: 1;
+  }
+  .vw-score span {
+    margin: 0 3cqw;
+    color: #f0b010;
+  }
+  .vw-teams {
+    display: flex;
+    gap: 14cqw;
+    font-size: 5.2cqw;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(247 240 224 / 0.7);
+  }
+
+  .vw-cams {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2cqw;
+    padding: 2cqw;
+  }
+  .vw-cam {
+    position: relative;
+    border-radius: 2px;
+    background: linear-gradient(160deg, #3a2a20 0%, #22140c 70%);
+  }
+  .vw-cam span {
+    position: absolute;
+    left: 3cqw;
+    top: 2cqw;
+    font-size: 4.6cqw;
+    color: rgb(247 240 224 / 0.85);
+  }
+  .vw-cam::after {
+    content: '';
+    position: absolute;
+    right: 3cqw;
+    top: 3cqw;
+    width: 3cqw;
+    height: 3cqw;
+    border-radius: 50%;
+    background: #f0b010;
+  }
+
+  .vw-wifi {
+    padding: 4cqw;
+    color: #f7f0e0;
+  }
+  .vw-wifi svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .vw-meet {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2cqw;
+    padding: 3cqw 3cqw 14cqw;
+  }
+  .vw-person {
+    display: grid;
+    place-items: center;
+    border-radius: 3px;
+    background: #2b1309;
+  }
+  .vw-person i {
+    width: 9cqw;
+    height: 9cqw;
+    border-radius: 50%;
+    background: rgb(247 240 224 / 0.35);
+  }
+
+  .vw-sign {
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: radial-gradient(80% 90% at 50% 50%, rgb(240 176 16 / 0.18), transparent 70%);
+  }
+  .vw-sign .vw-kicker {
+    font-size: 5cqw;
+    letter-spacing: 0.08em;
+  }
+  .vw-open {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 21cqw;
+    line-height: 1;
+    color: #f0b010;
+  }
+
+  /* One authored moment: the wall powers on, screen by screen. Nothing loops. */
+  @keyframes vw-on {
+    from {
+      opacity: 0;
+      filter: brightness(2.2) blur(2px);
+    }
+    to {
+      opacity: 1;
+      filter: none;
+    }
+  }
+  :global(html.js) .vw-content {
+    animation: vw-on 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(350ms + var(--i) * 140ms);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .vw-content {
+      animation: none;
+    }
+  }
+</style>
