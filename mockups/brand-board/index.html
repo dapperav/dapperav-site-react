@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dapper AV — Brand Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../design-system/tokens.css" />
+<link rel="stylesheet" href="../../design-system/components.css" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--brown-950); color: var(--color-ink-inverse); font-family: var(--font-body); padding: 32px; }
+  .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1600px; margin: 0 auto; }
+  .panel { position: relative; min-height: 340px; border-radius: var(--radius-card); padding: 28px; overflow: hidden; }
+  .lbl { position: absolute; left: 28px; bottom: 20px; font-size: 13px; letter-spacing: var(--tracking-label); opacity: .75; }
+  .num { position: absolute; right: 24px; bottom: 20px; font-size: 13px; opacity: .6; }
+  .d { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--tracking-display); line-height: 1.02; }
+  .p-cover { background: var(--color-bg-dark); display: grid; place-items: center; text-align: center; }
+  .p-cover img { width: 150px; }
+  .p-cover .d { font-size: 40px; margin-top: 18px; color: var(--color-ink-inverse); }
+  .p-cream { background: var(--color-bg-alt); color: var(--color-ink); }
+  .p-paper { background: var(--color-bg); color: var(--color-ink); }
+  .p-gold { background: var(--color-accent); color: var(--color-on-accent); }
+  .p-deep { background: var(--brown-900); }
+  .construct { display: grid; place-items: center; height: 240px; position: relative; }
+  .construct img { width: 170px; position: relative; z-index: 1; }
+  .ring { position: absolute; border: 1px solid rgb(83 27 10 / .35); border-radius: 50%; }
+  .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+  .sw { height: 92px; border-radius: 16px; padding: 10px; font-size: 12px; display: flex; flex-direction: column; justify-content: flex-end; font-weight: 600; }
+  .typo .d { font-size: 64px; }
+  .typo p { margin-top: 14px; font-size: 17px; line-height: var(--leading-body); max-width: 34ch; }
+  .browser { background: var(--color-bg); border-radius: 18px; overflow: hidden; color: var(--color-ink); box-shadow: var(--shadow-2); }
+  .bar { display: flex; gap: 6px; align-items: center; padding: 10px 14px; background: var(--cream-100); font-size: 12px; color: var(--color-ink-muted); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cream-300); }
+  .browser .hero { background: var(--color-bg-dark); color: var(--color-ink-inverse); padding: 26px 22px 22px; }
+  .browser .hero .d { font-size: 34px; }
+  .browser .hero .d span { color: var(--color-accent); }
+  .tag { font-size: 64px; }
+  .cards { display: flex; gap: 14px; align-items: flex-end; margin-top: 30px; }
+  .bizcard { width: 210px; height: 124px; border-radius: 10px; padding: 14px; box-shadow: var(--shadow-2); display: flex; flex-direction: column; justify-content: space-between; }
+  .bizcard img { width: 40px; }
+  .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .photo-scrim { position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(transparent, rgb(42 12 3 / .85)); }
+  .sys { display: flex; flex-wrap: wrap; gap: 10px; align-content: flex-start; margin-top: 6px; }
+  .sys .row { width: 100%; font-size: 12px; opacity: .8; margin-top: 8px; }
+  .field-demo { width: 100%; }
+</style>
+</head>
+<body>
+<div class="board">
+  <section class="panel p-cover">
+    <div><img src="../assets/logo.png" alt="Dapper AV Solutions logo" /><p class="d">Dapper AV Solutions</p></div>
+    <span class="lbl">Logo</span><span class="num">01</span>
+  </section>
+
+  <section class="panel p-cream">
+    <div class="construct">
+      <span class="ring" style="width:250px;height:250px"></span>
+      <span class="ring" style="width:210px;height:210px"></span>
+      <span class="ring" style="width:120px;height:120px;border-style:dashed"></span>
+      <img src="../assets/logo.png" alt="" />
+    </div>
+    <span class="lbl">The roundel: a record label, used as an accent, never the subject</span><span class="num">02</span>
+  </section>
+
+  <section class="panel p-deep">
+    <div class="browser">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i>&nbsp; dapperav.com</div>
+      <div class="hero">
+        <p class="d">One local contact for <span>everything with a cable.</span></p>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <a class="btn btn--primary btn--sm">Book a site survey</a>
+          <a class="btn btn--ghost btn--sm" style="color:var(--color-ink-inverse)">Call</a>
+        </div>
+      </div>
+    </div>
+    <span class="lbl">Digital application</span><span class="num">03</span>
+  </section>
+
+  <section class="panel p-gold">
+    <p class="d tag">Tailored, not just installed.</p>
+    <span class="lbl" style="opacity:.85">Brand essence</span><span class="num">04</span>
+  </section>
+
+  <section class="panel p-paper">
+    <div class="swatches">
+      <div class="sw" style="background:#531b0a;color:#f7f0e0">Logo Brown<br>#531b0a</div>
+      <div class="sw" style="background:#f1b71c;color:#531b0a">Logo Gold<br>#f1b71c</div>
+      <div class="sw" style="background:#f2dfbb;color:#531b0a">Logo Cream<br>#f2dfbb</div>
+      <div class="sw" style="background:#2a0c03;color:#f7f0e0">Roast<br>#2a0c03</div>
+      <div class="sw" style="background:#faf5ea;color:#531b0a;box-shadow:inset 0 0 0 1px #e7cfa1">Paper<br>#faf5ea</div>
+      <div class="sw" style="background:#7a5200;color:#faf5ea">Gold Ink<br>#7a5200</div>
+    </div>
+    <span class="lbl">Color: measured from the logo</span><span class="num">05</span>
+  </section>
+
+  <section class="panel p-cream typo">
+    <p class="d">Aa Fraunces</p>
+    <p>Inter for everything you read: body, buttons, labels. Fraunces for headlines only, two lines at most.</p>
+    <span class="lbl">Typography</span><span class="num">06</span>
+  </section>
+
+  <section class="panel p-deep">
+    <div class="cards">
+      <div class="bizcard" style="background:var(--color-bg-alt);color:var(--color-ink)"><img src="../assets/logo.png" alt="" /><div><p class="d" style="font-size:16px">Mark Immler</p><p style="font-size:11px">(972) 824-1303 · dapperav.com</p></div></div>
+      <div class="bizcard" style="background:var(--color-bg-dark);color:var(--color-ink-inverse);transform:rotate(-4deg)"><p class="d" style="font-size:18px">Everything with a cable.</p><p style="font-size:11px;color:var(--color-accent)">Book a free site survey</p></div>
+    </div>
+    <span class="lbl">Physical application</span><span class="num">07</span>
+  </section>
+
+  <section class="panel" style="padding:0">
+    <img class="photo" src="../assets/fireplace-mount.jpg" alt="" style="object-position:top" />
+    <div class="photo-scrim"></div>
+    <span class="lbl">Image direction: real installs only</span><span class="num">08</span>
+  </section>
+
+  <section class="panel p-paper">
+    <div class="sys">
+      <a class="btn btn--primary">Primary</a>
+      <a class="btn btn--secondary">Secondary</a>
+      <a class="btn btn--ghost">Ghost</a>
+      <p class="row">Pills: one shape, two heights</p>
+      <span class="pill" aria-pressed="true">Restaurants</span>
+      <span class="pill">Offices</span>
+      <span class="pill pill--static">Free site survey</span>
+      <p class="row">Field</p>
+      <input class="field field-demo" placeholder="you@example.com" />
+    </div>
+    <span class="lbl">System detail: tokens only</span><span class="num">09</span>
+  </section>
+</div>
+</body>
+</html>
