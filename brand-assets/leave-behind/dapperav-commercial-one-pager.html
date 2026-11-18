@@ -16,16 +16,14 @@
   .display { font-family: Fraunces, serif; font-weight: 600; }
   .eyebrow { font-size: 7.5pt; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); }
 
-  header { background: var(--espresso) repeating-linear-gradient(115deg, rgba(240,176,16,.06) 0 1px, transparent 1px 9px); color: var(--cream); padding: .45in .55in .4in; display: grid; grid-template-columns: 1fr 2.6in; gap: .35in; align-items: center; }
+  header { background: var(--espresso) repeating-linear-gradient(115deg, rgba(240,176,16,.06) 0 1px, transparent 1px 9px); color: var(--cream); padding: .5in .55in .45in; }
   .brand { display: flex; align-items: center; gap: 12px; margin-bottom: .22in; }
   .brand img { width: 52px; height: 52px; }
   .brand b { font-family: Fraunces, serif; font-size: 15pt; font-weight: 600; display: block; }
   .brand span { font-size: 7.5pt; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
-  h1 { font-size: 27pt; line-height: 1.08; }
+  h1 { font-size: 32pt; line-height: 1.06; max-width: 6.2in; }
   h1 em { font-style: normal; color: var(--gold); }
-  header p.lead { margin-top: 12px; color: rgba(247,240,224,.8); font-size: 10.5pt; }
-  header figure img { width: 100%; height: 2.05in; object-fit: cover; border-radius: 14px; border: 2px solid var(--gold); display: block; }
-  header figcaption { margin-top: 6px; font-size: 7pt; color: rgba(247,240,224,.6); }
+  header p.lead { max-width: 5.6in; margin-top: 12px; color: rgba(247,240,224,.8); font-size: 10.5pt; }
 
   main { flex: 1; padding: .38in .55in .2in; display: flex; flex-direction: column; gap: .28in; }
   h2 { font-size: 13pt; margin: 6px 0 10px; }
@@ -57,18 +55,12 @@
 <body>
 <div class="page">
   <header>
-    <div>
       <div class="brand">
         <img src="../../src/assets/logo.png" alt="" />
         <div><b>Dapper AV Solutions</b><span>Commercial AV &amp; IT · Fort Bend County</span></div>
       </div>
       <h1 class="display">One local contact for <em>everything with a cable.</em></h1>
       <p class="lead">TVs, sound, Wi-Fi, cameras and signage for businesses, designed, installed and then managed by the same person.</p>
-    </div>
-    <figure>
-      <img src="../../src/assets/gallery/dealership-display.jpg" alt="Recessed showroom display mounted flush in a custom feature wall" />
-      <figcaption>Recessed showroom display, auto dealership: a Dapper AV install.</figcaption>
-    </figure>
   </header>
 
   <main>
