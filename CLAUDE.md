@@ -136,6 +136,9 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Removed the dealership photo from /business/retail-showrooms and from the
+  one-pager (Mark doesn't like it). It is still in the /work gallery. No industry page has a
+  photo now; add one via the `photo` field only when there's a real commercial photo Mark likes.
 - **2026-11-18** — Commercial outreach kit: 3 letters (GCs/electricians as low-voltage sub;
   TDLR TABS new-build owners; property managers/existing businesses) + follow-up, text and
   voicemail versions in the Claude doc "Dapper AV — Commercial Outreach Letters"
