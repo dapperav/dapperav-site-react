@@ -18,6 +18,10 @@ export interface Industry {
   intro: string;
   /** What we install — 6 bullets */
   installs: string[];
+  /** "How much does … cost?" — answered from costDrivers, never with invented numbers */
+  costQuestion: string;
+  /** What moves the price on this kind of job (Mark: no published dollar figures) */
+  costDrivers: string[];
   /** Why us — exactly 3 */
   reasons: { title: string; body: string }[];
   faqs: { q: string; a: string }[];
@@ -52,6 +56,14 @@ export const industries: Industry[] = [
       'POS, cameras and guest Wi-Fi on separate, secured networks',
       'UniFi Protect cameras for the register, bar and back door',
       'One simple control for staff — no remote-control roulette',
+    ],
+    costQuestion: "How much does a restaurant or bar TV and audio install cost?",
+    costDrivers: [
+      "How many TVs, and how big",
+      "Whether you need a video matrix so any source can go to any screen",
+      "Wall types and how far cable has to run",
+      "How many music zones, and whether the patio needs outdoor speakers",
+      "How much network work the POS, cameras and guest Wi-Fi need",
     ],
     reasons: [
       {
@@ -95,7 +107,15 @@ export const industries: Industry[] = [
       'Ceiling microphones and speakers for larger rooms',
       'Office Wi-Fi and structured cabling to every desk',
       'Microsoft 365 setup, users, licensing and email security',
-      'Door access and entry intercoms tied to your network',
+      'Network rack, cabling and documentation for the server closet',
+    ],
+    costQuestion: "How much does a conference room AV setup cost?",
+    costDrivers: [
+      "Room size and how many people it seats",
+      "Display size, and whether you need a video bar or ceiling microphones",
+      "Teams or Zoom room licensing",
+      "How many desks need cabling or Wi-Fi coverage",
+      "Whether Microsoft 365 needs a fresh setup or a migration",
     ],
     reasons: [
       {
@@ -119,7 +139,7 @@ export const industries: Industry[] = [
       },
       {
         q: 'Can you take over IT for a small office?',
-        a: "Yes — that's what the care plans on our business page are for: network, cameras, Microsoft 365 and access control managed month to month, with one local person who answers the phone.",
+        a: "Yes — that's what the care plans on our business page are for: network, cameras and Microsoft 365 managed month to month, with one local person who answers the phone.",
       },
       carePlanFaq,
     ],
@@ -140,6 +160,14 @@ export const industries: Industry[] = [
       'Guest Wi-Fi kept separate from business systems',
       'UniFi Protect cameras with local storage — no per-camera cloud fees',
       'Rack and cabling cleanup for the back office',
+    ],
+    costQuestion: "How much do retail and showroom displays cost?",
+    costDrivers: [
+      "How many displays, and whether they mount flush, recessed or standard",
+      "Whether screens need scheduled content",
+      "How many background-music zones",
+      "Square footage the Wi-Fi has to cover",
+      "How many cameras, and how many days of recording you want",
     ],
     reasons: [
       {
@@ -181,6 +209,13 @@ export const industries: Industry[] = [
       'Screens that power on and off with your hours',
       'Reliable wired or Wi-Fi connections for every player',
     ],
+    costQuestion: "How much does digital signage or a digital menu board cost?",
+    costDrivers: [
+      "How many screens and media players",
+      "Indoor screens, or outdoor-rated and drive-thru displays",
+      "The signage software subscription",
+      "Whether new power and data runs are needed at each screen",
+    ],
     reasons: [
       {
         title: 'The network is half the job',
@@ -201,6 +236,74 @@ export const industries: Industry[] = [
         q: 'Can I change prices myself?',
         a: 'Yes. Content is managed from a web dashboard, so a price or a special can change from your phone and show up on the screens in minutes.',
       },
+      carePlanFaq,
+    ],
+  },
+  {
+    slug: "networks-wifi",
+    name: "Business Wi-Fi & networks",
+    headline: "Business Wi-Fi and Network Installation",
+    metaTitle: "Business Wi-Fi & Network Installation, Fort Bend TX | Dapper AV",
+    metaDescription: "UniFi business Wi-Fi and networks with POS, cameras, staff and guests kept separate. Installed and managed across Fort Bend County.",
+    intro: "Dapper AV Solutions designs and installs UniFi business networks in Richmond, Rosenberg, Sugar Land, Fulshear, Stafford and Katy. Owner Mark Immler, an IT director by day, places access points for your floor plan and keeps the POS, cameras, staff and guests on separate networks, then manages it all if you want.",
+    installs: [
+      "UniFi access points placed and tuned for your floor plan",
+      "Switches, gateway and firewall set up properly",
+      "Separate networks (VLANs) for POS, cameras, staff and guests",
+      "Guest Wi-Fi that cannot reach business systems",
+      "Cabling to every access point",
+      "Remote monitoring and updates under a care plan",
+    ],
+    costQuestion: "How much does business Wi-Fi installation cost?",
+    costDrivers: [
+      "Square footage, and what the walls are made of",
+      "How many access points and switches it takes",
+      "Firewall and network segmentation needs",
+      "Whether cabling already reaches the access point locations",
+      "Whether you want ongoing management under a care plan",
+    ],
+    reasons: [
+      { title: "Designed by an IT director", body: "The network is planned the way an IT department would plan it: documented, segmented and secured, not just plugged in." },
+      { title: "Coverage you can count on", body: "Access points are placed for your floor plan and tuned after install, so the back office and the patio both get a signal." },
+      { title: "Managed after install", body: "Firmware, monitoring and changes handled under a month-to-month care plan, with one local person who answers." },
+    ],
+    faqs: [
+      afterHours,
+      { q: "Why should the POS be on its own network?", a: "Card terminals sharing a network with guest phones is a security and reliability risk. Separate networks and firewall rules keep a busy guest network from slowing down or exposing your registers." },
+      carePlanFaq,
+    ],
+  },
+  {
+    slug: "structured-cabling",
+    name: "Structured cabling & low voltage",
+    headline: "Structured Cabling and Low-Voltage Installation",
+    metaTitle: "Structured Cabling & Low Voltage, Fort Bend TX | Dapper AV",
+    metaDescription: "Data drops, racks and low-voltage rough-in for new builds and remodels in Fort Bend County. Clean, labeled and documented, as your sub or direct.",
+    intro: "Dapper AV Solutions runs the low-voltage side of commercial builds and remodels in Richmond, Rosenberg, Sugar Land, Fulshear, Stafford and Katy: data cabling, racks, and the pre-wire for TVs, speakers, Wi-Fi and cameras. General contractors and electricians get one sub for everything with a cable; owners get it labeled and documented.",
+    installs: [
+      "Cat6 data drops, jacks and patch panels",
+      "Network racks with clean cable management",
+      "Pre-wire for TVs, speakers, Wi-Fi access points and cameras",
+      "Rough-in at framing, trim-out after paint",
+      "Labeling and as-built documentation at closeout",
+      "Retrofits in finished spaces with patched penetrations",
+    ],
+    costQuestion: "How much does structured cabling cost?",
+    costDrivers: [
+      "How many drops, and how far each run is",
+      "Open framing, or finished walls and ceilings",
+      "Rack, patch panel and cable management needs",
+      "How many floors, and how the runs get between them",
+      "How the work is phased around the build schedule",
+    ],
+    reasons: [
+      { title: "One sub for everything with a cable", body: "Data, Wi-Fi, cameras, TVs and speakers come from one sub, so there is no coordination between three low-voltage trades at the end of the job." },
+      { title: "On the schedule", body: "Rough-in when the walls are open and trim-out after paint. You get a walkthrough and documentation at closeout, not a punch list." },
+      { title: "Support after the job", body: "Your client gets a local contact and an optional care plan, so the Wi-Fi calls don't come back to you." },
+    ],
+    faqs: [
+      { q: "Do you work as a subcontractor?", a: "Yes. I work under general contractors and electricians on the low-voltage scope, or directly for owners on retrofits." },
+      { q: "Can you cable a space that is already finished?", a: "Yes. Retrofits in finished spaces are routine; runs go through attics, ceilings and walls, and every penetration is patched." },
       carePlanFaq,
     ],
   },

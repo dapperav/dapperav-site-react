@@ -64,7 +64,7 @@ export const faqs = [
   },
   {
     q: 'Do you handle commercial jobs?',
-    a: 'Yes — commercial AV (video walls, signage, conference rooms, restaurant and bar systems) plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, Microsoft 365, and access control. Business work is custom-quoted after a free site survey.',
+    a: 'Yes — commercial AV (video walls, signage, conference rooms, restaurant and bar systems) plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, and Microsoft 365. Business work is custom-quoted after a free site survey.',
   },
 ];
 
@@ -100,7 +100,6 @@ export const carePlans = [
       'Everything in Network + Camera Care',
       'Microsoft 365 users, licenses & email',
       'Security baseline & reviews',
-      'Access control & door entry management',
       'Quarterly on-site checkup',
     ],
   },
@@ -227,13 +226,13 @@ export const services = [
     title: 'Managed IT & Networking',
     price: null,
     blurb:
-      'Your outsourced IT department: UniFi networks and cameras, firewall policies and VLANs, Microsoft 365, and access control — installed, then managed.',
+      'Your outsourced IT department: UniFi networks and cameras, firewall policies and VLANs, and Microsoft 365 — installed, then managed.',
     features: [
       'UniFi network design, install & management',
       'UniFi Protect camera systems',
       'Firewall policies, VLANs & dedicated Wi-Fi',
       'Microsoft 365 tenant setup & user provisioning',
-      'Access control, door entry & intercoms',
+      'Structured cabling & network racks',
       'Ongoing monitoring & support plans',
     ],
     category: 'commercial',
