@@ -1,242 +1,156 @@
 ---
+/**
+ * Homepage — taste-skill direction "Type and nothing else" (seed 1900889380), brand palette + type kept.
+ * Notes: .taste-skill/notes.md. Every section is its own colour field ("colour by chapter"); the header
+ * takes each chapter's ground and ink. Found pictures are credited in the footer and never shown as jobs.
+ */
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import CtaBand from '../components/CtaBand.astro';
-import ReviewsSection from '../components/ReviewsSection.astro';
-import BrandStrip from '../components/BrandStrip.astro';
-import VideoWall from '../components/VideoWall.astro';
-import ProofStrip from '../components/ProofStrip.astro';
-import IndustryIcon from '../components/IndustryIcon.astro';
-import markPortrait from '../assets/mark-portrait.jpg';
-import { site, commitments, services, process } from '../data/site';
-
-const residential = services.filter((s) => s.category === 'residential');
-import { gallery } from '../data/gallery';
+import { site } from '../data/site';
 import { industries } from '../data/industries';
+import { areas } from '../data/areas';
+import reviewsData from '../data/reviews.json';
+import markPortrait from '../assets/mark-portrait.jpg';
+import fireplaceMount from '../assets/gallery/fireplace-mount.jpg';
+import hifiRack from '../assets/gallery/hifi-rack.jpg';
+import brazos from '../assets/found/brazos-river-south-of-sugar-land-texas.jpg';
+import rack from '../assets/found/rear-of-rack-at-nersc-data-center.jpg';
+import closet from '../assets/found/cable-closet.jpg';
+import courthouse from '../assets/found/fort-bend-county-courthouse-richmond-texas-dsc.jpg';
+import bridge from '../assets/found/old-railway-bridge-over-the-brazos-river.jpg';
 
-const featured = gallery.slice(0, 3);
+const survey = (service: string) => `/quote/?service=${encodeURIComponent(service)}`;
+const surveyFor = (slug: string) =>
+  survey(slug === 'networks-wifi' || slug === 'structured-cabling' ? 'Managed IT / Networking (Business)' : 'Commercial AV');
+
+const brands = ['Ubiquiti UniFi', 'Microsoft 365', 'Samsung', 'LG', 'Sonos', 'Epson', 'Klipsch'];
+
+type Review = { author: string; rating: number; text: string; when: string };
+const reviews = (reviewsData.reviews as Review[]) ?? [];
+const letter = reviews.find((r) => r.author.startsWith('Kenneth')) ?? reviews[0];
+const ps = reviews.find((r) => r !== letter);
+// Letter form: first sentence pulled up, the rest as paragraphs (Google's text, unedited)
+const sentences = letter ? (letter.text.match(/[^.!?]+[.!?]+/g) ?? [letter.text]) : [];
+const opening = sentences[0]?.trim() ?? '';
+const rest = sentences.slice(1).map((s) => s.trim());
+const half = Math.ceil(rest.length / 2);
+const restParas = [rest.slice(0, half).join(' '), rest.slice(half).join(' ')].filter(Boolean);
+
+const steps = [
+  { line: 'First, call or text.', note: `${site.phone}. I reply within one business day, usually sooner.` },
+  { line: 'Then I walk your site.', note: 'A free 30–45 minute survey. Every screen, drop and camera angle gets noted.' },
+  { line: 'You get an itemized proposal.', note: 'Equipment options at honest prices. Nothing padded, nothing hidden.' },
+  { line: 'I install around your hours.', note: 'Before open, after close or on a weekend. Then I look after it.' },
+];
 ---
 
 <Layout
   title="Commercial AV & Business IT in Fort Bend County | Dapper AV"
   description="Commercial AV, business Wi-Fi, cameras and managed IT for Fort Bend County businesses, plus TV mounting and home theater. Free site surveys."
 >
-  <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="pinstripe relative flex min-h-[80svh] items-center overflow-hidden bg-espresso">
-    <VideoWall class="max-xl:hidden right-8 top-1/2 w-[36rem] -translate-y-1/2" />
-    <div class="relative mx-auto w-full max-w-6xl px-5 pt-28 pb-20 sm:px-8 md:pt-40">
-      <p class="text-xs font-semibold tracking-[0.3em] text-gold uppercase">
-        Commercial & residential AV · Fort Bend County
+  <!-- ── Hero: colour field, two-ink statement ───────────────────────── -->
+  <section class="chapter hero-field" data-field="#3b1005" data-ink="#f7f0e0">
+    <h1 class="font-display hero-statement">
+      <span class="hero-line">Everything</span>
+      <span class="hero-line text-gold">with a cable.</span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-support">
+        TVs, sound, Wi-Fi and cameras for Fort Bend County businesses, installed and looked after by one local
+        person.
       </p>
-      <h1
-        class="font-display mt-6 max-w-3xl text-4xl leading-[1.08] font-semibold text-balance text-cream sm:text-6xl"
-      >
-        One local contact for <span class="text-gold">everything with a cable.</span>
-      </h1>
-      <p class="mt-7 max-w-xl text-lg leading-relaxed text-cream/80">
-        Commercial AV, business networks, cameras and managed IT for Fort Bend County businesses — and the
-        same tailored work at home.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-4">
-        <a
-          href="/quote/?service=Commercial%20AV"
-          class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
-        >
-          Request a Free Site Survey
-        </a>
-        <a
-          href="/business/"
-          class="glass-dark rounded-full px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:text-gold"
-        >
-          Business Services
-        </a>
+      <div class="hero-actions">
+        <a href={survey('Commercial AV')} class="btn-flat btn-lg">Book a free site survey</a>
+        <a href="/services/" class="link-plain">Homeowner? See home services</a>
       </div>
-      <p class="mt-6 text-sm text-cream/75">
-        Homeowner? <a href="/services/" class="link-draw font-semibold text-gold">See residential services</a>, or
-        <a href={site.smsHref} class="link-draw font-semibold text-gold">text a photo of your wall</a> for a fast TV-mount quote.
-      </p>
-      <VideoWall class="relative! mt-12 w-full max-w-xl xl:hidden" />
-    </div>
-
-    <!-- Scroll cue -->
-    <div
-      class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
-      data-reveal
-      style="--rd: 900ms"
-      aria-hidden="true"
-    >
-      <span class="text-[0.6rem] font-semibold tracking-[0.3em] text-cream/60 uppercase">Scroll</span>
-      <span class="scroll-cue-line block h-10 w-px bg-gold"></span>
     </div>
   </section>
 
-  <ProofStrip />
-
-  <BrandStrip />
-
-  <!-- ── The Dapper Standard ──────────────────────────────────────── -->
-  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-    <SectionHeading
-      eyebrow="The Dapper Standard"
-      title="Precision meets artistry in every installation"
-      lead="We don't just install technology — we craft experiences that enhance the way you live. Every detail handled with the care of a well-tailored suit."
-    />
-    <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        commitments.map((c, i) => (
-          <div class="glass rounded-3xl p-8" data-reveal style={`--rd: ${i * 90}ms`}>
-            <span class="font-display text-3xl text-gold-ink" aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <h3 class="font-display mt-4 text-xl font-semibold">{c.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-cocoa">{c.body}</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <!-- ── Services ─────────────────────────────────────────────────── -->
-  <section class="bg-parchment">
-    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="What we do"
-        title="From a single TV to a whole building"
-        lead="One standard of workmanship, whether it's a single TV or a whole building. Honest starting prices up front — the full breakdown is a click away."
-      />
-      <!-- Business strip -->
-      <a
-        href="/business/"
-        class="pinstripe group mt-16 block rounded-3xl bg-espresso p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-10"
-        data-reveal
-      >
-        <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
-              <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-              For your business
-            </p>
-            <h3 class="font-display mt-3 text-2xl font-semibold text-cream sm:text-3xl">
-              Commercial AV, UniFi networks, cameras & managed IT
-            </h3>
-            <p class="mt-3 max-w-xl text-sm leading-relaxed text-cream/70">
-              An IT department for businesses that don't have one — installed, then managed. Custom-quoted
-              after a free site survey.
-            </p>
-          </div>
-          <span class="btn-sheen shrink-0 rounded-full bg-gold px-7 py-3.5 text-center text-sm font-semibold text-espresso transition-colors duration-300 group-hover:bg-gold-deep">
-            Business services →
-          </span>
-        </div>
-      </a>
-
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <!-- ── Features: capabilities at poster scale ──────────────────────── -->
+  <section class="chapter bg-gold text-espresso" data-field="#f0b010" data-ink="#3b1005">
+    <div class="page-wrap section-pad-xl">
+      <div class="caps-list">
+        <h2 class="font-display caps-row caps-heading">What I install</h2>
         {
-          industries.map((ind, i) => (
-            <a
-              href={`/business/${ind.slug}/`}
-              class="glass group flex items-center justify-between gap-3 rounded-2xl px-6 py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              data-reveal
-              style={`--rd: ${i * 80}ms`}
-            >
-              <span class="flex items-center gap-4">
-                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-espresso text-gold transition-transform duration-500 group-hover:rotate-[20deg]">
-                  <IndustryIcon slug={ind.slug} class="h-6 w-6" />
-                </span>
-                <span class="font-display font-semibold">{ind.name}</span>
-              </span>
-              <span class="text-gold-ink transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+          industries.map((ind) => (
+            <a href={`/business/${ind.slug}/`} class="caps-row caps-item" data-reveal>
+              <span class="font-display caps-name">{ind.name}</span>
+              <span class="caps-desc">{ind.installs.slice(0, 2).join('. ')}.</span>
             </a>
           ))
         }
+        <a href="/services/" class="caps-row caps-item" data-reveal>
+          <span class="font-display caps-name">Homes, too</span>
+          <span class="caps-desc">TV mounting from $150, home theaters, whole-home audio and home Wi-Fi.</span>
+        </a>
       </div>
-
-      <p class="mt-16 flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
-        <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-        For your home
-      </p>
-      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          residential.map((s, i) => (
-            <a
-              href={`/services/#${s.id}`}
-              class="glass group flex flex-col rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              data-reveal
-              style={`--rd: ${(i % 3) * 90}ms`}
-            >
-              <h3 class="font-display text-xl font-semibold">{s.title}</h3>
-              <p class="mt-3 grow text-sm leading-relaxed text-cocoa">{s.blurb}</p>
-              <div class="mt-6 flex items-center justify-between border-t border-tan/50 pt-5">
-                <span class="text-sm font-semibold text-gold-ink">{s.price}</span>
-                <span class="text-sm font-medium text-espresso transition-transform duration-300 group-hover:translate-x-1">
-                  Details →
-                </span>
-              </div>
-            </a>
-          ))
-        }
-      </div>
-
     </div>
   </section>
 
-  <!-- ── Featured work ────────────────────────────────────────────── -->
-  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-    <SectionHeading
-      eyebrow="Our work"
-      title="Rooms we've dressed up"
-      lead="A look at the kind of spaces we build — clean lines, hidden wires, and technology that disappears into the design."
+  <!-- ── One moving picture: the Brazos ─────────────────────────────── -->
+  <section class="chapter picture-band" data-field="#2b0c03" data-ink="#f7f0e0" aria-label="The Brazos River">
+    <div class="picture-band-frame">
+    <Image
+      src={brazos}
+      alt="The Brazos River winding through green land south of Sugar Land, seen from the air"
+      widths={[800, 1400, 1920]}
+      sizes="100vw"
+      class="picture-band-img"
     />
-    <div class="mt-16 grid gap-6 sm:grid-cols-3">
-      {
-        featured.map((item, i) => (
-          <a
-            href="/work/"
-            class="card-zoom glass group block overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            data-reveal
-            style={`--rd: ${i * 100}ms`}
-          >
-            <div class="aspect-[4/3] overflow-hidden">
-              <Image
-                src={item.image}
-                alt={item.alt}
-                class="h-full w-full object-cover"
-                style={item.pos ? `object-position: ${item.pos}` : undefined}
-                widths={[480, 768, 1024]}
-                sizes="(min-width: 640px) 33vw, 100vw"
-              />
-            </div>
-            <div class="p-5">
-              <h3 class="font-display font-semibold">{item.title}</h3>
-              <p class="mt-1 text-sm text-cocoa">{item.caption}</p>
-            </div>
-          </a>
-        ))
-      }
     </div>
-    <div class="mt-12 text-center" data-reveal>
-      <a href="/work/" class="link-draw font-medium text-gold-ink">See the full gallery →</a>
-    </div>
+    <p class="picture-band-caption">The Brazos, south of Sugar Land. Every job I take is within an hour of it.</p>
   </section>
 
-  <!-- ── Process ──────────────────────────────────────────────────── -->
-  <section class="pinstripe bg-espresso">
-    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-      <SectionHeading
-        eyebrow="How we work"
-        title="Four steps, zero surprises"
-        tone="dark"
-      />
-      <ol class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+  <!-- ── How it works: lines that step across, with the survey picker ── -->
+  <section class="chapter bg-espresso text-cream" data-field="#3b1005" data-ink="#f7f0e0">
+    <div class="page-wrap section-pad-xl">
+      <h2 class="sr-only">How a job goes</h2>
+      <ol class="stair">
         {
-          process.map((p, i) => (
-            <li data-reveal style={`--rd: ${i * 110}ms`}>
-              <span class="font-display text-4xl font-semibold text-gold" aria-hidden="true">
-                {p.step}
-              </span>
-              <h3 class="font-display mt-4 text-lg font-semibold text-cream">{p.title}</h3>
-              <p class="mt-3 text-sm leading-relaxed text-cream/65">{p.body}</p>
+          steps.map((s, i) => (
+            <li class={`stair-step stair-${i + 1}`}>
+              <p class={`font-display stair-line ${i === steps.length - 1 ? 'text-gold' : ''}`} data-reveal>
+                {s.line}
+              </p>
+              <p class="stair-note" data-reveal>
+                {s.note}
+              </p>
+              {i === 1 && (
+                <div class="picker">
+                  <p class="picker-q">What kind of space is it?</p>
+                  <div class="picker-chips" role="radiogroup" aria-label="Kind of space">
+                    {industries.map((ind, k) => (
+                      <label class="chip">
+                        <input type="radio" name="space" value={ind.slug} checked={k === 0} />
+                        <span>{ind.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {industries.map((ind) => (
+                    <div class="picker-panel" data-for={ind.slug}>
+                      <div>
+                        <p class="picker-h">On the survey I check</p>
+                        <ul class="picker-list">
+                          {ind.installs.map((x) => (
+                            <li>{x}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p class="picker-h">What moves the price</p>
+                        <ul class="picker-list">
+                          {ind.costDrivers.map((x) => (
+                            <li>{x}</li>
+                          ))}
+                        </ul>
+                        <a href={surveyFor(ind.slug)} class="btn-flat mt-8">
+                          Book this survey
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </li>
           ))
         }
@@ -244,55 +158,184 @@ const featured = gallery.slice(0, 3);
     </div>
   </section>
 
-  <!-- ── Meet the owner ───────────────────────────────────────────── -->
-  <section class="grooves mx-auto grid max-w-6xl items-center gap-12 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[2fr_3fr] lg:gap-20">
-    <div class="relative mx-auto w-full max-w-md" data-reveal>
-      <!-- offset gold frame — the tailored detail -->
-      <div class="absolute -inset-0 translate-x-3 translate-y-3 rounded-[2rem] border-2 border-gold" aria-hidden="true"></div>
-      <Image
-        src={markPortrait}
-        alt="Mark Immler, owner of Dapper AV Solutions, in a blue plaid blazer"
-        class="relative aspect-[4/5] w-full rounded-[2rem] object-cover"
-        widths={[480, 768, 1024, 1440]}
-        sizes="(min-width: 1024px) 40vw, (min-width: 640px) 28rem, 100vw"
-      />
-    </div>
-
-    <div>
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
-        <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-        Meet the owner
-      </p>
-      <h2
-        class="font-display mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl"
-        data-reveal
-        style="--rd: 80ms"
-      >
-        The Dapper Difference has a face
-      </h2>
-      <blockquote
-        class="font-display mt-7 border-l-2 border-gold pl-5 text-xl leading-snug font-medium italic sm:text-2xl"
-        data-reveal
-        style="--rd: 160ms"
-      >
-        "Excellence isn't an accident — it's our standard."
-      </blockquote>
-      <p class="mt-7 leading-relaxed text-cocoa" data-reveal style="--rd: 240ms">
-        I'm Mark Immler, and Dapper AV is mine — which means it's my name on every quote, my hands on
-        every install, and my cell number at the top of this page. Every project begins with
-        understanding your vision. From the initial consultation to the final calibration, I handle
-        every detail with precision and care — because your space deserves nothing less than tailored.
-      </p>
-      <p class="font-display mt-8 text-lg font-semibold" data-reveal style="--rd: 320ms">
-        Mark Immler
-        <span class="mt-0.5 block text-xs font-normal tracking-[0.22em] text-cocoa uppercase">
-          Owner · Dapper AV Solutions
-        </span>
-      </p>
+  <!-- ── The closet: what most businesses have, and what it should look like ── -->
+  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Most cable closets look like the one on the right.</h2>
+      <div class="closet-pair">
+        <figure data-reveal>
+          <Image
+            src={rack}
+            alt="A tidy server rack with cables bundled, labeled and routed down the side"
+            widths={[600, 900, 1200]}
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            class="closet-img"
+          />
+          <figcaption>Bundled, labeled and documented. This is what yours should look like.</figcaption>
+        </figure>
+        <figure data-reveal>
+          <Image
+            src={closet}
+            alt="A cable closet with tangled yellow, red and blue network cables"
+            widths={[600, 900, 1200]}
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            class="closet-img"
+          />
+          <figcaption>The usual closet. When something breaks, nobody can tell which cable it is.</figcaption>
+        </figure>
+      </div>
+      <p class="closet-note">Both photos are other people's racks, credited at the bottom of the page. Neither is my job.</p>
     </div>
   </section>
 
-  <ReviewsSection />
+  <!-- ── About: side facts, wide paragraph ──────────────────────────── -->
+  <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
+    <div class="page-wrap section-pad about-grid">
+      <div class="about-side">
+        <Image
+          src={markPortrait}
+          alt="Mark Immler, owner of Dapper AV Solutions, in a blue plaid blazer"
+          widths={[400, 640]}
+          sizes="(min-width: 1024px) 26vw, 80vw"
+          class="about-portrait"
+        />
+        <dl class="about-facts">
+          <div><dt>Owner</dt><dd>Mark Immler</dd></div>
+          <div><dt>Based in</dt><dd>Richmond, Texas</dd></div>
+          <div><dt>Installing AV</dt><dd>18 years</dd></div>
+          <div><dt>Running managed IT</dt><dd>5 years</dd></div>
+        </dl>
+      </div>
+      <div class="about-main">
+        <h2 class="font-display h-section">One person, start to finish.</h2>
+        <p class="about-para">
+          I'm Mark Immler. I've installed AV for more than 18 years and my day job is IT director, so the network
+          under your TVs and cameras gets the same care as the screens. There is no call center and no
+          subcontractor: the person who surveys your site installs it, and answers the phone when something needs
+          looking at.
+        </p>
+        <div class="about-lists">
+          <div>
+            <p class="about-list-h">Works on</p>
+            <ul>{brands.map((b) => <li>{b}</li>)}</ul>
+          </div>
+          <div>
+            <p class="about-list-h">Serves</p>
+            <ul>
+              {
+                areas.map((a) => (
+                  <li>
+                    <a href={`/areas/${a.slug}/`}>{a.city}</a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+        <div class="about-pics">
+          <figure>
+            <Image
+              src={courthouse}
+              alt="The Fort Bend County Courthouse in Richmond, Texas, with its green dome"
+              widths={[500, 800]}
+              sizes="(min-width: 1024px) 26vw, 90vw"
+              class="about-pic"
+            />
+            <figcaption>Fort Bend County Courthouse, Richmond.</figcaption>
+          </figure>
+          <figure>
+            <Image
+              src={bridge}
+              alt="The old steel railway bridge over the Brazos River in Richmond, Texas"
+              widths={[500, 800]}
+              sizes="(min-width: 1024px) 26vw, 90vw"
+              class="about-pic"
+            />
+            <figcaption>The old railway bridge over the Brazos.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <CtaBand />
+  <!-- ── Work: oversized visual, small cluster (real installs only) ──── -->
+  <section class="chapter bg-cream text-espresso work" data-field="#f7f0e0" data-ink="#3b1005">
+    <h2 class="sr-only">Recent installs</h2>
+    <article class="work-block">
+      <div class="work-visual work-visual--tall">
+        <Image
+          src={fireplaceMount}
+          alt="TV and soundbar mounted above a white mantel and tiled fireplace with no visible wires"
+          widths={[700, 1100, 1500]}
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          class="work-img"
+          style="object-position: top"
+        />
+      </div>
+      <div class="work-cluster" data-reveal>
+        <h3 class="font-display work-title">Over-mantel TV and soundbar</h3>
+        <p class="work-desc">
+          Dead center over the fireplace, soundbar aligned under it, every wire inside the wall. A Fort Bend County
+          living room.
+        </p>
+      </div>
+    </article>
+    <article class="work-block work-block--second">
+      <div class="work-visual">
+        <Image
+          src={hifiRack}
+          alt="Walnut cabinet with a Pioneer turntable, reel-to-reel tape deck and a modern Yamaha receiver"
+          widths={[700, 1100, 1500]}
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          class="work-img"
+        />
+      </div>
+      <div class="work-cluster" data-reveal>
+        <h3 class="font-display work-title">Vintage hi-fi, wired for today</h3>
+        <p class="work-desc">
+          A Pioneer turntable and reel-to-reel running through a modern Yamaha receiver. <a href="/work/">More installs</a>
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ── Letter: one real review, set like a letter ─────────────────── -->
+  {
+    letter && (
+      <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
+        <div class="page-wrap section-pad letter">
+          <h2 class="sr-only">A review from Google</h2>
+          <p class="font-display letter-open">{opening}</p>
+          {restParas.map((p) => (
+            <p class="letter-body">{p}</p>
+          ))}
+          <p class="letter-sign">
+            {letter.author}
+            <span>Google review{letter.when ? `, ${letter.when}` : ''}</span>
+          </p>
+          {ps && (
+            <p class="letter-ps">
+              P.S. From a business customer, {ps.author}: “{ps.text}”
+            </p>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ── CTA: the idea again, inverted ──────────────────────────────── -->
+  <section class="chapter cta-field" data-field="#3b1005" data-ink="#f7f0e0">
+    <h2 class="font-display cta-statement">
+      <span>One number.</span>
+      <span class="text-gold">Every cable.</span>
+    </h2>
+    <div class="cta-foot">
+      <p class="cta-support">
+        Call or text <a href={site.phoneHref}>{site.phone}</a>. The person who answers is the person who installs.
+      </p>
+      <a href={survey('Commercial AV')} class="btn-flat btn-lg">Book a free site survey</a>
+    </div>
+  </section>
 </Layout>
+
+<style is:global set:html={industries.map((i) => `.picker:has(input[value="${i.slug}"]:checked) .picker-panel[data-for="${i.slug}"]{display:grid}`).join('')} />
