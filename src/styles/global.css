@@ -9,7 +9,8 @@
   --color-parchment: #efe3cb; /* deeper cream — alternating sections */
   --color-tan: #d8c6a4; /* hairlines & borders */
   --color-gold: #f0b010; /* logo gold — the one sharp accent */
-  --color-gold-deep: #c98f08; /* gold hover / active */
+  --color-gold-deep: #c98f08; /* gold hover / active — FILLS only, too light for text on cream */
+  --color-gold-ink: #865b00; /* gold as TEXT on light backgrounds: 5.3:1 on cream, 4.7:1 on parchment (WCAG AA) */
 
   --font-display: 'Fraunces Variable', 'Georgia', serif;
   --font-sans: 'Inter Variable', 'Segoe UI', sans-serif;
@@ -55,11 +56,24 @@ body {
     'WONK' 0;
 }
 
-/* Gold focus ring on keyboard navigation, everywhere */
+/* Keyboard focus ring: espresso on light surfaces, gold on dark ones (both ≥3:1, WCAG 1.4.11) */
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-espresso);
   outline-offset: 3px;
   border-radius: 12px;
+}
+.bg-espresso :focus-visible,
+.bg-roast :focus-visible,
+.glass-dark:focus-visible,
+footer :focus-visible {
+  outline-color: var(--color-gold);
+}
+
+/* Phones: keep focused fields clear of the fixed bottom dock (WCAG 2.4.11) */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: 7rem;
+  }
 }
 
 /* ── Liquid glass panels ───────────────────────────────────────────── */
@@ -131,7 +145,8 @@ a[class*='border']:active {
 }
 
 /* ── Scroll reveals ────────────────────────────────────────────────── */
-[data-reveal] {
+/* Only hidden when JS is running (Layout adds html.js) — otherwise content would stay invisible */
+html.js [data-reveal] {
   opacity: 0;
   transform: translateY(26px);
   transition:
@@ -140,24 +155,9 @@ a[class*='border']:active {
   transition-delay: var(--rd, 0ms);
 }
 
-[data-reveal].is-inview {
+html.js [data-reveal].is-inview {
   opacity: 1;
   transform: none;
-}
-
-/* ── Hero Ken Burns ────────────────────────────────────────────────── */
-@keyframes kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08);
-  }
-}
-
-.kenburns {
-  animation: kenburns 24s var(--ease-tailored) both;
-  will-change: transform;
 }
 
 /* ── Link underline that draws in ──────────────────────────────────── */
@@ -272,13 +272,10 @@ a[class*='border']:active {
   html {
     scroll-behavior: auto;
   }
-  [data-reveal] {
+  html.js [data-reveal] {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-  .kenburns {
-    animation: none;
   }
   .scroll-cue-line {
     animation: none;

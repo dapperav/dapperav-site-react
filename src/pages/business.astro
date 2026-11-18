@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
+import ReviewsSection from '../components/ReviewsSection.astro';
 import BrandStrip from '../components/BrandStrip.astro';
 import { site, carePlans } from '../data/site';
 
@@ -48,34 +49,32 @@ const clients = [
 ---
 
 <Layout
-  title="Managed IT, Networks & Commercial AV for Businesses — Richmond, Katy & Sugar Land | Dapper AV Solutions"
-  description="An IT department for businesses that don't have one: UniFi networks and cameras, firewall and VLAN configuration, Microsoft 365, access control, and commercial AV across Fort Bend County — installed, then managed."
+  title="Managed IT, Networks & Commercial AV | Dapper AV"
+  description="An IT department for Fort Bend County businesses: UniFi networks and cameras, Microsoft 365, door access and commercial AV. Installed, then managed."
 >
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
   <section class="pinstripe bg-espresso">
     <div class="mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase" data-reveal>
+      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         For business
       </p>
       <h1
         class="font-display mt-6 max-w-3xl text-4xl leading-[1.1] font-semibold text-balance text-cream sm:text-5xl lg:text-6xl"
-        data-reveal
-        style="--rd: 100ms"
       >
         An IT department for businesses that don't have one
       </h1>
-      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75" data-reveal style="--rd: 200ms">
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75">
         Networks, cameras, Microsoft 365, door access, and AV — designed, installed, and then actually
         managed. One local point of contact with IT-director experience, instead of four vendors
         pointing at each other.
       </p>
-      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--rd: 300ms">
+      <div class="mt-10 flex flex-wrap gap-4">
         <a
-          href="/quote?service=Managed%20IT%20%2F%20Networking%20(Business)"
+          href="/quote/?service=Managed%20IT%20%2F%20Networking%20(Business)"
           class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
         >
-          Request a Site Survey
+          Request a Free Site Survey
         </a>
         <a
           href={site.phoneHref}
@@ -84,7 +83,7 @@ const clients = [
           Call {site.phone}
         </a>
       </div>
-      <p class="mt-6 text-sm text-cream/55" data-reveal style="--rd: 400ms">
+      <p class="mt-6 text-sm text-cream/55">
         Business work is custom-quoted — every site survey is free.
       </p>
     </div>
@@ -138,7 +137,7 @@ const clients = [
             >
               {plan.popular && (
                 <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gold px-4 py-1 text-xs font-bold tracking-widest text-espresso uppercase">
-                  Most popular
+                  Recommended
                 </span>
               )}
               <h3 class="font-display text-xl font-semibold">{plan.name}</h3>
@@ -151,18 +150,18 @@ const clients = [
                   </li>
                 ))}
               </ul>
-              <p class={`mt-6 text-xs font-semibold tracking-wide uppercase ${plan.popular ? 'text-gold-deep' : 'text-gold'}`}>
+              <p class={`mt-6 text-xs font-semibold tracking-wide uppercase ${plan.popular ? 'text-gold-ink' : 'text-gold'}`}>
                 Custom-quoted · free site survey
               </p>
               <a
-                href={`/quote?service=${encodeURIComponent('Managed IT / Networking (Business)')}`}
+                href={`/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`}
                 class={`mt-6 block rounded-full px-5 py-3 text-center text-sm font-semibold transition-colors duration-300 ${
                   plan.popular
                     ? 'btn-sheen bg-gold text-espresso hover:bg-gold-deep'
                     : 'glass-dark text-cream hover:text-gold'
                 }`}
               >
-                Start with a site survey
+                Request a free site survey
               </a>
             </div>
           ))
@@ -186,7 +185,7 @@ const clients = [
             const Tag = c.slug ? 'a' : 'div';
             return (
               <Tag
-                href={c.slug ? `/business/${c.slug}` : undefined}
+                href={c.slug ? `/business/${c.slug}/` : undefined}
                 class={`glass group rounded-3xl p-7 ${c.slug ? 'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl' : ''}`}
                 data-reveal
                 style={`--rd: ${(i % 3) * 90}ms`}
@@ -194,7 +193,7 @@ const clients = [
                 <h3 class="font-display text-lg font-semibold">{c.type}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-cocoa">{c.need}</p>
                 {c.slug && (
-                  <span class="mt-4 inline-block text-sm font-medium text-gold-deep transition-transform duration-300 group-hover:translate-x-1">
+                  <span class="mt-4 inline-block text-sm font-medium text-gold-ink transition-transform duration-300 group-hover:translate-x-1">
                     Learn more →
                   </span>
                 )}
@@ -210,7 +209,11 @@ const clients = [
     </div>
   </section>
 
+  <ReviewsSection title="What customers are saying" />
+
   <CtaBand
+    href="/quote/?service=Managed%20IT%20%2F%20Networking%20(Business)"
+    cta="Request a Free Site Survey"
     title="Let's look at your building"
     body={`A free site survey tells us both exactly what your business needs — no prices pulled out of thin air, no obligation. Call or text ${site.phone}, or send the details.`}
   />

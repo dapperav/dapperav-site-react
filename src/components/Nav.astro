@@ -5,12 +5,14 @@ import { site } from '../data/site';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/business', label: 'For Business' },
-  { href: '/services', label: 'For Residential' },
-  { href: '/work', label: 'Our Work' },
+  { href: '/business/', label: 'For Business' },
+  { href: '/services/', label: 'For Residential' },
+  { href: '/work/', label: 'Our Work' },
 ];
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+// Section match, so /business/restaurants-bars/ still highlights For Business
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')));
 ---
 
 <!-- ── Desktop orbital nav: a centered spinning logo badge that expands
@@ -29,7 +31,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
             links.slice(0, 2).map((l) => (
               <a
                 href={l.href}
-                aria-current={path === l.href ? 'page' : undefined}
+                aria-current={isCurrent(l.href) ? 'page' : undefined}
                 class="link-draw text-sm font-medium tracking-wide whitespace-nowrap text-espresso"
               >
                 {l.label}
@@ -58,7 +60,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
             links.slice(2).map((l) => (
               <a
                 href={l.href}
-                aria-current={path === l.href ? 'page' : undefined}
+                aria-current={isCurrent(l.href) ? 'page' : undefined}
                 class="link-draw text-sm font-medium tracking-wide whitespace-nowrap text-espresso"
               >
                 {l.label}
@@ -70,9 +72,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     </div>
   </nav>
 
-  <!-- CTA pendant: drops in centered under the logo when the nav is open -->
+  <!-- CTA pendant: always visible under the logo, so there's a way to act mid-page -->
   <a
-    href="/quote"
+    href="/quote/"
     class="nav-cta btn-sheen mt-3 rounded-full bg-gold px-7 py-2.5 text-sm font-semibold tracking-wide whitespace-nowrap text-espresso shadow-md transition-colors duration-300 hover:bg-gold-deep"
   >
     Request a Quote
@@ -108,24 +110,13 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       opacity 0.3s ease 0.05s;
   }
 
-  .nav-cta {
-    opacity: 0;
-    transform: translateY(-10px);
-    pointer-events: none;
-    transition:
-      opacity 0.3s ease 0.4s,
-      transform 0.45s var(--ease-tailored) 0.35s;
-  }
-
-  #site-nav.at-top .nav-cta,
-  .nav-wrap:hover .nav-cta,
-  .nav-wrap:focus-within .nav-cta {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-    transition:
-      opacity 0.3s ease 0.1s,
-      transform 0.45s var(--ease-tailored) 0.05s;
+  /* Scrolled + collapsed: the quote button parks in the bottom-right corner instead of
+     hanging over the middle of the page, so there's always a way to act. */
+  #site-nav:not(.at-top) .nav-wrap:not(:hover):not(:focus-within) .nav-cta {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    margin: 0;
   }
 
   /* The pill is invisible when collapsed — just the floating roundel —
@@ -196,9 +187,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 >
   <div class="grid grid-cols-5 items-end">
     <a
-      href="/business"
+      href="/business/"
       aria-current={path.startsWith('/business') ? 'page' : undefined}
-      class="flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-deep"
+      class="flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-ink"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
         <rect x="4" y="2" width="16" height="20" rx="2" />
@@ -207,9 +198,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       Business
     </a>
     <a
-      href="/work"
+      href="/work/"
       aria-current={path === '/work' ? 'page' : undefined}
-      class="flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-deep"
+      class="flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-ink"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="3" />
@@ -222,7 +213,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       href="/"
       aria-current={path === '/' ? 'page' : undefined}
       aria-label="Dapper AV Solutions — home"
-      class="group relative flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-deep"
+      class="group relative flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-ink"
     >
       <span class="-mt-12 flex h-[4.75rem] w-[4.75rem] items-center justify-center">
         <Image src={logo} alt="" width="160" height="160" class="logo-spin h-full w-full object-contain drop-shadow-lg" loading="eager" />
@@ -239,7 +230,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       Call
     </a>
     <a
-      href="/quote"
+      href="/quote/"
       aria-current={path === '/quote' ? 'page' : undefined}
       class="flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-bold tracking-wide text-espresso"
     >

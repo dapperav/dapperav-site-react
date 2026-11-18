@@ -40,9 +40,9 @@ export const industries: Industry[] = [
     slug: 'restaurants-bars',
     name: 'Restaurants & bars',
     headline: 'Restaurant & Bar TVs, Audio and Networks',
-    metaTitle: 'Restaurant & Bar TV, Audio & Network Installation — Richmond, Sugar Land & Katy, TX | Dapper AV',
+    metaTitle: 'Restaurant & Bar TV and Audio Installation | Dapper AV',
     metaDescription:
-      'TV walls that put any game on any screen, zoned music for bar, dining room and patio, and a POS-safe network with guest Wi-Fi — installed after hours across Fort Bend County. Free site survey.',
+      'TV walls where any screen shows any game, zoned music and a POS-safe network for Fort Bend County restaurants and bars. Installed after hours.',
     intro:
       "Game day is your busiest day, and that's exactly when a dead TV or a dropped card reader costs you the most. We design the whole room — TVs, sound, and the network underneath — so every seat sees the game, the patio plays its own music, and the POS never shares a network with the guest Wi-Fi.",
     installs: [
@@ -84,9 +84,9 @@ export const industries: Industry[] = [
     slug: 'offices-conference-rooms',
     name: 'Offices & conference rooms',
     headline: 'Conference Room AV and Office IT',
-    metaTitle: 'Conference Room AV, Office Wi-Fi & Microsoft 365 — Sugar Land, Stafford & Katy, TX | Dapper AV',
+    metaTitle: 'Conference Room AV & Office IT, Fort Bend TX | Dapper AV',
     metaDescription:
-      'Conference rooms where Teams and Zoom just work, office Wi-Fi that reaches every desk, Microsoft 365 set up right, and door access — installed and managed across Fort Bend County.',
+      'Conference rooms where Teams and Zoom just work, office Wi-Fi and Microsoft 365 for Fort Bend County businesses. Installed, then managed.',
     intro:
       "A meeting that starts ten minutes late because nobody can get the screen to work costs more than the screen did. We build conference rooms where you walk in, share, and start — and back them with an office network and Microsoft 365 setup managed by someone with IT-director experience.",
     installs: [
@@ -128,9 +128,9 @@ export const industries: Industry[] = [
     slug: 'retail-showrooms',
     name: 'Retail & showrooms',
     headline: 'Retail and Showroom Displays, Audio and Cameras',
-    metaTitle: 'Retail & Showroom Displays, Background Audio & Cameras — Fort Bend County, TX | Dapper AV',
+    metaTitle: 'Retail & Showroom Displays and Audio | Dapper AV',
     metaDescription:
-      'Showroom displays mounted flush and clean, background music, guest Wi-Fi and UniFi Protect cameras for retail stores and dealerships in Richmond, Rosenberg, Sugar Land and Katy.',
+      'Flush-mounted displays, background music, guest Wi-Fi and cameras for retail stores and showrooms in Richmond, Sugar Land, Katy and Rosenberg.',
     intro:
       "In a showroom the display is part of the design — it should look built in, not bolted on. We mount displays flush and level with no visible wiring, add background music that fills the floor without blasting the counter, and put cameras and guest Wi-Fi on a network you don't have to think about.",
     installs: [
@@ -168,9 +168,9 @@ export const industries: Industry[] = [
     slug: 'digital-signage',
     name: 'Digital signage & menu boards',
     headline: 'Digital Signage and Menu Boards',
-    metaTitle: 'Digital Signage & Digital Menu Board Installation — Richmond, Sugar Land & Katy, TX | Dapper AV',
+    metaTitle: 'Digital Signage & Menu Board Installation | Dapper AV',
     metaDescription:
-      'Digital menu boards, lobby displays and promo screens that you update from your phone and that turn on and off with your hours. Installed and supported across Fort Bend County.',
+      'Digital menu boards and lobby screens you update from your phone, on a schedule. Installed and supported across Fort Bend County.',
     intro:
       "A printed menu board is out of date the day a price changes. Digital signage lets you change prices, run specials, and swap the lunch menu for dinner on a schedule — from your phone, without a ladder. We install the screens, the players and the network, and set it up so your staff can actually run it.",
     installs: [

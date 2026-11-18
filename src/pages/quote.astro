@@ -6,14 +6,14 @@ import markAvatar from '../assets/mark-avatar.jpg';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
 
 const selectCls =
-  'mt-2 w-full rounded-xl border border-tan/70 bg-white/55 px-4 py-3 text-sm text-espresso placeholder:text-cocoa/50 focus:border-gold-deep focus:outline-none focus:ring-2 focus:ring-gold/40';
+  'mt-2 w-full rounded-xl border border-cocoa/60 bg-white/55 px-4 py-3 text-base text-espresso placeholder:text-cocoa/70 focus:border-espresso';
 const inputCls = `${selectCls} invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-700`;
 const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-cocoa';
 ---
 
 <Layout
-  title="Request a Quote — Dapper AV Solutions"
-  description="Get a free site survey and itemized quote for commercial AV, business networks and managed IT — or TV mounting, home theater and smart home — in Richmond, Katy, Sugar Land & Fort Bend County. We respond within one business day."
+  title="Request a Free Site Survey or Quote | Dapper AV"
+  description="Free site survey and itemized quote for commercial AV, networks and managed IT, or home AV, in Fort Bend County. Reply within one business day."
 >
   <section class="mx-auto max-w-6xl px-5 pt-16 pb-16 sm:px-8 md:pt-44">
     <SectionHeading
@@ -21,6 +21,7 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
       title="Tell us about your project"
       lead="Fill this out and we'll get back to you within one business day with next steps — usually a quick call and a free on-site consultation. Prefer to talk now? Call or text us directly."
       align="left"
+      level={1}
     />
   </section>
 
@@ -43,7 +44,7 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
           </div>
           <div>
             <label for="qf-company" class={labelCls}>Business name</label>
-            <input id="qf-company" name="company" type="text" autocomplete="organization" placeholder="If this is for a business" class={inputCls} />
+            <input id="qf-company" name="company" type="text" autocomplete="organization" placeholder="Optional" class={inputCls} />
           </div>
           <div>
             <label for="qf-service" class={labelCls}>Service needed *</label>
@@ -89,9 +90,9 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
           class="absolute -left-[9999px] h-px w-px"
         />
 
-        <p class="mt-6 rounded-xl border border-gold/40 bg-gold/10 px-5 py-4 text-sm leading-relaxed">
+        <p id="qf-tvtip" class="mt-6 rounded-xl border border-gold/40 bg-gold/10 px-5 py-4 text-sm leading-relaxed">
           <strong class="font-semibold">Fastest quote:</strong> text a photo of your wall or room to
-          <a href={site.smsHref} class="link-draw font-semibold text-gold-deep whitespace-nowrap">(972) 824-1303</a>
+          <a href={site.smsHref} class="link-draw font-semibold text-gold-ink whitespace-nowrap">(972) 824-1303</a>
           — for most TV mounts, a photo is all we need.
         </p>
 
@@ -111,10 +112,10 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
 
       <!-- Success state -->
       <div id="qf-success" class="glass hidden rounded-3xl border-gold p-10 text-center" role="status">
-        <p class="font-display text-3xl font-semibold">Request received.</p>
+        <p id="qf-success-title" tabindex="-1" class="font-display text-3xl font-semibold">Request received.</p>
         <p class="mx-auto mt-4 max-w-md leading-relaxed text-cocoa">
           Thanks — your project details are on their way to us. We'll get back to you within one business day.
-          Need us sooner? Call or text <a href={site.phoneHref} class="link-draw font-semibold text-gold-deep">{site.phone}</a>.
+          Need us sooner? Call or text <a href={site.phoneHref} class="link-draw font-semibold text-gold-ink">{site.phone}</a>.
         </p>
       </div>
 
@@ -159,7 +160,7 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
       </div>
 
       <div class="glass rounded-3xl p-8">
-        <h2 class="text-xs font-semibold tracking-[0.22em] text-gold-deep uppercase">What to expect</h2>
+        <h2 class="text-xs font-semibold tracking-[0.22em] text-gold-ink uppercase">What to expect</h2>
         <ul class="mt-5 space-y-4 text-sm leading-relaxed text-cocoa">
           <li class="flex gap-3">
             <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true"></span>
@@ -177,7 +178,7 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
       </div>
 
       <div class="glass rounded-3xl p-8">
-        <h2 class="text-xs font-semibold tracking-[0.22em] text-gold-deep uppercase">Where we work</h2>
+        <h2 class="text-xs font-semibold tracking-[0.22em] text-gold-ink uppercase">Where we work</h2>
         <dl class="mt-5 space-y-4 text-sm">
           {
             serviceAreas.map((a) => (
@@ -204,13 +205,30 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
   const hint = document.getElementById('qf-hint');
   const submitBtn = document.getElementById('qf-submit');
 
-  // Pre-select service from ?service= links on the services page
+  // Pre-select service from ?service= links. Exact match first; the fuzzy fallback skips the
+  // blank placeholder (its '' value is contained in every string, so it used to always win).
   const preselect = new URLSearchParams(location.search).get('service');
   if (preselect) {
     const select = form.elements.service;
-    const match = [...select.options].find((o) => preselect.toLowerCase().includes(o.value.toLowerCase().split(' ')[0].toLowerCase()) || o.value === preselect);
+    const opts = [...select.options].filter((o) => o.value);
+    const p = preselect.toLowerCase();
+    const match = opts.find((o) => o.value === preselect) ?? opts.find((o) => p.includes(o.value.toLowerCase().split(' ')[0]));
     select.value = match ? match.value : 'Other';
   }
+
+  // Business visitors get business wording instead of the homeowner TV-mount tips.
+  const homePlaceholder = form.elements.message.placeholder;
+  const isBusiness = (v) => v === 'Commercial AV' || v === 'Managed IT / Networking (Business)';
+  const setMode = () => {
+    const biz = isBusiness(form.elements.service.value);
+    document.querySelector('main h1').textContent = biz ? 'Book a free site survey' : 'Tell us about your project';
+    document.getElementById('qf-tvtip').hidden = biz;
+    form.elements.message.placeholder = biz
+      ? "What kind of space is it, and what's not working? e.g. 12-table restaurant, 4 TVs on the bar, Wi-Fi drops on Fridays"
+      : homePlaceholder;
+  };
+  setMode();
+  form.elements.service.addEventListener('change', setMode);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -250,6 +268,9 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
       if (!res.ok || !json.success) throw new Error(json.message || `HTTP ${res.status}`);
       form.classList.add('hidden');
       successBox.classList.remove('hidden');
+      document.getElementById('qf-success-title').focus();
+      // GA4 lead event — no personal details, just what was asked for.
+      window.gtag?.('event', 'generate_lead', { service: data.service, is_business: isBusiness(data.service) || !!data.company });
       successBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
     } catch (err) {
       console.error('Quote form submission failed:', err);

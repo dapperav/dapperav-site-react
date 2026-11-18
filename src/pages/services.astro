@@ -58,12 +58,13 @@ const packages = [
 ---
 
 <Layout
-  title="TV Mounting, Home Theater & Smart Home Services — Richmond, Katy & Sugar Land | Dapper AV Solutions"
-  description="AV installation across Fort Bend County with transparent pricing: TV mounting from $150, home theater from $2,000, whole-home audio, smart home automation, Wi-Fi networks, and commercial AV. Free on-site consultations."
+  title="TV Mounting, Home Theater & Smart Home | Dapper AV"
+  description="TV mounting from $150, home theaters, whole-home audio and smart home installs in Richmond, Katy, Sugar Land and Fort Bend County. Free consultations."
   extraSchema={[faqSchema]}
 >
   <section class="mx-auto max-w-6xl px-5 pt-16 pb-20 sm:px-8 md:pt-44">
     <SectionHeading
+      level={1}
       eyebrow="Services"
       title="Professional AV, tailored to your space"
       lead="From simple TV mounting to complete smart-home automation. Honest price ranges below — every project gets a free on-site consultation and an itemized quote before any work begins."
@@ -73,7 +74,7 @@ const packages = [
 
   <!-- ── Residential services ─────────────────────────────────────── -->
   <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
-    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
       <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
       For your home
     </p>
@@ -85,14 +86,14 @@ const packages = [
           data-reveal
         >
           <div>
-            <p class="text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase">
+            <p class="text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase">
               {String(i + 1).padStart(2, '0')}
             </p>
             <h2 class="font-display mt-3 text-2xl font-semibold sm:text-3xl">{s.title}</h2>
             <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
-            <p class="font-display mt-6 text-xl font-semibold text-gold-deep">{s.price}</p>
+            <p class="font-display mt-6 text-xl font-semibold text-gold-ink">{s.price}</p>
             <a
-              href={`/quote?service=${encodeURIComponent(s.title)}`}
+              href={`/quote/?service=${encodeURIComponent(s.title)}`}
               class="btn-sheen mt-7 inline-block rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-roast"
             >
               Quote this service
@@ -113,7 +114,7 @@ const packages = [
 
   <!-- ── Business services ────────────────────────────────────────── -->
   <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
-    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
       <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
       For your business
     </p>
@@ -127,19 +128,19 @@ const packages = [
           <div>
             <h2 class="font-display text-2xl font-semibold sm:text-3xl">{s.title}</h2>
             <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
-            <p class="mt-6 text-sm font-semibold tracking-wide text-gold-deep uppercase">
+            <p class="mt-6 text-sm font-semibold tracking-wide text-gold-ink uppercase">
               Custom-quoted · free site survey
             </p>
             <div class="mt-7 flex flex-wrap gap-3">
               <a
-                href={`/quote?service=${encodeURIComponent(s.title)}`}
+                href={`/quote/?service=${encodeURIComponent(s.title)}`}
                 class="btn-sheen inline-block rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-roast"
               >
                 Request a quote
               </a>
               <a
-                href="/business"
-                class="glass inline-block rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 hover:text-gold-deep"
+                href="/business/"
+                class="glass inline-block rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 hover:text-gold-ink"
               >
                 Business services →
               </a>
@@ -184,7 +185,7 @@ const packages = [
                 </span>
               )}
               <h3 class="font-display text-xl font-semibold">{p.name}</h3>
-              <p class={`font-display mt-2 text-3xl font-semibold ${p.popular ? 'text-gold-deep' : 'text-gold'}`}>
+              <p class={`font-display mt-2 text-3xl font-semibold ${p.popular ? 'text-gold-ink' : 'text-gold'}`}>
                 {p.price}
               </p>
               <ul class={`mt-6 space-y-3 text-sm leading-relaxed ${p.popular ? 'text-cocoa' : 'text-cream/75'}`}>
@@ -196,7 +197,7 @@ const packages = [
                 ))}
               </ul>
               <a
-                href={`/quote?service=${encodeURIComponent(p.name)}`}
+                href={`/quote/?service=${encodeURIComponent(p.name)}`}
                 class={`mt-8 block rounded-full px-5 py-3 text-center text-sm font-semibold transition-colors duration-300 ${
                   p.popular
                     ? 'btn-sheen bg-gold text-espresso hover:bg-gold-deep'

@@ -4,11 +4,15 @@ import { site } from '../data/site';
 interface Props {
   title?: string;
   body?: string;
+  href?: string;
+  cta?: string;
 }
 
 const {
   title = 'Ready to transform your space?',
   body = `Tell us about your project and we'll respond within one business day — or call or text ${site.phone} right now.`,
+  href = '/quote/',
+  cta = 'Request a Quote',
 } = Astro.props;
 ---
 
@@ -22,10 +26,10 @@ const {
     </p>
     <div class="mt-9 flex flex-wrap items-center justify-center gap-4" data-reveal style="--rd: 160ms">
       <a
-        href="/quote"
+        href={href}
         class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
       >
-        Request a Quote
+        {cta}
       </a>
       <a
         href={site.phoneHref}

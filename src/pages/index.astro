@@ -5,7 +5,6 @@ import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import ReviewsSection from '../components/ReviewsSection.astro';
 import BrandStrip from '../components/BrandStrip.astro';
-import heroImage from '../assets/header-bg.jpg';
 import markPortrait from '../assets/mark-portrait.jpg';
 import { site, commitments, services, process } from '../data/site';
 
@@ -17,56 +16,40 @@ const featured = gallery.slice(0, 3);
 ---
 
 <Layout
-  title="Dapper AV Solutions — Commercial AV, Business Networks & Home Theater in Richmond, Sugar Land & Katy, TX"
-  description="Commercial AV, business networks, cameras and managed IT for Fort Bend County businesses — restaurants, offices, retail and signage — plus TV mounting and home theater. Richmond, Rosenberg, Fulshear, Sugar Land, Stafford & Katy. Free site surveys."
+  title="Commercial AV & Business IT in Fort Bend County | Dapper AV"
+  description="Commercial AV, business Wi-Fi, cameras and managed IT for Fort Bend County businesses, plus TV mounting and home theater. Free site surveys."
 >
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="relative flex min-h-[92svh] items-center overflow-hidden bg-roast">
-    <div class="absolute inset-0">
-      <Image
-        src={heroImage}
-        alt=""
-        class="kenburns h-full w-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-        widths={[640, 1024, 1536, 2048]}
-        sizes="100vw"
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-roast/95 via-roast/70 to-roast/30"></div>
-      <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-roast/80 to-transparent"></div>
-    </div>
-
-    <div class="relative mx-auto w-full max-w-6xl px-5 pt-28 pb-20 sm:px-8">
-      <p class="text-xs font-semibold tracking-[0.3em] text-gold uppercase" data-reveal>
+  <section class="pinstripe relative flex min-h-[80svh] items-center overflow-hidden bg-espresso">
+    <div class="relative mx-auto w-full max-w-6xl px-5 pt-28 pb-20 sm:px-8 md:pt-40">
+      <p class="text-xs font-semibold tracking-[0.3em] text-gold uppercase">
         Commercial & residential AV · Fort Bend County
       </p>
       <h1
         class="font-display mt-6 max-w-3xl text-4xl leading-[1.08] font-semibold text-balance text-cream sm:text-6xl lg:text-7xl"
-        data-reveal
-        style="--rd: 120ms"
       >
         Experience the <span class="text-gold">Dapper AV</span> difference
       </h1>
-      <p class="mt-7 max-w-xl text-lg leading-relaxed text-cream/80" data-reveal style="--rd: 240ms">
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-cream/80">
         Commercial AV, business networks, cameras and managed IT for Fort Bend County businesses — and the
         same tailored work at home.
       </p>
-      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--rd: 360ms">
+      <div class="mt-10 flex flex-wrap gap-4">
         <a
-          href="/quote"
+          href="/quote/?service=Commercial%20AV"
           class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
         >
-          Get a Free Quote
+          Request a Free Site Survey
         </a>
         <a
-          href="/business"
+          href="/business/"
           class="glass-dark rounded-full px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:text-gold"
         >
           Business Services
         </a>
       </div>
-      <p class="mt-6 text-sm text-cream/75" data-reveal style="--rd: 480ms">
-        Homeowner? <a href="/services" class="link-draw font-semibold text-gold">See residential services</a>, or
+      <p class="mt-6 text-sm text-cream/75">
+        Homeowner? <a href="/services/" class="link-draw font-semibold text-gold">See residential services</a>, or
         <a href={site.smsHref} class="link-draw font-semibold text-gold">text a photo of your wall</a> for a fast TV-mount quote.
       </p>
     </div>
@@ -96,7 +79,7 @@ const featured = gallery.slice(0, 3);
       {
         commitments.map((c, i) => (
           <div class="glass rounded-3xl p-8" data-reveal style={`--rd: ${i * 90}ms`}>
-            <span class="font-display text-3xl text-gold-deep" aria-hidden="true">
+            <span class="font-display text-3xl text-gold-ink" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
             <h3 class="font-display mt-4 text-xl font-semibold">{c.title}</h3>
@@ -117,7 +100,7 @@ const featured = gallery.slice(0, 3);
       />
       <!-- Business strip -->
       <a
-        href="/business"
+        href="/business/"
         class="pinstripe group mt-16 block rounded-3xl bg-espresso p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-10"
         data-reveal
       >
@@ -145,19 +128,19 @@ const featured = gallery.slice(0, 3);
         {
           industries.map((ind, i) => (
             <a
-              href={`/business/${ind.slug}`}
+              href={`/business/${ind.slug}/`}
               class="glass group flex items-center justify-between gap-3 rounded-2xl px-6 py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               data-reveal
               style={`--rd: ${i * 80}ms`}
             >
               <span class="font-display font-semibold">{ind.name}</span>
-              <span class="text-gold-deep transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+              <span class="text-gold-ink transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
             </a>
           ))
         }
       </div>
 
-      <p class="mt-16 flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+      <p class="mt-16 flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         For your home
       </p>
@@ -165,7 +148,7 @@ const featured = gallery.slice(0, 3);
         {
           residential.map((s, i) => (
             <a
-              href={`/services#${s.id}`}
+              href={`/services/#${s.id}`}
               class="glass group flex flex-col rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               data-reveal
               style={`--rd: ${(i % 3) * 90}ms`}
@@ -173,7 +156,7 @@ const featured = gallery.slice(0, 3);
               <h3 class="font-display text-xl font-semibold">{s.title}</h3>
               <p class="mt-3 grow text-sm leading-relaxed text-cocoa">{s.blurb}</p>
               <div class="mt-6 flex items-center justify-between border-t border-tan/50 pt-5">
-                <span class="text-sm font-semibold text-gold-deep">{s.price}</span>
+                <span class="text-sm font-semibold text-gold-ink">{s.price}</span>
                 <span class="text-sm font-medium text-espresso transition-transform duration-300 group-hover:translate-x-1">
                   Details →
                 </span>
@@ -197,7 +180,7 @@ const featured = gallery.slice(0, 3);
       {
         featured.map((item, i) => (
           <a
-            href="/work"
+            href="/work/"
             class="card-zoom glass group block overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             data-reveal
             style={`--rd: ${i * 100}ms`}
@@ -221,7 +204,7 @@ const featured = gallery.slice(0, 3);
       }
     </div>
     <div class="mt-12 text-center" data-reveal>
-      <a href="/work" class="link-draw font-medium text-gold-deep">See the full gallery →</a>
+      <a href="/work/" class="link-draw font-medium text-gold-ink">See the full gallery →</a>
     </div>
   </section>
 
@@ -264,7 +247,7 @@ const featured = gallery.slice(0, 3);
     </div>
 
     <div>
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-deep uppercase" data-reveal>
+      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         Meet the owner
       </p>

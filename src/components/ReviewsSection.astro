@@ -9,6 +9,7 @@ interface Review {
   when: string;
 }
 
+const { title = 'What neighbors are saying' } = Astro.props as { title?: string };
 const { placeId, rating, total } = reviewsData;
 const reviews = (reviewsData.reviews as Review[]) ?? [];
 const hasReviews = reviews.length > 0;
@@ -21,7 +22,7 @@ const reviewsUrl = placeId ? `https://search.google.com/local/reviews?placeid=${
       <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
         <SectionHeading
           eyebrow="Reviews"
-          title="What neighbors are saying"
+          title={title}
           lead={rating ? `${rating.toFixed(1)} ★ on Google across ${total} review${total === 1 ? '' : 's'} — unedited, straight from the source.` : undefined}
         />
         <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -43,7 +44,7 @@ const reviewsUrl = placeId ? `https://search.google.com/local/reviews?placeid=${
         </div>
         {reviewsUrl && (
           <p class="mt-12 text-center" data-reveal>
-            <a href={reviewsUrl} target="_blank" rel="noopener" class="link-draw font-medium text-gold-deep">
+            <a href={reviewsUrl} target="_blank" rel="noopener" class="link-draw font-medium text-gold-ink">
               {total === 1 ? 'Read our review on Google →' : `Read all ${total} reviews on Google →`}
             </a>
           </p>
