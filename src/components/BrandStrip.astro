@@ -20,20 +20,26 @@ const labelCls = tone === 'dark' ? 'text-cream/70' : 'text-cocoa';
 const brandCls = tone === 'dark' ? 'text-cream/80' : 'text-espresso/80';
 ---
 
-<div class="mx-auto max-w-6xl px-5 py-10 text-center sm:px-8" data-reveal>
+<div class="mx-auto max-w-6xl px-5 py-12 text-center sm:px-8">
   <p class={`text-[0.65rem] font-semibold tracking-[0.3em] uppercase ${labelCls}`}>
     Brands we install &amp; manage
   </p>
-  <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
-    {
-      brands.map((b, i) => (
-        <>
-          <li class={`font-display text-base font-medium whitespace-nowrap sm:text-lg ${brandCls}`}>{b}</li>
-          {i < brands.length - 1 && (
-            <li class="hidden h-1.5 w-1.5 rounded-full bg-gold/60 sm:block" aria-hidden="true" />
-          )}
-        </>
-      ))
-    }
-  </ul>
+  <!-- Slides sideways as you scroll past (scroll-driven); wraps statically where unsupported -->
+  <div class="brand-marquee mt-6">
+    <ul class="brand-track items-center gap-x-10 gap-y-3">
+      {
+        [0, 1, 2].map((pass) =>
+          brands.map((b) => (
+            <li
+              class={`font-display text-xl font-medium whitespace-nowrap sm:text-3xl ${brandCls} ${pass ? 'dup' : ''}`}
+              aria-hidden={pass ? 'true' : undefined}
+            >
+              {b}
+              <span class="ml-10 inline-block h-2 w-2 rounded-full bg-gold/70 align-middle" aria-hidden="true" />
+            </li>
+          ))
+        )
+      }
+    </ul>
+  </div>
 </div>

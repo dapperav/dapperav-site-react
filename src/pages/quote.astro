@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import Record from '../components/Record.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import markAvatar from '../assets/mark-avatar.jpg';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
@@ -15,7 +16,8 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
   title="Request a Free Site Survey or Quote | Dapper AV"
   description="Free site survey and itemized quote for commercial AV, networks and managed IT, or home AV, in Fort Bend County. Reply within one business day."
 >
-  <section class="mx-auto max-w-6xl px-5 pt-16 pb-16 sm:px-8 md:pt-44">
+  <section class="relative mx-auto max-w-6xl px-5 pt-16 pb-16 sm:px-8 md:pt-44">
+    <Record tone="light" class="max-md:hidden right-[-11rem] top-6 w-[30rem] opacity-80" />
     <SectionHeading
       eyebrow="Request a quote"
       title="Tell us about your project"

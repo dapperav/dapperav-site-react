@@ -6,6 +6,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import OwnerPanel from '../../components/OwnerPanel.astro';
+import Record from '../../components/Record.astro';
 import SurveySteps from '../../components/SurveySteps.astro';
 import { industries } from '../../data/industries';
 import { site } from '../../data/site';
@@ -51,8 +52,9 @@ const faqSchema = {
 
 <Layout title={industry.metaTitle} description={industry.metaDescription} extraSchema={[serviceSchema, faqSchema]}>
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="pinstripe bg-espresso">
-    <div class="mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
+  <section class="pinstripe relative overflow-hidden bg-espresso">
+    <Record class="max-md:hidden right-[-13rem] top-1/2 w-[42rem] -translate-y-1/2 lg:right-[-10rem]" />
+    <div class="relative mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
       <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         <a href="/business/" class="link-draw">For business</a> · {industry.name}

@@ -6,6 +6,9 @@ import ReviewsSection from '../components/ReviewsSection.astro';
 import OwnerPanel from '../components/OwnerPanel.astro';
 import SurveySteps from '../components/SurveySteps.astro';
 import BrandStrip from '../components/BrandStrip.astro';
+import Record from '../components/Record.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import IndustryIcon from '../components/IndustryIcon.astro';
 import { site, carePlans } from '../data/site';
 
 const capabilities = [
@@ -57,8 +60,9 @@ const clients = [
   description="An IT department for Fort Bend County businesses: UniFi networks and cameras, cabling, Microsoft 365 and commercial AV. Installed, then managed."
 >
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="pinstripe bg-espresso">
-    <div class="mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
+  <section class="pinstripe relative overflow-hidden bg-espresso">
+    <Record class="max-md:hidden right-[-13rem] top-1/2 w-[42rem] -translate-y-1/2 lg:right-[-10rem]" />
+    <div class="relative mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
       <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         For business
@@ -92,6 +96,8 @@ const clients = [
       </p>
     </div>
   </section>
+
+  <ProofStrip />
 
   <!-- ── Capabilities ─────────────────────────────────────────────── -->
   <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
@@ -199,6 +205,11 @@ const clients = [
                 data-reveal
                 style={`--rd: ${(i % 3) * 90}ms`}
               >
+                {c.slug && (
+                  <span class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-espresso text-gold transition-transform duration-500 group-hover:rotate-[20deg]">
+                    <IndustryIcon slug={c.slug} class="h-6 w-6" />
+                  </span>
+                )}
                 <h3 class="font-display text-lg font-semibold">{c.type}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-cocoa">{c.need}</p>
                 {c.slug && (

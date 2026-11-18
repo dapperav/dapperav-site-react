@@ -136,6 +136,15 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Energy pass (Mark: "looking bland"; impeccable `bolder`, every page): the
+  brand's vinyl record drawn as SVG geometry (`Record.astro`, dark + light tones) in the
+  homepage, /business and industry heroes, both sides of every CtaBand, and as a faint outline
+  on the cream page heroes; it turns with page scroll (`animation-timeline: scroll()`, static
+  where unsupported or with reduced motion) while its light reflection stays put.
+  `ProofStrip.astro` = "Side A" liner notes under the homepage and /business heroes (18+ yrs,
+  5+ yrs IT, live Google rating, city count — real facts only). BrandStrip is now a
+  scroll-driven marquee (never auto-plays). `IndustryIcon.astro` stroke icons on every
+  business card. `main` has overflow-x: clip so records can bleed off the edge.
 - **2026-11-18** — Audit group 2 (Mark's answers: NOT insured yet, NO DPS license, reply promise
   stays "within one business day", no published prices, portrait OK, surveys 30–45 min):
   door access control + intercoms REMOVED from every page (Texas DPS licenses them — re-add only
