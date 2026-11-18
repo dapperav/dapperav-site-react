@@ -267,6 +267,146 @@ html.js [data-reveal].is-inview {
   transform: scale(1.045);
 }
 
+/* ── The record: the brand's vinyl, drawn as geometry ───────────────── */
+.record {
+  position: absolute;
+  aspect-ratio: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+/* content placed after a record paints above it */
+.record ~ :not(.record) {
+  position: relative;
+}
+.record--dark { color: var(--color-gold); }
+.record--light { color: var(--color-gold-ink); }
+.record-disc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.record-disc svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.record--dark .record-disc {
+  filter: drop-shadow(0 28px 48px rgb(20 5 1 / 0.55));
+}
+.record-label {
+  position: absolute;
+  left: 32%;
+  top: 32%;
+  width: 36%;
+  height: 36%;
+  object-fit: contain;
+}
+/* The reflection stays put while the record turns under it */
+.record-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg,
+    transparent 0deg,
+    rgb(247 240 224 / 0.13) 16deg,
+    transparent 38deg,
+    transparent 176deg,
+    rgb(240 176 16 / 0.16) 196deg,
+    transparent 222deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 19%, #000 19.5% 98.5%, transparent 99%);
+  mask: radial-gradient(circle, transparent 0 19%, #000 19.5% 98.5%, transparent 99%);
+}
+@keyframes record-turn {
+  to {
+    transform: rotate(540deg);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  .record-disc {
+    animation: record-turn linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* ── Proof strip: "Side A" liner notes under a hero ─────────────────── */
+.proof-track {
+  display: grid;
+  gap: 0.35rem;
+  padding: 2rem 1.25rem 2.1rem;
+  border-left: 1px solid rgb(240 176 16 / 0.18);
+}
+.proof-track:first-child,
+.proof-track:nth-child(3) {
+  border-left-color: transparent;
+}
+@media (min-width: 1024px) {
+  .proof-track:nth-child(3) {
+    border-left-color: rgb(240 176 16 / 0.18);
+  }
+}
+.proof-side {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: rgb(247 240 224 / 0.6);
+}
+.proof-num {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: clamp(2.6rem, 5vw, 3.75rem);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-gold);
+}
+.proof-star {
+  width: 0.5em;
+  height: 0.5em;
+}
+.proof-label {
+  font-size: 0.9rem;
+  color: rgb(247 240 224 / 0.78);
+}
+
+/* ── Brand marquee: slides as it passes through view (user-driven, never auto-plays) ── */
+.brand-track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.brand-track .dup {
+  display: none;
+}
+@supports (animation-timeline: view()) {
+  .brand-marquee {
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .brand-track {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: max-content;
+    animation: brand-slide linear both;
+    animation-timeline: view();
+  }
+  .brand-track .dup {
+    display: block;
+  }
+}
+@keyframes brand-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33%);
+  }
+}
+
 /* ── Reduced motion: everything lands instantly ───────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -288,5 +428,21 @@ html.js [data-reveal].is-inview {
   }
   .sleeve .sleeve-cover {
     transition: none;
+  }
+  .record-disc {
+    animation: none !important;
+  }
+  .brand-marquee {
+    -webkit-mask: none;
+    mask: none;
+  }
+  .brand-track {
+    animation: none !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: auto !important;
+  }
+  .brand-track .dup {
+    display: none !important;
   }
 }

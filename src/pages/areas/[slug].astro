@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Record from '../../components/Record.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { areas } from '../../data/areas';
 import { industries } from '../../data/industries';
+import IndustryIcon from '../../components/IndustryIcon.astro';
 import { site, services } from '../../data/site';
 
 export function getStaticPaths() {
@@ -30,7 +32,8 @@ const serviceSchema = {
   description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys. Call ${site.phone}.`}
   extraSchema={[serviceSchema]}
 >
-  <section class="mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-44">
+  <section class="relative mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-44">
+    <Record tone="light" class="max-md:hidden right-[-11rem] top-6 w-[30rem] opacity-80" />
     <SectionHeading eyebrow={`Serving ${area.county}`} title={area.headline} align="left" level={1} />
     <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cocoa">
       {area.blurb}
@@ -64,7 +67,10 @@ const serviceSchema = {
               data-reveal
               style={`--rd: ${(i % 3) * 90}ms`}
             >
-              <h3 class="font-display text-lg font-semibold">{ind.name}</h3>
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-espresso text-gold transition-transform duration-500 group-hover:rotate-[20deg]">
+                <IndustryIcon slug={ind.slug} class="h-6 w-6" />
+              </span>
+              <h3 class="font-display mt-5 text-lg font-semibold">{ind.name}</h3>
               <p class="mt-2 grow text-sm leading-relaxed text-cocoa">{ind.installs.slice(0, 2).join(' · ')}</p>
               <span class="mt-5 text-sm font-medium text-gold-ink transition-transform duration-300 group-hover:translate-x-1">
                 Learn more →
