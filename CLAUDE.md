@@ -136,6 +136,20 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — HOMEPAGE REDESIGN (phase 1) with the `design-taste-frontend` skill after Mark
+  called the record/video-wall passes "weak". Mark picked direction **Type and nothing else** (seed
+  1900889380, brand palette + fonts kept; notes in `.taste-skill/notes.md`, sheet in
+  `.taste-skill/direction.json`) and **credited trade photos**. New: `Header.astro` (plain bar that
+  takes each section's ground/ink via `data-field`/`data-ink`; old Nav + mobile glass dock DELETED),
+  `Footer.astro` (name first, picture credits), homepage rebuilt as colour-by-chapter set pieces:
+  giant "Everything with a cable." hero, poster-scale "What I install" list on a gold field, the
+  Brazos band (scroll drift), stepped "how a job goes" with the LIVE THING (pick a kind of space →
+  what the survey checks + what drives the price → book), tidy-rack vs messy-closet pair, owner
+  facts + portrait + Richmond pictures, two real installs, Kenneth's review as a letter (P.S.
+  Micaela), inverted "One number. Every cable." close. Styles in `src/styles/redesign.css` (5 type
+  steps, flat pill buttons, square media, no rules/shadows/gradients/eyebrows). Found pictures live
+  in `src/assets/found/` with `credits.json` — they show the world around the business and must
+  NEVER be presented as Dapper AV jobs. Inspector: 0 FAIL (only warning: no honest video exists).
 - **2026-11-18** — Hero focus changed after Mark's feedback: the giant record "makes it look like
   a music store" and big "18+" read as an adult-only store. Dark heroes (home, /business,
   industry pages) now show `VideoWall.astro`: a drawn, tilted 3×2 wall of screens (menu board,
@@ -220,39 +234,44 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-1. **GSC:** Mark clicks **Verify** in Search Console + submits `sitemap-index.xml` (re-submit
+1. **Redesign phase 2:** carry the homepage system (Header/Footer done) to /business, the six
+   /business/* pages, /services, /work, /quote and the city pages — they still use the old glass
+   cards, eyebrows, pill nav-era spacing, VideoWall and ProofStrip. Run the taste-skill gate
+   (`lint.mjs` + `inspect.mjs` against `npx astro preview`) on each. Mark's own install photos
+   would beat every found picture: ask him for phone shots of racks, TV walls, cameras.
+2. **GSC:** Mark clicks **Verify** in Search Console + submits `sitemap-index.xml` (re-submit
    after the 2026-11-18 trailing-slash fix; URL Inspection → Request indexing on the 4 new
    `/business/*` pages). The GSC UI blocks Claude's browser tools.
-2. **Commercial licensing (ask Mark):** /business advertises door access control. Texas Occ. Code
+3. **Commercial licensing (ask Mark):** /business advertises door access control. Texas Occ. Code
    ch. 1702 (DPS Private Security) licenses access-control/alarm companies; CCTV coverage was not
    confirmed. If licensed, put the license # on the site (wins trust). Also get a COI ready —
    GCs and property managers ask for one. A dedicated business-cameras page is held until this
    is answered.
-3. **Commercial lead generation (Mark's time):** monthly TDLR TABS search (public registry of
+4. **Commercial lead generation (Mark's time):** monthly TDLR TABS search (public registry of
    Texas commercial builds ≥$50k) for Fort Bend projects → contact owner/GC early; pitch
    electricians and GCs as their low-voltage sub; Fort Bend Chamber; county/city vendor
    registration. Letters + one-pager are DONE (see changelog) — Mark sends 5–10/week.
-4. **Commercial proof:** real photos + a written case study for every commercial job (the dealership is the only real commercial photo; Mark doesn't want it featured). Update GBP categories/services/posts toward commercial (needs Mark's login).
-5. **GA4 key events (Mark, 2 min):** GA4 Admin → Events → mark `generate_lead`, `phone_click`,
+5. **Commercial proof:** real photos + a written case study for every commercial job (the dealership is the only real commercial photo; Mark doesn't want it featured). Update GBP categories/services/posts toward commercial (needs Mark's login).
+6. **GA4 key events (Mark, 2 min):** GA4 Admin → Events → mark `generate_lead`, `phone_click`,
    `text_click` as key events (they appear after the first real one fires). Then check DebugView.
-6. **Bing Webmaster Tools (Mark):** import from Search Console + submit sitemap — Bing barely
+7. **Bing Webmaster Tools (Mark):** import from Search Console + submit sitemap — Bing barely
    indexes the site, and ChatGPT/Copilot search through Bing.
-7. **Insurance + licensing (Mark):** get general liability insurance (GCs and property managers
+8. **Insurance + licensing (Mark):** get general liability insurance (GCs and property managers
    ask for a COI first), then add "Insured · COI on request" to the business pages. DPS license
    if door access/intercom work is wanted back on the site. Residential smart locks / video
    doorbells are still listed under Smart Home — check whether DPS licensing applies there too.
    Audit group 3 (Mark's logins): BBB / Thumbtack / Houzz / Fort Bend Chamber listings.
-8. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
+9. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
    tell "no traffic" from "traffic not converting"; send a test through the quote form.
-9. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
+10. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
    Claude can drive the browser once signed in.
-10. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
+11. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
    Keep NAP identical: Dapper AV Solutions, (972) 824-1303, https://dapperav.com, contact@.
-11. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
-12. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
+12. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
+13. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
    consider a vanity username later (counts as a rename — ask Mark first).
-13. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
+14. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
    for **LSA**.
-14. **Photos:** add real install photos (AI placeholders DAV-004..006 were REMOVED 2026-11-18)
+15. **Photos:** add real install photos (AI placeholders DAV-004..006 were REMOVED 2026-11-18)
    (whole-home audio, UniFi racks). First testimonial/case study when a customer agrees.
-15. **First care-plan client** — the MSP engine needs a lighthouse customer.
+16. **First care-plan client** — the MSP engine needs a lighthouse customer.

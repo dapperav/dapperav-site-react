@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './redesign.css';
 
 @theme {
   /* ── Palette drawn from the Dapper AV logo ─────────────────────── */
