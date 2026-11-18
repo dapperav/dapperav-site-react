@@ -3,11 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import ReviewsSection from '../components/ReviewsSection.astro';
+import OwnerPanel from '../components/OwnerPanel.astro';
+import SurveySteps from '../components/SurveySteps.astro';
 import BrandStrip from '../components/BrandStrip.astro';
 import { site, carePlans } from '../data/site';
 
 const capabilities = [
   {
+    slug: 'networks-wifi',
     title: 'Business networks, built on UniFi',
     body: 'Enterprise-grade UniFi networking designed for your floor plan — switches, access points, and structured cabling installed clean and documented properly.',
     features: ['UniFi network design & installation', 'Professional AP placement & tuning', 'Structured cabling & rack builds'],
@@ -28,9 +31,10 @@ const capabilities = [
     features: ['M365 tenant setup & configuration', 'User provisioning & offboarding', 'Email, licensing & security baseline'],
   },
   {
-    title: 'Access control & entry',
-    body: 'Door access, entry intercoms, and visitor management — who gets in, when, and a record of it. Integrated with your cameras and network.',
-    features: ['Door access control systems', 'Entry intercoms & video doorbells', 'Schedules, credentials & audit trails'],
+    title: 'Structured cabling & low voltage',
+    body: 'Data drops, racks and the low-voltage rough-in for new builds and remodels — run clean, labeled and documented, as your sub or direct.',
+    features: ['Cat6 data drops & patch panels', 'Rack builds & cable management', 'Rough-in at framing, trim-out after paint'],
+    slug: 'structured-cabling',
   },
   {
     title: 'Commercial AV',
@@ -41,16 +45,16 @@ const capabilities = [
 
 const clients = [
   { type: 'Restaurants & bars', need: 'TV walls, music, POS-safe networks, cameras', slug: 'restaurants-bars' },
-  { type: 'Offices', need: 'Conference rooms, M365, secure Wi-Fi, door access', slug: 'offices-conference-rooms' },
+  { type: 'Offices', need: 'Conference rooms, M365, secure Wi-Fi, cabling', slug: 'offices-conference-rooms' },
   { type: 'Retail & showrooms', need: 'Signage, background audio, guest Wi-Fi, surveillance', slug: 'retail-showrooms' },
   { type: 'Digital signage', need: 'Menu boards and lobby screens you update from your phone', slug: 'digital-signage' },
-  { type: 'Warehouses & shops', need: 'Wide-area Wi-Fi, cameras, access control, paging' },
+  { type: 'Warehouses & shops', need: 'Wide-area Wi-Fi, cameras, cabling, paging' },
 ];
 ---
 
 <Layout
   title="Managed IT, Networks & Commercial AV | Dapper AV"
-  description="An IT department for Fort Bend County businesses: UniFi networks and cameras, Microsoft 365, door access and commercial AV. Installed, then managed."
+  description="An IT department for Fort Bend County businesses: UniFi networks and cameras, cabling, Microsoft 365 and commercial AV. Installed, then managed."
 >
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
   <section class="pinstripe bg-espresso">
@@ -65,7 +69,7 @@ const clients = [
         An IT department for businesses that don't have one
       </h1>
       <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75">
-        Networks, cameras, Microsoft 365, door access, and AV — designed, installed, and then actually
+        Networks, cameras, cabling, Microsoft 365 and AV — designed, installed, and then actually
         managed. One local point of contact with IT-director experience, instead of four vendors
         pointing at each other.
       </p>
@@ -110,6 +114,11 @@ const clients = [
                 </li>
               ))}
             </ul>
+            {c.slug && (
+              <a href={`/business/${c.slug}/`} class="link-draw mt-5 self-start text-sm font-medium text-gold-ink">
+                Learn more →
+              </a>
+            )}
           </div>
         ))
       }
@@ -202,12 +211,18 @@ const clients = [
           })
         }
       </div>
-      <p class="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-cocoa" data-reveal>
-        This is the same work I do as an IT director — networks, security, Microsoft 365, and the systems
-        that keep a business running — brought to businesses that need the expertise without the head count.
-      </p>
     </div>
   </section>
+
+  <OwnerPanel
+    reasons={[
+      { title: 'One vendor for AV and IT', body: 'TVs, sound, Wi-Fi, cameras and Microsoft 365 from one person, so nobody points at another vendor when something breaks.' },
+      { title: 'Owner-operated', body: 'No call center and no subcontractor roulette. You get my cell number.' },
+      { title: 'Month to month', body: 'Care plans have no long contract. They earn their keep or you cancel.' },
+    ]}
+  />
+
+  <SurveySteps />
 
   <ReviewsSection title="What customers are saying" />
 

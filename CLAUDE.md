@@ -136,6 +136,17 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Audit group 2 (Mark's answers: NOT insured yet, NO DPS license, reply promise
+  stays "within one business day", no published prices, portrait OK, surveys 30–45 min):
+  door access control + intercoms REMOVED from every page (Texas DPS licenses them — re-add only
+  once licensed); homepage H1 "One local contact for everything with a cable."; new
+  `OwnerPanel` (portrait + real credentials) and `SurveySteps` (3 next steps + "what drives the
+  price") on /business and every industry page; each industry has `costQuestion`/`costDrivers`
+  and a cost FAQ answered with drivers, never numbers; new pages /business/networks-wifi/ and
+  /business/structured-cabling/ (low voltage, written for GCs); the 6 city pages are now
+  business-first (`blurb` = business copy, `homeBlurb` = the old residential copy, business
+  cards → /business/*, residential as pills). Insurance is NOT mentioned anywhere — don't add
+  "insured" or "COI" until Mark confirms coverage.
 - **2026-11-18** — Site audit (5 lenses: SEO, AI search, CRO/copy, a11y/perf, design) → group 1
   fixes shipped: quote-form `?service=` preselect was broken on EVERY link (blank placeholder
   matched everything) → fixed + business mode ("Book a free site survey", no TV-mount tip);
@@ -209,10 +220,11 @@ https://dapperav.com, same description/tagline.
    `text_click` as key events (they appear after the first real one fires). Then check DebugView.
 6. **Bing Webmaster Tools (Mark):** import from Search Console + submit sitemap — Bing barely
    indexes the site, and ChatGPT/Copilot search through Bing.
-7. **Audit group 2 (needs Mark's facts):** insurance/COI, DPS license, response-time promise,
-   price ranges for care plans/projects, homepage H1 wording, business-first rewrite of the 6
-   area pages, new /business/structured-cabling and /business/networks-wifi pages, owner
-   photo + credentials on business pages. Group 3: BBB / Thumbtack / Houzz / chamber listings.
+7. **Insurance + licensing (Mark):** get general liability insurance (GCs and property managers
+   ask for a COI first), then add "Insured · COI on request" to the business pages. DPS license
+   if door access/intercom work is wanted back on the site. Residential smart locks / video
+   doorbells are still listed under Smart Home — check whether DPS licensing applies there too.
+   Audit group 3 (Mark's logins): BBB / Thumbtack / Houzz / Fort Bend Chamber listings.
 8. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
    tell "no traffic" from "traffic not converting"; send a test through the quote form.
 9. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).

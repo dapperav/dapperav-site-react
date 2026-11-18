@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import markPortrait from '../assets/mark-portrait.jpg';
+
+interface Props {
+  title?: string;
+  reasons?: { title: string; body: string }[];
+}
+
+const { title = 'An installer who also runs IT', reasons = [] } = Astro.props;
+---
+
+<!-- Owner + credentials: real facts only (18+ yrs installing, 5+ yrs managed IT, IT director by day) -->
+<section class="bg-parchment">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-[2fr_3fr] lg:gap-20">
+    <div class="relative mx-auto w-full max-w-sm" data-reveal>
+      <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] border-2 border-gold" aria-hidden="true"></div>
+      <Image
+        src={markPortrait}
+        alt="Mark Immler, owner of Dapper AV Solutions"
+        class="relative aspect-[4/5] w-full rounded-[2rem] object-cover"
+        widths={[400, 640, 800]}
+        sizes="(min-width: 1024px) 24rem, 90vw"
+      />
+    </div>
+
+    <div>
+      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
+        <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
+        Who you'll work with
+      </p>
+      <h2 class="font-display mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl" data-reveal style="--rd: 80ms">
+        {title}
+      </h2>
+      <p class="mt-6 leading-relaxed text-cocoa" data-reveal style="--rd: 160ms">
+        I'm Mark Immler. I've installed AV for more than 18 years, run managed IT for more than 5, and my day job is
+        IT director. The person who surveys your site is the person who installs it, and the one you call afterward.
+      </p>
+      {
+        reasons.length > 0 && (
+          <ul class="mt-8 space-y-5">
+            {reasons.map((r, i) => (
+              <li class="flex gap-4" data-reveal style={`--rd: ${200 + i * 80}ms`}>
+                <span class="mt-2 block h-2 w-2 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                <span>
+                  <strong class="font-display text-lg font-semibold">{r.title}</strong>
+                  <span class="mt-1 block text-sm leading-relaxed text-cocoa">{r.body}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <p class="font-display mt-8 text-lg font-semibold" data-reveal>
+        Mark Immler
+        <span class="mt-0.5 block text-xs font-normal tracking-[0.22em] text-cocoa uppercase">Owner · Dapper AV Solutions</span>
+      </p>
+    </div>
+  </div>
+</section>

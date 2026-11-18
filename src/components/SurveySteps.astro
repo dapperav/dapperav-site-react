@@ -1,0 +1,61 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  /** What moves the price on this kind of job (no dollar figures — Mark's call) */
+  drivers?: string[];
+}
+
+const { drivers = [] } = Astro.props;
+
+const steps = [
+  { title: 'Call, text or send the form', body: 'I reply within one business day.' },
+  { title: 'Free site survey', body: 'A 30–45 minute walk-through of your space. I note every screen, drop and camera angle.' },
+  {
+    title: 'Itemized proposal',
+    body: 'Equipment options at honest prices. Installs are scheduled before open, after close or on weekends.',
+  },
+];
+---
+
+<section class="grooves mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+  <div class={`grid gap-14 ${drivers.length ? 'lg:grid-cols-2' : ''}`}>
+    <div>
+      <SectionHeading eyebrow="What happens next" title="From first call to install" align="left" />
+      <ol class="mt-10 space-y-6">
+        {
+          steps.map((s, i) => (
+            <li class="flex gap-5" data-reveal style={`--rd: ${i * 90}ms`}>
+              <span class="font-display text-3xl font-semibold text-gold-ink" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span>
+                <strong class="font-display text-lg font-semibold">{s.title}</strong>
+                <span class="mt-1 block text-sm leading-relaxed text-cocoa">{s.body}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    {
+      drivers.length > 0 && (
+        <div>
+          <SectionHeading eyebrow="What it costs" title="What drives the price" align="left" />
+          <ul class="glass mt-10 space-y-3 rounded-3xl p-8">
+            {drivers.map((d) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed">
+                <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                {d}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-5 text-sm leading-relaxed text-cocoa" data-reveal>
+            Every proposal is itemized after the free survey, so you see what each piece costs before anything is
+            installed.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>
