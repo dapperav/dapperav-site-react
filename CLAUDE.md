@@ -20,7 +20,7 @@ thin. The site now leads with business; residential stays as the secondary/small
 1. **Residential volume** — goal: 3 TV mounts/day @ ~$300 (beats his IT-director salary;
    wants full-time eventually; day job is flexible enough to install during hours).
 2. **MSP care plans** — recurring light-touch income. Tiers on /business: Network Care,
-   Network + Camera Care (★ popular), Full Stack Care. Custom-quoted, month-to-month.
+   Network + Camera Care (badged "Recommended" — not "Most popular" until there are clients), Full Stack Care. Custom-quoted, month-to-month.
 
 Trip fee beyond 50 miles (not a refusal). Customers historically word-of-mouth.
 Content strength: good BEHIND the camera → install before/afters for GBP/FB/IG (not YouTube).
@@ -136,6 +136,20 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Site audit (5 lenses: SEO, AI search, CRO/copy, a11y/perf, design) → group 1
+  fixes shipped: quote-form `?service=` preselect was broken on EVERY link (blank placeholder
+  matched everything) → fixed + business mode ("Book a free site survey", no TV-mount tip);
+  GA4 events `generate_lead` (quote success), `phone_click` / `text_click` / `email_click`
+  (delegated listener in Layout); AI placeholder gallery images DAV-004..006 + the AI homepage
+  hero removed (hero is now espresso pinstripe, files deleted); Google reviews shown on /business
+  and industry pages; reveals only hide content when `html.js` is set and page-hero headings
+  don't animate; text contrast token `gold-ink` (#865b00) replaces gold-deep as TEXT on light
+  backgrounds; espresso focus ring (gold on dark); quote fields 16px (no iOS zoom);
+  scroll-padding-bottom for the mobile dock; H1 on every page (`SectionHeading level={1}`);
+  every internal link has its trailing slash (no 301 hops); titles ≤60 chars; schema address
+  (city only) + hasMap + numeric minPrice; `public/llms.txt`; nav highlights For Business on
+  sub-pages; desktop quote button stays visible (parks bottom-right when scrolled); commercial
+  CTAs all say "Request a Free Site Survey"; care-plan badge "Recommended" (no clients yet).
 - **2026-11-18** — Removed the dealership photo from /business/retail-showrooms and from the
   one-pager (Mark doesn't like it). It is still in the /work gallery. No industry page has a
   photo now; add one via the `photo` field only when there's a real commercial photo Mark likes.
@@ -190,20 +204,26 @@ https://dapperav.com, same description/tagline.
    Texas commercial builds ≥$50k) for Fort Bend projects → contact owner/GC early; pitch
    electricians and GCs as their low-voltage sub; Fort Bend Chamber; county/city vendor
    registration. Letters + one-pager are DONE (see changelog) — Mark sends 5–10/week.
-4. **Commercial proof:** real photos + a written case study for every commercial job (the
-   dealership is the only real commercial photo; sports-bar and boardroom gallery entries are
-   AI placeholders). Update GBP categories/services/posts toward commercial (needs Mark's login).
-5. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
+4. **Commercial proof:** real photos + a written case study for every commercial job (the dealership is the only real commercial photo; Mark doesn't want it featured). Update GBP categories/services/posts toward commercial (needs Mark's login).
+5. **GA4 key events (Mark, 2 min):** GA4 Admin → Events → mark `generate_lead`, `phone_click`,
+   `text_click` as key events (they appear after the first real one fires). Then check DebugView.
+6. **Bing Webmaster Tools (Mark):** import from Search Console + submit sitemap — Bing barely
+   indexes the site, and ChatGPT/Copilot search through Bing.
+7. **Audit group 2 (needs Mark's facts):** insurance/COI, DPS license, response-time promise,
+   price ranges for care plans/projects, homepage H1 wording, business-first rewrite of the 6
+   area pages, new /business/structured-cabling and /business/networks-wifi pages, owner
+   photo + credentials on business pages. Group 3: BBB / Thumbtack / Houzz / chamber listings.
+8. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
    tell "no traffic" from "traffic not converting"; send a test through the quote form.
-6. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
+9. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
    Claude can drive the browser once signed in.
-7. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
+10. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
    Keep NAP identical: Dapper AV Solutions, (972) 824-1303, https://dapperav.com, contact@.
-8. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
-9. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
+11. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
+12. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
    consider a vanity username later (counts as a rename — ask Mark first).
-10. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
+13. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
    for **LSA**.
-11. **Photos:** replace AI-placeholder gallery entries DAV-004..006 with real install photos
+14. **Photos:** add real install photos (AI placeholders DAV-004..006 were REMOVED 2026-11-18)
    (whole-home audio, UniFi racks). First testimonial/case study when a customer agrees.
-12. **First care-plan client** — the MSP engine needs a lighthouse customer.
+15. **First care-plan client** — the MSP engine needs a lighthouse customer.

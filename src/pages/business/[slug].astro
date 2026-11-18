@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import ReviewsSection from '../../components/ReviewsSection.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import { industries } from '../../data/industries';
 import { site } from '../../data/site';
@@ -13,7 +14,7 @@ export function getStaticPaths() {
 
 const { industry } = Astro.props;
 const others = industries.filter((i) => i.slug !== industry.slug);
-const quoteHref = `/quote?service=${encodeURIComponent('Commercial AV')}`;
+const quoteHref = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
 
 const serviceSchema = {
   '@context': 'https://schema.org',
@@ -39,21 +40,19 @@ const faqSchema = {
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
   <section class="pinstripe bg-espresso">
     <div class="mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase" data-reveal>
+      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-        <a href="/business" class="link-draw">For business</a> · {industry.name}
+        <a href="/business/" class="link-draw">For business</a> · {industry.name}
       </p>
       <h1
         class="font-display mt-6 max-w-3xl text-4xl leading-[1.1] font-semibold text-balance text-cream sm:text-5xl lg:text-6xl"
-        data-reveal
-        style="--rd: 100ms"
       >
         {industry.headline}
       </h1>
-      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75" data-reveal style="--rd: 200ms">
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75">
         {industry.intro}
       </p>
-      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--rd: 300ms">
+      <div class="mt-10 flex flex-wrap gap-4">
         <a
           href={quoteHref}
           class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
@@ -67,7 +66,7 @@ const faqSchema = {
           Call {site.phone}
         </a>
       </div>
-      <p class="mt-6 text-sm text-cream/55" data-reveal style="--rd: 400ms">
+      <p class="mt-6 text-sm text-cream/55">
         Serving businesses in Richmond, Rosenberg, Fulshear, Sugar Land, Stafford & Katy. Custom-quoted after a
         free site survey.
       </p>
@@ -115,7 +114,7 @@ const faqSchema = {
         {
           industry.reasons.map((r, i) => (
             <div class="glass rounded-3xl p-8" data-reveal style={`--rd: ${i * 90}ms`}>
-              <span class="font-display text-3xl text-gold-deep" aria-hidden="true">
+              <span class="font-display text-3xl text-gold-ink" aria-hidden="true">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 class="font-display mt-4 text-xl font-semibold">{r.title}</h3>
@@ -135,22 +134,26 @@ const faqSchema = {
 
   <!-- ── Other business pages ─────────────────────────────────────── -->
   <section class="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
-    <h2 class="text-center text-xs font-semibold tracking-[0.22em] text-gold-deep uppercase">More for business</h2>
+    <h2 class="text-center text-xs font-semibold tracking-[0.22em] text-gold-ink uppercase">More for business</h2>
     <div class="mt-6 flex flex-wrap justify-center gap-3">
       {
         others.map((o) => (
-          <a href={`/business/${o.slug}`} class="glass rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-deep">
+          <a href={`/business/${o.slug}/`} class="glass rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-ink">
             {o.name}
           </a>
         ))
       }
-      <a href="/business" class="glass rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-deep">
+      <a href="/business/" class="glass rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-ink">
         Managed IT & care plans
       </a>
     </div>
   </section>
 
+  <ReviewsSection title="What customers are saying" />
+
   <CtaBand
+    href={quoteHref}
+    cta="Request a Free Site Survey"
     title="Let's look at your space"
     body={`A free site survey tells us both exactly what your business needs — no obligation. Call or text ${site.phone}, or send the details.`}
   />

@@ -276,13 +276,13 @@ export const serviceAreas = [
 
 export const quoteFormOptions = {
   services: [
+    'Commercial AV',
+    'Managed IT / Networking (Business)',
     'TV Mounting & Installation',
     'Home Theater',
     'Whole Home Audio',
     'Smart Home Automation',
     'Network & Wi-Fi',
-    'Commercial AV',
-    'Managed IT / Networking (Business)',
     'Consultation Only',
     'Other',
   ],
