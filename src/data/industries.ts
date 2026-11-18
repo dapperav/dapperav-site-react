@@ -5,7 +5,6 @@
  * Keep every claim honest: capabilities only — no invented clients, projects or stats.
  */
 import type { ImageMetadata } from 'astro';
-import dealershipDisplay from '../assets/gallery/dealership-display.jpg';
 
 export interface Industry {
   slug: string;
@@ -127,11 +126,6 @@ export const industries: Industry[] = [
   },
   {
     slug: 'retail-showrooms',
-    photo: {
-      image: dealershipDisplay,
-      alt: 'Flat-screen display mounted in a recessed dark feature wall with wood paneling in a car dealership showroom',
-      caption: 'Our work: a recessed showroom display mounted flush in a custom feature wall for an auto dealership.',
-    },
     name: 'Retail & showrooms',
     headline: 'Retail and Showroom Displays, Audio and Cameras',
     metaTitle: 'Retail & Showroom Displays, Background Audio & Cameras — Fort Bend County, TX | Dapper AV',
