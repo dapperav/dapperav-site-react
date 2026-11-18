@@ -136,6 +136,14 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Hero focus changed after Mark's feedback: the giant record "makes it look like
+  a music store" and big "18+" read as an adult-only store. Dark heroes (home, /business,
+  industry pages) now show `VideoWall.astro`: a drawn, tilted 3×2 wall of screens (menu board,
+  game score, camera grid, Wi-Fi coverage map, video call, OPEN sign) that powers on once at
+  load, never loops. Desktop ≥1280px only beside the text; on the homepage it stacks under the
+  buttons below that. Records removed from heroes and CtaBand; `Record.astro` is now just faint
+  outline rings behind cream page headers. Proof strip reads "18 yrs" / "5 yrs" with no "A1"
+  tags — NEVER write "18+" big on this site.
 - **2026-11-18** — Energy pass (Mark: "looking bland"; impeccable `bolder`, every page): the
   brand's vinyl record drawn as SVG geometry (`Record.astro`, dark + light tones) in the
   homepage, /business and industry heroes, both sides of every CtaBand, and as a faint outline

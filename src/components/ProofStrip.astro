@@ -1,6 +1,6 @@
 ---
 /**
- * "Side A" liner notes: real facts only (CLAUDE.md + the synced Google rating).
+ * At-a-glance facts: real facts only (CLAUDE.md + the synced Google rating).
  * Never add a number here that Mark hasn't confirmed.
  */
 import reviews from '../data/reviews.json';
@@ -9,8 +9,9 @@ import { areas } from '../data/areas';
 const { rating, total } = reviews as { rating?: number; total?: number };
 
 const tracks = [
-  { n: '18+', label: 'years installing AV' },
-  { n: '5+', label: 'years running managed IT' },
+  // Written as '18 yrs', never '18+' — big '18+' reads as an age gate
+  { n: '18 yrs', label: 'installing AV, and counting' },
+  { n: '5 yrs', label: 'running managed IT' },
   ...(rating && total ? [{ n: rating.toFixed(1), label: `on Google, ${total} review${total === 1 ? '' : 's'}`, star: true }] : []),
   { n: String(areas.length), label: 'Fort Bend–area cities served' },
 ];
@@ -19,9 +20,8 @@ const tracks = [
 <section class="proof-strip bg-roast text-cream" aria-label="Dapper AV at a glance">
   <ol class="mx-auto grid max-w-6xl grid-cols-2 px-5 sm:px-8 lg:grid-cols-4">
     {
-      tracks.map((t, i) => (
+      tracks.map((t) => (
         <li class="proof-track">
-          <span class="proof-side">A{i + 1}</span>
           <span class="font-display proof-num">
             {t.n}
             {t.star && (

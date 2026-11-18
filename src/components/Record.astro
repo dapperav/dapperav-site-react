@@ -1,65 +1,27 @@
 ---
 /**
- * The brand's vinyl record, drawn as geometry (no photo). Purely decorative.
- * Turns as the page scrolls (CSS scroll-driven animation; static where unsupported
- * or with reduced motion). The light reflection does NOT turn, which is what sells it.
- * Position it with `class` (absolute utilities) inside a `relative` parent.
+ * Faint concentric groove rings — a quiet nod to the vinyl in the logo, used behind
+ * cream page headers. Decorative only. Position it with `class` inside a `relative` parent.
+ * (The big dark record was retired 2026-11-18: it read as a music store.)
  */
-import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
-
 interface Props {
-  tone?: 'dark' | 'light';
   class?: string;
 }
 
-const { tone = 'dark', class: cls = '' } = Astro.props;
-const uid = `rec-${Math.random().toString(36).slice(2, 8)}`;
-// grooves between the label (r≈110) and the lead-in edge (r≈292)
+const { class: cls = '' } = Astro.props;
 const grooves = Array.from({ length: 30 }, (_, i) => 118 + i * 6);
 const trackGaps = [166, 214, 256];
 ---
 
-<div class={`record record--${tone} ${cls}`} aria-hidden="true">
-  <div class="record-disc">
-    <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-      {
-        tone === 'dark' && (
-          <>
-            <defs>
-              <radialGradient id={uid} cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#2b0c03" />
-                <stop offset="70%" stop-color="#1f0802" />
-                <stop offset="100%" stop-color="#140501" />
-              </radialGradient>
-            </defs>
-            <circle cx="300" cy="300" r="299" fill={`url(#${uid})`} />
-          </>
-        )
-      }
-      {
-        grooves.map((r, i) => (
-          <circle
-            cx="300"
-            cy="300"
-            r={r}
-            fill="none"
-            stroke="currentColor"
-            stroke-opacity={tone === 'dark' ? 0.07 + (i % 3) * 0.03 : 0.1 + (i % 3) * 0.04}
-            stroke-width="1"
-          />
-        ))
-      }
-      {
-        trackGaps.map((r) => (
-          <circle cx="300" cy="300" r={r} fill="none" stroke="currentColor" stroke-opacity={tone === 'dark' ? 0.22 : 0.3} stroke-width="2.5" />
-        ))
-      }
-      <circle cx="300" cy="300" r="296" fill="none" stroke="currentColor" stroke-opacity={tone === 'dark' ? 0.35 : 0.4} stroke-width="2" />
-      {tone === 'dark' && <circle cx="300" cy="300" r="112" fill="#f0b010" />}
-      {tone === 'light' && <circle cx="300" cy="300" r="112" fill="none" stroke="currentColor" stroke-opacity="0.45" stroke-width="2" />}
-    </svg>
-    {tone === 'dark' && <Image src={logo} alt="" width={240} height={240} class="record-label" loading="lazy" />}
-  </div>
-  {tone === 'dark' && <div class="record-sheen" />}
+<div class={`record ${cls}`} aria-hidden="true">
+  <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+    {
+      grooves.map((r, i) => (
+        <circle cx="300" cy="300" r={r} fill="none" stroke="currentColor" stroke-opacity={0.1 + (i % 3) * 0.04} stroke-width="1" />
+      ))
+    }
+    {trackGaps.map((r) => <circle cx="300" cy="300" r={r} fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="2.5" />)}
+    <circle cx="300" cy="300" r="296" fill="none" stroke="currentColor" stroke-opacity="0.4" stroke-width="2" />
+    <circle cx="300" cy="300" r="112" fill="none" stroke="currentColor" stroke-opacity="0.45" stroke-width="2" />
+  </svg>
 </div>

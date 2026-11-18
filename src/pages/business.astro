@@ -6,7 +6,7 @@ import ReviewsSection from '../components/ReviewsSection.astro';
 import OwnerPanel from '../components/OwnerPanel.astro';
 import SurveySteps from '../components/SurveySteps.astro';
 import BrandStrip from '../components/BrandStrip.astro';
-import Record from '../components/Record.astro';
+import VideoWall from '../components/VideoWall.astro';
 import ProofStrip from '../components/ProofStrip.astro';
 import IndustryIcon from '../components/IndustryIcon.astro';
 import { site, carePlans } from '../data/site';
@@ -61,18 +61,18 @@ const clients = [
 >
   <!-- ── Hero ─────────────────────────────────────────────────────── -->
   <section class="pinstripe relative overflow-hidden bg-espresso">
-    <Record class="max-md:hidden right-[-13rem] top-1/2 w-[42rem] -translate-y-1/2 lg:right-[-10rem]" />
+    <VideoWall class="max-xl:hidden right-8 top-1/2 w-[36rem] -translate-y-1/2" />
     <div class="relative mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-48 md:pb-24">
       <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
         <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
         For business
       </p>
       <h1
-        class="font-display mt-6 max-w-3xl text-4xl leading-[1.1] font-semibold text-balance text-cream sm:text-5xl lg:text-6xl"
+        class="font-display mt-6 max-w-3xl text-4xl xl:max-w-xl leading-[1.1] font-semibold text-balance text-cream sm:text-5xl lg:text-6xl"
       >
         An IT department for businesses that don't have one
       </h1>
-      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cream/75">
+      <p class="mt-7 max-w-2xl text-lg xl:max-w-xl leading-relaxed text-cream/75">
         Networks, cameras, cabling, Microsoft 365 and AV — designed, installed, and then actually
         managed. One local point of contact with IT-director experience, instead of four vendors
         pointing at each other.
