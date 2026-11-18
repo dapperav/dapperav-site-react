@@ -141,6 +141,9 @@ https://dapperav.com, same description/tagline.
   voicemail versions in the Claude doc "Dapper AV — Commercial Outreach Letters"
   (https://claude.ai/artifact/VSswnR4YCJzpKonjFpFVTV). Printable one-pager at
   `brand-assets/leave-behind/` (HTML source + letter-size PDF; re-render command in the HTML).
+  QR code in the footer → `https://dapperav.com/business/?utm_source=leave-behind&utm_medium=print`
+  (scans tracked in GA4 under source "leave-behind"). It's an inline SVG made with the `qrcode`
+  npm package outside the repo — regenerate the same way if the URL changes, and scan-test it.
 - **2026-11-18** — Commercial-first rework (branch `feat/commercial-focus`): homepage title, hero
   copy and CTAs lead with business; business block + 4 industry cards above the residential grid;
   4 new `/business/{slug}` landing pages (Service + FAQPage schema; retail uses the real dealership
