@@ -1,13 +1,19 @@
 ---
+/** Home services — same system as the homepage (taste-skill, "Type and nothing else"). */
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import Record from '../components/Record.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import CtaBand from '../components/CtaBand.astro';
+import fireplaceMount from '../assets/gallery/fireplace-mount.jpg';
+import hifiRack from '../assets/gallery/hifi-rack.jpg';
+import PictureBand from '../components/PictureBand.astro';
+import FortBendPair from '../components/FortBendPair.astro';
+import PageHero from '../components/PageHero.astro';
+import BigList from '../components/BigList.astro';
 import FaqSection from '../components/FaqSection.astro';
-import { services, faqs } from '../data/site';
+import CtaBand from '../components/CtaBand.astro';
+import { site, services, faqs } from '../data/site';
 
 const residential = services.filter((s) => s.category === 'residential');
-const commercial = services.filter((s) => s.category === 'commercial');
+const homeQuote = (s: string) => `/quote/?service=${encodeURIComponent(s)}`;
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -21,38 +27,30 @@ const faqSchema = {
 
 const packages = [
   {
-    name: 'Basic TV Mount',
+    name: 'Basic TV mount',
     price: 'From $150',
-    popular: false,
-    features: [
-      'Single TV wall mounting (up to 65")',
-      'Basic cable management',
-      'Level & secure installation',
-      'Post-install testing',
-    ],
+    features: ['Single TV wall mount, up to 65"', 'Basic cable management', 'Level and secure install', 'Tested before I leave'],
   },
   {
-    name: 'Premium TV Package',
+    name: 'Premium TV package',
     price: 'From $250',
-    popular: true,
     features: [
-      'TV wall mounting (any size)',
-      'In-wall cable concealment',
-      'Soundbar mounting & setup',
-      'Universal remote programming',
-      'Power outlet relocation (if needed)',
+      'Any size TV',
+      'Cables hidden inside the wall',
+      'Soundbar mounted and set up',
+      'Universal remote programmed',
+      'Outlet relocated if needed',
     ],
   },
   {
-    name: 'Smart Home Bundle',
+    name: 'Smart home bundle',
     price: 'From $500',
-    popular: false,
     features: [
-      'Premium TV mounting package',
-      'Smart home hub setup',
-      'Voice control integration',
-      'Smart lighting setup (3 switches)',
-      'Streaming device optimization',
+      'The premium TV package',
+      'Smart home hub set up',
+      'Voice control',
+      'Smart lighting, three switches',
+      'Streaming devices tuned',
     ],
   },
 ];
@@ -63,166 +61,90 @@ const packages = [
   description="TV mounting from $150, home theaters, whole-home audio and smart home installs in Richmond, Katy, Sugar Land and Fort Bend County. Free consultations."
   extraSchema={[faqSchema]}
 >
-  <section class="relative mx-auto max-w-6xl px-5 pt-16 pb-20 sm:px-8 md:pt-20">
-    <Record class="max-md:hidden right-[-11rem] top-6 w-[30rem] opacity-80" />
-    <SectionHeading
-      level={1}
-      eyebrow="Services"
-      title="Professional AV, tailored to your space"
-      lead="From simple TV mounting to complete smart-home automation. Honest price ranges below — every project gets a free on-site consultation and an itemized quote before any work begins."
-      align="left"
-    />
-  </section>
+  <PageHero
+    field="parchment"
+    lines={['Your TV, mounted', 'like it belongs.']}
+    support="TV mounting, home theaters, whole-home audio and home Wi-Fi in Fort Bend County. Honest starting prices, and an itemized quote before any work begins."
+    primary={{ href: homeQuote('TV Mounting & Installation'), label: 'Get a free quote' }}
+    secondary={{ href: site.smsHref, label: 'Or text a photo of your wall' }}
+  />
 
-  <!-- ── Residential services ─────────────────────────────────────── -->
-  <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
-    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
-      <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-      For your home
-    </p>
-    {
-      residential.map((s, i) => (
-        <article
-          id={s.id}
-          class="glass grid gap-8 rounded-3xl p-8 sm:p-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14"
-          data-reveal
-        >
-          <div>
-            <p class="text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase">
-              {String(i + 1).padStart(2, '0')}
-            </p>
-            <h2 class="font-display mt-3 text-2xl font-semibold sm:text-3xl">{s.title}</h2>
-            <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
-            <p class="font-display mt-6 text-xl font-semibold text-gold-ink">{s.price}</p>
-            <a
-              href={`/quote/?service=${encodeURIComponent(s.title)}`}
-              class="btn-sheen mt-7 inline-block rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-roast"
-            >
-              Quote this service
-            </a>
-          </div>
-          <ul class="grid content-start gap-3 sm:grid-cols-2">
-            {s.features.map((f) => (
-              <li class="flex items-start gap-3 text-sm leading-relaxed">
-                <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
-                {f}
-              </li>
-            ))}
-          </ul>
-        </article>
-      ))
-    }
-  </section>
+  <BigList
+    heading="For homes"
+    items={residential.map((s) => ({
+      id: s.id,
+      title: s.title,
+      desc: `${s.price}. ${s.blurb}`,
+      href: homeQuote(s.title),
+    }))}
+  />
 
-  <!-- ── Business services ────────────────────────────────────────── -->
-  <section class="mx-auto max-w-6xl space-y-6 px-5 pb-24 sm:px-8">
-    <p class="flex items-center gap-3 pb-2 text-xs font-semibold tracking-[0.28em] text-gold-ink uppercase" data-reveal>
-      <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-      For your business
-    </p>
-    {
-      commercial.map((s) => (
-        <article
-          id={s.id}
-          class="glass grid gap-8 rounded-3xl p-8 sm:p-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14"
-          data-reveal
-        >
-          <div>
-            <h2 class="font-display text-2xl font-semibold sm:text-3xl">{s.title}</h2>
-            <p class="mt-4 leading-relaxed text-cocoa">{s.blurb}</p>
-            <p class="mt-6 text-sm font-semibold tracking-wide text-gold-ink uppercase">
-              Custom-quoted · free site survey
-            </p>
-            <div class="mt-7 flex flex-wrap gap-3">
-              <a
-                href={`/quote/?service=${encodeURIComponent(s.title)}`}
-                class="btn-sheen inline-block rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:bg-roast"
-              >
-                Request a quote
-              </a>
-              <a
-                href="/business/"
-                class="glass inline-block rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 hover:text-gold-ink"
-              >
-                Business services →
-              </a>
-            </div>
-          </div>
-          <ul class="grid content-start gap-3 sm:grid-cols-2">
-            {s.features.map((f) => (
-              <li class="flex items-start gap-3 text-sm leading-relaxed">
-                <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
-                {f}
-              </li>
-            ))}
-          </ul>
-        </article>
-      ))
-    }
-  </section>
-
-  <!-- ── Popular packages ─────────────────────────────────────────── -->
-  <section class="pinstripe bg-espresso">
-    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
-      <SectionHeading
-        eyebrow="Popular packages"
-        title="Straightforward bundles, straightforward prices"
-        tone="dark"
-      />
-      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+  <section class="chapter bg-espresso text-cream" data-field="#3b1005" data-ink="#f7f0e0">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Straight bundles, straight prices.</h2>
+      <div class="plans">
         {
-          packages.map((p, i) => (
-            <div
-              class={`relative rounded-3xl p-8 ${
-                p.popular
-                  ? 'border-2 border-gold bg-cream text-espresso shadow-xl'
-                  : 'glass-dark text-cream'
-              }`}
-              data-reveal
-              style={`--rd: ${i * 100}ms`}
-            >
-              {p.popular && (
-                <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gold px-4 py-1 text-xs font-bold tracking-widest text-espresso uppercase">
-                  Most popular
-                </span>
-              )}
-              <h3 class="font-display text-xl font-semibold">{p.name}</h3>
-              <p class={`font-display mt-2 text-3xl font-semibold ${p.popular ? 'text-gold-ink' : 'text-gold'}`}>
-                {p.price}
-              </p>
-              <ul class={`mt-6 space-y-3 text-sm leading-relaxed ${p.popular ? 'text-cocoa' : 'text-cream/75'}`}>
+          packages.map((p) => (
+            <div data-reveal>
+              <h3 class="font-display plan-name">{p.name}</h3>
+              <p class="font-display plan-price">{p.price}</p>
+              <ul class="plan-list">
                 {p.features.map((f) => (
-                  <li class="flex items-start gap-3">
-                    <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
-                    {f}
-                  </li>
+                  <li>{f}</li>
                 ))}
               </ul>
-              <a
-                href={`/quote/?service=${encodeURIComponent(p.name)}`}
-                class={`mt-8 block rounded-full px-5 py-3 text-center text-sm font-semibold transition-colors duration-300 ${
-                  p.popular
-                    ? 'btn-sheen bg-gold text-espresso hover:bg-gold-deep'
-                    : 'glass-dark text-cream hover:text-gold'
-                }`}
-              >
-                Start with this package
+              <a href={homeQuote(p.name)} class="btn-flat mt-8">
+                Start with this one
               </a>
             </div>
           ))
         }
       </div>
-      <p class="mt-10 text-center text-sm text-cream/60" data-reveal>
-        Every project is different — final pricing depends on your space, equipment, and scope. That's why the
-        consultation is free.
+      <p class="plans-note">
+        Running a business? <a href="/business/" class="link-plain text-cream">See commercial AV and managed IT</a>
       </p>
+    </div>
+  </section>
+
+  <section class="chapter bg-cream text-espresso work" data-field="#f7f0e0" data-ink="#3b1005">
+    <h2 class="sr-only">Recent home installs</h2>
+    <article class="work-block">
+      <div class="work-visual work-visual--tall">
+        <Image src={fireplaceMount} alt="TV and soundbar mounted above a white mantel and tiled fireplace with no visible wires" widths={[700, 1100, 1500]} sizes="(min-width: 1024px) 58vw, 100vw" class="work-img" style="object-position: top" />
+      </div>
+      <div class="work-cluster" data-reveal>
+        <h3 class="font-display work-title">Over-mantel TV and soundbar</h3>
+        <p class="work-desc">Dead center over the fireplace, soundbar aligned under it, every wire inside the wall.</p>
+      </div>
+    </article>
+    <article class="work-block work-block--second">
+      <div class="work-visual">
+        <Image src={hifiRack} alt="Walnut cabinet with a Pioneer turntable, reel-to-reel tape deck and a modern Yamaha receiver" widths={[700, 1100, 1500]} sizes="(min-width: 1024px) 58vw, 100vw" class="work-img" />
+      </div>
+      <div class="work-cluster" data-reveal>
+        <h3 class="font-display work-title">Vintage hi-fi, wired for today</h3>
+        <p class="work-desc">A Pioneer turntable and reel-to-reel running through a modern Yamaha receiver. <a href="/work/">More installs</a></p>
+      </div>
+    </article>
+  </section>
+
+  <PictureBand />
+
+  <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Local, and stays local.</h2>
+      <p class="intro-lead mt-6">Richmond is home base. Every home I work in is in Fort Bend County or just next to it.</p>
+      <FortBendPair />
     </div>
   </section>
 
   <FaqSection />
 
   <CtaBand
-    title="Not sure which service you need?"
-    body="Describe what you're trying to do and we'll recommend the right approach — no jargon, no upsell."
+    line1="Text a photo"
+    line2="of your wall."
+    support="For most TV mounts, a photo is all I need to quote it. Or book a free consultation."
+    href={homeQuote('TV Mounting & Installation')}
+    cta="Get a free quote"
   />
 </Layout>

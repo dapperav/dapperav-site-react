@@ -1,40 +1,34 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+/** Questions as a typographic list: question at lead size, answer beneath. No cards, no rules. */
 import { faqs as siteFaqs } from '../data/site';
 
 interface Props {
   items?: { q: string; a: string }[];
-  lead?: string;
+  heading?: string;
+  field?: 'cream' | 'parchment';
 }
 
-const {
-  items: faqs = siteFaqs,
-  lead = 'The things Fort Bend County homeowners ask us most — answered the same way we quote: honestly.',
-} = Astro.props;
+const { items: faqs = siteFaqs, heading = 'Straight answers.', field = 'cream' } = Astro.props;
+const bg = field === 'cream' ? '#f7f0e0' : '#efe3cb';
 ---
 
-<section class="grooves mx-auto max-w-3xl px-5 py-24 sm:px-8 sm:py-28">
-  <SectionHeading
-    eyebrow="Questions"
-    title="Straight answers, up front"
-    lead={lead}
-  />
-  <div class="mt-12 space-y-4">
-    {
-      faqs.map((f, i) => (
-        <details class="glass group rounded-3xl px-7 py-5" data-reveal style={`--rd: ${i * 60}ms`}>
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-semibold [&::-webkit-details-marker]:hidden">
-            {f.q}
-            <span
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-xl leading-none text-gold-ink transition-transform duration-300 group-open:rotate-45"
-              aria-hidden="true"
-            >
-              +
-            </span>
-          </summary>
-          <p class="mt-4 leading-relaxed text-cocoa">{f.a}</p>
-        </details>
-      ))
-    }
+<section class={`chapter text-espresso ${field === 'cream' ? 'bg-cream' : 'bg-parchment'}`} data-field={bg} data-ink="#3b1005">
+  <div class="page-wrap section-pad faq">
+    <h2 class="font-display h-section">{heading}</h2>
+    <div class="faq-list">
+      {
+        faqs.map((f) => (
+          <details class="faq-item" data-reveal>
+            <summary>
+              <span>{f.q}</span>
+              <svg viewBox="0 0 24 24" class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
   </div>
 </section>

@@ -1,0 +1,43 @@
+---
+/** One real Google review set like a letter (Google's text, unedited); the other review as a P.S. */
+import reviewsData from '../data/reviews.json';
+
+interface Props {
+  field?: 'cream' | 'parchment';
+}
+const { field = 'parchment' } = Astro.props;
+const bg = field === 'cream' ? '#f7f0e0' : '#efe3cb';
+
+type Review = { author: string; rating: number; text: string; when: string };
+const reviews = (reviewsData.reviews as Review[]) ?? [];
+const letter = reviews.find((r) => r.author.startsWith('Kenneth')) ?? reviews[0];
+const ps = reviews.find((r) => r !== letter);
+const sentences = letter ? (letter.text.match(/[^.!?]+[.!?]+/g) ?? [letter.text]) : [];
+const opening = sentences[0]?.trim() ?? '';
+const rest = sentences.slice(1).map((s) => s.trim());
+const half = Math.ceil(rest.length / 2);
+const restParas = [rest.slice(0, half).join(' '), rest.slice(half).join(' ')].filter(Boolean);
+---
+
+{
+  letter && (
+    <section class={`chapter text-espresso ${field === 'cream' ? 'bg-cream' : 'bg-parchment'}`} data-field={bg} data-ink="#3b1005">
+      <div class="page-wrap section-pad letter">
+        <h2 class="sr-only">A review from Google</h2>
+        <p class="font-display letter-open">{opening}</p>
+        {restParas.map((p) => (
+          <p class="letter-body">{p}</p>
+        ))}
+        <p class="letter-sign">
+          {letter.author}
+          <span>Google review{letter.when ? `, ${letter.when}` : ''}</span>
+        </p>
+        {ps && (
+          <p class="letter-ps">
+            P.S. From a business customer, {ps.author}: “{ps.text}”
+          </p>
+        )}
+      </div>
+    </section>
+  )
+}

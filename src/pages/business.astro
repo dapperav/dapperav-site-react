@@ -1,57 +1,47 @@
 ---
+/** Business hub — same system as the homepage (taste-skill, "Type and nothing else"). */
 import Layout from '../layouts/Layout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import CtaBand from '../components/CtaBand.astro';
-import ReviewsSection from '../components/ReviewsSection.astro';
+import ClosetPair from '../components/ClosetPair.astro';
+import PictureBand from '../components/PictureBand.astro';
+import PageHero from '../components/PageHero.astro';
+import BigList from '../components/BigList.astro';
 import OwnerPanel from '../components/OwnerPanel.astro';
-import SurveySteps from '../components/SurveySteps.astro';
-import BrandStrip from '../components/BrandStrip.astro';
-import VideoWall from '../components/VideoWall.astro';
-import ProofStrip from '../components/ProofStrip.astro';
-import IndustryIcon from '../components/IndustryIcon.astro';
+import Staircase from '../components/Staircase.astro';
+import Letter from '../components/Letter.astro';
+import CtaBand from '../components/CtaBand.astro';
 import { site, carePlans } from '../data/site';
+import { industries } from '../data/industries';
+
+const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`;
 
 const capabilities = [
   {
+    title: 'Business networks on UniFi',
+    body: 'Switches, access points and cabling designed for your floor plan, installed clean and documented properly.',
     slug: 'networks-wifi',
-    title: 'Business networks, built on UniFi',
-    body: 'Enterprise-grade UniFi networking designed for your floor plan — switches, access points, and structured cabling installed clean and documented properly.',
-    features: ['UniFi network design & installation', 'Professional AP placement & tuning', 'Structured cabling & rack builds'],
   },
   {
-    title: 'Camera & surveillance systems',
-    body: 'UniFi Protect camera systems you actually own — no monthly per-camera cloud fees. Clear coverage, local storage, and remote viewing from your phone.',
-    features: ['UniFi Protect cameras & NVRs', 'Coverage design & installation', 'Remote viewing & retention setup'],
+    title: 'Cameras you own',
+    body: 'UniFi Protect cameras with local recording and phone viewing. No monthly per-camera cloud fees.',
   },
   {
-    title: 'Security, segmentation & Wi-Fi',
-    body: 'Firewall policies that make sense for your business, VLANs that keep point-of-sale, cameras, and guests separated, and dedicated Wi-Fi for staff and customers.',
-    features: ['Firewall policy configuration', 'VLAN design & segmentation', 'Dedicated staff & guest Wi-Fi'],
+    title: 'Security and separate networks',
+    body: 'Firewall rules and VLANs that keep the POS, cameras, staff and guests apart, with dedicated Wi-Fi for each.',
   },
   {
     title: 'Microsoft 365',
-    body: 'Tenant setup, migrations, and day-to-day user management — accounts, licenses, email, and security done right from the start.',
-    features: ['M365 tenant setup & configuration', 'User provisioning & offboarding', 'Email, licensing & security baseline'],
+    body: 'Tenant setup, migrations and day-to-day users, licenses and email, done right from the start.',
   },
   {
-    title: 'Structured cabling & low voltage',
-    body: 'Data drops, racks and the low-voltage rough-in for new builds and remodels — run clean, labeled and documented, as your sub or direct.',
-    features: ['Cat6 data drops & patch panels', 'Rack builds & cable management', 'Rough-in at framing, trim-out after paint'],
+    title: 'Cabling and low voltage',
+    body: 'Data drops, racks and the rough-in for new builds and remodels, as your sub or direct.',
     slug: 'structured-cabling',
   },
   {
     title: 'Commercial AV',
-    body: 'Video walls, digital signage, conference rooms, and restaurant or bar entertainment — designed, installed, and serviced by the same person who runs your network.',
-    features: ['Conference room AV & video walls', 'Digital signage & TV matrices', 'Restaurant & bar entertainment'],
+    body: 'Video walls, signage, conference rooms and bar TVs, serviced by the same person who runs your network.',
+    slug: 'restaurants-bars',
   },
-];
-
-const clients = [
-  { type: 'Restaurants & bars', need: 'TV walls, music, POS-safe networks, cameras', slug: 'restaurants-bars' },
-  { type: 'Offices', need: 'Conference rooms, M365, secure Wi-Fi, cabling', slug: 'offices-conference-rooms' },
-  { type: 'Retail & showrooms', need: 'Signage, background audio, guest Wi-Fi, surveillance', slug: 'retail-showrooms' },
-  { type: 'Digital signage', need: 'Menu boards and lobby screens you update from your phone', slug: 'digital-signage' },
-  { type: 'Warehouses & shops', need: 'Wide-area Wi-Fi, cameras, cabling, paging' },
 ];
 ---
 
@@ -59,168 +49,63 @@ const clients = [
   title="Managed IT, Networks & Commercial AV | Dapper AV"
   description="An IT department for Fort Bend County businesses: UniFi networks and cameras, cabling, Microsoft 365 and commercial AV. Installed, then managed."
 >
-  <!-- ── Hero ─────────────────────────────────────────────────────── -->
-  <section class="pinstripe relative overflow-hidden bg-espresso">
-    <VideoWall class="max-xl:hidden right-8 top-1/2 w-[36rem] -translate-y-1/2" />
-    <div class="relative mx-auto max-w-6xl px-5 pt-20 pb-20 sm:px-8 md:pt-24 md:pb-24">
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.28em] text-gold uppercase">
-        <span class="block h-2 w-2 rounded-full bg-gold" aria-hidden="true"></span>
-        For business
-      </p>
-      <h1
-        class="font-display mt-6 max-w-3xl text-4xl xl:max-w-xl leading-[1.1] font-semibold text-balance text-cream sm:text-5xl lg:text-6xl"
-      >
-        An IT department for businesses that don't have one
-      </h1>
-      <p class="mt-7 max-w-2xl text-lg xl:max-w-xl leading-relaxed text-cream/75">
-        Networks, cameras, cabling, Microsoft 365 and AV — designed, installed, and then actually
-        managed. One local point of contact with IT-director experience, instead of four vendors
-        pointing at each other.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-4">
-        <a
-          href="/quote/?service=Managed%20IT%20%2F%20Networking%20(Business)"
-          class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
-        >
-          Request a Free Site Survey
-        </a>
-        <a
-          href={site.phoneHref}
-          class="glass-dark rounded-full px-8 py-4 text-base font-medium text-cream transition-colors duration-300 hover:text-gold"
-        >
-          Call {site.phone}
-        </a>
-      </div>
-      <p class="mt-6 text-sm text-cream/55">
-        Business work is custom-quoted — every site survey is free.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    lines={['An IT department', 'for your business.']}
+    support="Networks, cameras, cabling, Microsoft 365 and AV for businesses without an IT person. Designed, installed and then actually managed."
+    primary={{ href: managedSurvey, label: 'Book a free site survey' }}
+    secondary={{ href: site.phoneHref, label: `Call ${site.phone}` }}
+  />
 
-  <ProofStrip />
+  <BigList
+    heading="Who I work with"
+    items={industries.map((i) => ({ title: i.name, desc: i.installs.slice(0, 2).join('. ') + '.', href: `/business/${i.slug}/` }))}
+  />
 
-  <!-- ── Capabilities ─────────────────────────────────────────────── -->
-  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
-    <SectionHeading
-      eyebrow="What we handle"
-      title="Install once. Managed always."
-      lead="Everything below is available as a one-time project or under an ongoing management plan — monitoring, updates, user changes, and a person who picks up the phone."
-    />
-    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        capabilities.map((c, i) => (
-          <div class="glass flex flex-col rounded-3xl p-8" data-reveal style={`--rd: ${(i % 3) * 90}ms`}>
-            <h3 class="font-display text-xl font-semibold">{c.title}</h3>
-            <p class="mt-3 grow text-sm leading-relaxed text-cocoa">{c.body}</p>
-            <ul class="mt-6 space-y-2.5 border-t border-tan/50 pt-5">
-              {c.features.map((f) => (
-                <li class="flex items-start gap-3 text-sm leading-relaxed">
-                  <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            {c.slug && (
-              <a href={`/business/${c.slug}/`} class="link-draw mt-5 self-start text-sm font-medium text-gold-ink">
-                Learn more →
-              </a>
-            )}
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <!-- ── Care plans ───────────────────────────────────────────────── -->
-  <section class="pinstripe bg-espresso">
-    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
-      <SectionHeading
-        eyebrow="Care plans"
-        title="Pick a plan. Forget about IT."
-        lead="Monthly plans that keep your network, cameras, and Microsoft 365 healthy — with one local person who answers. Every plan is custom-quoted to your site after a free survey."
-        tone="dark"
-      />
-      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Install once. Managed always.</h2>
+      <p class="intro-lead mt-6">Everything here is available as a one-time project or under a monthly plan.</p>
+      <div class="spec-grid">
         {
-          carePlans.map((plan, i) => (
-            <div
-              class={`relative rounded-3xl p-8 ${
-                plan.popular ? 'border-2 border-gold bg-cream text-espresso shadow-xl' : 'glass-dark text-cream'
-              }`}
-              data-reveal
-              style={`--rd: ${i * 100}ms`}
-            >
-              {plan.popular && (
-                <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gold px-4 py-1 text-xs font-bold tracking-widest text-espresso uppercase">
-                  Recommended
-                </span>
-              )}
-              <h3 class="font-display text-xl font-semibold">{plan.name}</h3>
-              <p class={`mt-1 text-sm italic ${plan.popular ? 'text-cocoa' : 'text-cream/60'}`}>{plan.tagline}</p>
-              <ul class={`mt-6 space-y-3 text-sm leading-relaxed ${plan.popular ? 'text-cocoa' : 'text-cream/75'}`}>
-                {plan.features.map((f) => (
-                  <li class="flex items-start gap-3">
-                    <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p class={`mt-6 text-xs font-semibold tracking-wide uppercase ${plan.popular ? 'text-gold-ink' : 'text-gold'}`}>
-                Custom-quoted · free site survey
-              </p>
-              <a
-                href={`/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`}
-                class={`mt-6 block rounded-full px-5 py-3 text-center text-sm font-semibold transition-colors duration-300 ${
-                  plan.popular
-                    ? 'btn-sheen bg-gold text-espresso hover:bg-gold-deep'
-                    : 'glass-dark text-cream hover:text-gold'
-                }`}
-              >
-                Request a free site survey
-              </a>
+          capabilities.map((c) => (
+            <div data-reveal>
+              <h3 class="font-display">{c.title}</h3>
+              <p>{c.body}</p>
+              {c.slug && <a href={`/business/${c.slug}/`}>More on this</a>}
             </div>
           ))
         }
       </div>
-      <p class="mt-10 text-center text-sm text-cream/60" data-reveal>
-        Month to month, no long contracts — plans earn their keep or you cancel.
-      </p>
     </div>
   </section>
 
-  <BrandStrip />
+  <ClosetPair />
 
-  <!-- ── Who it's for ─────────────────────────────────────────────── -->
-  <section class="bg-parchment">
-    <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
-      <SectionHeading eyebrow="Who we work with" title="Built for businesses without an IT guy" />
-      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  <section class="chapter bg-espresso text-cream" data-field="#3b1005" data-ink="#f7f0e0" id="care-plans">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Pick a plan. Forget about IT.</h2>
+      <p class="intro-lead mt-6">Monthly plans with one local person who answers. Custom-quoted to your site after a free survey.</p>
+      <div class="plans">
         {
-          clients.map((c, i) => {
-            const Tag = c.slug ? 'a' : 'div';
-            return (
-              <Tag
-                href={c.slug ? `/business/${c.slug}/` : undefined}
-                class={`glass group rounded-3xl p-7 ${c.slug ? 'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl' : ''}`}
-                data-reveal
-                style={`--rd: ${(i % 3) * 90}ms`}
-              >
-                {c.slug && (
-                  <span class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-espresso text-gold transition-transform duration-500 group-hover:rotate-[20deg]">
-                    <IndustryIcon slug={c.slug} class="h-6 w-6" />
-                  </span>
-                )}
-                <h3 class="font-display text-lg font-semibold">{c.type}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-cocoa">{c.need}</p>
-                {c.slug && (
-                  <span class="mt-4 inline-block text-sm font-medium text-gold-ink transition-transform duration-300 group-hover:translate-x-1">
-                    Learn more →
-                  </span>
-                )}
-              </Tag>
-            );
-          })
+          carePlans.map((plan) => (
+            <div data-reveal>
+              <h3 class={`font-display plan-name ${plan.popular ? 'plan-mark' : ''}`}>{plan.name}</h3>
+              <p class="plan-tag">
+                {plan.tagline}
+                {plan.popular ? ' Recommended for most sites.' : ''}
+              </p>
+              <ul class="plan-list">
+                {plan.features.map((f) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+            </div>
+          ))
         }
+      </div>
+      <div class="plans-note">
+        <p>Month to month, no long contracts. The plan earns its keep or you cancel.</p>
+        <a href={managedSurvey} class="btn-flat">Start with a site survey</a>
       </div>
     </div>
   </section>
@@ -233,14 +118,11 @@ const clients = [
     ]}
   />
 
-  <SurveySteps />
+  <PictureBand />
 
-  <ReviewsSection title="What customers are saying" />
+  <Staircase />
 
-  <CtaBand
-    href="/quote/?service=Managed%20IT%20%2F%20Networking%20(Business)"
-    cta="Request a Free Site Survey"
-    title="Let's look at your building"
-    body={`A free site survey tells us both exactly what your business needs — no prices pulled out of thin air, no obligation. Call or text ${site.phone}, or send the details.`}
-  />
+  <Letter field="cream" />
+
+  <CtaBand line1="Let's look at" line2="your building." href={managedSurvey} />
 </Layout>

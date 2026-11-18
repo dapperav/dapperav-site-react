@@ -1,11 +1,14 @@
 ---
+/** City pages — business first, same system as the homepage (taste-skill, "Type and nothing else"). */
 import Layout from '../../layouts/Layout.astro';
-import Record from '../../components/Record.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
+import OwnerPanel from '../../components/OwnerPanel.astro';
+import PictureBand from '../../components/PictureBand.astro';
+import FortBendPair from '../../components/FortBendPair.astro';
+import PageHero from '../../components/PageHero.astro';
+import BigList from '../../components/BigList.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { areas } from '../../data/areas';
 import { industries } from '../../data/industries';
-import IndustryIcon from '../../components/IndustryIcon.astro';
 import { site, services } from '../../data/site';
 
 export function getStaticPaths() {
@@ -32,84 +35,49 @@ const serviceSchema = {
   description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys. Call ${site.phone}.`}
   extraSchema={[serviceSchema]}
 >
-  <section class="relative mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-20">
-    <Record class="max-md:hidden right-[-11rem] top-6 w-[30rem] opacity-80" />
-    <SectionHeading eyebrow={`Serving ${area.county}`} title={area.headline} align="left" level={1} />
-    <p class="mt-7 max-w-2xl text-lg leading-relaxed text-cocoa">
-      {area.blurb}
-    </p>
-    <div class="mt-9 flex flex-wrap gap-4">
-      <a
-        href={surveyHref}
-        class="btn-sheen rounded-full bg-gold px-8 py-4 text-base font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
-      >
-        Request a Free Site Survey
-      </a>
-      <a
-        href={site.phoneHref}
-        class="glass rounded-full px-8 py-4 text-base font-medium transition-colors duration-300 hover:text-gold-ink"
-      >
-        Call {site.phone}
-      </a>
+  <PageHero
+    lines={['AV and IT', `in ${area.city}.`]}
+    support={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by one local person.`}
+    primary={{ href: surveyHref, label: 'Book a free site survey' }}
+    secondary={{ href: site.phoneHref, label: `Call ${site.phone}` }}
+  />
+
+  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
+    <div class="page-wrap section-pad">
+      <p class="intro-lead">{area.blurb}</p>
+      <FortBendPair />
     </div>
   </section>
 
-  <!-- ── For businesses ───────────────────────────────────────────── -->
-  <section class="bg-parchment">
-    <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
-      <SectionHeading eyebrow="For businesses" title={`Business AV & IT in ${area.city}`} />
-      <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <BigList
+    heading={`Businesses in ${area.city}`}
+    items={industries.map((i) => ({ title: i.name, desc: i.installs.slice(0, 2).join('. ') + '.', href: `/business/${i.slug}/` }))}
+  />
+
+  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Homes in {area.city}, too.</h2>
+      <p class="intro-lead mt-8">{area.homeBlurb}</p>
+      <p class="mt-6 text-[1.125rem] leading-relaxed">
+        Neighborhoods I'm regularly in: <strong>{area.neighborhoods.join(', ')}</strong>, and everywhere in between.
+      </p>
+      <ul class="link-row">
         {
-          industries.map((ind, i) => (
-            <a
-              href={`/business/${ind.slug}/`}
-              class="glass group flex flex-col rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              data-reveal
-              style={`--rd: ${(i % 3) * 90}ms`}
-            >
-              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-espresso text-gold transition-transform duration-500 group-hover:rotate-[20deg]">
-                <IndustryIcon slug={ind.slug} class="h-6 w-6" />
-              </span>
-              <h3 class="font-display mt-5 text-lg font-semibold">{ind.name}</h3>
-              <p class="mt-2 grow text-sm leading-relaxed text-cocoa">{ind.installs.slice(0, 2).join(' · ')}</p>
-              <span class="mt-5 text-sm font-medium text-gold-ink transition-transform duration-300 group-hover:translate-x-1">
-                Learn more →
-              </span>
-            </a>
+          residential.map((s) => (
+            <li>
+              <a href={`/services/#${s.id}`} class="pill-link">
+                {s.title}, {s.price.toLowerCase()}
+              </a>
+            </li>
           ))
         }
-      </div>
-      <p class="mt-10 text-center text-sm text-cocoa" data-reveal>
-        Need ongoing support? <a href="/business/" class="link-draw font-semibold text-gold-ink">See managed IT care plans →</a>
-      </p>
+      </ul>
     </div>
   </section>
 
-  <!-- ── For homes ────────────────────────────────────────────────── -->
-  <section class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
-    <SectionHeading eyebrow="For homeowners" title={`For homes in ${area.city}`} align="left" />
-    <p class="mt-7 max-w-2xl leading-relaxed text-cocoa" data-reveal>{area.homeBlurb}</p>
-    <p class="mt-4 max-w-2xl text-sm leading-relaxed text-cocoa" data-reveal>
-      Neighborhoods we're regularly in: <strong class="text-espresso">{area.neighborhoods.join(', ')}</strong>, and
-      everywhere in between.
-    </p>
-    <ul class="mt-8 flex flex-wrap gap-3" data-reveal>
-      {
-        residential.map((s) => (
-          <li>
-            <a href={`/services/#${s.id}`} class="glass inline-block rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-ink">
-              {s.title} · {s.price}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <PictureBand />
 
-  <CtaBand
-    href={surveyHref}
-    cta="Request a Free Site Survey"
-    title={`Let's look at your ${area.city} space`}
-    body={`Free site surveys across ${area.county}. Tell us about your project and we'll respond within one business day, or call or text ${site.phone} right now.`}
-  />
+  <OwnerPanel />
+
+  <CtaBand line1="Let's look at" line2="your space." href={surveyHref} />
 </Layout>

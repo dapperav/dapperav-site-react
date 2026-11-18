@@ -1,36 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ClosetPair from '../components/ClosetPair.astro';
+import PictureBand from '../components/PictureBand.astro';
+import PageHero from '../components/PageHero.astro';
+import FortBendPair from '../components/FortBendPair.astro';
 import { site } from '../data/site';
 ---
 
-<Layout
-  title="Page not found — Dapper AV Solutions"
-  description="That page doesn't exist. Head back to Dapper AV Solutions."
->
-  <section class="mx-auto flex min-h-[70svh] max-w-3xl flex-col items-center justify-center px-5 pt-28 pb-20 text-center sm:px-8">
-    <p class="text-xs font-semibold tracking-[0.3em] text-gold-ink uppercase">404</p>
-    <h1 class="font-display mt-5 text-4xl font-semibold text-balance sm:text-5xl">
-      This page isn't dressed for the occasion.
-    </h1>
-    <p class="mt-5 max-w-md leading-relaxed text-cocoa">
-      The page you're looking for doesn't exist or has moved. Let's get you somewhere useful.
-    </p>
-    <div class="mt-9 flex flex-wrap justify-center gap-4">
-      <a
-        href="/"
-        class="btn-sheen rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-espresso transition-colors duration-300 hover:bg-gold-deep"
-      >
-        Back to home
-      </a>
-      <a
-        href="/quote/"
-        class="glass rounded-full px-7 py-3.5 text-sm font-medium transition-colors duration-300 hover:text-gold-ink"
-      >
-        Request a quote
-      </a>
+<Layout title="Page not found | Dapper AV" description="That page doesn't exist. Head back to Dapper AV Solutions.">
+  <PageHero
+    lines={['Wrong cable.', 'Page not found.']}
+    support={`The page you wanted has moved or never existed. Head home, or call or text ${site.phone}.`}
+    primary={{ href: '/', label: 'Back to home' }}
+    secondary={{ href: '/quote/', label: 'Book a free site survey' }}
+  />
+
+  <ClosetPair heading="This is what a wrong turn looks like." />
+
+  <PictureBand />
+
+  <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
+    <div class="page-wrap section-pad">
+      <h2 class="font-display h-section">Still in Fort Bend.</h2>
+      <p class="intro-lead mt-6">You're on the right site, just the wrong page. <a href="/" class="link-plain">Start from home</a>.</p>
+      <FortBendPair />
     </div>
-    <p class="mt-8 text-sm text-cocoa">
-      Or call us: <a href={site.phoneHref} class="link-draw font-semibold text-gold-ink">{site.phone}</a>
-    </p>
   </section>
 </Layout>

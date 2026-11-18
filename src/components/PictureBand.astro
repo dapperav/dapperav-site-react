@@ -1,0 +1,18 @@
+---
+/** The Brazos, full bleed, with a slow scroll-linked drift. Found picture, credited in the footer. */
+import { Image } from 'astro:assets';
+import brazos from '../assets/found/brazos-river-south-of-sugar-land-texas.jpg';
+---
+
+<section class="chapter picture-band" data-field="#2b0c03" data-ink="#f7f0e0" aria-label="The Brazos River">
+  <div class="picture-band-frame">
+    <Image
+      src={brazos}
+      alt="The Brazos River winding through green land south of Sugar Land, seen from the air"
+      widths={[800, 1400, 1920]}
+      sizes="100vw"
+      class="picture-band-img"
+    />
+  </div>
+  <p class="picture-band-caption">The Brazos, south of Sugar Land. Every job I take is within an hour of it.</p>
+</section>
