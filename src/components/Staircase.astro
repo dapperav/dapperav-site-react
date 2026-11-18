@@ -1,0 +1,54 @@
+---
+/**
+ * How a job goes, written as four lines that step across the page (no 01/02/03).
+ * Optional: what moves the price on this kind of job (drivers only, never invented numbers).
+ */
+import { site } from '../data/site';
+
+interface Props {
+  drivers?: string[];
+  costQuestion?: string;
+}
+const { drivers = [], costQuestion } = Astro.props;
+
+const steps = [
+  { line: 'First, call or text.', note: `${site.phone}. I reply within one business day, usually sooner.` },
+  { line: 'Then I walk your site.', note: 'A free 30–45 minute survey. Every screen, drop and camera angle gets noted.' },
+  { line: 'You get an itemized proposal.', note: 'Equipment options at honest prices. Nothing padded, nothing hidden.' },
+  { line: 'I install around your hours.', note: 'Before open, after close or on a weekend. Then I look after it.' },
+];
+---
+
+<section class="chapter bg-espresso text-cream" data-field="#3b1005" data-ink="#f7f0e0">
+  <div class="page-wrap section-pad-xl">
+    <h2 class="sr-only">How a job goes</h2>
+    <ol class="stair">
+      {
+        steps.map((s, i) => (
+          <li class={`stair-step stair-${i + 1}`}>
+            <p class={`font-display stair-line ${i === steps.length - 1 ? 'text-gold' : ''}`} data-reveal>
+              {s.line}
+            </p>
+            <p class="stair-note" data-reveal>
+              {s.note}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+    {
+      drivers.length > 0 && (
+        <div class="drivers" data-reveal>
+          <h3 class="font-display drivers-h">{costQuestion ?? 'What moves the price'}</h3>
+          <p class="drivers-lead">No two sites cost the same. These are what move the number:</p>
+          <ul class="drivers-list">
+            {drivers.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+          <p class="drivers-note">Every proposal is itemized after the free survey, so you see what each piece costs before anything is installed.</p>
+        </div>
+      )
+    }
+  </div>
+</section>

@@ -239,28 +239,6 @@ export const services = [
   },
 ];
 
-export const process = [
-  {
-    step: '01',
-    title: 'Consultation',
-    body: 'We visit your space, listen to how you want to use it, and take real measurements — free of charge.',
-  },
-  {
-    step: '02',
-    title: 'Design & quote',
-    body: 'You get an itemized proposal with equipment options at honest price points. No pressure, no padding.',
-  },
-  {
-    step: '03',
-    title: 'Installation',
-    body: 'Clean, precise work — concealed wiring, level mounts, tidy racks — done when we say it will be done.',
-  },
-  {
-    step: '04',
-    title: 'Calibration & walkthrough',
-    body: 'We tune the picture and sound, program the remotes, and walk you through everything before we leave.',
-  },
-];
 
 export const serviceAreas = [
   {

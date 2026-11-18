@@ -1,0 +1,44 @@
+---
+/**
+ * "Capabilities at poster scale": the heading is the first row (soft ink), then one item per row
+ * at heading size with its sentence beside it. A colour field of its own.
+ */
+interface Item {
+  title: string;
+  desc: string;
+  href?: string;
+  id?: string;
+}
+interface Props {
+  heading: string;
+  items: Item[];
+  field?: 'gold' | 'cream' | 'parchment';
+}
+
+const { heading, items, field = 'gold' } = Astro.props;
+const fields = {
+  gold: { bg: '#f0b010', ink: '#3b1005' },
+  cream: { bg: '#f7f0e0', ink: '#3b1005' },
+  parchment: { bg: '#efe3cb', ink: '#3b1005' },
+};
+const f = fields[field];
+---
+
+<section class={`chapter big-list big-list--${field}`} data-field={f.bg} data-ink={f.ink}>
+  <div class="page-wrap section-pad-xl">
+    <div class="caps-list">
+      <h2 class="font-display caps-row caps-heading">{heading}</h2>
+      {
+        items.map((it) => {
+          const Tag = it.href ? 'a' : 'div';
+          return (
+            <Tag href={it.href} id={it.id} class={`caps-row ${it.href ? 'caps-item' : ''}`} data-reveal>
+              <span class="font-display caps-name">{it.title}</span>
+              <span class="caps-desc">{it.desc}</span>
+            </Tag>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

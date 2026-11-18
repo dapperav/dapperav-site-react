@@ -38,7 +38,7 @@
   gap: 0.6rem;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 .site-links {
   display: none;
@@ -215,11 +215,11 @@ main {
 @media (min-width: 1024px) {
   .hero-foot {
     align-self: flex-end;
-    width: min(42rem, 46vw);
+    width: min(46rem, 50vw);
   }
 }
 .hero-support {
-  font-size: var(--fs-lead);
+  font-size: clamp(1.125rem, 1.7vw, 1.75rem);
   line-height: 1.3;
 }
 .hero-actions {
@@ -694,7 +694,7 @@ main {
   color: var(--color-cream);
 }
 .footer-name {
-  font-size: clamp(2.2rem, 8.6vw, 9rem);
+  font-size: clamp(2.4rem, 8.4vw, 8.75rem);
   line-height: 0.95;
   letter-spacing: -0.035em;
   font-weight: 600;
@@ -734,10 +734,10 @@ main {
   text-underline-offset: 4px;
 }
 .footer-credits {
-  font-size: var(--fs-small);
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-on-dark);
-  max-width: 90ch;
+  max-width: 68ch;
 }
 .footer-credits a {
   text-decoration: underline;

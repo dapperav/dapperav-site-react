@@ -1,0 +1,389 @@
+/* ══ Taste redesign, phase 2: inner pages (same system as the homepage; see redesign.css) ══ */
+
+/* ── Inner-page hero ── */
+.hero-field--inner {
+  min-height: calc(78svh - var(--header-h));
+}
+.hero-field--parchment {
+  background: var(--color-parchment);
+  color: var(--color-espresso);
+}
+.hero-statement--inner {
+  font-size: clamp(2.4rem, 8.4vw, 8.75rem);
+  line-height: 0.92;
+}
+.hero-line--accent {
+  color: var(--color-gold);
+}
+.hero-field--parchment .hero-line--accent {
+  color: var(--color-gold-ink);
+}
+
+/* ── Big list on other fields: the soft ink follows the field ── */
+.big-list--gold {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  --caps-muted: var(--muted-on-gold);
+}
+.big-list--cream {
+  background: var(--color-cream);
+  color: var(--color-espresso);
+  --caps-muted: var(--color-cocoa);
+}
+.big-list--parchment {
+  background: var(--color-parchment);
+  color: var(--color-espresso);
+  --caps-muted: var(--color-cocoa);
+}
+.big-list .caps-heading,
+.big-list .caps-list:has(.caps-item:hover) .caps-item:not(:hover) {
+  color: var(--caps-muted);
+}
+
+/* ── What moves the price (inside the staircase field) ── */
+.drivers {
+  margin-top: clamp(5rem, 12vh, 8rem);
+  max-width: 52rem;
+}
+.drivers-h {
+  font-size: var(--fs-lead);
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--color-gold);
+  max-width: 28ch;
+}
+.drivers-lead {
+  margin-top: 1rem;
+  font-size: var(--fs-body);
+  color: var(--muted-on-dark);
+}
+.drivers-list {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+  font-size: var(--fs-lead);
+  line-height: 1.25;
+}
+.drivers-note {
+  margin-top: 2rem;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--muted-on-dark);
+  max-width: 48ch;
+}
+
+/* ── Owner panel reasons ── */
+.reasons {
+  margin-top: 3rem;
+  display: grid;
+  gap: 2rem;
+}
+.reasons dt {
+  font-size: var(--fs-lead);
+  line-height: 1.15;
+  font-weight: 600;
+}
+.reasons dd {
+  margin-top: 0.5rem;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  max-width: 52ch;
+}
+
+/* ── FAQ ── */
+.faq-list {
+  margin-top: 3rem;
+  display: grid;
+  gap: 0.5rem;
+  max-width: 60rem;
+}
+.faq-item {
+  padding: 1.1rem 0;
+}
+.faq-item summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  font-weight: 600;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary:hover span {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.faq-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.3rem;
+  transition: transform 250ms var(--ease-tailored);
+}
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-item p {
+  margin-top: 1rem;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  max-width: 62ch;
+}
+
+/* ── Intro + list set in large type (industry and city pages) ── */
+.intro-lead {
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+  max-width: 40ch;
+}
+.install-list {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: 1rem 3rem;
+  font-size: var(--fs-lead);
+  line-height: 1.2;
+}
+@media (min-width: 900px) {
+  .install-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.install-list li {
+  max-width: 26ch;
+}
+
+/* ── Plans and packages: three columns on a dark field, no cards ── */
+.plans {
+  margin-top: 4rem;
+  display: grid;
+  gap: 3.5rem;
+}
+@media (min-width: 1024px) {
+  .plans {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+}
+.plan-name {
+  font-size: var(--fs-lead);
+  line-height: 1.1;
+  font-weight: 600;
+}
+.plan-price {
+  margin-top: 0.75rem;
+  font-size: var(--fs-heading);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--color-gold);
+}
+.plan-tag {
+  margin-top: 0.5rem;
+  font-size: var(--fs-body);
+  color: var(--muted-on-dark);
+}
+.plan-mark {
+  color: var(--color-gold);
+}
+.plan-list {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.6rem;
+  font-size: var(--fs-body);
+  line-height: 1.45;
+}
+.plans-note {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+  font-size: var(--fs-body);
+  color: var(--muted-on-dark);
+}
+
+/* ── Two-column capability text (business hub) ── */
+.spec-grid {
+  margin-top: 4rem;
+  display: grid;
+  gap: 3rem 4rem;
+}
+@media (min-width: 900px) {
+  .spec-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.spec-grid h3 {
+  font-size: var(--fs-lead);
+  line-height: 1.15;
+  font-weight: 600;
+}
+.spec-grid p {
+  margin-top: 0.75rem;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  max-width: 48ch;
+}
+.spec-grid a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+/* ── Plain link rows (more pages, homes pills) ── */
+.link-row {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  background: var(--color-parchment);
+  font-size: 1rem;
+  transition: background-color 200ms var(--ease-tailored);
+}
+.bg-parchment .pill-link {
+  background: var(--color-cream);
+}
+.pill-link:hover {
+  background: var(--color-gold);
+}
+.big-links {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 0.5rem;
+  font-size: var(--fs-lead);
+  line-height: 1.25;
+}
+.big-links a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition: color 200ms var(--ease-tailored);
+}
+.big-links a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* ── Quote page ── */
+.quote-grid {
+  display: grid;
+  gap: 3.5rem;
+}
+@media (min-width: 1024px) {
+  .quote-grid {
+    grid-template-columns: 1.6fr 1fr;
+    gap: 5rem;
+  }
+}
+.quote-title {
+  font-size: var(--fs-heading);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+.quote-lead {
+  margin-top: 1.25rem;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  max-width: 52ch;
+}
+.quote-label {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.quote-field {
+  margin-top: 0.4rem;
+  width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgb(107 74 51 / 0.6); /* taste-skill-ignore: form field */
+  background: #fffaf0;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  color: var(--color-espresso);
+}
+.quote-field::placeholder {
+  color: rgb(107 74 51 / 0.85);
+}
+.quote-field:focus {
+  border-color: var(--color-espresso);
+}
+.quote-tip {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-gold);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.quote-tip a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.quote-aside {
+  display: grid;
+  gap: 2.5rem;
+  align-content: start;
+}
+.quote-aside h2 {
+  font-size: var(--fs-lead);
+  line-height: 1.15;
+  font-weight: 600;
+}
+.quote-aside p,
+.quote-aside li {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+.quote-aside ul {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.quote-aside a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.quote-owner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.quote-owner {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.quote-owner img {
+  width: min(100%, 18rem);
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+}
+.quote-state {
+  padding: 2.5rem;
+  background: var(--color-cream);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+.quote-state a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

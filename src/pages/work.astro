@@ -1,171 +1,50 @@
 ---
-import { Image, getImage } from 'astro:assets';
+/** Our work — real installs only, each given room (oversized visual, small cluster). */
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import Record from '../components/Record.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import PictureBand from '../components/PictureBand.astro';
+import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { gallery } from '../data/gallery';
-
-// Full-size variants for the lightbox
-const fullImages = await Promise.all(
-  gallery.map((g) => getImage({ src: g.image, width: 1600, format: 'webp' }))
-);
-
-const filters = [
-  { id: 'all', label: 'All projects' },
-  { id: 'residential', label: 'Residential' },
-  { id: 'commercial', label: 'Commercial' },
-];
 ---
 
 <Layout
   title="Our Work: Real Installs in Fort Bend County | Dapper AV"
   description="Real Dapper AV installs across Fort Bend County: TV mounts, hi-fi systems and commercial displays. Every photo is our own work."
 >
-  <section class="relative mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-20">
-    <Record class="max-md:hidden right-[-11rem] top-6 w-[30rem] opacity-80" />
-    <SectionHeading
-      eyebrow="The collection"
-      title="Work worth putting on the record"
-      lead="Clean lines, hidden wires, technology that disappears into the design — every Fort Bend County install gets the same signature. Go ahead, pull a sleeve."
-      align="left"
-      level={1}
-    />
+  <PageHero
+    field="parchment"
+    lines={['Real installs,', 'real rooms.']}
+    support="Every photo on this page is a Dapper AV job. More go up as jobs finish."
+  />
+
+  <section class="chapter bg-cream text-espresso work" data-field="#f7f0e0" data-ink="#3b1005">
+    <h2 class="sr-only">Installs</h2>
+    {
+      gallery.map((item, i) => (
+        <article class={`work-block ${i % 2 ? 'work-block--second' : ''}`}>
+          <div class={`work-visual ${i === 0 ? 'work-visual--tall' : ''}`}>
+            <Image
+              src={item.image}
+              alt={item.alt}
+              widths={[700, 1100, 1500]}
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              class="work-img"
+              style={item.pos ? `object-position: ${item.pos}` : undefined}
+            />
+          </div>
+          <div class="work-cluster" data-reveal>
+            <h3 class="font-display work-title">{item.title}</h3>
+            <p class="work-desc">
+              {item.caption} {item.category === 'commercial' ? 'A commercial job.' : 'A Fort Bend County home.'}
+            </p>
+          </div>
+        </article>
+      ))
+    }
   </section>
 
-  <section class="mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-32">
-    <!-- Filters -->
-    <div class="flex flex-wrap gap-2" role="group" aria-label="Filter projects" data-reveal>
-      {
-        filters.map((f) => (
-          <button
-            type="button"
-            data-filter={f.id}
-            aria-pressed={f.id === 'all' ? 'true' : 'false'}
-            class="glass rounded-full px-6 py-2.5 text-sm font-medium transition-colors duration-300 hover:text-gold-ink aria-pressed:font-semibold aria-pressed:text-cream aria-pressed:shadow-md"
-          >
-            {f.label}
-          </button>
-        ))
-      }
-    </div>
+  <PictureBand />
 
-    <!-- Grid -->
-    <div id="gallery-grid" class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        gallery.map((item, i) => (
-          <figure
-            class="sleeve gallery-item glass overflow-hidden rounded-3xl"
-            data-category={item.category}
-            data-reveal
-            style={`--rd: ${(i % 3) * 90}ms`}
-          >
-            <button
-              type="button"
-              class="lightbox-open group/lb block w-full cursor-zoom-in"
-              data-full={fullImages[i].src}
-              data-alt={item.alt}
-              data-title={item.title}
-              data-caption={item.caption}
-              aria-label={`View larger: ${item.title}`}
-            >
-              <div class="relative aspect-[4/3] overflow-hidden">
-                <div class="sleeve-disc" aria-hidden="true"></div>
-                <Image
-                  src={item.image}
-                  alt={item.alt}
-                  class="sleeve-cover h-full w-full object-cover"
-                  style={item.pos ? `object-position: ${item.pos}` : undefined}
-                  widths={[480, 768, 1024, 1536]}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                />
-                <span
-                  class="absolute inset-0 flex items-center justify-center bg-roast/0 transition-colors duration-300 group-hover/lb:bg-roast/30"
-                  aria-hidden="true"
-                >
-                  <span
-                    class="rounded-full bg-cream/90 px-4 py-1.5 text-xs font-semibold tracking-widest text-espresso uppercase opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover/lb:opacity-100"
-                  >
-                    View
-                  </span>
-                </span>
-              </div>
-            </button>
-            <figcaption class="p-5">
-              <p class="flex items-baseline justify-between text-[0.65rem] font-semibold tracking-[0.24em] uppercase">
-                <span class="text-gold-ink">{item.category}</span>
-                <span class="font-normal tracking-[0.18em] text-cocoa/60">DAV-{String(i + 1).padStart(3, '0')}</span>
-              </p>
-              <h2 class="font-display mt-1.5 text-lg font-semibold">{item.title}</h2>
-              <p class="mt-1 text-sm leading-relaxed text-cocoa">{item.caption}</p>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-
-    <p class="glass mt-14 rounded-3xl p-6 text-center text-sm leading-relaxed text-cocoa" data-reveal>
-      Want to see work similar to your project? <a href="/quote/" class="link-draw font-semibold text-gold-ink">Tell us what you have in mind</a>
-      and we'll share relevant examples during your free consultation.
-    </p>
-  </section>
-
-  <CtaBand title="Picture your space here" />
-
-  <!-- Lightbox -->
-  <dialog
-    id="lightbox"
-    class="m-auto w-[min(94vw,72rem)] rounded-3xl border border-cream/15 bg-roast/95 p-0 shadow-2xl backdrop:bg-roast/80 backdrop:backdrop-blur-md"
-  >
-    <div class="relative">
-      <img id="lb-img" src="" alt="" class="max-h-[78svh] w-full rounded-t-3xl object-contain" />
-      <button
-        type="button"
-        id="lb-close"
-        class="glass-dark absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full text-xl leading-none text-cream transition-colors duration-300 hover:bg-gold hover:text-espresso"
-        aria-label="Close"
-      >
-        ✕
-      </button>
-      <div class="px-6 py-5">
-        <h2 id="lb-title" class="font-display text-lg font-semibold text-cream"></h2>
-        <p id="lb-caption" class="mt-1 text-sm text-cream/70"></p>
-      </div>
-    </div>
-  </dialog>
-
-  <script>
-    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-    const items = document.querySelectorAll<HTMLElement>('.gallery-item');
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-        const filter = btn.dataset.filter;
-        items.forEach((item) => {
-          item.classList.toggle('hidden', filter !== 'all' && item.dataset.category !== filter);
-        });
-      });
-    });
-
-    const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
-    const lbImg = document.getElementById('lb-img') as HTMLImageElement;
-    const lbTitle = document.getElementById('lb-title')!;
-    const lbCaption = document.getElementById('lb-caption')!;
-
-    document.querySelectorAll<HTMLButtonElement>('.lightbox-open').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        lbImg.src = btn.dataset.full!;
-        lbImg.alt = btn.dataset.alt || '';
-        lbTitle.textContent = btn.dataset.title || '';
-        lbCaption.textContent = btn.dataset.caption || '';
-        lightbox.showModal();
-      });
-    });
-
-    document.getElementById('lb-close')!.addEventListener('click', () => lightbox.close());
-    // Click on the backdrop (outside the content box) closes too
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) lightbox.close();
-    });
-  </script>
+  <CtaBand line1="Your space" line2="could be next." support="Tell me what you have in mind and I'll show you similar work during the free survey." />
 </Layout>

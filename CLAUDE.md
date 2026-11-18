@@ -136,6 +136,21 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — REDESIGN PHASE 2: every other page now uses the homepage system. Shared
+  components: `PageHero` (two-line, two-ink statement; espresso or parchment field), `BigList`
+  (poster-scale list on gold/cream/parchment), `Staircase` (how a job goes + optional "what moves
+  the price"), `OwnerPanel` (portrait + facts + reasons), `Letter` (Kenneth's review + Micaela P.S.),
+  `FaqSection` (typographic details list), `CtaBand` (inverted two-line close), `PictureBand`
+  (Brazos), `ClosetPair`, `FortBendPair`. Rewritten: /business (+ care plans as three columns,
+  "Recommended" in words, no badge), the six /business/* pages (`heroLines` in industries.ts),
+  /services (bundles, two real home installs), /work (all gallery photos as large blocks; the
+  record-sleeve grid + lightbox are gone), /quote (form ids/names/script unchanged), the six
+  city pages, 404. DELETED: VideoWall, ProofStrip, Record, BrandStrip, IndustryIcon,
+  SectionHeading, ReviewsSection, SurveySteps, and the glass/pinstripe/sleeve/marquee CSS
+  (global.css is now base + reveals only; the system lives in redesign.css + redesign-pages.css).
+  taste-skill gate: lint 0 FAIL; inspector 0 FAIL on every page type (home, /business, two
+  industry pages, /services, /work, /quote, a city page, 404). Remaining warnings: no video
+  anywhere (no honest clip exists) and light motion on short pages.
 - **2026-11-18** — HOMEPAGE REDESIGN (phase 1) with the `design-taste-frontend` skill after Mark
   called the record/video-wall passes "weak". Mark picked direction **Type and nothing else** (seed
   1900889380, brand palette + fonts kept; notes in `.taste-skill/notes.md`, sheet in
@@ -234,11 +249,10 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-1. **Redesign phase 2:** carry the homepage system (Header/Footer done) to /business, the six
-   /business/* pages, /services, /work, /quote and the city pages — they still use the old glass
-   cards, eyebrows, pill nav-era spacing, VideoWall and ProofStrip. Run the taste-skill gate
-   (`lint.mjs` + `inspect.mjs` against `npx astro preview`) on each. Mark's own install photos
-   would beat every found picture: ask him for phone shots of racks, TV walls, cameras.
+1. **Mark's own install photos** would beat every found picture (racks, TV walls, cameras,
+   before/after). Add them to `src/data/gallery.ts` (real jobs only) and swap them into
+   `PictureBand` / `ClosetPair` slots. Re-run the taste-skill gate after any page change
+   (`lint.mjs src` + `inspect.mjs` against `npx astro preview`).
 2. **GSC:** Mark clicks **Verify** in Search Console + submits `sitemap-index.xml` (re-submit
    after the 2026-11-18 trailing-slash fix; URL Inspection → Request indexing on the 4 new
    `/business/*` pages). The GSC UI blocks Claude's browser tools.

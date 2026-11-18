@@ -10,6 +10,8 @@ export interface Industry {
   slug: string;
   /** Short name for cards and links */
   name: string;
+  /** Hero statement, two short lines (each fits a phone at display size) */
+  heroLines: [string, string];
   /** H1 */
   headline: string;
   /** <title> */
@@ -43,6 +45,7 @@ export const industries: Industry[] = [
   {
     slug: 'restaurants-bars',
     name: 'Restaurants & bars',
+    heroLines: ['Restaurants', '& bars'],
     headline: 'Restaurant & Bar TVs, Audio and Networks',
     metaTitle: 'Restaurant & Bar TV and Audio Installation | Dapper AV',
     metaDescription:
@@ -95,6 +98,7 @@ export const industries: Industry[] = [
   {
     slug: 'offices-conference-rooms',
     name: 'Offices & conference rooms',
+    heroLines: ['Offices &', 'conference rooms'],
     headline: 'Conference Room AV and Office IT',
     metaTitle: 'Conference Room AV & Office IT, Fort Bend TX | Dapper AV',
     metaDescription:
@@ -147,6 +151,7 @@ export const industries: Industry[] = [
   {
     slug: 'retail-showrooms',
     name: 'Retail & showrooms',
+    heroLines: ['Retail &', 'showrooms'],
     headline: 'Retail and Showroom Displays, Audio and Cameras',
     metaTitle: 'Retail & Showroom Displays and Audio | Dapper AV',
     metaDescription:
@@ -195,6 +200,7 @@ export const industries: Industry[] = [
   {
     slug: 'digital-signage',
     name: 'Digital signage & menu boards',
+    heroLines: ['Digital signage', '& menu boards'],
     headline: 'Digital Signage and Menu Boards',
     metaTitle: 'Digital Signage & Menu Board Installation | Dapper AV',
     metaDescription:
@@ -242,6 +248,7 @@ export const industries: Industry[] = [
   {
     slug: "networks-wifi",
     name: "Business Wi-Fi & networks",
+    heroLines: ['Business Wi-Fi', '& networks'],
     headline: "Business Wi-Fi and Network Installation",
     metaTitle: "Business Wi-Fi & Network Installation, Fort Bend TX | Dapper AV",
     metaDescription: "UniFi business Wi-Fi and networks with POS, cameras, staff and guests kept separate. Installed and managed across Fort Bend County.",
@@ -276,6 +283,7 @@ export const industries: Industry[] = [
   {
     slug: "structured-cabling",
     name: "Structured cabling & low voltage",
+    heroLines: ['Cabling &', 'low voltage'],
     headline: "Structured Cabling and Low-Voltage Installation",
     metaTitle: "Structured Cabling & Low Voltage, Fort Bend TX | Dapper AV",
     metaDescription: "Data drops, racks and low-voltage rough-in for new builds and remodels in Fort Bend County. Clean, labeled and documented, as your sub or direct.",
