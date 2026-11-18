@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Dapper AV Solutions — Commercial One-Pager</title>
+<!-- Print source for dapperav-commercial-one-pager.pdf. Re-render:
+     chrome --headless --print-to-pdf=dapperav-commercial-one-pager.pdf --no-pdf-header-footer dapperav-commercial-one-pager.html -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { --espresso:#3b1005; --roast:#2a0b03; --cream:#f7f0e0; --parchment:#efe4cc; --gold:#f0b010; --gold-deep:#c98d00; --cocoa:#6b4a3a; --tan:#d9c4a0; }
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); color: var(--espresso); font: 10.5pt/1.45 Inter, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 8.5in; height: 11in; display: flex; flex-direction: column; overflow: hidden; }
+  .display { font-family: Fraunces, serif; font-weight: 600; }
+  .eyebrow { font-size: 7.5pt; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); }
+
+  header { background: var(--espresso) repeating-linear-gradient(115deg, rgba(240,176,16,.06) 0 1px, transparent 1px 9px); color: var(--cream); padding: .45in .55in .4in; display: grid; grid-template-columns: 1fr 2.6in; gap: .35in; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: .22in; }
+  .brand img { width: 52px; height: 52px; }
+  .brand b { font-family: Fraunces, serif; font-size: 15pt; font-weight: 600; display: block; }
+  .brand span { font-size: 7.5pt; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+  h1 { font-size: 27pt; line-height: 1.08; }
+  h1 em { font-style: normal; color: var(--gold); }
+  header p.lead { margin-top: 12px; color: rgba(247,240,224,.8); font-size: 10.5pt; }
+  header figure img { width: 100%; height: 2.05in; object-fit: cover; border-radius: 14px; border: 2px solid var(--gold); display: block; }
+  header figcaption { margin-top: 6px; font-size: 7pt; color: rgba(247,240,224,.6); }
+
+  main { flex: 1; padding: .38in .55in .2in; display: flex; flex-direction: column; gap: .28in; }
+  h2 { font-size: 13pt; margin: 6px 0 10px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .card { background: rgba(255,255,255,.55); border: 1px solid var(--tan); border-radius: 12px; padding: 11px 13px; }
+  .card h3 { font-family: Fraunces, serif; font-size: 10.5pt; font-weight: 600; margin-bottom: 3px; }
+  .card p { font-size: 8.5pt; color: var(--cocoa); line-height: 1.4; }
+
+  .two { display: grid; grid-template-columns: 1.15fr 1fr; gap: .3in; }
+  ol.steps { list-style: none; counter-reset: s; display: grid; gap: 8px; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 26px 1fr; gap: 8px; font-size: 9pt; color: var(--cocoa); }
+  ol.steps li::before { content: counter(s, decimal-leading-zero); font-family: Fraunces, serif; font-weight: 600; color: var(--gold-deep); font-size: 12pt; line-height: 1.1; }
+  ol.steps b { color: var(--espresso); }
+  .gc { background: var(--parchment); border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0; padding: 12px 15px; font-size: 9pt; color: var(--cocoa); }
+  .gc ul { margin-top: 6px; padding-left: 15px; }
+  .gc li { margin: 3px 0; }
+  .eyebrow.dark { color: var(--gold-deep); }
+  .gc h2 { color: var(--espresso); }
+
+  footer { background: var(--espresso); color: var(--cream); padding: .3in .55in; display: grid; grid-template-columns: 1fr auto; gap: .3in; align-items: center; }
+  footer .who { font-size: 9pt; color: rgba(247,240,224,.75); }
+  footer .who b { font-family: Fraunces, serif; font-size: 12pt; color: var(--cream); display: block; margin-bottom: 2px; }
+  footer .contact { text-align: right; font-size: 10pt; line-height: 1.6; }
+  footer .contact .phone { font-family: Fraunces, serif; font-weight: 600; font-size: 17pt; color: var(--gold); line-height: 1.2; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <div class="brand">
+        <img src="../../src/assets/logo.png" alt="" />
+        <div><b>Dapper AV Solutions</b><span>Commercial AV &amp; IT · Fort Bend County</span></div>
+      </div>
+      <h1 class="display">One local contact for <em>everything with a cable.</em></h1>
+      <p class="lead">TVs, sound, Wi-Fi, cameras and signage for businesses, designed, installed and then managed by the same person.</p>
+    </div>
+    <figure>
+      <img src="../../src/assets/gallery/dealership-display.jpg" alt="Recessed showroom display mounted flush in a custom feature wall" />
+      <figcaption>Recessed showroom display, auto dealership: a Dapper AV install.</figcaption>
+    </figure>
+  </header>
+
+  <main>
+    <section>
+      <p class="eyebrow dark">What we install</p>
+      <h2 class="display">Built for businesses without an IT person</h2>
+      <div class="grid">
+        <div class="card"><h3>Restaurants &amp; bars</h3><p>TV walls where any screen shows any game, zoned music for bar, dining room and patio.</p></div>
+        <div class="card"><h3>Offices &amp; conference rooms</h3><p>Rooms where Teams and Zoom just work, wireless sharing, office Wi-Fi to every desk.</p></div>
+        <div class="card"><h3>Retail &amp; showrooms</h3><p>Displays mounted flush with hidden wiring, background music, scheduled promo screens.</p></div>
+        <div class="card"><h3>Digital signage</h3><p>Menu boards and lobby screens you update from your phone, on a day-part schedule.</p></div>
+        <div class="card"><h3>Networks &amp; Wi-Fi</h3><p>UniFi networks with POS, cameras, staff and guests kept on separate, secured networks.</p></div>
+        <div class="card"><h3>Cameras &amp; Microsoft 365</h3><p>UniFi cameras you own, with no per-camera cloud fees. Email and accounts set up right.</p></div>
+      </div>
+    </section>
+
+    <section class="two">
+      <div>
+        <p class="eyebrow dark">How it works</p>
+        <h2 class="display">Four steps, zero surprises</h2>
+        <ol class="steps">
+          <li><span><b>Free site survey.</b> I walk the space and take real measurements.</span></li>
+          <li><span><b>Itemized proposal.</b> Equipment options at honest prices. No padding.</span></li>
+          <li><span><b>Installed around your hours.</b> Before open, after close, or weekends by appointment.</span></li>
+          <li><span><b>Managed after.</b> Optional month-to-month care plan: monitoring, updates, one person who answers.</span></li>
+        </ol>
+      </div>
+      <div class="gc">
+        <p class="eyebrow dark">For contractors &amp; electricians</p>
+        <h2 class="display" style="font-size:11.5pt;margin:5px 0 2px">Your low-voltage sub</h2>
+        <ul>
+          <li>Data cabling, racks, Wi-Fi, cameras, AV and signage under one sub</li>
+          <li>Rough-in at framing, trim-out after paint</li>
+          <li>Walkthrough and documentation at closeout</li>
+          <li>Your client gets an ongoing support contact, so the Wi-Fi calls don't come to you</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="who">
+      <b>Mark Immler, owner</b>
+      18+ years installing, an IT director by day. The person who surveys your site installs it.<br />
+      Richmond · Rosenberg · Fulshear · Sugar Land · Stafford · Katy
+    </div>
+    <div class="contact">
+      <div class="phone">(972) 824-1303</div>
+      Call or text · contact@dapperav.com<br />
+      <b>dapperav.com/business</b>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

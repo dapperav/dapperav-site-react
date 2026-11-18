@@ -136,6 +136,11 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Commercial outreach kit: 3 letters (GCs/electricians as low-voltage sub;
+  TDLR TABS new-build owners; property managers/existing businesses) + follow-up, text and
+  voicemail versions in the Claude doc "Dapper AV — Commercial Outreach Letters"
+  (https://claude.ai/artifact/VSswnR4YCJzpKonjFpFVTV). Printable one-pager at
+  `brand-assets/leave-behind/` (HTML source + letter-size PDF; re-render command in the HTML).
 - **2026-11-18** — Commercial-first rework (branch `feat/commercial-focus`): homepage title, hero
   copy and CTAs lead with business; business block + 4 industry cards above the residential grid;
   4 new `/business/{slug}` landing pages (Service + FAQPage schema; retail uses the real dealership
@@ -178,7 +183,7 @@ https://dapperav.com, same description/tagline.
 3. **Commercial lead generation (Mark's time):** monthly TDLR TABS search (public registry of
    Texas commercial builds ≥$50k) for Fort Bend projects → contact owner/GC early; pitch
    electricians and GCs as their low-voltage sub; Fort Bend Chamber; county/city vendor
-   registration. Claude can draft the outreach letter + a one-page leave-behind.
+   registration. Letters + one-pager are DONE (see changelog) — Mark sends 5–10/week.
 4. **Commercial proof:** real photos + a written case study for every commercial job (the
    dealership is the only real commercial photo; sports-bar and boardroom gallery entries are
    AI placeholders). Update GBP categories/services/posts toward commercial (needs Mark's login).
