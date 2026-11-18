@@ -5,7 +5,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://dapperav.com',
-  trailingSlash: 'never',
+  // GitHub Pages serves /services/ (directory index) and 301s /services to it, so canonical +
+  // sitemap URLs must carry the trailing slash or every one of them points at a redirect.
+  // 'ignore' (not 'always') keeps the existing slash-less internal links working in dev.
+  trailingSlash: 'ignore',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

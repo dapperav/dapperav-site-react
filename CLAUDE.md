@@ -12,7 +12,11 @@
 County TX (Richmond, Rosenberg, Fulshear, Sugar Land, Stafford, Katy). 18+ years installing,
 5+ years MSP. Real phone (972) 824-1303 = Mark's cell (call or text). Email contact@dapperav.com.
 
-**Two-engine strategy (Mark's words, 2026-07-04):**
+**Strategy update (Mark, 2026-11-18): COMMERCIAL FIRST.** Mark enjoys commercial installs far
+more than residential and the payout per hour of his time is much better. Inquiries had been
+thin. The site now leads with business; residential stays as the secondary/small-jobs path.
+
+**Original two-engine strategy (Mark's words, 2026-07-04) — engine 1 is now secondary:**
 1. **Residential volume** — goal: 3 TV mounts/day @ ~$300 (beats his IT-director salary;
    wants full-time eventually; day job is flexible enough to install during hours).
 2. **MSP care plans** — recurring light-touch income. Tiers on /business: Network Care,
@@ -46,8 +50,12 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
   - `src/data/gallery.ts` — add photo = import + 5-field entry; optional `pos:'top'` crop anchor;
     DAV-00N catalog numbers render from array index.
   - `src/data/areas.ts` — city SEO pages at `/areas/{slug}` (6 cities).
+  - `src/data/industries.ts` — commercial landing pages at `/business/{slug}` (restaurants-bars,
+    offices-conference-rooms, retail-showrooms, digital-signage). Capabilities only — no invented
+    clients. Optional `photo` must be a REAL install photo (the AI gallery placeholders never).
   - `src/data/reviews.json` — auto-written by the nightly review sync. Do not hand-edit.
-- **Pages:** `/` `/services` `/business` `/work` `/quote` `/404` + 6 area pages.
+- **Pages:** `/` `/services` `/business` `/work` `/quote` `/404` + 6 area pages + 4
+  `/business/{slug}` commercial pages.
   `/review` redirects to the Google write-a-review form (use this URL in review asks).
   `/contact` `/portfolio` `/pricing` `/calculator` redirect from the old site.
 - **Design language** ("dapper suit × vinyl records"): espresso `#3b1005`, cream `#f7f0e0`,
@@ -60,6 +68,10 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
   of specificity — override glass with un-layered rules (see `.glass[aria-pressed='true']`).
 - **Dev server:** launch.json entry "DapperAV (Astro)", port 4321. Sometimes serves stale
   global.css after many git checkouts — restart it if styles look wrong.
+- **Trailing slashes:** GitHub Pages serves `/services/` and 301s `/services` to it. So
+  `trailingSlash: 'ignore'` + Layout.astro forces a trailing slash on the canonical, and the
+  sitemap emits slashed URLs. Do NOT switch to `build.format: 'file'` — `business.html` next to a
+  `business/` folder risks GitHub Pages sending `/business` to the folder (404).
 - **SEO:** LocalBusiness JSON-LD in `src/layouts/Layout.astro` incl. `sameAs` social links.
   Do NOT add `aggregateRating`/review markup sourced from Google's own reviews — Google
   ignores/penalizes self-serving review markup.
@@ -124,6 +136,18 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-18** — Commercial-first rework (branch `feat/commercial-focus`): homepage title, hero
+  copy and CTAs lead with business; business block + 4 industry cards above the residential grid;
+  4 new `/business/{slug}` landing pages (Service + FAQPage schema; retail uses the real dealership
+  photo); /business "who we work with" cards link to them; nav order For Business first; mobile
+  dock "Residential" → "Business"; area pages mention + link commercial; quote form gains
+  optional Business name (added to the email subject) and $5k–15k / $15k+ budgets.
+- **2026-11-18** — SEO fix: every sitemap URL and canonical pointed at a 301 (missing trailing
+  slash). Now slashed. Mark must resubmit the sitemap in Search Console.
+- **2026-11-18** — Found the review sync had failed 47 nights (2026-10-03 → 11-18, Places API
+  PERMISSION_DENIED after the GCP trial ended). A manual run on 11-18 succeeded; confirm the
+  next scheduled run.
+- **2026-11-18** — Review: since July only the review sync committed; 2 Google reviews total.
 - **2026-07-04** — Nextdoor page refreshed via business.nextdoor.com: new avatar + cover,
   description, contact@ email, https URL, hours M–F 8–6, street kept hidden.
 - **2026-07-04** — Instagram business account reactivated + refreshed: new avatar, 3-line bio.
@@ -143,17 +167,32 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-1. **GSC:** Mark clicks **Verify** in Search Console + submits `sitemap-index.xml`
-   (tag + sitemap already confirmed serving; the GSC UI blocks Claude's browser tools).
-2. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
+1. **GSC:** Mark clicks **Verify** in Search Console + submits `sitemap-index.xml` (re-submit
+   after the 2026-11-18 trailing-slash fix; URL Inspection → Request indexing on the 4 new
+   `/business/*` pages). The GSC UI blocks Claude's browser tools.
+2. **Commercial licensing (ask Mark):** /business advertises door access control. Texas Occ. Code
+   ch. 1702 (DPS Private Security) licenses access-control/alarm companies; CCTV coverage was not
+   confirmed. If licensed, put the license # on the site (wins trust). Also get a COI ready —
+   GCs and property managers ask for one. A dedicated business-cameras page is held until this
+   is answered.
+3. **Commercial lead generation (Mark's time):** monthly TDLR TABS search (public registry of
+   Texas commercial builds ≥$50k) for Fort Bend projects → contact owner/GC early; pitch
+   electricians and GCs as their low-voltage sub; Fort Bend Chamber; county/city vendor
+   registration. Claude can draft the outreach letter + a one-page leave-behind.
+4. **Commercial proof:** real photos + a written case study for every commercial job (the
+   dealership is the only real commercial photo; sports-bar and boardroom gallery entries are
+   AI placeholders). Update GBP categories/services/posts toward commercial (needs Mark's login).
+5. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
+   tell "no traffic" from "traffic not converting"; send a test through the quote form.
+6. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
    Claude can drive the browser once signed in.
-3. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
+7. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
    Keep NAP identical: Dapper AV Solutions, (972) 824-1303, https://dapperav.com, contact@.
-4. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
-5. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
+8. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
+9. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
    consider a vanity username later (counts as a rename — ask Mark first).
-6. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
+10. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
    for **LSA**.
-7. **Photos:** replace AI-placeholder gallery entries DAV-004..006 with real install photos
+11. **Photos:** replace AI-placeholder gallery entries DAV-004..006 with real install photos
    (whole-home audio, UniFi racks). First testimonial/case study when a customer agrees.
-8. **First care-plan client** — the MSP engine needs a lighthouse customer.
+12. **First care-plan client** — the MSP engine needs a lighthouse customer.

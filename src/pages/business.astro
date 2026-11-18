@@ -39,9 +39,10 @@ const capabilities = [
 ];
 
 const clients = [
-  { type: 'Offices', need: 'Conference rooms, M365, secure Wi-Fi, door access' },
-  { type: 'Restaurants & bars', need: 'TV walls, music, POS-safe networks, cameras' },
-  { type: 'Retail & showrooms', need: 'Signage, background audio, guest Wi-Fi, surveillance' },
+  { type: 'Restaurants & bars', need: 'TV walls, music, POS-safe networks, cameras', slug: 'restaurants-bars' },
+  { type: 'Offices', need: 'Conference rooms, M365, secure Wi-Fi, door access', slug: 'offices-conference-rooms' },
+  { type: 'Retail & showrooms', need: 'Signage, background audio, guest Wi-Fi, surveillance', slug: 'retail-showrooms' },
+  { type: 'Digital signage', need: 'Menu boards and lobby screens you update from your phone', slug: 'digital-signage' },
   { type: 'Warehouses & shops', need: 'Wide-area Wi-Fi, cameras, access control, paging' },
 ];
 ---
@@ -179,14 +180,27 @@ const clients = [
   <section class="bg-parchment">
     <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
       <SectionHeading eyebrow="Who we work with" title="Built for businesses without an IT guy" />
-      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
-          clients.map((c, i) => (
-            <div class="glass rounded-3xl p-7" data-reveal style={`--rd: ${i * 90}ms`}>
-              <h3 class="font-display text-lg font-semibold">{c.type}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-cocoa">{c.need}</p>
-            </div>
-          ))
+          clients.map((c, i) => {
+            const Tag = c.slug ? 'a' : 'div';
+            return (
+              <Tag
+                href={c.slug ? `/business/${c.slug}` : undefined}
+                class={`glass group rounded-3xl p-7 ${c.slug ? 'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl' : ''}`}
+                data-reveal
+                style={`--rd: ${(i % 3) * 90}ms`}
+              >
+                <h3 class="font-display text-lg font-semibold">{c.type}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-cocoa">{c.need}</p>
+                {c.slug && (
+                  <span class="mt-4 inline-block text-sm font-medium text-gold-deep transition-transform duration-300 group-hover:translate-x-1">
+                    Learn more →
+                  </span>
+                )}
+              </Tag>
+            );
+          })
         }
       </div>
       <p class="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-cocoa" data-reveal>

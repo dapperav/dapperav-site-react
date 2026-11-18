@@ -1,13 +1,23 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { faqs } from '../data/site';
+import { faqs as siteFaqs } from '../data/site';
+
+interface Props {
+  items?: { q: string; a: string }[];
+  lead?: string;
+}
+
+const {
+  items: faqs = siteFaqs,
+  lead = 'The things Fort Bend County homeowners ask us most — answered the same way we quote: honestly.',
+} = Astro.props;
 ---
 
 <section class="grooves mx-auto max-w-3xl px-5 py-24 sm:px-8 sm:py-28">
   <SectionHeading
     eyebrow="Questions"
     title="Straight answers, up front"
-    lead="The things Fort Bend County homeowners ask us most — answered the same way we quote: honestly."
+    lead={lead}
   />
   <div class="mt-12 space-y-4">
     {
