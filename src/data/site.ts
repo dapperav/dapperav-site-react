@@ -6,7 +6,7 @@
 export const site = {
   name: 'Dapper AV Solutions',
   shortName: 'Dapper AV',
-  tagline: 'Professional, precise, and personal AV solutions for homes and businesses.',
+  tagline: 'Professional, precise, and personal AV and IT for businesses and homes across Fort Bend County.',
   url: 'https://dapperav.com',
   phone: '(972) 824-1303',
   phoneHref: 'tel:+19728241303',
@@ -287,5 +287,5 @@ export const quoteFormOptions = {
     'Other',
   ],
   timelines: ['ASAP', '1–2 weeks', 'Within 1 month', '2–3 months', 'Just planning'],
-  budgets: ['Under $500', '$500 – $1,500', '$1,500 – $3,000', '$3,000 – $5,000', '$5,000+'],
+  budgets: ['Under $500', '$500 – $1,500', '$1,500 – $3,000', '$3,000 – $5,000', '$5,000 – $15,000', '$15,000+'],
 };

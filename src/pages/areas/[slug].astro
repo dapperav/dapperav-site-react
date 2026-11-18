@@ -23,8 +23,8 @@ const serviceSchema = {
 ---
 
 <Layout
-  title={`${area.headline} — TV Mounting, Home Theater & Smart Home | Dapper AV Solutions`}
-  description={`TV mounting, home theater, whole-home audio, and smart home installation in ${area.city}, TX. Owner-operated, free on-site consultations, transparent pricing. Call or text ${site.phone}.`}
+  title={`${area.headline} — Commercial AV, Business Networks & TV Mounting | Dapper AV Solutions`}
+  description={`Commercial AV, business networks, cameras and managed IT for ${area.city}, TX businesses — plus TV mounting, home theater and smart home. Owner-operated, free site surveys. Call or text ${site.phone}.`}
   extraSchema={[serviceSchema]}
 >
   <section class="mx-auto max-w-6xl px-5 pt-16 pb-14 sm:px-8 md:pt-44">
@@ -35,6 +35,14 @@ const serviceSchema = {
     <p class="mt-5 max-w-2xl text-sm leading-relaxed text-cocoa" data-reveal style="--rd: 280ms">
       Neighborhoods we're regularly in: <strong class="text-espresso">{area.neighborhoods.join(', ')}</strong> — and
       everywhere in between.
+    </p>
+    <p class="mt-5 max-w-2xl text-sm leading-relaxed text-cocoa" data-reveal style="--rd: 320ms">
+      Run a business in {area.city}? We also install and manage
+      <a href="/business" class="link-draw font-semibold text-gold-deep">commercial AV, networks and cameras</a> —
+      for <a href="/business/restaurants-bars" class="link-draw">restaurants &amp; bars</a>,
+      <a href="/business/offices-conference-rooms" class="link-draw">offices</a>,
+      <a href="/business/retail-showrooms" class="link-draw">retail</a> and
+      <a href="/business/digital-signage" class="link-draw">digital signage</a>.
     </p>
     <div class="mt-9 flex flex-wrap gap-4" data-reveal style="--rd: 360ms">
       <a
@@ -83,7 +91,7 @@ const serviceSchema = {
   </section>
 
   <CtaBand
-    title={`Ready to upgrade your ${area.city} home?`}
+    title={`Ready to upgrade your ${area.city} home or business?`}
     body={`Free on-site consultations across ${area.county}. Tell us about your project and we'll respond within one business day — or call or text ${site.phone} right now.`}
   />
 </Layout>

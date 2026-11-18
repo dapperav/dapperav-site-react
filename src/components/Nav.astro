@@ -5,8 +5,8 @@ import { site } from '../data/site';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'For Residential' },
   { href: '/business', label: 'For Business' },
+  { href: '/services', label: 'For Residential' },
   { href: '/work', label: 'Our Work' },
 ];
 
@@ -196,15 +196,15 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 >
   <div class="grid grid-cols-5 items-end">
     <a
-      href="/services"
-      aria-current={path === '/services' ? 'page' : undefined}
+      href="/business"
+      aria-current={path.startsWith('/business') ? 'page' : undefined}
       class="flex flex-col items-center gap-1 py-2.5 text-[0.65rem] font-semibold tracking-wide text-cocoa aria-[current=page]:text-gold-deep"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
-        <rect x="2" y="4" width="20" height="13" rx="2.5" />
-        <path d="M8 21h8m-4-4v4" />
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01" />
       </svg>
-      Residential
+      Business
     </a>
     <a
       href="/work"

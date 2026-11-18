@@ -13,7 +13,7 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
 
 <Layout
   title="Request a Quote — Dapper AV Solutions"
-  description="Get a free, itemized quote for TV mounting, home theater, whole-home audio, smart home, or commercial AV in Richmond, Katy, Sugar Land & Fort Bend County. We respond within one business day."
+  description="Get a free site survey and itemized quote for commercial AV, business networks and managed IT — or TV mounting, home theater and smart home — in Richmond, Katy, Sugar Land & Fort Bend County. We respond within one business day."
 >
   <section class="mx-auto max-w-6xl px-5 pt-16 pb-16 sm:px-8 md:pt-44">
     <SectionHeading
@@ -40,6 +40,10 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
           <div>
             <label for="qf-phone" class={labelCls}>Phone *</label>
             <input id="qf-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(555) 555-5555" class={inputCls} />
+          </div>
+          <div>
+            <label for="qf-company" class={labelCls}>Business name</label>
+            <input id="qf-company" name="company" type="text" autocomplete="organization" placeholder="If this is for a business" class={inputCls} />
           </div>
           <div>
             <label for="qf-service" class={labelCls}>Service needed *</label>
@@ -237,7 +241,7 @@ const labelCls = 'block text-xs font-semibold tracking-[0.14em] uppercase text-c
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: accessKey,
-          subject: `Quote request from ${data.name} — ${data.service}`,
+          subject: `Quote request from ${data.name}${data.company ? ` (${data.company})` : ''} — ${data.service}`,
           from_name: 'dapperav.com quote form',
           ...data,
         }),
