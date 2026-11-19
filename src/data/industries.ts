@@ -250,7 +250,7 @@ export const industries: Industry[] = [
     name: "Business Wi-Fi & networks",
     heroLines: ['Business Wi-Fi', '& networks'],
     headline: "Business Wi-Fi and Network Installation",
-    metaTitle: "Business Wi-Fi & Network Installation, Fort Bend TX | Dapper AV",
+    metaTitle: "Business Wi-Fi & Networks, Fort Bend TX | Dapper AV",
     metaDescription: "UniFi business Wi-Fi and networks with POS, cameras, staff and guests kept separate. Installed and managed across Fort Bend County.",
     intro: "Dapper AV Solutions designs and installs UniFi business networks in Richmond, Rosenberg, Sugar Land, Fulshear, Stafford and Katy. Owner Mark Immler, an IT director by day, places access points for your floor plan and keeps the POS, cameras, staff and guests on separate networks, then manages it all if you want.",
     installs: [
@@ -285,7 +285,7 @@ export const industries: Industry[] = [
     name: "Structured cabling & low voltage",
     heroLines: ['Cabling &', 'low voltage'],
     headline: "Structured Cabling and Low-Voltage Installation",
-    metaTitle: "Structured Cabling & Low Voltage, Fort Bend TX | Dapper AV",
+    metaTitle: "Structured Cabling & Low Voltage, TX | Dapper AV",
     metaDescription: "Data drops, racks and low-voltage rough-in for new builds and remodels in Fort Bend County. Clean, labeled and documented, as your sub or direct.",
     intro: "Dapper AV Solutions runs the low-voltage side of commercial builds and remodels in Richmond, Rosenberg, Sugar Land, Fulshear, Stafford and Katy: data cabling, racks, and the pre-wire for TVs, speakers, Wi-Fi and cameras. General contractors and electricians get one sub for everything with a cable; owners get it labeled and documented.",
     installs: [

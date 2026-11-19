@@ -48,7 +48,7 @@ export const faqs = [
   },
   {
     q: 'Do you do free consultations?',
-    a: "Yes — every project starts with a free on-site consultation across our Fort Bend County service area. We look at the room, the walls, and the wiring, then send an itemized quote. No pressure, no obligation.",
+    a: "Yes. Every project starts with a free visit where I look at the room, the walls and the wiring, then send an itemized quote.",
   },
   {
     q: 'Can you hide the wires when you mount a TV?',
@@ -64,7 +64,7 @@ export const faqs = [
   },
   {
     q: 'Do you handle commercial jobs?',
-    a: 'Yes — commercial AV (video walls, signage, conference rooms, restaurant and bar systems) plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, and Microsoft 365. Business work is custom-quoted after a free site survey.',
+    a: 'Yes. Commercial AV (video walls, signage, conference rooms, restaurant and bar systems), plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, and Microsoft 365. Business work is custom-quoted after a free site survey.',
   },
 ];
 
@@ -108,7 +108,7 @@ export const carePlans = [
 export const commitments = [
   {
     title: 'Owner-operated',
-    body: 'The person who quotes your project is the person who shows up and installs it. No subcontractor roulette.',
+    body: "I quote your project, install it and answer the phone afterward. I don't hand your job to a subcontractor.",
   },
   {
     title: 'Free on-site consultations',
@@ -116,7 +116,7 @@ export const commitments = [
   },
   {
     title: 'Transparent pricing',
-    body: 'Up-front, itemized quotes. No hidden fees, no surprise add-ons on install day.',
+    body: 'Itemized in writing before I start, so you see what each piece costs.',
   },
   {
     title: 'Clean, damage-free installs',

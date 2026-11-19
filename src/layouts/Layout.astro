@@ -27,7 +27,8 @@ const jsonLd = {
   email: site.email,
   image: `${site.url}/og-image.png`,
   logo: `${site.url}/icon-512.png`,
-  description: site.tagline,
+  description:
+    'Owner-operated commercial AV and managed IT installer in Richmond, TX, serving Fort Bend County: TV walls, business Wi-Fi and networks, cameras, structured cabling, digital signage and Microsoft 365. Residential TV mounting and home theater too.',
   priceRange: '$$',
   // Service-area business: city only, no street (matches the Google Business Profile)
   address: { '@type': 'PostalAddress', addressLocality: 'Richmond', addressRegion: 'TX', addressCountry: 'US' },
@@ -49,11 +50,12 @@ const jsonLd = {
     closes: '18:00',
   },
   founder: { '@type': 'Person', name: 'Mark Immler' },
+  contactPoint: { '@type': 'ContactPoint', telephone: '+19728241303', contactType: 'customer service', areaServed: 'US-TX', availableLanguage: 'English' },
   sameAs: site.socials.map((s) => s.url),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'AV & IT Services',
-    itemListElement: services.map((s) => ({
+    itemListElement: [...services].sort((a, b) => Number(b.category !== 'residential') - Number(a.category !== 'residential')).map((s) => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: s.title, description: s.blurb },
       ...(s.price

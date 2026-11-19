@@ -49,7 +49,7 @@
   --text-h2: clamp(2rem, 4vw, 3.5rem);
   --text-lead: clamp(1.25rem, 1.8vw, 1.625rem);
   --text-body: 1.0625rem;
-  --text-small: 0.9375rem;
+  --text-small: 1rem;
   --leading-tight: 1.02;
   --leading-snug: 1.2;
   --leading-body: 1.6;

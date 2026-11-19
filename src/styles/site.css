@@ -316,19 +316,18 @@ label.pill {
   clip-path: inset(0 calc(50% - 2.5rem) round var(--radius-control));
   opacity: 0;
   transition:
-    clip-path 450ms var(--ease-drawer) 300ms,
-    opacity 200ms var(--ease-out) 450ms;
+    clip-path 300ms var(--ease-drawer) 100ms,
+    opacity 200ms var(--ease-out) 250ms;
 }
 .nav-group {
   position: relative;
   display: flex;
   gap: var(--space-1);
   opacity: 0;
-  visibility: hidden;
+  pointer-events: none;
   transition:
-    opacity 200ms var(--ease-out) 300ms,
-    transform 450ms var(--ease-drawer) 300ms,
-    visibility 0s linear 750ms;
+    opacity 200ms var(--ease-out) 100ms,
+    transform 300ms var(--ease-drawer) 100ms;
 }
 .nav-group--left {
   justify-content: flex-end;
@@ -387,12 +386,11 @@ label.pill {
   pointer-events: auto;
   box-shadow: var(--shadow-1);
   opacity: 0;
-  visibility: hidden;
+  pointer-events: none;
   transform: translateY(-6px);
   transition:
-    opacity 200ms var(--ease-out) 300ms,
-    transform 300ms var(--ease-out) 300ms,
-    visibility 0s linear 600ms,
+    opacity 200ms var(--ease-out) 100ms,
+    transform 300ms var(--ease-out) 100ms,
     background-color var(--dur-base) var(--ease-out);
 }
 
@@ -403,7 +401,7 @@ label.pill {
   clip-path: inset(0 0 round var(--radius-control));
   opacity: 1;
   transition:
-    clip-path 450ms var(--ease-drawer),
+    clip-path 300ms var(--ease-drawer),
     opacity 120ms var(--ease-out);
 }
 .site-nav.at-top .nav-group,
@@ -414,19 +412,34 @@ label.pill {
 .nav-wrap:focus-within .nav-cta {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: none;
   transition:
-    opacity 250ms var(--ease-out) 80ms,
-    transform 450ms var(--ease-drawer),
+    opacity 200ms var(--ease-out) 60ms,
+    transform 300ms var(--ease-drawer),
     visibility 0s,
     background-color var(--dur-base) var(--ease-out);
+}
+/* 1. Tablets and other touch screens have no hover: keep the pill open so the links and phone
+      stay reachable after scrolling (phones use the dock instead). */
+@media (hover: none) and (min-width: 768px) {
+  .nav-shell::before {
+    clip-path: inset(0 0 round var(--radius-control));
+    opacity: 1;
+  }
+  .nav-group,
+  .nav-cta {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
 }
 
 /* The disc does one spin-up when the page loads, then turns only while you scroll:
    never a perpetual loop, and it stops when the page stops. */
 @media (prefers-reduced-motion: no-preference) {
   .roundel-spin {
-    animation: spin-up 1.4s var(--ease-out) 200ms both;
+    animation: spin-up 600ms var(--ease-out) 100ms both;
   }
   @supports (animation-timeline: scroll()) {
     .roundel-img {
@@ -449,7 +462,7 @@ label.pill {
 }
 @keyframes turn {
   to {
-    transform: rotate(1440deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -653,7 +666,7 @@ label.pill {
   .js .hero-actions,
   .js .hero-aside,
   .js .hero-card {
-    animation: rise 800ms var(--ease-out) both;
+    animation: rise 400ms var(--ease-out) both;
   }
   .js .hero-title-main {
     animation-delay: 90ms;
@@ -1008,7 +1021,7 @@ label.pill {
   object-fit: cover;
   border-radius: calc(var(--radius-card) - 8px);
   box-shadow: var(--shadow-2);
-  transition: transform 700ms var(--ease-out);
+  transition: transform 300ms var(--ease-out);
 }
 /* The disc hides behind the sleeve and slides out when the sleeve scrolls into view
    (and a little further on hover). Accent only: you never see more than a third of it. */
@@ -1024,7 +1037,7 @@ label.pill {
     repeating-radial-gradient(circle, var(--brown-950) 0 2.5px, color-mix(in srgb, var(--brown-950) 80%, var(--cream-100)) 2.5px 5px);
   box-shadow: var(--shadow-1);
   transform: translateX(0) rotate(0deg);
-  transition: transform 900ms var(--ease-out);
+  transition: transform 400ms var(--ease-out);
 }
 .sleeve.is-in .sleeve-disc,
 html:not(.js) .sleeve-disc {
@@ -1305,7 +1318,7 @@ html:not(.js) .sleeve-disc {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: end;
   border-radius: var(--radius-card);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--cream-50) 82%, transparent), color-mix(in srgb, var(--cream-50) 66%, transparent));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--cream-50) 96%, transparent), color-mix(in srgb, var(--cream-50) 90%, transparent));
   -webkit-backdrop-filter: blur(18px) saturate(150%);
   backdrop-filter: blur(18px) saturate(150%);
   box-shadow: var(--shadow-2), inset 0 0 0 1px var(--glass-light-edge), var(--inner-light);
@@ -1323,7 +1336,7 @@ html:not(.js) .sleeve-disc {
   gap: 2px;
   min-height: var(--dock-h);
   padding: var(--space-2) 2px var(--space-2);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: var(--weight-semibold);
   color: var(--color-ink-muted);
   text-decoration: none;
@@ -1378,13 +1391,13 @@ html:not(.js) .sleeve-disc {
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(12px);
     transition:
-      opacity 700ms var(--ease-out) var(--d, 0ms),
-      transform 700ms var(--ease-out) var(--d, 0ms);
+      opacity 250ms var(--ease-out) var(--d, 0ms),
+      transform 300ms var(--ease-out) var(--d, 0ms);
   }
   .js .sleeve:nth-child(2)[data-reveal] {
-    transform: translateY(calc(var(--space-8) + 20px));
+    transform: translateY(calc(var(--space-8) + 12px));
   }
   .js [data-reveal].is-in {
     opacity: 1;
@@ -1405,6 +1418,11 @@ html:not(.js) .sleeve-disc {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .float-cta,
+  body.is-scrolled .float-cta {
+    transform: none;
+    transition-property: opacity, visibility;
   }
   .nav-shell::before,
   .nav-group,
@@ -1451,4 +1469,26 @@ html:not(.js) .sleeve-disc {
     background: var(--cream-50);
     box-shadow: inset 0 0 0 2px var(--brown-800);
   }
+}
+
+/* ═══ Tap targets (audit 2026-11-19) ═══ */
+.footer-list a,
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.footer-list {
+  gap: 0;
+}
+@media (max-width: 767px) {
+  .text-link {
+    display: inline-block;
+    padding-block: 10px;
+    margin-block: -10px;
+  }
+}
+/* homepage: the three promises under "For your business" */
+.biz-promises {
+  margin-block: var(--space-5);
 }

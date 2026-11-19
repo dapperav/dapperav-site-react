@@ -16,10 +16,10 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
   <section class="quote-page grooves" aria-labelledby="quote-title">
     <div class="container quote-grid">
       <div>
-        <h1 class="quote-title" id="quote-title">Tell us about your project</h1>
+        <h1 class="quote-title" id="quote-title">Book a free site survey</h1>
         <p class="quote-lead">
-          I reply within one business day, usually with a quick call and a time for a free 30–45 minute visit. Rather talk
-          now? Call or text <a href={site.phoneHref}>{site.phone}</a>.
+          Tell me about the space. I reply within one business day, usually with a call to set a 30–45 minute visit.
+          Faster: call or text <a href={site.phoneHref}>{site.phone}</a>.
         </p>
 
         <div class="bezel bezel--light form-card">
@@ -31,12 +31,12 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
                   <input id="qf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" class="field" />
                 </div>
                 <div>
-                  <label for="qf-email" class="field-label">Email <span>(required)</span></label>
-                  <input id="qf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="field" />
+                  <label for="qf-email" class="field-label">Email <span>(phone or email)</span></label>
+                  <input id="qf-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" class="field" />
                 </div>
                 <div>
-                  <label for="qf-phone" class="field-label">Phone <span>(required)</span></label>
-                  <input id="qf-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(555) 555-5555" class="field" />
+                  <label for="qf-phone" class="field-label">Phone <span>(phone or email)</span></label>
+                  <input id="qf-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" class="field" />
                 </div>
                 <div>
                   <label for="qf-company" class="field-label">Business name <span>(optional)</span></label>
@@ -66,13 +66,12 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
               </div>
 
               <div class="form-full">
-                <label for="qf-message" class="field-label">Project details <span>(required)</span></label>
+                <label for="qf-message" class="field-label">Project details <span>(optional)</span></label>
                 <textarea
                   id="qf-message"
                   name="message"
                   rows="5"
-                  required
-                  placeholder="Tell us about the room, the equipment you have or want, and what you're trying to achieve…"
+                  placeholder="One line is enough: the room, what you have or want, and what you're trying to fix."
                   class="field"></textarea>
               </div>
 
@@ -96,8 +95,8 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             <div id="qf-success" class="form-state hidden" role="status">
               <p id="qf-success-title" tabindex="-1" class="form-state-title">Request received.</p>
               <p>
-                Thanks. Your details are on their way to me, and I'll get back to you within one business day. Need me sooner?
-                Call or text <a href={site.phoneHref}>{site.phone}</a>.
+                Got it. I read every request myself and reply within one business day, usually with a call to set up the visit.
+                If it's urgent, call or text <a href={site.phoneHref}>{site.phone}</a>.
               </p>
             </div>
 
@@ -125,7 +124,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             </div>
             <ul class="aside-list">
               <li><a href={site.phoneHref}>Call {site.phone}</a></li>
-              <li><a href={site.smsHref}>Text me, I reply fast</a></li>
+              <li><a href={site.smsHref}>Text a photo or a question</a></li>
               <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
               <li>{site.hours}</li>
             </ul>
@@ -135,7 +134,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             <ol class="aside-list aside-steps">
               <li>A reply within one business day.</li>
               <li>A free 30–45 minute visit at a time that suits you.</li>
-              <li>An itemized quote: the number you see is the number you pay.</li>
+              <li>An itemized quote in writing, before anything is installed.</li>
             </ol>
           </div>
           <div class="aside-block">
@@ -180,7 +179,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
   const isBusiness = (v) => v === 'Commercial AV' || v === 'Managed IT / Networking (Business)';
   const setMode = () => {
     const biz = isBusiness(form.elements.service.value);
-    document.querySelector('main h1').textContent = biz ? 'Book a free site survey' : 'Tell us about your project';
+    document.querySelector('main h1').textContent = biz || !form.elements.service.value ? 'Book a free site survey' : 'Tell me about your project';
     document.getElementById('qf-tvtip').hidden = biz;
     form.elements.message.placeholder = biz
       ? "What kind of space is it, and what's not working? e.g. 12-table restaurant, 4 TVs on the bar, Wi-Fi drops on Fridays"
@@ -194,10 +193,20 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
     hint.classList.add('hidden');
     errorBox.classList.add('hidden');
 
-    if (!form.checkValidity()) {
-      hint.textContent = 'Please fill in the required fields (name, email, phone, service, and project details).';
+    // Phone OR email is enough; the browser checks the rest (name, service, email format).
+    const reach = !!(form.elements.phone.value.trim() || form.elements.email.value.trim());
+    for (const el of [form.elements.name, form.elements.email, form.elements.phone, form.elements.service]) {
+      const bad = !el.validity.valid || ((el.name === 'phone' || el.name === 'email') && !reach);
+      el.toggleAttribute('aria-invalid', bad);
+      if (bad) el.setAttribute('aria-describedby', 'qf-hint');
+      else el.removeAttribute('aria-describedby');
+    }
+    if (!form.checkValidity() || !reach) {
+      hint.textContent = form.elements.email.validity.typeMismatch
+        ? 'That email address looks incomplete. Check it, or leave it blank and add a phone number.'
+        : 'Please add your name, the service, and a phone number or email so I can reach you.';
       hint.classList.remove('hidden');
-      form.querySelector(':invalid')?.focus();
+      (form.querySelector('[aria-invalid]') ?? form.elements.phone).focus();
       return;
     }
 

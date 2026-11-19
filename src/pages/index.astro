@@ -16,7 +16,6 @@ import { industries } from '../data/industries';
 import { gallery } from '../data/gallery';
 
 const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
-const brands = ['Ubiquiti UniFi', 'Microsoft 365', 'Sonos', 'Samsung', 'LG', 'Epson', 'Klipsch'];
 const lines: Record<string, string> = {
   'restaurants-bars': 'TV walls, zoned music and a POS network kept apart from guest Wi-Fi.',
   'offices-conference-rooms': 'Meeting rooms that start on the first try, and the Microsoft 365 behind them.',
@@ -28,17 +27,17 @@ const lines: Record<string, string> = {
 ---
 
 <Layout
-  title="Commercial AV & Business IT in Fort Bend County | Dapper AV"
+  title="Commercial AV & Managed IT, Richmond TX | Dapper AV"
   description="Commercial AV, business Wi-Fi, cameras and managed IT for Fort Bend County businesses, plus TV mounting and home theater. Free site surveys."
 >
   <Hero
     page={false}
     lead="One local contact for"
     main="everything with a cable."
-    lede="Commercial AV, business Wi-Fi, cabling and managed IT for Fort Bend County businesses. The same tailored work at home."
+    lede="Restaurants, offices, retail and signage in Richmond, Sugar Land, Katy and across Fort Bend County. AV, Wi-Fi, cameras, cabling and managed IT from one installer who also runs IT."
     actions={[
       { href: survey, label: 'Book a free site survey', arrow: true },
-      { href: site.phoneHref, label: `Call ${site.phone}`, variant: 'ghost' },
+      { href: site.phoneHref, label: `Call or text ${site.phone}`, variant: 'ghost' },
     ]}
   >
     <p slot="crumbs" class="hero-brand"><Image src={logo} alt="" width={80} loading="eager" /> Dapper AV Solutions · Richmond, TX</p>
@@ -47,31 +46,24 @@ const lines: Record<string, string> = {
     </p>
     <aside slot="aside" class="bezel bezel--dark hero-card" aria-labelledby="survey-card-title">
       <div class="bezel-core">
-        <h2 class="hero-card-title" id="survey-card-title">The free site survey</h2>
+        <h2 class="hero-card-title" id="survey-card-title">What the free survey is</h2>
         <ul class="hero-card-list">
           <li>
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
-            <span><strong>30–45 minutes, on site.</strong> I walk the space and note every screen, drop and camera angle.</span>
+            <span><strong>30–45 minutes at your place.</strong> I walk the space and write down every screen, cable drop and camera spot.</span>
           </li>
           <li>
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14v15H5z"></path><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"></path></svg>
-            <span><strong>An itemized proposal.</strong> Every line priced before anything is installed.</span>
+            <span><strong>A written, itemized price.</strong> Nothing is installed until you approve it.</span>
           </li>
           <li>
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5h15v9h-9l-4 3v-3h-2z"></path></svg>
-            <span><strong>A reply within one business day</strong> to every call, text or form.</span>
+            <span><strong>I answer calls and texts myself.</strong> If I miss you, you hear back within one business day.</span>
           </li>
         </ul>
       </div>
     </aside>
   </Hero>
-
-  <section class="brands" aria-label="Brands I install and manage">
-    <div class="container">
-      <p class="brands-label">Brands I install and manage</p>
-      <ul class="brands-list">{brands.map((b) => <li>{b}</li>)}</ul>
-    </div>
-  </section>
 
   <section class="section section--alt grooves" id="services" aria-labelledby="services-title">
     <div class="container">
@@ -83,7 +75,12 @@ const lines: Record<string, string> = {
       <div class="biz on-dark pinstripe">
         <div class="biz-intro">
           <h3 class="h3">For your business</h3>
-          <p>An IT department for businesses that don't have one. The screens, the sound and the network underneath, installed and then looked after by the same person.</p>
+          <p>An IT department for businesses that don't have one. UniFi networks and cameras, Microsoft 365, and the screens and sound on top, installed and then looked after by the same person.</p>
+          <ul class="checklist biz-promises">
+            <li>Installed before open, after close or on weekends, so you never close for it.</li>
+            <li>The person who installs it is the person you call afterward.</li>
+            <li>An itemized price after a free survey, in writing, before any work starts.</li>
+          </ul>
           <a class="btn btn--primary" href="/business/">All business services</a>
         </div>
         <ul class="biz-list">
