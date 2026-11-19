@@ -109,7 +109,7 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
 | Thing | Detail |
 |---|---|
 | Quote form | Web3Forms → contact@dapperav.com. Honeypot + validation; falls back loudly to phone/email if unconfigured. Tested end-to-end. |
-| Google Business Profile | Mark's personal gmail (mgioftx@). Place ID `ChIJu1Q7sb3Sk6gRbGDmkUJWSq4`. Hours M–F 8–6 (site changed to 9–5 Central on 2026-11-19; GBP still needs updating by Mark), 10 service-area cities. |
+| Google Business Profile | Mark's personal gmail (mgioftx@). Place ID `ChIJu1Q7sb3Sk6gRbGDmkUJWSq4`. Hours M–F 9–5 (changed 2026-11-19, matches the site), 10 service-area cities. Primary category is still "Home cinema installation" — consider a commercial one. |
 | Review auto-sync | `.github/workflows/sync-reviews.yml` nightly ~6am CT → `scripts/sync-reviews.mjs` → Places API (New) → `src/data/reviews.json` → commits + deploys itself. Home ReviewsSection renders only when written 4–5★ reviews exist. API key in repo secret `GOOGLE_PLACES_API_KEY` (GCP "My First Project", trial). Secret gotcha: PS pipe once added a BOM — set with `--body $var`, strip non-ASCII. |
 | GA4 | `G-JDBM052Y1B`, on every page. |
 | Search Console | Meta-tag verification live; sitemap-index.xml serves 200. GSC's SPA blocks Claude's browser tools — GSC UI clicks need Mark. |
@@ -164,6 +164,8 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-19** — Google Business Profile hours changed from M–F 8–6 to M–F 9–5 (Sat/Sun closed) to
+  match the site; submitted via Business Profile Manager (Google review pending at the time).
 - **2026-11-19** — SITE REDESIGN SHIPPED (branch `concept/taste`, squash-merged). Long session with Mark;
   what's live now:
   - **Look:** Mark's original look remastered on logo-verified tokens, cut 35–40% shorter (he hates
@@ -303,8 +305,9 @@ https://dapperav.com, same description/tagline.
    COI on request" to /business.
 2. **Real commercial photos (Mark):** 5–10 phone photos of commercial work he likes (racks, TV walls,
    cameras). They replace stock and drawings and fix the "few pictures" gap. Real jobs only.
-3. **Hours on listings (Mark):** Google Business Profile, Facebook and Nextdoor still say M–F 8–6;
-   the site now says 9–5 Central. Update GBP first (Google compares them).
+3. **Hours on listings (Mark):** Google Business Profile is updated to 9–5. Facebook and Nextdoor still
+   say M–F 8–6. Also consider changing the GBP primary category from "Home cinema installation" to a
+   commercial one.
 4. **Case studies + reviews:** ask 2–3 business clients to be named/quoted; review ask after every
    job via dapperav.com/review. Target ~5 Google reviews → apply for **Google LSA**.
 5. **GSC (Mark):** resubmit `sitemap-index.xml`; URL Inspection → Request indexing on /business/*,
