@@ -6,13 +6,11 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import Sleeve from '../components/Sleeve.astro';
 import Owner from '../components/Owner.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site } from '../data/site';
 import { industries } from '../data/industries';
-import { gallery } from '../data/gallery';
 import { gear, industryThumb } from '../data/gear';
 
 
@@ -115,19 +113,6 @@ const lines: Record<string, string> = {
         </div>
         <a class="btn btn--ghost" href="/services/">Home services</a>
       </div>
-    </div>
-  </section>
-
-  <section class="section grooves" id="work" aria-labelledby="work-title">
-    <div class="container work">
-      <div class="work-head">
-        <h2 class="h2" id="work-title">Rooms I've dressed up</h2>
-        <p class="lede">Real installs, photographed on the job. Clean lines, hidden wires.</p>
-        <a class="text-link" href="/work/">See all the work</a>
-      </div>
-      <ul class="sleeves">
-        {gallery.map((item, i) => <Sleeve item={item} delay={i * 90} />)}
-      </ul>
     </div>
   </section>
 
