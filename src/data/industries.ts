@@ -38,7 +38,7 @@ const afterHours = {
 
 const carePlanFaq = {
   q: 'Who handles it when something stops working?',
-  a: 'We do. The same company that installed it supports it. Every system can be covered by a month-to-month care plan with monitoring and priority response, or you can request service as needed.',
+  a: 'We do. The same company that installed it supports it. Every system can be covered by a month-to-month care plan with monitoring and support from 9 to 5 Central, plus emergency help after hours at an emergency rate. Or request service as needed.',
 };
 
 export const industries: Industry[] = [
@@ -143,7 +143,7 @@ export const industries: Industry[] = [
       },
       {
         q: 'Can you take over IT for a small office?',
-        a: "Yes — that's what the care plans on our business page are for: network, cameras and Microsoft 365 managed month to month, with a local team that knows your setup.",
+        a: "Yes — that's what the care plans on our business page are for: network, cameras and Microsoft 365 managed month to month by the company that installed it.",
       },
       carePlanFaq,
     ],

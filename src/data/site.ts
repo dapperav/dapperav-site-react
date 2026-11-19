@@ -69,41 +69,37 @@ export const faqs = [
 ];
 
 /** Monthly managed-service tiers shown on /business — custom-quoted, no public prices. */
+/** What a care plan can include. Plans are tailored to each site after the survey; never publish prices. */
 export const carePlans = [
   {
-    name: 'Network Care',
-    tagline: 'The essentials, watched.',
+    name: 'Network & cameras',
     features: [
-      'UniFi network monitoring & updates',
-      'Wi-Fi performance checks & tuning',
-      'Firewall & VLAN upkeep',
-      'Priority support response',
-      'Monthly network health report',
+      'UniFi network monitoring and alerts',
+      'Firmware updates and patching',
+      'Wi-Fi tuning, firewall and VLAN upkeep',
+      'Camera health checks and footage export',
     ],
   },
   {
-    name: 'Network + Camera Care',
-    tagline: 'Eyes on everything.',
-    popular: true,
+    name: 'Everyday IT help',
     features: [
-      'Everything in Network Care',
-      'UniFi Protect camera health checks',
-      'Firmware & storage management',
-      'Retention policy upkeep',
-      'Footage export when you need it',
+      'Connecting printers, PCs and new devices',
+      'Microsoft 365 users, licenses and email',
+      'General IT support when something acts up',
     ],
   },
   {
-    name: 'Full Stack Care',
-    tagline: 'Your entire IT, handled.',
-    features: [
-      'Everything in Network + Camera Care',
-      'Microsoft 365 users, licenses & email',
-      'Security baseline & reviews',
-      'Quarterly on-site checkup',
-    ],
+    name: 'On site & hardware',
+    features: ['Scheduled on-site visits', 'RMA and warranty claims handled with the manufacturer'],
   },
 ];
+
+/** How plan clients reach support (Mark, 2026-11-19). The public site stays form-only. */
+export const support = {
+  hours: '9am–5pm Central, Monday to Friday',
+  channels: 'Plan clients call, text or email us directly.',
+  emergency: 'Outside those hours we still answer emergencies, at an emergency rate.',
+};
 
 export const commitments = [
   {

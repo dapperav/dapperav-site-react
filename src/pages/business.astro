@@ -8,7 +8,7 @@ import Steps from '../components/Steps.astro';
 import DocMap from '../components/DocMap.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { site, carePlans } from '../data/site';
+import { site, carePlans, support } from '../data/site';
 
 const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`;
 
@@ -48,17 +48,15 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
   <section class="section on-dark pinstripe" id="care-plans" aria-labelledby="plans-title">
     <div class="container">
       <div class="section-head">
-        <h2 class="h2" id="plans-title">Pick a plan. Forget about IT.</h2>
-        <p class="lede">Monthly plans from a local company that answers. We quote each site after the free survey because the price depends on your building: square footage, how many access points and cameras, how many Microsoft 365 users. You get it itemized, in writing.</p>
+        <h2 class="h2" id="plans-title">A care plan built around your site</h2>
+        <p class="lede">Every site is different, so every plan is too. After the free survey we put together what your building needs from the list below, priced in writing and month to month.</p>
       </div>
       <div class="bezel bezel--dark plan-panel" data-reveal>
         <div class="bezel-core">
           {
             carePlans.map((plan) => (
-              <div class:list={['plan', { 'plan--marked': plan.popular }]}>
+              <div class="plan">
                 <h3 class="plan-name">{plan.name}</h3>
-                <p class="plan-tag">{plan.tagline}</p>
-                {plan.popular && <p class="plan-flag">Recommended for most sites</p>}
                 <ul class="checklist">
                   {plan.features.map((f) => (
                     <li>{f}</li>
@@ -68,6 +66,14 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
             ))
           }
         </div>
+      </div>
+      <div class="support" data-reveal>
+        <h3 class="support-title">How support works</h3>
+        <ul class="support-list">
+          <li><strong>{support.channels}</strong></li>
+          <li>Support hours: {support.hours}.</li>
+          <li>{support.emergency}</li>
+        </ul>
       </div>
       <div class="plan-foot">
         <p>Month to month. No long contract.</p>

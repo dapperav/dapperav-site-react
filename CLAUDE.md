@@ -38,6 +38,12 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
 - **Company voice, no one-man framing (Mark, 2026-11-19):** write as the company ("we", "Dapper AV").
   Never "one person", "one local person", "owner-operated", "myself", "IT director by day" or "day job"
   (reads as a one-man or part-time shop). Don't invent a team size or crew either.
+- **Facts for business copy (Mark, 2026-11-19):** NOT insured yet. NOT certified: say "CompTIA, Ubiquiti and
+  Microsoft coursework/training", never "certified" and no partner badges or logos. Care plans are tailored per site
+  and never priced publicly; they can include network monitoring, patching, on-site visits, everyday IT help
+  (printers, devices, Microsoft 365) and RMA/warranty handling (`carePlans` in site.ts). Support for plan clients:
+  call, text or email, 9am–5pm Central weekdays; emergencies after hours at an emergency rate (`support` in
+  site.ts). The public site stays form-only for new inquiries.
 - **Contact is form-only (Mark, 2026-11-19).** Never show the phone number on the site and never add
   call (`tel:`) or text (`sms:`) buttons or links. Every contact path goes to `/quote/`. Email stays only
   in the footer and the form's failure message. The number remains in LocalBusiness JSON-LD (invisible,

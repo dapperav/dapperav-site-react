@@ -452,27 +452,17 @@ html {
     border-top: 0;}
   .plan:first-child {
     border-left: 0;}
-  .plan--marked,
-  .plan--marked + .plan {
-    border-left-color: transparent;}
+  
 }
-.plan--marked {
-  border-radius: calc(var(--radius-card) - var(--bezel-pad));
-  background: color-mix(in srgb, var(--gold-500) 9%, transparent);}
+
 .plan-name {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: var(--weight-semibold);
   line-height: 1.15;
   letter-spacing: -0.015em;}
-.plan-tag {
-  margin-top: var(--space-2);
-  color: var(--color-ink-inverse-muted);}
-.plan-flag {
-  margin-top: var(--space-1);
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  color: var(--color-accent);}
+
+
 .plan-price {
   margin-top: var(--space-3);
   font-family: var(--font-display);
@@ -1122,4 +1112,40 @@ button.dock-item {
   .ledger-line {
     grid-column: 1 / -1;
   }
+}
+
+/* ── care plans: how support works ── */
+.support {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--cream-50) 8%, transparent);
+}
+@media (min-width: 1024px) {
+  .support {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: start;
+  }
+}
+.support-title {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-inverse);
+}
+.support-list {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-ink-inverse-muted);
+}
+.support-list strong {
+  color: var(--color-ink-inverse);
+}
+
+/* plan lists stack from the top, whatever the neighbouring column holds */
+.plan .checklist {
+  align-content: start;
+  grid-auto-rows: max-content;
 }
