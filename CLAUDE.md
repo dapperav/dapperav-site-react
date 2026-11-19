@@ -64,25 +64,36 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
     "Custom-quoted"), care plans, FAQs, quote form options, `socials` array,
     `WEB3FORMS_ACCESS_KEY`, `GA4_MEASUREMENT_ID` (G-JDBM052Y1B), `GOOGLE_SITE_VERIFICATION`
     — all filled and live.
-  - `src/data/gallery.ts` — add photo = import + 5-field entry; optional `pos:'top'` crop anchor;
-    DAV-00N catalog numbers render from array index.
+  - `src/data/gallery.ts` — Mark's install photos. UNUSED since 2026-11-19 (Mark doesn't want his
+    own photos on the site); kept for when he supplies commercial photos he likes.
+  - `src/data/gear.ts` — stock photos (Unsplash License, no credit; sources in
+    `src/assets/stock/sources.json`), `industryThumb` (one per business type). Captioned
+    "Stock photo, not a Dapper AV job".
+  - `public/film/` — silhouettes from the brand film ("Behind it", brand-assets/launch-film/silhouette),
+    used as CSS masks by `FilmScene.astro`; `walk.png` is the 8-pose walk sprite.
+  - `public/video/cables-loop.*` — Pexels clip 7140937 (free, no credit) behind every CtaBand.
   - `src/data/areas.ts` — city SEO pages at `/areas/{slug}` (6 cities).
   - `src/data/industries.ts` — commercial landing pages at `/business/{slug}` (restaurants-bars,
     offices-conference-rooms, retail-showrooms, digital-signage). Capabilities only — no invented
     clients. Optional `photo` must be a REAL install photo (the AI gallery placeholders never).
   - `src/data/reviews.json` — auto-written by the nightly review sync. Do not hand-edit.
-- **Pages:** `/` `/services` `/business` `/work` `/quote` `/404` + 6 area pages + 4
-  `/business/{slug}` commercial pages.
+- **Pages:** `/` `/services` `/business` `/quote` `/privacy` `/404` + 6 area pages + 6
+  `/business/{slug}` commercial pages. (`/work` was removed 2026-11-19 and redirects to /business/.)
   `/review` redirects to the Google write-a-review form (use this URL in review asks).
   `/contact` `/portfolio` `/pricing` `/calculator` redirect from the old site.
-- **Design language** ("dapper suit × vinyl records"): espresso `#3b1005`, cream `#f7f0e0`,
-  gold `#f0b010`; Fraunces + Inter; `.glass`/`.glass-dark` panels; pill buttons; pinstripe
-  texture on dark sections; `.grooves` corner arcs on light; desktop nav = spinning roundel
-  disc; mobile = bottom dock with 76px spinning logo (center = Home); gallery cards = record
-  sleeves; page cross-fades via CSS `@view-transition`. All motion respects
-  `prefers-reduced-motion`.
-- **CSS gotcha:** `.glass` etc. are UN-layered and beat layered Tailwind utilities regardless
-  of specificity — override glass with un-layered rules (see `.glass[aria-pressed='true']`).
+- **Design language (2026-11-19, "taste" pass):** logo-verified tokens in `design-system/tokens.css`
+  (brown #531b0a, gold #f1b71c, cream #f2dfbb; buttons/pills/fields in `design-system/components.css`),
+  Fraunces + Inter. design-taste-frontend house rules apply: flat colour, no resting shadows, no
+  hairline dividers, no glass, no eyebrow labels. Desktop nav = cream pill with the roundel logo that
+  turns once with scroll; phones = bottom dock. Motion (timed with motionmaxxing's grammar: land
+  decelerates, leave accelerates, no springs): headline words rise behind masks, a gold cable draws
+  under "cable.", staggered section reveals, View Transitions that whip-pan between pages, and
+  `FilmScene` scenes (broken → the film's silhouette installer walks through → fixed → "by Dapper AV"
+  credit) on the business pages, /business and /services. `DocMap` on /business = a drawn SAMPLE
+  closeout network map. Everything respects `prefers-reduced-motion` and works without JS.
+- **Taste gate:** `node ~/.claude/skills/design-taste-frontend/scripts/lint.mjs src` and
+  `inspect.mjs <url>` against `npx astro preview`. Known, accepted flags: the cream palette (it's the
+  logo's), the phone dock covering text while scrolling, and too few large photos (no real ones yet).
 - **Dev server:** launch.json entry "DapperAV (Astro)", port 4321. Sometimes serves stale
   global.css after many git checkouts — restart it if styles look wrong.
 - **Trailing slashes:** GitHub Pages serves `/services/` and 301s `/services` to it. So
@@ -153,6 +164,27 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-19** — SITE REDESIGN SHIPPED (branch `concept/taste`, squash-merged). Long session with Mark;
+  what's live now:
+  - **Look:** Mark's original look remastered on logo-verified tokens, cut 35–40% shorter (he hates
+    long scrolling), then design-taste rules applied (no gradients/shadows/hairlines/glass/eyebrows).
+  - **Motion:** site-wide motion layer (word-mask headlines, gold cable under "cable.", staggered
+    reveals, whip-pan page transitions) plus the brand film's world: `FilmScene` silhouette scenes on
+    the business pages, /business and /services, and the silhouette installer walking through the
+    homepage hero (desktop only).
+  - **Pictures:** Mark's portrait and install photos removed everywhere, /work deleted (redirects).
+    Stock photos (Unsplash/Pexels, no credit, captioned as not Dapper AV jobs) on the industry lists;
+    a muted Pexels cable loop behind every closing band.
+  - **Contact is form-only:** no visible phone number, no call/text links (number only in JSON-LD).
+    Quote form: phone OR email, details optional, per-field errors.
+  - **Copy:** company voice ("we"), no one-man/part-time framing; business-first homepage with the
+    business review; CRO/SEO fixes (Service + BreadcrumbList schema, titles < 60 chars, llms.txt).
+  - **Care plans:** tailored per site, no prices; "How support works" (call/text/email for plan
+    clients, 9–5 Central weekdays, after-hours emergencies at an emergency rate). Hours site-wide now
+    Mon–Fri 9–5 Central. Training stated as CompTIA/Ubiquiti/Microsoft coursework (not certified).
+  - **New pages/sections:** /privacy/, "Documented, not just installed" network map on /business.
+  - Earlier rounds that did NOT ship: phase-2 type-led redesign (rejected), concepts 2 and 5 (worktrees
+    ../dapperav-concept-02, -05), a "Watch the film" player (Mark wanted the film's elements instead).
 - **2026-11-18** — REDESIGN PHASE 2: every other page now uses the homepage system. Shared
   components: `PageHero` (two-line, two-ink statement; espresso or parchment field), `BigList`
   (poster-scale list on gold/cream/parchment), `Staircase` (how a job goes + optional "what moves
@@ -266,43 +298,26 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-1. **Mark's own install photos** would beat every found picture (racks, TV walls, cameras,
-   before/after). Add them to `src/data/gallery.ts` (real jobs only) and swap them into
-   `PictureBand` / `ClosetPair` slots. Re-run the taste-skill gate after any page change
-   (`lint.mjs src` + `inspect.mjs` against `npx astro preview`).
-2. **GSC:** Mark clicks **Verify** in Search Console + submits `sitemap-index.xml` (re-submit
-   after the 2026-11-18 trailing-slash fix; URL Inspection → Request indexing on the 4 new
-   `/business/*` pages). The GSC UI blocks Claude's browser tools.
-3. **Commercial licensing (ask Mark):** /business advertises door access control. Texas Occ. Code
-   ch. 1702 (DPS Private Security) licenses access-control/alarm companies; CCTV coverage was not
-   confirmed. If licensed, put the license # on the site (wins trust). Also get a COI ready —
-   GCs and property managers ask for one. A dedicated business-cameras page is held until this
-   is answered.
-4. **Commercial lead generation (Mark's time):** monthly TDLR TABS search (public registry of
-   Texas commercial builds ≥$50k) for Fort Bend projects → contact owner/GC early; pitch
-   electricians and GCs as their low-voltage sub; Fort Bend Chamber; county/city vendor
-   registration. Letters + one-pager are DONE (see changelog) — Mark sends 5–10/week.
-5. **Commercial proof:** real photos + a written case study for every commercial job (the dealership is the only real commercial photo; Mark doesn't want it featured). Update GBP categories/services/posts toward commercial (needs Mark's login).
-6. **GA4 key events (Mark, 2 min):** GA4 Admin → Events → mark `generate_lead`, `phone_click`,
-   `text_click` as key events (they appear after the first real one fires). Then check DebugView.
-7. **Bing Webmaster Tools (Mark):** import from Search Console + submit sitemap — Bing barely
-   indexes the site, and ChatGPT/Copilot search through Bing.
-8. **Insurance + licensing (Mark):** get general liability insurance (GCs and property managers
-   ask for a COI first), then add "Insured · COI on request" to the business pages. DPS license
-   if door access/intercom work is wanted back on the site. Residential smart locks / video
-   doorbells are still listed under Smart Home — check whether DPS licensing applies there too.
-   Audit group 3 (Mark's logins): BBB / Thumbtack / Houzz / Fort Bend Chamber listings.
-9. **Analytics check:** Mark (or Claude with his login) pulls GA4 + GSC for the last 90 days to
-   tell "no traffic" from "traffic not converting"; send a test through the quote form.
-10. **Bing Places:** Mark signs into a Microsoft account → import listing from GBP (~2 min).
-   Claude can drive the browser once signed in.
-11. **Yelp + Apple Business Connect:** create/claim listings (need Mark's account sign-ins).
-   Keep NAP identical: Dapper AV Solutions, (972) 824-1303, https://dapperav.com, contact@.
-12. **Instagram:** add second link (dapperav.com/quote) from the phone app. Optional.
-13. **Facebook nice-to-haves:** add IG as a social link in About (1Password blocked it);
-   consider a vanity username later (counts as a rename — ask Mark first).
-14. **Reviews:** work toward ~5 Google reviews (review-ask text after every job) → then apply
-   for **LSA**.
-15. **Photos:** add real install photos (AI placeholders DAV-004..006 were REMOVED 2026-11-18)
-   (whole-home audio, UniFi racks). First testimonial/case study when a customer agrees.
-16. **First care-plan client** — the MSP engine needs a lighthouse customer.
+1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
+   insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
+   COI on request" to /business.
+2. **Real commercial photos (Mark):** 5–10 phone photos of commercial work he likes (racks, TV walls,
+   cameras). They replace stock and drawings and fix the "few pictures" gap. Real jobs only.
+3. **Hours on listings (Mark):** Google Business Profile, Facebook and Nextdoor still say M–F 8–6;
+   the site now says 9–5 Central. Update GBP first (Google compares them).
+4. **Case studies + reviews:** ask 2–3 business clients to be named/quoted; review ask after every
+   job via dapperav.com/review. Target ~5 Google reviews → apply for **Google LSA**.
+5. **GSC (Mark):** resubmit `sitemap-index.xml`; URL Inspection → Request indexing on /business/*,
+   /privacy/. /work now redirects. The GSC UI blocks Claude's browser tools.
+6. **GA4 key events (Mark, 2 min):** mark `generate_lead` as a key event. `phone_click`/`text_click`
+   no longer fire (no call/text links on the site); `email_click` still does.
+7. **Bing Webmaster Tools + Bing Places (Mark):** import from Search Console / GBP.
+8. **Commercial lead generation (Mark's time):** monthly TDLR TABS search for Fort Bend projects;
+   pitch GCs/electricians as their low-voltage sub; Fort Bend Chamber. Letters + one-pager are done.
+9. **Directory listings (Mark's logins):** Yelp, Apple Business Connect, BBB, Thumbtack, Houzz. Keep
+   NAP identical.
+10. **Care-plan specifics:** when Mark settles what each plan includes (backups, MFA, camera retention
+    days), add them; never publish prices.
+11. **design-system/DESIGN.md** predates the taste pass (mentions the vinyl accent); refresh it the
+    next time the design changes.
+12. **First care-plan client** — the MSP engine needs a lighthouse customer.
