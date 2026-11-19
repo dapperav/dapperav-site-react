@@ -37,8 +37,8 @@ const afterHours = {
 };
 
 const carePlanFaq = {
-  q: 'Who do we call when something stops working?',
-  a: 'Me — the same person who installed it. Every system can be covered by a month-to-month care plan with monitoring and priority response, or you can call for service as needed.',
+  q: 'Who handles it when something stops working?',
+  a: 'Me — the same person who installed it. Every system can be covered by a month-to-month care plan with monitoring and priority response, or you can request service as needed.',
 };
 
 export const industries: Industry[] = [
@@ -184,7 +184,7 @@ export const industries: Industry[] = [
         body: 'UniFi Protect records locally, so there are no monthly per-camera cloud fees, and you can still watch from your phone.',
       },
       {
-        title: 'One call for everything electronic',
+        title: 'One contact for everything electronic',
         body: 'Displays, music, Wi-Fi and cameras from one local vendor who knows how they all connect.',
       },
     ],

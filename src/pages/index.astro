@@ -38,11 +38,11 @@ const lines: Record<string, string> = {
     lede="Restaurants, offices, retail and signage in Richmond, Sugar Land, Katy and across Fort Bend County. AV, Wi-Fi, cameras, cabling and managed IT from one installer who also runs IT."
     actions={[
       { href: survey, label: 'Book a free site survey', arrow: true },
-      { href: site.phoneHref, label: `Call or text ${site.phone}`, variant: 'ghost' },
+      { href: '/work/', label: 'See real installs', variant: 'ghost' },
     ]}
   >
     <p class="hero-aside">
-      Homeowner? <a class="text-link" href="/services/">See home services</a> or <a class="text-link" href={site.smsHref}>text a photo of your wall</a>.
+      Homeowner? <a class="text-link" href="/services/">See home services</a>.
     </p>
     <aside slot="aside" class="bezel bezel--dark hero-card" aria-labelledby="survey-card-title">
       <div class="bezel-core">
@@ -58,7 +58,7 @@ const lines: Record<string, string> = {
           </li>
           <li>
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5h15v9h-9l-4 3v-3h-2z"></path></svg>
-            <span><strong>I answer calls and texts myself.</strong> If I miss you, you hear back within one business day.</span>
+            <span><strong>I read every request myself.</strong> You hear back within one business day.</span>
           </li>
         </ul>
       </div>
@@ -78,7 +78,7 @@ const lines: Record<string, string> = {
           <p>An IT department for businesses that don't have one. UniFi networks and cameras, Microsoft 365, and the screens and sound on top, installed and then looked after by the same person.</p>
           <ul class="checklist biz-promises">
             <li>Installed before open, after close or on weekends, so you never close for it.</li>
-            <li>The person who installs it is the person you call afterward.</li>
+            <li>The person who installs it is the person who looks after it afterward.</li>
             <li>An itemized price after a free survey, in writing, before any work starts.</li>
           </ul>
           <a class="btn btn--primary" href="/business/">All business services</a>

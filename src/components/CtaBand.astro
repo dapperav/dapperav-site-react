@@ -4,7 +4,6 @@
  * (Pexels clip 7140937, free license, no credit required; background footage, not a Dapper AV job).
  * Reduced motion: the loop never plays and the poster frame shows instead.
  */
-import { site } from '../data/site';
 
 interface Props {
   title?: string;
@@ -15,10 +14,10 @@ interface Props {
 }
 const {
   title = 'Book a free site survey',
-  lede = '30–45 minutes on site, an itemized proposal after, and a reply within one business day. Or call or text me now.',
+  lede = '30–45 minutes on site, an itemized proposal after, and a reply within one business day.',
   href = `/quote/?service=${encodeURIComponent('Commercial AV')}`,
   label = 'Book a free site survey',
-  secondary = { href: site.phoneHref, label: `Call ${site.phone}` },
+  secondary,
 } = Astro.props;
 ---
 
@@ -32,7 +31,7 @@ const {
     <p class="lede">{lede}</p>
     <div class="cta-actions">
       <a class="btn btn--primary btn--lg" href={href}>{label}</a>
-      <a class="btn btn--ghost btn--lg" href={secondary.href}>{secondary.label}</a>
+      {secondary && <a class="btn btn--ghost btn--lg" href={secondary.href}>{secondary.label}</a>}
     </div>
   </div>
 </section>

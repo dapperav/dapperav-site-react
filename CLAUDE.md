@@ -31,6 +31,10 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
 - Keep every claim honest — no fabricated stats, testimonials, or review counts. Ever.
 - Never commit to `main`. Branch → PR → squash-merge when CI is green (don't pause to ask).
 - Mark declined renaming social accounts/pages — leave names/handles as they are.
+- **Contact is form-only (Mark, 2026-11-19).** Never show the phone number on the site and never add
+  call (`tel:`) or text (`sms:`) buttons or links. Every contact path goes to `/quote/`. Email stays only
+  in the footer and the form's failure message. The number remains in LocalBusiness JSON-LD (invisible,
+  keeps NAP consistent with GBP) and nowhere else.
 
 ## The site — dapperav.com
 

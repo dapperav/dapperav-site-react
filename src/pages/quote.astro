@@ -18,8 +18,8 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
       <div>
         <h1 class="quote-title" id="quote-title">Book a free site survey</h1>
         <p class="quote-lead">
-          Tell me about the space. I reply within one business day, usually with a call to set a 30–45 minute visit.
-          Faster: call or text <a href={site.phoneHref}>{site.phone}</a>.
+          Tell me about the space. I read every request myself and reply within one business day to set a time for
+          a free 30–45 minute visit.
         </p>
 
         <div class="bezel bezel--light form-card">
@@ -80,7 +80,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
 
               <p id="qf-tvtip" class="form-tip">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect><circle cx="12" cy="12" r="3"></circle><path d="M8 5.5l1.5-2h5l1.5 2"></path></svg>
-                <span><strong>Fastest quote:</strong> text a photo of your wall or room to <a href={site.smsHref}>{site.phone}</a>. For most TV mounts, a photo is all I need.</span>
+                <span><strong>Fastest quote:</strong> tell me the TV size, the wall (drywall, brick or stone) and where the nearest outlet is. For most TV mounts, that is all I need.</span>
               </p>
 
               <p id="qf-hint" class="form-hint hidden" role="alert"></p>
@@ -95,8 +95,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             <div id="qf-success" class="form-state hidden" role="status">
               <p id="qf-success-title" tabindex="-1" class="form-state-title">Request received.</p>
               <p>
-                Got it. I read every request myself and reply within one business day, usually with a call to set up the visit.
-                If it's urgent, call or text <a href={site.phoneHref}>{site.phone}</a>.
+                Got it. I read every request myself and reply within one business day to set up the visit.
               </p>
             </div>
 
@@ -104,7 +103,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             <div id="qf-error" class="form-state form-hint hidden" role="alert">
               <p>Something went wrong sending your request.</p>
               <p>
-                Please reach me directly instead: call or text <a href={site.phoneHref}>{site.phone}</a> or email
+                Please email me instead at
                 <a href={`mailto:${site.email}`}>{site.email}</a>.
               </p>
             </div>
@@ -123,8 +122,6 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
               </div>
             </div>
             <ul class="aside-list">
-              <li><a href={site.phoneHref}>Call {site.phone}</a></li>
-              <li><a href={site.smsHref}>Text a photo or a question</a></li>
               <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
               <li>{site.hours}</li>
             </ul>

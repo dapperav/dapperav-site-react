@@ -43,7 +43,7 @@ const serviceSchema = {
 
 <Layout
   title={`Commercial AV & Business IT in ${area.city} | Dapper AV`}
-  description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys. Call ${site.phone}.`}
+  description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys.`}
   extraSchema={[serviceSchema]}
 >
   <Hero
@@ -52,7 +52,7 @@ const serviceSchema = {
     lede={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by one local person. Homes too.`}
     actions={[
       { href: surveyHref, label: 'Book a free site survey', arrow: true },
-      { href: site.phoneHref, label: `Call ${site.phone}`, variant: 'ghost' },
+      { href: '/work/', label: 'See real installs', variant: 'ghost' },
     ]}
   >
     <Crumbs slot="crumbs" items={[{ href: '/', label: 'Home' }, { label: `${area.city}, TX` }]} />

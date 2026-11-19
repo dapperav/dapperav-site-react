@@ -5,7 +5,6 @@ import Hero from '../components/Hero.astro';
 import Sleeve from '../components/Sleeve.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { site } from '../data/site';
 import { gallery } from '../data/gallery';
 
 const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
@@ -19,7 +18,7 @@ const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
     lead="Real installs, photographed on the job"
     main="Rooms I've dressed up."
     lede="Every photo here is a Dapper AV job in a Fort Bend County home."
-    actions={[{ href: survey, label: 'Book a free site survey', arrow: true }, { href: site.smsHref, label: 'Text me a photo of your space', variant: 'ghost' }]}
+    actions={[{ href: survey, label: 'Book a free site survey', arrow: true }]}
   />
 
   <section class="section grooves" id="installs" aria-labelledby="installs-title">

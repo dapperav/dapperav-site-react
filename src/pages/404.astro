@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import { site } from '../data/site';
 import { industries } from '../data/industries';
 ---
 
@@ -11,7 +10,7 @@ import { industries } from '../data/industries';
     page={false}
     lead="Wrong cable."
     main="Page not found."
-    lede={`The page you wanted has moved or never existed. Head home, book a survey, or call or text ${site.phone}.`}
+    lede={`The page you wanted has moved or never existed. Head home or book a survey.`}
     actions={[
       { href: '/', label: 'Back to home', arrow: true },
       { href: `/quote/?service=${encodeURIComponent('Commercial AV')}`, label: 'Book a free site survey', variant: 'ghost' },
