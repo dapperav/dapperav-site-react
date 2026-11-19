@@ -539,7 +539,8 @@ const stripes = Array.from({ length: 10 }, (_, i) => i);
       opacity: 0;
     }
     .scenes [data-scene]:not(.is-on) .fs-check {
-      transform: scale(0);
+      opacity: 0;
+      transform: scale(0.6);
     }
     .scenes [data-scene]:not(.is-on) .fs-spinner {
       opacity: 1;
@@ -571,7 +572,7 @@ const stripes = Array.from({ length: 10 }, (_, i) => i);
       animation: fs-cheer 520ms var(--ease-land) 1.35s both;
     }
     .is-on .fs-spinner {
-      animation: fs-spin 0.7s linear 0s 2, fs-gone 120ms ease-in 1.2s both;
+      animation: fs-spin 0.7s linear 0s 2, fs-gone 120ms var(--ease-land) 1.2s both;
     }
     .is-on .fs-check {
       animation: fs-pop 380ms var(--ease-land) 1.25s both;
@@ -665,7 +666,8 @@ const stripes = Array.from({ length: 10 }, (_, i) => i);
   }
   @keyframes fs-pop {
     from {
-      transform: scale(0);
+      opacity: 0;
+      transform: scale(0.6);
     }
     to {
       transform: scale(1);
