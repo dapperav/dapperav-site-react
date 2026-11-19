@@ -589,11 +589,8 @@ label.pill {
   .js .hero-lede,
   .js .hero-actions,
   .js .hero-aside,
-  .js .film-open,
   .js .hero-card {
     animation: rise var(--dur-enter) var(--ease-land) both;}
-  .js .film-open {
-    animation-delay: 560ms;}
   .js .hero-lede {
     animation-delay: 420ms;}
   .js .hero-actions {

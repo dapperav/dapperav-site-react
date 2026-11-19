@@ -16,7 +16,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
       <div>
         <h1 class="quote-title" id="quote-title">Book a free site survey</h1>
         <p class="quote-lead">
-          Tell me about the space. I read every request myself and reply within one business day to set a time for
+          Tell us about the space. We reply within one business day to set a time for
           a free 30–45 minute visit.
         </p>
 
@@ -78,14 +78,14 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
 
               <p id="qf-tvtip" class="form-tip">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect><circle cx="12" cy="12" r="3"></circle><path d="M8 5.5l1.5-2h5l1.5 2"></path></svg>
-                <span><strong>Fastest quote:</strong> tell me the TV size, the wall (drywall, brick or stone) and where the nearest outlet is. For most TV mounts, that is all I need.</span>
+                <span><strong>Fastest quote:</strong> tell us the TV size, the wall (drywall, brick or stone) and where the nearest outlet is. For most TV mounts, that is all we need.</span>
               </p>
 
               <p id="qf-hint" class="form-hint hidden" role="alert"></p>
 
               <div class="form-submit">
                 <button type="submit" id="qf-submit" class="btn btn--primary btn--lg">Send my quote request</button>
-                <p>I only use your details to answer this request. No newsletters, no spam.</p>
+                <p>We only use your details to answer this request. No newsletters, no spam.</p>
               </div>
             </form>
 
@@ -93,7 +93,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             <div id="qf-success" class="form-state hidden" role="status">
               <p id="qf-success-title" tabindex="-1" class="form-state-title">Request received.</p>
               <p>
-                Got it. I read every request myself and reply within one business day to set up the visit.
+                Got it. We reply within one business day to set up the visit.
               </p>
             </div>
 
@@ -101,7 +101,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             <div id="qf-error" class="form-state form-hint hidden" role="alert">
               <p>Something went wrong sending your request.</p>
               <p>
-                Please email me instead at
+                Please email us instead at
                 <a href={`mailto:${site.email}`}>{site.email}</a>.
               </p>
             </div>
@@ -114,8 +114,8 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
           <div class="aside-block">
             <div class="aside-owner">
               <div>
-                <p class="aside-owner-name">Mark Immler</p>
-                <p>Owner, not a call center</p>
+                <p class="aside-owner-name">Dapper AV Solutions</p>
+                <p>Local to Fort Bend County</p>
               </div>
             </div>
             <ul class="aside-list">
@@ -132,7 +132,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
             </ol>
           </div>
           <div class="aside-block">
-            <h2 class="aside-title">Where I work</h2>
+            <h2 class="aside-title">Where we work</h2>
             {
               serviceAreas.map((a) => (
                 <p class="aside-list">
@@ -142,7 +142,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
                 </p>
               ))
             }
-            <p class="aside-list">Outside that? Ask, I can often make it work. Jobs well outside the area carry a modest trip fee, always quoted up front.</p>
+            <p class="aside-list">Outside that? Ask, we can often make it work. Jobs well outside the area carry a modest trip fee, always quoted up front.</p>
           </div>
         </div>
       </aside>
@@ -173,7 +173,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
   const isBusiness = (v) => v === 'Commercial AV' || v === 'Managed IT / Networking (Business)';
   const setMode = () => {
     const biz = isBusiness(form.elements.service.value);
-    document.querySelector('main h1').textContent = biz || !form.elements.service.value ? 'Book a free site survey' : 'Tell me about your project';
+    document.querySelector('main h1').textContent = biz || !form.elements.service.value ? 'Book a free site survey' : 'Tell us about your project';
     document.getElementById('qf-tvtip').hidden = biz;
     form.elements.message.placeholder = biz
       ? "What kind of space is it, and what's not working? e.g. 12-table restaurant, 4 TVs on the bar, Wi-Fi drops on Fridays"
@@ -198,7 +198,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
     if (!form.checkValidity() || !reach) {
       hint.textContent = form.elements.email.validity.typeMismatch
         ? 'That email address looks incomplete. Check it, or leave it blank and add a phone number.'
-        : 'Please add your name, the service, and a phone number or email so I can reach you.';
+        : 'Please add your name, the service, and a phone number or email so we can reach you.';
       hint.classList.remove('hidden');
       (form.querySelector('[aria-invalid]') ?? form.elements.phone).focus();
       return;

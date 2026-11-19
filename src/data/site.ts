@@ -48,7 +48,7 @@ export const faqs = [
   },
   {
     q: 'Do you do free consultations?',
-    a: "Yes. Every project starts with a free visit where I look at the room, the walls and the wiring, then send an itemized quote.",
+    a: "Yes. Every project starts with a free visit where we look at the room, the walls and the wiring, then send an itemized quote.",
   },
   {
     q: 'Can you hide the wires when you mount a TV?',
@@ -107,8 +107,8 @@ export const carePlans = [
 
 export const commitments = [
   {
-    title: 'Owner-operated',
-    body: "I quote your project, install it and answer the phone afterward. I don't hand your job to a subcontractor.",
+    title: 'No subcontractors',
+    body: "The company that quotes your project installs it and supports it afterward. Your job is never handed to a subcontractor.",
   },
   {
     title: 'Free on-site consultations',
@@ -116,7 +116,7 @@ export const commitments = [
   },
   {
     title: 'Transparent pricing',
-    body: 'Itemized in writing before I start, so you see what each piece costs.',
+    body: 'Itemized in writing before we start, so you see what each piece costs.',
   },
   {
     title: 'Clean, damage-free installs',

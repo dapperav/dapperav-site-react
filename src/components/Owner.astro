@@ -7,8 +7,8 @@ interface Props {
   id?: string;
 }
 const {
-  heading = 'An installer who also runs IT',
-  lede = "I'm Mark Immler, and Dapper AV is mine. The person who surveys your site is the person who installs it, and the one who looks after it afterward.",
+  heading = 'AV and IT under one roof',
+  lede = 'Dapper AV was founded by Mark Immler after 18 years installing AV and five running managed IT. The survey, the install and the support all come from Dapper AV, never a subcontractor.',
   alt = true,
   id = 'owner',
 } = Astro.props;
@@ -20,7 +20,7 @@ const {
       <h2 class="h2" id={`${id}-title`}>{heading}</h2>
       <p class="lede">{lede}</p>
       <p class="owner-areas">Serving Richmond, Rosenberg, Fulshear, Sugar Land, Stafford, Katy and the rest of Fort Bend County.</p>
-      <p class="signature">Mark Immler<span>Owner, Dapper AV Solutions</span></p>
+      <p class="signature">Mark Immler<span>Founder, Dapper AV Solutions</span></p>
     </div>
     <dl class="facts facts--big">
       <div>
@@ -32,7 +32,7 @@ const {
         <dd>5 years</dd>
       </div>
       <div>
-        <dt>Day job</dt>
+        <dt>Background</dt>
         <dd>IT director</dd>
       </div>
       <div>

@@ -1,5 +1,5 @@
 ---
-/** Business hub: who I work with, what I run, the care plans, then the person behind it. */
+/** Business hub: who we work with, what we run, the care plans. */
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import GearPhoto from '../components/GearPhoto.astro';
@@ -20,7 +20,7 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
   <Hero
     lead="Managed IT, networks and commercial AV"
     main="Your IT department."
-    lede="Wi-Fi, cameras, cabling, Microsoft 365 and AV for Fort Bend County restaurants, offices and shops. One person designs it, installs it around your hours and picks up when it breaks."
+    lede="Wi-Fi, cameras, cabling, Microsoft 365 and AV for Fort Bend County restaurants, offices and shops. Designed, installed around your hours and supported when something breaks."
     actions={[
       { href: managedSurvey, label: 'Book a free site survey', arrow: true },
       { href: '#care-plans', label: 'See the care plans', variant: 'ghost' },
@@ -36,8 +36,8 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
     <div class="container">
       <div class="section-head section-head--split">
         <div>
-          <h2 class="h2" id="industries-title">Who I work with</h2>
-          <p class="lede">Six kinds of business, each with its own page: what I install there, what moves the price and what owners ask first.</p>
+          <h2 class="h2" id="industries-title">Who we work with</h2>
+          <p class="lede">Six kinds of business, each with its own page: what we install there, what moves the price and what owners ask first.</p>
         </div>
       </div>
       <IndustryLedger />
@@ -48,7 +48,7 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
     <div class="container">
       <div class="section-head">
         <h2 class="h2" id="plans-title">Pick a plan. Forget about IT.</h2>
-        <p class="lede">Monthly plans with one local person who answers. I quote each site after the free survey because the price depends on your building: square footage, how many access points and cameras, how many Microsoft 365 users. You get it itemized, in writing.</p>
+        <p class="lede">Monthly plans from a local company that answers. We quote each site after the free survey because the price depends on your building: square footage, how many access points and cameras, how many Microsoft 365 users. You get it itemized, in writing.</p>
       </div>
       <div class="bezel bezel--dark plan-panel" data-reveal>
         <div class="bezel-core">

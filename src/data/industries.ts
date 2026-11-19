@@ -38,7 +38,7 @@ const afterHours = {
 
 const carePlanFaq = {
   q: 'Who handles it when something stops working?',
-  a: 'Me — the same person who installed it. Every system can be covered by a month-to-month care plan with monitoring and priority response, or you can request service as needed.',
+  a: 'We do. The same company that installed it supports it. Every system can be covered by a month-to-month care plan with monitoring and priority response, or you can request service as needed.',
 };
 
 export const industries: Industry[] = [
@@ -71,7 +71,7 @@ export const industries: Industry[] = [
     reasons: [
       {
         title: 'One vendor for the room and the network',
-        body: "The TVs, the music and the network all come from one person, so there's no finger-pointing between the AV company and the IT company when something breaks on a Saturday.",
+        body: "The TVs, the music and the network all come from one company, so there's no finger-pointing between the AV company and the IT company when something breaks on a Saturday.",
       },
       {
         title: 'Built for staff, not technicians',
@@ -123,8 +123,8 @@ export const industries: Industry[] = [
     ],
     reasons: [
       {
-        title: 'AV and IT from the same person',
-        body: "Conference room problems are usually network or account problems in disguise. When one person owns the room, the network and Microsoft 365, the problem gets fixed instead of passed around.",
+        title: 'AV and IT from one company',
+        body: "Conference room problems are usually network or account problems in disguise. When one company owns the room, the network and Microsoft 365, the problem gets fixed instead of passed around.",
       },
       {
         title: 'Simple enough for the first meeting',
@@ -143,7 +143,7 @@ export const industries: Industry[] = [
       },
       {
         q: 'Can you take over IT for a small office?',
-        a: "Yes — that's what the care plans on our business page are for: network, cameras and Microsoft 365 managed month to month, with one local person who answers the phone.",
+        a: "Yes — that's what the care plans on our business page are for: network, cameras and Microsoft 365 managed month to month, with a local team that knows your setup.",
       },
       carePlanFaq,
     ],
@@ -185,7 +185,7 @@ export const industries: Industry[] = [
       },
       {
         title: 'One contact for everything electronic',
-        body: 'Displays, music, Wi-Fi and cameras from one local vendor who knows how they all connect.',
+        body: 'Displays, music, Wi-Fi and cameras from one local company that knows how they all connect.',
       },
     ],
     faqs: [
@@ -252,7 +252,7 @@ export const industries: Industry[] = [
     headline: "Business Wi-Fi and Network Installation",
     metaTitle: "Business Wi-Fi & Networks, Fort Bend TX | Dapper AV",
     metaDescription: "UniFi business Wi-Fi and networks with POS, cameras, staff and guests kept separate. Installed and managed across Fort Bend County.",
-    intro: "Dapper AV Solutions designs and installs UniFi business networks in Richmond, Rosenberg, Sugar Land, Fulshear, Stafford and Katy. Owner Mark Immler, an IT director by day, places access points for your floor plan and keeps the POS, cameras, staff and guests on separate networks, then manages it all if you want.",
+    intro: "Dapper AV Solutions designs and installs UniFi business networks in Richmond, Rosenberg, Sugar Land, Fulshear, Stafford and Katy. Networks are planned at IT-director level: access points placed for your floor plan and the POS, cameras, staff and guests kept on separate networks, and the whole thing managed if you want.",
     installs: [
       "UniFi access points placed and tuned for your floor plan",
       "Switches, gateway and firewall set up properly",
@@ -272,7 +272,7 @@ export const industries: Industry[] = [
     reasons: [
       { title: "Designed by an IT director", body: "The network is planned the way an IT department would plan it: documented, segmented and secured, not just plugged in." },
       { title: "Coverage you can count on", body: "Access points are placed for your floor plan and tuned after install, so the back office and the patio both get a signal." },
-      { title: "Managed after install", body: "Firmware, monitoring and changes handled under a month-to-month care plan, with one local person who answers." },
+      { title: "Managed after install", body: "Firmware, monitoring and changes handled under a month-to-month care plan, by the company that installed it." },
     ],
     faqs: [
       afterHours,
@@ -310,7 +310,7 @@ export const industries: Industry[] = [
       { title: "Support after the job", body: "Your client gets a local contact and an optional care plan, so the Wi-Fi calls don't come back to you." },
     ],
     faqs: [
-      { q: "Do you work as a subcontractor?", a: "Yes. I work under general contractors and electricians on the low-voltage scope, or directly for owners on retrofits." },
+      { q: "Do you work as a subcontractor?", a: "Yes. We work under general contractors and electricians on the low-voltage scope, or directly for owners on retrofits." },
       { q: "Can you cable a space that is already finished?", a: "Yes. Retrofits in finished spaces are routine; runs go through attics, ceilings and walls, and every penetration is patched." },
       carePlanFaq,
     ],

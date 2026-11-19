@@ -35,6 +35,9 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
   the vibe. No portrait/avatar, no fireplace or hi-fi shots; the /work page was removed (redirects to
   /business/). `src/data/gallery.ts` is kept but unused. Pictures on the site are stock (Unsplash/Pexels,
   no credit, captioned as not a Dapper AV job) until Mark supplies photos he likes.
+- **Company voice, no one-man framing (Mark, 2026-11-19):** write as the company ("we", "Dapper AV").
+  Never "one person", "one local person", "owner-operated", "myself", "IT director by day" or "day job"
+  (reads as a one-man or part-time shop). Don't invent a team size or crew either.
 - **Contact is form-only (Mark, 2026-11-19).** Never show the phone number on the site and never add
   call (`tel:`) or text (`sms:`) buttons or links. Every contact path goes to `/quote/`. Email stays only
   in the footer and the form's failure message. The number remains in LocalBusiness JSON-LD (invisible,

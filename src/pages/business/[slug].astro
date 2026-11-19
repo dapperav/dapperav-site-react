@@ -87,7 +87,7 @@ const check = 'M4 12.5l5 5L20 6.5';
     tone="light"
     alt
     main={`${industry.heroLines[0]} ${industry.heroLines[1]}`}
-    lede={`${industry.metaDescription} Afterward, you deal with me, not a ticket line.`}
+    lede={`${industry.metaDescription} Afterward, the same company supports it, not a ticket line.`}
     actions={[
       { href: quoteHref, label: 'Book a free site survey', arrow: true },
       { href: '/business/#care-plans', label: 'See the care plans', variant: 'ghost' },
@@ -108,7 +108,7 @@ const check = 'M4 12.5l5 5L20 6.5';
   <section class="section on-dark pinstripe" aria-labelledby="installs-title">
     <div class="container installs">
       <div>
-        <h2 class="h2" id="installs-title">What I install</h2>
+        <h2 class="h2" id="installs-title">What we install</h2>
         <p class="lede">{industry.intro}</p>
       </div>
       <ul class="install-grid">
@@ -128,7 +128,7 @@ const check = 'M4 12.5l5 5L20 6.5';
     <div class="container standard">
       <GearPhoto item={g.item} caption={g.caption} shape={g.item === 'runs' ? 'tall' : 'wide'} sizes="(min-width: 1024px) 50vw, 100vw" />
       <div>
-        <h2 class="h2" id="why-title">Why one installer</h2>
+        <h2 class="h2" id="why-title">Why one company</h2>
         <ul class="reasons">
           {
             industry.reasons.map((r) => (
@@ -143,7 +143,7 @@ const check = 'M4 12.5l5 5L20 6.5';
     </div>
   </section>
 
-  <Faq items={faqs} heading="What owners ask first" lede="Straight answers. Anything else, ask me during the survey.">
+  <Faq items={faqs} heading="What owners ask first" lede="Straight answers. Anything else, ask during the survey.">
     <div class="stack-actions">
       <a class="btn btn--secondary" href={quoteHref}>Book a free site survey</a>
     </div>
