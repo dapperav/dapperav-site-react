@@ -68,3 +68,13 @@ export const gear: Record<GearKey, Gear> = {
     note: 'Cameras that record locally, so there are no per-camera cloud fees.',
   },
 };
+
+/** A picture of each kind of space, for the industry lists (stock, never shown as a Dapper AV job). */
+export const industryThumb: Record<string, GearKey> = {
+  'restaurants-bars': 'bar',
+  'offices-conference-rooms': 'meeting',
+  'retail-showrooms': 'camera',
+  'digital-signage': 'barTv',
+  'networks-wifi': 'ports',
+  'structured-cabling': 'panel',
+};

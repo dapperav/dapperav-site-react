@@ -10,10 +10,11 @@ import Sleeve from '../components/Sleeve.astro';
 import Owner from '../components/Owner.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import logo from '../assets/logo.png';
 import { site } from '../data/site';
 import { industries } from '../data/industries';
 import { gallery } from '../data/gallery';
+import { gear, industryThumb } from '../data/gear';
+
 
 const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
 const lines: Record<string, string> = {
@@ -40,7 +41,6 @@ const lines: Record<string, string> = {
       { href: site.phoneHref, label: `Call or text ${site.phone}`, variant: 'ghost' },
     ]}
   >
-    <p slot="crumbs" class="hero-brand"><Image src={logo} alt="" width={80} loading="eager" /> Dapper AV Solutions · Richmond, TX</p>
     <p class="hero-aside">
       Homeowner? <a class="text-link" href="/services/">See home services</a> or <a class="text-link" href={site.smsHref}>text a photo of your wall</a>.
     </p>
@@ -88,6 +88,7 @@ const lines: Record<string, string> = {
             industries.map((i) => (
               <li>
                 <a class="biz-row" href={`/business/${i.slug}/`}>
+                  <Image class="biz-thumb" src={gear[industryThumb[i.slug]].image} alt="" widths={[160, 320]} sizes="5rem" />
                   <span class="biz-name">{i.name.replace(/Wi-Fi/g, 'Wi‑Fi')}</span>
                   <span class="biz-line">{lines[i.slug] ?? i.installs[0]}</span>
                   <svg class="biz-arrow" viewBox="0 0 24 24" aria-hidden="true">
