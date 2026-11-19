@@ -1,50 +1,58 @@
 ---
-/** Our work — real installs only, each given room (oversized visual, small cluster). */
-import { Image } from 'astro:assets';
+/** Our work: only real Dapper AV installs as record sleeves, then the gear (credited, labeled as gear). */
 import Layout from '../layouts/Layout.astro';
-import PictureBand from '../components/PictureBand.astro';
-import PageHero from '../components/PageHero.astro';
+import Hero from '../components/Hero.astro';
+import Sleeve from '../components/Sleeve.astro';
+import GearPhoto from '../components/GearPhoto.astro';
+import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
 import { gallery } from '../data/gallery';
+
+const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
 ---
 
 <Layout
   title="Our Work: Real Installs in Fort Bend County | Dapper AV"
-  description="Real Dapper AV installs across Fort Bend County: TV mounts, hi-fi systems and commercial displays. Every photo is our own work."
+  description="Real Dapper AV installs across Fort Bend County, photographed on the job, plus the gear I install for businesses and homes."
 >
-  <PageHero
-    field="parchment"
-    lines={['Real installs,', 'real rooms.']}
-    support="Every photo on this page is a Dapper AV job. More go up as jobs finish."
+  <Hero
+    lead="Real installs, photographed on the job"
+    main="Rooms I've dressed up."
+    lede="Every photo under “Recent installs” is a Dapper AV job in a Fort Bend County home. The gear photos further down are credited and are not my jobs."
+    actions={[{ href: survey, label: 'Book a free site survey', arrow: true }, { href: site.smsHref, label: 'Text me a photo of your space', variant: 'ghost' }]}
   />
 
-  <section class="chapter bg-cream text-espresso work" data-field="#f7f0e0" data-ink="#3b1005">
-    <h2 class="sr-only">Installs</h2>
-    {
-      gallery.map((item, i) => (
-        <article class={`work-block ${i % 2 ? 'work-block--second' : ''}`}>
-          <div class={`work-visual ${i === 0 ? 'work-visual--tall' : ''}`}>
-            <Image
-              src={item.image}
-              alt={item.alt}
-              widths={[700, 1100, 1500]}
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              class="work-img"
-              style={item.pos ? `object-position: ${item.pos}` : undefined}
-            />
-          </div>
-          <div class="work-cluster" data-reveal>
-            <h3 class="font-display work-title">{item.title}</h3>
-            <p class="work-desc">
-              {item.caption} {item.category === 'commercial' ? 'A commercial job.' : 'A Fort Bend County home.'}
-            </p>
-          </div>
-        </article>
-      ))
-    }
+  <section class="section grooves" id="installs" aria-labelledby="installs-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="installs-title">Recent installs</h2>
+        <p class="lede">Clean lines, level mounts and no visible wire.</p>
+      </div>
+      <ul class="sleeves sleeves--big">
+        {gallery.map((item, i) => <Sleeve item={item} delay={i * 90} sizes="(min-width: 1024px) 40vw, 90vw" />)}
+      </ul>
+      <p class="work-note">
+        Every one of these is mine. New installs go up as jobs finish. Want to see something like your space? Ask during the survey.
+      </p>
+    </div>
   </section>
 
-  <PictureBand />
+  <section class="section section--alt" id="gear" aria-labelledby="gear-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="gear-title">The gear that goes in</h2>
+        <p class="lede">These three are photos of equipment I install, taken by other people and credited under each one. They are not my jobs.</p>
+      </div>
+      <div class="gear-grid">
+        <GearPhoto item="switch" sizes="(min-width: 768px) 55vw, 100vw" />
+        <GearPhoto item="ap" shape="tall" sizes="(min-width: 768px) 40vw, 100vw" />
+        <GearPhoto item="sonos" sizes="(min-width: 768px) 48vw, 100vw" />
+      </div>
+    </div>
+  </section>
 
-  <CtaBand line1="Your space" line2="could be next." support="Tell me what you have in mind and I'll show you similar work during the free survey." />
+  <Reviews />
+
+  <CtaBand title="Your space could be next" lede="Tell me what you have in mind and I'll show you similar work during the free survey. A reply within one business day." href={survey} />
 </Layout>

@@ -1,41 +1,31 @@
 ---
-/** The close: the page's idea again on an inverted field, two lines at display size, one action. */
+/** The dark close at the end of every page. */
 import { site } from '../data/site';
 
 interface Props {
-  line1?: string;
-  line2?: string;
-  support?: string;
+  title?: string;
+  lede?: string;
   href?: string;
-  cta?: string;
+  label?: string;
+  secondary?: { href: string; label: string };
 }
-
 const {
-  line1 = 'One number.',
-  line2 = 'Every cable.',
-  support,
+  title = 'Book a free site survey',
+  lede = '30–45 minutes on site, an itemized proposal after, and a reply within one business day. Or call or text me now.',
   href = `/quote/?service=${encodeURIComponent('Commercial AV')}`,
-  cta = 'Book a free site survey',
+  label = 'Book a free site survey',
+  secondary = { href: site.phoneHref, label: `Call ${site.phone}` },
 } = Astro.props;
 ---
 
-<section class="chapter cta-field" data-field="#3b1005" data-ink="#f7f0e0">
-  <h2 class="font-display cta-statement">
-    <span>{line1}</span>
-    <span class="text-gold">{line2}</span>
-  </h2>
-  <div class="cta-foot">
-    <p class="cta-support">
-      {
-        support ?? (
-          <>
-            Call or text <a href={site.phoneHref}>{site.phone}</a>. The person who answers is the person who installs.
-          </>
-        )
-      }
-    </p>
-    <a href={href} class="btn-flat btn-lg">
-      {cta}
-    </a>
+<section class="cta on-dark pinstripe" aria-labelledby="cta-title">
+  <div class="hero-grooves hero-grooves--cta" aria-hidden="true"></div>
+  <div class="container cta-inner">
+    <h2 class="h2 cta-title" id="cta-title">{title}</h2>
+    <p class="lede">{lede}</p>
+    <div class="cta-actions">
+      <a class="btn btn--primary btn--lg" href={href}>{label}</a>
+      <a class="btn btn--ghost btn--lg" href={secondary.href}>{secondary.label}</a>
+    </div>
   </div>
 </section>

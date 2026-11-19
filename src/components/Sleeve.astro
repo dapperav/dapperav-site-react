@@ -1,0 +1,30 @@
+---
+/** A real Dapper AV install shown as a record sleeve; the disc slides out when it scrolls into view. */
+import { Image } from 'astro:assets';
+import type { GalleryItem } from '../data/gallery';
+
+interface Props {
+  item: GalleryItem;
+  title?: string;
+  caption?: string;
+  delay?: number;
+  eager?: boolean;
+  sizes?: string;
+}
+const { item, title, caption, delay = 0, eager = false, sizes = '(min-width: 1024px) 30vw, 90vw' } = Astro.props;
+const pos = item.pos === 'top' ? '50% 22%' : (item.pos ?? '50% 40%');
+---
+
+<li class="sleeve" data-reveal style={delay ? `--d:${delay}ms` : undefined}>
+  <figure>
+    <div class="sleeve-box">
+      <span class="sleeve-disc" aria-hidden="true"></span>
+      <Image class="sleeve-cover" src={item.image} alt={item.alt} widths={[400, 700, 1000]} sizes={sizes} loading={eager ? 'eager' : 'lazy'} style={`object-position: ${pos}`} />
+    </div>
+    <figcaption>
+      <span class="pill pill--static">{item.category === 'commercial' ? 'Business' : 'Home'} · Dapper AV install</span>
+      <strong class="sleeve-title">{title ?? item.title}</strong>
+      <span class="sleeve-caption">{caption ?? item.caption}</span>
+    </figcaption>
+  </figure>
+</li>

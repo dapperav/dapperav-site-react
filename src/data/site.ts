@@ -240,6 +240,15 @@ export const services = [
 ];
 
 
+/** Sentence-case display names for the home services (titles above stay as-is for JSON-LD). */
+export const homeServiceLabels: Record<string, string> = {
+  'tv-mounting': 'TV mounting',
+  'home-theater': 'Home theater',
+  'whole-home-audio': 'Whole-home audio',
+  'smart-home': 'Smart home',
+  networks: 'Home Wi-Fi and networks',
+};
+
 export const serviceAreas = [
   {
     county: 'Fort Bend County',

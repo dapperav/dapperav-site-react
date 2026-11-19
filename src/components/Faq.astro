@@ -1,0 +1,30 @@
+---
+/** Questions and answers side by side: nothing hidden behind accordions. */
+interface Props {
+  items: { q: string; a: string }[];
+  heading?: string;
+  lede?: string;
+  alt?: boolean;
+}
+const { items, heading = 'Questions owners ask first', lede, alt = false } = Astro.props;
+---
+
+<section class:list={['section', { 'section--alt': alt }]} aria-labelledby="faq-title">
+  <div class="container faq">
+    <div class="faq-head">
+      <h2 class="h2" id="faq-title">{heading}</h2>
+      {lede && <p class="lede">{lede}</p>}
+      <slot />
+    </div>
+    <dl class="faq-list">
+      {
+        items.map((f) => (
+          <div>
+            <dt>{f.q}</dt>
+            <dd>{f.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

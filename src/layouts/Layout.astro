@@ -1,8 +1,9 @@
 ---
 import '@fontsource-variable/inter';
-import '@fontsource-variable/fraunces';
+import '@fontsource-variable/fraunces/full.css';
+import '@fontsource-variable/fraunces/full-italic.css';
 import '../styles/global.css';
-import Header from '../components/Header.astro';
+import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { site, services, GA4_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION } from '../data/site';
 
@@ -68,7 +69,7 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <script is:inline>document.documentElement.classList.add('js')</script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -77,7 +78,7 @@ const jsonLd = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#3b1005" />
+    <meta name="theme-color" content="#531b0a" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
@@ -113,55 +114,43 @@ const jsonLd = {
     }
   </head>
   <body>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:font-semibold focus:text-espresso"
-    >
-      Skip to content
-    </a>
-    <Header />
-    <main id="main" class="overflow-x-clip">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <span class="page-sentinel" aria-hidden="true"></span>
+    <Nav />
+    <main id="main">
       <slot />
     </main>
     <Footer />
 
     <script>
-      // Colour by chapter: the fixed header takes the ground + ink of the chapter under it.
-      // Never recolours the page itself; each chapter paints its own field in CSS.
-      const chapters = document.querySelectorAll('[data-field]');
-      if (chapters.length && 'IntersectionObserver' in window) {
-        const root = document.documentElement;
-        const chio = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (!e.isIntersecting) continue;
-              const el = e.target as HTMLElement;
-              root.style.setProperty('--header-bg', el.dataset.field!);
-              root.style.setProperty('--header-ink', el.dataset.ink!);
-            }
-          },
-          { rootMargin: '0px 0px -92% 0px', threshold: 0 }
-        );
-        chapters.forEach((c) => chio.observe(c));
+      // 1. Roundel nav: open at the top of the page, fold to the disc once you scroll.
+      //    An observer on a 1px sentinel instead of a scroll listener.
+      const nav = document.getElementById('site-nav');
+      const sentinel = document.querySelector('.page-sentinel');
+      if (nav && sentinel && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+          const atTop = entry.isIntersecting || entry.boundingClientRect.top > 0;
+          nav.classList.toggle('at-top', atTop);
+          document.body.classList.toggle('is-scrolled', !atTop);
+        }).observe(sentinel);
       }
 
-      // Scroll reveals — fire once, then let the browser forget about them.
+      // 2. Reveals: once only, then forgotten. Content is visible without JS (see .js gate in CSS).
       const revealed = document.querySelectorAll('[data-reveal]');
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver(
           (entries) => {
             for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add('is-inview');
-                io.unobserve(e.target);
-              }
+              if (!e.isIntersecting) continue;
+              e.target.classList.add('is-in');
+              io.unobserve(e.target);
             }
           },
-          { threshold: 0.15, rootMargin: '0px 0px -5% 0px' }
+          { rootMargin: '0px 0px -12% 0px' }
         );
         revealed.forEach((el) => io.observe(el));
       } else {
-        revealed.forEach((el) => el.classList.add('is-inview'));
+        revealed.forEach((el) => el.classList.add('is-in'));
       }
     </script>
   </body>

@@ -1,9 +1,10 @@
 ---
-/** Quote / site survey — same system as the homepage. Form ids, names and the script below are load-bearing. */
+/**
+ * Quote / site survey. Restyled only: every form element id, input name and the inline script
+ * below are load-bearing (Web3Forms submit, ?service= pre-select, business mode, GA4 generate_lead).
+ */
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import PictureBand from '../components/PictureBand.astro';
-import FortBendPair from '../components/FortBendPair.astro';
 import markAvatar from '../assets/mark-avatar.jpg';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
 ---
@@ -12,153 +13,148 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
   title="Request a Free Site Survey or Quote | Dapper AV"
   description="Free site survey and itemized quote for commercial AV, networks and managed IT, or home AV, in Fort Bend County. Reply within one business day."
 >
-  <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
-    <div class="page-wrap section-pad quote-grid">
+  <section class="quote-page grooves" aria-labelledby="quote-title">
+    <div class="container quote-grid">
       <div>
-        <h1 class="font-display quote-title" data-reveal>Tell us about your project</h1>
-        <p class="quote-lead" data-reveal>
-          I reply within one business day, usually with a quick call and a time for a free on-site visit. Rather talk now?
-          Call or text <a href={site.phoneHref} class="link-plain">{site.phone}</a>.
+        <h1 class="quote-title" id="quote-title">Tell us about your project</h1>
+        <p class="quote-lead">
+          I reply within one business day, usually with a quick call and a time for a free 30–45 minute visit. Rather talk
+          now? Call or text <a href={site.phoneHref}>{site.phone}</a>.
         </p>
 
-        <form id="quote-form" novalidate class="mt-10">
-          <div class="grid gap-6 sm:grid-cols-2">
-            <div>
-              <label for="qf-name" class="quote-label">Name *</label>
-              <input id="qf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" class="quote-field" />
+        <div class="bezel bezel--light form-card">
+          <div class="bezel-core">
+            <form id="quote-form" novalidate>
+              <div class="form-grid">
+                <div>
+                  <label for="qf-name" class="field-label">Name <span>(required)</span></label>
+                  <input id="qf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" class="field" />
+                </div>
+                <div>
+                  <label for="qf-email" class="field-label">Email <span>(required)</span></label>
+                  <input id="qf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="field" />
+                </div>
+                <div>
+                  <label for="qf-phone" class="field-label">Phone <span>(required)</span></label>
+                  <input id="qf-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(555) 555-5555" class="field" />
+                </div>
+                <div>
+                  <label for="qf-company" class="field-label">Business name <span>(optional)</span></label>
+                  <input id="qf-company" name="company" type="text" autocomplete="organization" placeholder="Optional" class="field" />
+                </div>
+                <div>
+                  <label for="qf-service" class="field-label">Service needed <span>(required)</span></label>
+                  <select id="qf-service" name="service" required class="field">
+                    <option value="" selected disabled>Select a service…</option>
+                    {quoteFormOptions.services.map((s) => <option value={s}>{s}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label for="qf-timeline" class="field-label">Timeline</label>
+                  <select id="qf-timeline" name="timeline" class="field">
+                    <option value="" selected>When would you like this done?</option>
+                    {quoteFormOptions.timelines.map((t) => <option value={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label for="qf-budget" class="field-label">Budget</label>
+                  <select id="qf-budget" name="budget" class="field">
+                    <option value="" selected>Rough budget range (optional)</option>
+                    {quoteFormOptions.budgets.map((b) => <option value={b}>{b}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-full">
+                <label for="qf-message" class="field-label">Project details <span>(required)</span></label>
+                <textarea
+                  id="qf-message"
+                  name="message"
+                  rows="5"
+                  required
+                  placeholder="Tell us about the room, the equipment you have or want, and what you're trying to achieve…"
+                  class="field"></textarea>
+              </div>
+
+              <!-- Honeypot: hidden from humans, catnip for bots -->
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="absolute -left-[9999px] opacity-0" />
+
+              <p id="qf-tvtip" class="form-tip">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect><circle cx="12" cy="12" r="3"></circle><path d="M8 5.5l1.5-2h5l1.5 2"></path></svg>
+                <span><strong>Fastest quote:</strong> text a photo of your wall or room to <a href={site.smsHref}>{site.phone}</a>. For most TV mounts, a photo is all I need.</span>
+              </p>
+
+              <p id="qf-hint" class="form-hint hidden" role="alert"></p>
+
+              <div class="form-submit">
+                <button type="submit" id="qf-submit" class="btn btn--primary btn--lg">Send my quote request</button>
+                <p>I only use your details to answer this request. No newsletters, no spam.</p>
+              </div>
+            </form>
+
+            <!-- Success state -->
+            <div id="qf-success" class="form-state hidden" role="status">
+              <p id="qf-success-title" tabindex="-1" class="form-state-title">Request received.</p>
+              <p>
+                Thanks. Your details are on their way to me, and I'll get back to you within one business day. Need me sooner?
+                Call or text <a href={site.phoneHref}>{site.phone}</a>.
+              </p>
             </div>
-            <div>
-              <label for="qf-email" class="quote-label">Email *</label>
-              <input id="qf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="quote-field" />
-            </div>
-            <div>
-              <label for="qf-phone" class="quote-label">Phone *</label>
-              <input id="qf-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(555) 555-5555" class="quote-field" />
-            </div>
-            <div>
-              <label for="qf-company" class="quote-label">Business name</label>
-              <input id="qf-company" name="company" type="text" autocomplete="organization" placeholder="Optional" class="quote-field" />
-            </div>
-            <div>
-              <label for="qf-service" class="quote-label">Service needed *</label>
-              <select id="qf-service" name="service" required class="quote-field">
-                <option value="" selected disabled>Select a service…</option>
-                {quoteFormOptions.services.map((s) => <option value={s}>{s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label for="qf-timeline" class="quote-label">Timeline</label>
-              <select id="qf-timeline" name="timeline" class="quote-field">
-                <option value="" selected>When would you like this done?</option>
-                {quoteFormOptions.timelines.map((t) => <option value={t}>{t}</option>)}
-              </select>
-            </div>
-            <div>
-              <label for="qf-budget" class="quote-label">Budget</label>
-              <select id="qf-budget" name="budget" class="quote-field">
-                <option value="" selected>Rough budget range (optional)</option>
-                {quoteFormOptions.budgets.map((b) => <option value={b}>{b}</option>)}
-              </select>
+
+            <!-- Error state -->
+            <div id="qf-error" class="form-state form-hint hidden" role="alert">
+              <p>Something went wrong sending your request.</p>
+              <p>
+                Please reach me directly instead: call or text <a href={site.phoneHref}>{site.phone}</a> or email
+                <a href={`mailto:${site.email}`}>{site.email}</a>.
+              </p>
             </div>
           </div>
-
-          <div class="mt-6">
-            <label for="qf-message" class="quote-label">Project details *</label>
-            <textarea
-              id="qf-message"
-              name="message"
-              rows="5"
-              required
-              placeholder="Tell us about the room, the equipment you have or want, and what you're trying to achieve…"
-              class="quote-field"></textarea>
-          </div>
-
-          <!-- Honeypot: hidden from humans, catnip for bots -->
-          <input
-            type="checkbox"
-            name="botcheck"
-            tabindex="-1"
-            autocomplete="off"
-            aria-hidden="true"
-            class="absolute -left-[9999px] opacity-0"
-          />
-
-          <p id="qf-tvtip" class="quote-tip">
-            <strong>Fastest quote:</strong> text a photo of your wall or room to
-            <a href={site.smsHref} class="whitespace-nowrap">{site.phone}</a>. For most TV mounts, a photo is all I need.
-          </p>
-
-          <p id="qf-hint" class="mt-4 hidden font-medium text-red-800" role="alert"></p>
-
-          <button type="submit" id="qf-submit" class="btn-flat btn-lg mt-8 disabled:cursor-not-allowed disabled:opacity-60">
-            Send my quote request
-          </button>
-          <p class="mt-4 text-[0.9375rem] leading-relaxed">I only use your details to answer this request. No newsletters, no spam.</p>
-        </form>
-
-        <!-- Success state -->
-        <div id="qf-success" class="quote-state hidden" role="status">
-          <p id="qf-success-title" tabindex="-1" class="font-display text-3xl font-semibold">Request received.</p>
-          <p class="mt-4">
-            Thanks. Your details are on their way to me, and I'll get back to you within one business day. Need me sooner?
-            Call or text <a href={site.phoneHref}>{site.phone}</a>.
-          </p>
-        </div>
-
-        <!-- Error state -->
-        <div id="qf-error" class="quote-state mt-6 hidden" role="alert">
-          <p class="font-semibold text-red-900">Something went wrong sending your request.</p>
-          <p class="mt-2">
-            Please reach me directly instead: call or text <a href={site.phoneHref}>{site.phone}</a> or email
-            <a href={`mailto:${site.email}`}>{site.email}</a>.
-          </p>
         </div>
       </div>
 
-      <aside class="quote-aside" data-reveal>
-        <div>
-          <div class="quote-owner">
-            <Image src={markAvatar} alt="Mark Immler, owner of Dapper AV Solutions" widths={[320, 560]} sizes="18rem" />
-            <div>
-              <p class="font-display text-xl font-semibold">Mark Immler</p>
-              <p>Owner, not a call center</p>
+      <aside class="quote-aside frost" aria-label="About the reply">
+        <div class="bezel-core">
+          <div class="aside-block">
+            <div class="aside-owner">
+              <Image src={markAvatar} alt="Mark Immler, owner of Dapper AV Solutions" widths={[160, 320]} sizes="4.5rem" />
+              <div>
+                <p class="aside-owner-name">Mark Immler</p>
+                <p>Owner, not a call center</p>
+              </div>
             </div>
+            <ul class="aside-list">
+              <li><a href={site.phoneHref}>Call {site.phone}</a></li>
+              <li><a href={site.smsHref}>Text me, I reply fast</a></li>
+              <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+              <li>{site.hours}</li>
+            </ul>
           </div>
-          <ul>
-            <li><a href={site.phoneHref}>Call {site.phone}</a></li>
-            <li><a href={site.smsHref}>Text me, I reply fast</a></li>
-            <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            <li>{site.hours}</li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="font-display">What happens next</h2>
-          <ul>
-            <li>A reply within one business day.</li>
-            <li>A free 30–45 minute visit at a time that suits you.</li>
-            <li>An itemized quote: the number you see is the number you pay.</li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="font-display">Where I work</h2>
-          <FortBendPair />
-          {
-            serviceAreas.map((a) => (
-              <p class="mt-3">
-                <strong>{a.county}:</strong> {a.cities.join(', ')}
-              </p>
-            ))
-          }
-          <p class="mt-3">
-            Outside that? Ask, I can often make it work. Jobs well outside the area carry a modest trip fee, always quoted up
-            front.
-          </p>
+          <div class="aside-block">
+            <h2 class="aside-title">What happens next</h2>
+            <ol class="aside-list aside-steps">
+              <li>A reply within one business day.</li>
+              <li>A free 30–45 minute visit at a time that suits you.</li>
+              <li>An itemized quote: the number you see is the number you pay.</li>
+            </ol>
+          </div>
+          <div class="aside-block">
+            <h2 class="aside-title">Where I work</h2>
+            {
+              serviceAreas.map((a) => (
+                <p class="aside-list">
+                  <span>
+                    <strong>{a.county}:</strong> {a.cities.join(', ')}
+                  </span>
+                </p>
+              ))
+            }
+            <p class="aside-list">Outside that? Ask, I can often make it work. Jobs well outside the area carry a modest trip fee, always quoted up front.</p>
+          </div>
         </div>
       </aside>
     </div>
   </section>
-
-  <PictureBand />
 </Layout>
 
 <script is:inline define:vars={{ accessKey: WEB3FORMS_ACCESS_KEY }}>
