@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import FilmScene from '../components/FilmScene.astro';
 import IndustryLedger from '../components/IndustryLedger.astro';
 import Steps from '../components/Steps.astro';
+import DocMap from '../components/DocMap.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site, carePlans } from '../data/site';
@@ -84,6 +85,8 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
       <Steps />
     </div>
   </section>
+
+  <DocMap />
 
   <Reviews mode="one" author="Micaela" heading="A business review on Google" alt />
 

@@ -739,28 +739,11 @@ label.pill {
   scale: 1.08;
   clip-path: inset(3.7% round calc(var(--radius-field) / 1.08));}
 
-.homes {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-5);
-  margin-top: var(--space-5);
-  padding: clamp(var(--space-5), 3vw, var(--space-7));}
-.homes-copy {
-  flex: 1 1 30rem;
-  min-width: 0;}
-.homes-copy p {
-  max-width: 36rem;
-  margin-top: var(--space-3);
-  color: var(--color-ink-muted);}
-.homes-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-5);}
-.homes-tags .pill {
-  background: var(--cream-100);}
+
+
+
+
+
 
 /* ═══ Process + picker ═══ */
 .steps {
@@ -1350,15 +1333,9 @@ label.pill {
     mask-position: 114.2857% 0;
   }
 }
-@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
-  /* a narrow screen is crossed in fewer strides, so the feet don't slide; he walks on the first
-     screen, just above the dock, because the hero runs taller than a phone */
+@media (max-width: 767px) {
+  /* on a phone the hero runs taller than the screen and he would cross the survey card's text */
   .js .hero-walker {
-    top: calc(100svh - 7rem - 9rem);
-    bottom: auto;
-    height: 7rem;
-    animation:
-      walker-cross 3.4s linear 1.3s both,
-      walker-stride 0.62s steps(8) 1.3s 6 both;
+    display: none;
   }
 }

@@ -699,7 +699,6 @@ html {
   color: var(--color-ink-inverse-muted);}
 .group + .group {
   margin-top: var(--space-6);}
-.homes-tags .pill,
 .chips .pill--static {
   background: var(--cream-100);}
 .section--alt .chips .pill--static,

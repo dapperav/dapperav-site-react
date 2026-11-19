@@ -1,0 +1,239 @@
+---
+/**
+ * "Documented, not just installed": a drawn SAMPLE closeout network map (an illustration, labeled as one).
+ * It shows only what the site already promises: labeled cables, separate networks for the POS,
+ * cameras, staff and guests, and notes on what went where. The lines draw in once, on view.
+ */
+const branches = [
+  { y: 70, name: 'POS', note: 'VLAN 10 · port 1–4' },
+  { y: 150, name: 'Cameras', note: 'VLAN 20 · port 5–12' },
+  { y: 230, name: 'Staff', note: 'VLAN 30 · port 13–20' },
+  { y: 310, name: 'Guest Wi-Fi', note: 'VLAN 40 · access points' },
+];
+// the phone version stacks the same map: trunk down the middle, the four networks in two rows
+const tall = branches.map((b, i) => ({ ...b, x: i % 2 ? 252 : 88, y: i < 2 ? 340 : 456 }));
+---
+
+<section class="section" id="documentation" aria-labelledby="doc-title">
+  <div class="container docmap">
+    <div class="docmap-copy">
+      <h2 class="h2" id="doc-title">Documented, not just installed</h2>
+      <p class="lede">
+        Every job ends with a handover, so the next person, or us, can find and fix anything fast.
+      </p>
+      <ul class="checklist checklist--light docmap-list">
+        <li>Every cable and port labeled</li>
+        <li>Separate networks for the POS, cameras, staff and guests</li>
+        <li>Notes on what went where, handed over at closeout</li>
+      </ul>
+    </div>
+
+    <figure class="docmap-figure" data-ui data-docmap>
+      <svg class="dm-wide" viewBox="0 0 640 380" role="img" aria-labelledby="docmap-cap">
+        <g class="dm-lines">
+          <path pathLength="1" d="M108 190 H168" />
+          <path pathLength="1" d="M268 190 H318" />
+          {branches.map((b) => <path pathLength="1" d={`M418 190 C452 190 446 ${b.y} 480 ${b.y}`} />)}
+        </g>
+        <g class="dm-node">
+          <rect x="16" y="166" width="92" height="48" rx="10" />
+          <text x="62" y="195">Internet</text>
+        </g>
+        <g class="dm-node dm-node--key">
+          <rect x="168" y="160" width="100" height="60" rx="10" />
+          <text x="218" y="187">Gateway</text>
+          <text class="dm-sub" x="218" y="205">Firewall</text>
+        </g>
+        <g class="dm-node dm-node--key">
+          <rect x="318" y="160" width="100" height="60" rx="10" />
+          <text x="368" y="187">Switch</text>
+          <text class="dm-sub" x="368" y="205">Rack, labeled</text>
+        </g>
+        {
+          branches.map((b, i) => (
+            <g class="dm-node dm-leaf" style={`--i:${i}`}>
+              <rect x="480" y={b.y - 26} width="144" height="52" rx="10" />
+              <text x="552" y={b.y - 3}>{b.name}</text>
+              <text class="dm-sub" x="552" y={b.y + 15}>{b.note}</text>
+            </g>
+          ))
+        }
+      </svg>
+      <svg class="dm-tall" viewBox="0 0 340 520" role="img" aria-labelledby="docmap-cap">
+        <g class="dm-lines">
+          <path pathLength="1" d="M170 62 V96" />
+          <path pathLength="1" d="M170 156 V190" />
+          {tall.map((b) => <path pathLength="1" d={`M170 250 C170 ${b.y - 40} ${b.x} ${b.y - 50} ${b.x} ${b.y - 26}`} />)}
+        </g>
+        <g class="dm-node">
+          <rect x="110" y="14" width="120" height="48" rx="10" />
+          <text x="170" y="43">Internet</text>
+        </g>
+        <g class="dm-node dm-node--key">
+          <rect x="105" y="96" width="130" height="60" rx="10" />
+          <text x="170" y="123">Gateway</text>
+          <text class="dm-sub" x="170" y="141">Firewall</text>
+        </g>
+        <g class="dm-node dm-node--key">
+          <rect x="105" y="190" width="130" height="60" rx="10" />
+          <text x="170" y="217">Switch</text>
+          <text class="dm-sub" x="170" y="235">Rack, labeled</text>
+        </g>
+        {
+          tall.map((b, i) => (
+            <g class="dm-node dm-leaf" style={`--i:${i}`}>
+              <rect x={b.x - 74} y={b.y - 26} width="148" height="56" rx="10" />
+              <text x={b.x} y={b.y - 1}>{b.name}</text>
+              <text class="dm-sub" x={b.x} y={b.y + 18}>{b.note}</text>
+            </g>
+          ))
+        }
+      </svg>
+      <figcaption id="docmap-cap">Sample closeout map, an illustration. Every site gets its own.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  const map = document.querySelector<HTMLElement>('[data-docmap]');
+  if (map && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    map.classList.add('is-waiting');
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          map.classList.remove('is-waiting');
+          map.classList.add('is-on');
+          io.disconnect();
+        }
+      },
+      { threshold: 0.45 },
+    );
+    io.observe(map);
+  }
+</script>
+
+<style>
+  .docmap {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .docmap {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-8);
+    }
+  }
+  .docmap-list {
+    margin-top: var(--space-6);
+  }
+  .docmap-figure {
+    margin: 0;
+    padding: var(--space-5);
+    border-radius: var(--radius-card);
+    background: var(--brown-900);
+  }
+  .docmap-figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .dm-tall {
+    display: none !important;
+  }
+  @media (max-width: 639px) {
+    .dm-wide {
+      display: none !important;
+    }
+    .dm-tall {
+      display: block !important;
+    }
+  }
+  .docmap-figure figcaption {
+    margin-top: var(--space-3);
+    font-size: var(--text-small);
+    color: var(--color-ink-inverse-muted);
+  }
+  .dm-lines path {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  .dm-node rect {
+    fill: #4a1708;
+    stroke: color-mix(in srgb, var(--cream-50) 35%, transparent);
+    stroke-width: 1.5;
+  }
+  .dm-node--key rect {
+    fill: var(--cream-50);
+    stroke: none;
+  }
+  .dm-node text {
+    fill: var(--cream-50);
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    text-anchor: middle;
+  }
+  .dm-node--key text {
+    fill: var(--brown-900);
+  }
+  .dm-node .dm-sub {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    fill: color-mix(in srgb, var(--cream-50) 75%, transparent);
+  }
+  .dm-node--key .dm-sub {
+    fill: var(--brown-600);
+  }
+
+  /* the map draws itself: trunk first, then the four networks branch off one after another */
+  @media (prefers-reduced-motion: no-preference) {
+    .is-waiting .dm-lines path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    .is-waiting .dm-leaf {
+      opacity: 0;
+    }
+    .is-on .dm-lines path {
+      stroke-dasharray: 1;
+      animation: dm-draw 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .is-on .dm-lines path:nth-child(2) {
+      animation-delay: 220ms;
+    }
+    .is-on .dm-lines path:nth-child(3) {
+      animation-delay: 440ms;
+    }
+    .is-on .dm-lines path:nth-child(4) {
+      animation-delay: 520ms;
+    }
+    .is-on .dm-lines path:nth-child(5) {
+      animation-delay: 600ms;
+    }
+    .is-on .dm-lines path:nth-child(6) {
+      animation-delay: 680ms;
+    }
+    .is-on .dm-leaf {
+      animation: dm-leaf 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: calc(760ms + var(--i) * 80ms);
+    }
+  }
+  @keyframes dm-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes dm-leaf {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+  }
+</style>
