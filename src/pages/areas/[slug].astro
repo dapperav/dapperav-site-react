@@ -1,15 +1,16 @@
 ---
-/** City pages — business first, same system as the homepage (taste-skill, "Type and nothing else"). */
+/** City pages: business first (ledger of the six business pages), homes second, nearby cities. */
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import OwnerPanel from '../../components/OwnerPanel.astro';
-import PictureBand from '../../components/PictureBand.astro';
-import FortBendPair from '../../components/FortBendPair.astro';
-import PageHero from '../../components/PageHero.astro';
-import BigList from '../../components/BigList.astro';
+import Hero from '../../components/Hero.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import IndustryLedger from '../../components/IndustryLedger.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { areas } from '../../data/areas';
-import { industries } from '../../data/industries';
-import { site, services } from '../../data/site';
+import { site, services, homeServiceLabels } from '../../data/site';
+import courthouse from '../../assets/found/fort-bend-county-courthouse-richmond-texas-dsc.jpg';
+import brazos from '../../assets/found/brazos-river-south-of-sugar-land-texas.jpg';
+import found from '../../assets/found/credits.json';
 
 export function getStaticPaths() {
   return areas.map((area) => ({ params: { slug: area.slug }, props: { area } }));
@@ -17,7 +18,17 @@ export function getStaticPaths() {
 
 const { area } = Astro.props;
 const residential = services.filter((s) => s.category === 'residential');
+const nearby = areas.filter((a) => a.slug !== area.slug);
 const surveyHref = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
+
+// A found (credited) local picture only where it actually shows that city. Never presented as a job.
+const credit = (file: string) => found.find((f) => f.file.endsWith(file))!;
+const picture =
+  area.slug === 'richmond'
+    ? { image: courthouse, alt: 'The Fort Bend County Courthouse in Richmond, Texas, with its green dome', caption: 'The Fort Bend County Courthouse, Richmond.', c: credit('fort-bend-county-courthouse-richmond-texas-dsc.jpg') }
+    : area.slug === 'sugar-land'
+      ? { image: brazos, alt: 'The Brazos River winding through green land south of Sugar Land, seen from the air', caption: 'The Brazos River, south of Sugar Land.', c: credit('brazos-river-south-of-sugar-land-texas.jpg') }
+      : null;
 
 const serviceSchema = {
   '@context': 'https://schema.org',
@@ -31,53 +42,105 @@ const serviceSchema = {
 ---
 
 <Layout
-  title={`Commercial AV & Business IT in ${area.city}, TX | Dapper AV`}
-  description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys. Call ${site.phone}.`}
+  title={`Commercial AV & Business IT in ${area.city} | Dapper AV`}
+  description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys.`}
   extraSchema={[serviceSchema]}
 >
-  <PageHero
-    lines={['AV and IT', `in ${area.city}.`]}
-    support={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by one local person.`}
-    primary={{ href: surveyHref, label: 'Book a free site survey' }}
-    secondary={{ href: site.phoneHref, label: `Call ${site.phone}` }}
-  />
+  <Hero
+    lead="Commercial AV and IT in"
+    main={`${area.city}, Texas.`}
+    lede={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by a local company. Homes too.`}
+    actions={[
+      { href: surveyHref, label: 'Book a free site survey', arrow: true },
+      { href: '/business/', label: 'Business services', variant: 'ghost' },
+    ]}
+  >
+    <Crumbs slot="crumbs" items={[{ href: '/', label: 'Home' }, { label: `${area.city}, TX` }]} />
+    <aside slot="aside" class="bezel bezel--dark hero-card" aria-labelledby="local-title">
+      <div class="bezel-core">
+        <h2 class="hero-card-title" id="local-title">Local to {area.city}</h2>
+        <dl class="facts facts--dark">
+          <div><dt>Based in</dt><dd>Richmond, TX</dd></div>
+          <div><dt>County</dt><dd>{area.county.replace(' County', '')}</dd></div>
+          <div><dt>Free site survey</dt><dd>30–45 min</dd></div>
+          <div><dt>Reply</dt><dd>1 business day</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </Hero>
 
-  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
-    <div class="page-wrap section-pad">
-      <p class="intro-lead">{area.blurb}</p>
-      <FortBendPair />
+  <section class="section grooves" aria-labelledby="intro-title">
+    <div class="container area-intro">
+      <div>
+        <h2 class="visually-hidden" id="intro-title">Working in {area.city}</h2>
+        <p class="area-blurb">{area.blurb}</p>
+        <p>Every job starts with a free site survey and ends with an itemized proposal, so you see each line before anything is installed.</p>
+      </div>
+      {
+        picture && (
+          <figure class="photo photo--wide" data-reveal>
+            <div class="photo-frame">
+              <Image src={picture.image} alt={picture.alt} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 38vw, 100vw" />
+            </div>
+            <figcaption>
+              <strong>{picture.caption}</strong>
+              <span class="photo-credit">
+                Not a Dapper AV job: <a href={picture.c.page}>{picture.c.creator}</a>, <a href={picture.c.licenseUrl}>{picture.c.license}</a>.
+              </span>
+            </figcaption>
+          </figure>
+        )
+      }
     </div>
   </section>
 
-  <BigList
-    heading={`Businesses in ${area.city}`}
-    items={industries.map((i) => ({ title: i.name, desc: i.installs.slice(0, 2).join('. ') + '.', href: `/business/${i.slug}/` }))}
-  />
+  <section class="section section--alt" aria-labelledby="biz-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="biz-title">For businesses in {area.city}</h2>
+        <p class="lede">Custom-quoted after a free site survey. Installed around your hours, then looked after under a month-to-month care plan if you want one.</p>
+      </div>
+      <IndustryLedger />
+    </div>
+  </section>
 
-  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
-    <div class="page-wrap section-pad">
-      <h2 class="font-display h-section">Homes in {area.city}, too.</h2>
-      <p class="intro-lead mt-8">{area.homeBlurb}</p>
-      <p class="mt-6 text-[1.125rem] leading-relaxed">
-        Neighborhoods I'm regularly in: <strong>{area.neighborhoods.join(', ')}</strong>, and everywhere in between.
-      </p>
-      <ul class="link-row">
-        {
-          residential.map((s) => (
-            <li>
-              <a href={`/services/#${s.id}`} class="pill-link">
-                {s.title}, {s.price.toLowerCase()}
-              </a>
-            </li>
-          ))
-        }
+  <section class="section" aria-labelledby="homes-title">
+    <div class="container area-homes">
+      <div>
+        <h2 class="h2" id="homes-title">Homes in {area.city}, too</h2>
+        <p class="lede">{area.homeBlurb}</p>
+      </div>
+      <div>
+        <div class="group">
+          <p class="label">Neighborhoods we work in</p>
+          <ul class="chips">{area.neighborhoods.map((n) => <li class="pill pill--static">{n}</li>)}</ul>
+        </div>
+        <div class="group">
+          <p class="label">Home services, with honest starting prices</p>
+          <ul class="chips">
+            {
+              residential.map((s) => (
+                <li>
+                  <a class="pill" href={`/services/#${s.id}`}>
+                    {homeServiceLabels[s.id] ?? s.title}, {s.price?.toLowerCase()}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper-2 section--tight" aria-labelledby="nearby-title">
+    <div class="container">
+      <h2 class="h3" id="nearby-title">Also nearby</h2>
+      <ul class="chips more-chips">
+        {nearby.map((a) => <li><a class="pill" href={`/areas/${a.slug}/`}>{a.city}, TX</a></li>)}
       </ul>
     </div>
   </section>
 
-  <PictureBand />
-
-  <OwnerPanel />
-
-  <CtaBand line1="Let's look at" line2="your space." href={surveyHref} />
+  <CtaBand title={`Let's look at your ${area.city} space`} href={surveyHref} />
 </Layout>

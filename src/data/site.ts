@@ -13,7 +13,7 @@ export const site = {
   smsHref: 'sms:+19728241303',
   email: 'contact@dapperav.com',
   serviceArea: 'Richmond, TX & surrounding Fort Bend County',
-  hours: 'Mon–Fri 8am–6pm · Evenings & weekends by appointment',
+  hours: 'Mon–Fri 9am–5pm Central · Evenings & weekends by appointment',
   socials: [
     { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=100072242138329' },
     { name: 'Instagram', url: 'https://www.instagram.com/dapper_av_solutions/' },
@@ -48,7 +48,7 @@ export const faqs = [
   },
   {
     q: 'Do you do free consultations?',
-    a: "Yes — every project starts with a free on-site consultation across our Fort Bend County service area. We look at the room, the walls, and the wiring, then send an itemized quote. No pressure, no obligation.",
+    a: "Yes. Every project starts with a free visit where we look at the room, the walls and the wiring, then send an itemized quote.",
   },
   {
     q: 'Can you hide the wires when you mount a TV?',
@@ -64,51 +64,47 @@ export const faqs = [
   },
   {
     q: 'Do you handle commercial jobs?',
-    a: 'Yes — commercial AV (video walls, signage, conference rooms, restaurant and bar systems) plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, and Microsoft 365. Business work is custom-quoted after a free site survey.',
+    a: 'Yes. Commercial AV (video walls, signage, conference rooms, restaurant and bar systems), plus managed IT: UniFi networks and cameras, firewall and VLAN configuration, and Microsoft 365. Business work is custom-quoted after a free site survey.',
   },
 ];
 
 /** Monthly managed-service tiers shown on /business — custom-quoted, no public prices. */
+/** What a care plan can include. Plans are tailored to each site after the survey; never publish prices. */
 export const carePlans = [
   {
-    name: 'Network Care',
-    tagline: 'The essentials, watched.',
+    name: 'Network & cameras',
     features: [
-      'UniFi network monitoring & updates',
-      'Wi-Fi performance checks & tuning',
-      'Firewall & VLAN upkeep',
-      'Priority support response',
-      'Monthly network health report',
+      'UniFi network monitoring and alerts',
+      'Firmware updates and patching',
+      'Wi-Fi tuning, firewall and VLAN upkeep',
+      'Camera health checks and footage export',
     ],
   },
   {
-    name: 'Network + Camera Care',
-    tagline: 'Eyes on everything.',
-    popular: true,
+    name: 'Everyday IT help',
     features: [
-      'Everything in Network Care',
-      'UniFi Protect camera health checks',
-      'Firmware & storage management',
-      'Retention policy upkeep',
-      'Footage export when you need it',
+      'Connecting printers, PCs and new devices',
+      'Microsoft 365 users, licenses and email',
+      'General IT support when something acts up',
     ],
   },
   {
-    name: 'Full Stack Care',
-    tagline: 'Your entire IT, handled.',
-    features: [
-      'Everything in Network + Camera Care',
-      'Microsoft 365 users, licenses & email',
-      'Security baseline & reviews',
-      'Quarterly on-site checkup',
-    ],
+    name: 'On site & hardware',
+    features: ['Scheduled on-site visits', 'RMA and warranty claims handled with the manufacturer'],
   },
 ];
 
+/** How plan clients reach support (Mark, 2026-11-19). The public site stays form-only. */
+export const support = {
+  hours: '9am–5pm Central, Monday to Friday',
+  channels: 'Plan clients call, text or email us directly.',
+  emergency: 'Outside those hours we still answer emergencies, at an emergency rate.',
+};
+
 export const commitments = [
   {
-    title: 'Owner-operated',
-    body: 'The person who quotes your project is the person who shows up and installs it. No subcontractor roulette.',
+    title: 'No subcontractors',
+    body: "The company that quotes your project installs it and supports it afterward. Your job is never handed to a subcontractor.",
   },
   {
     title: 'Free on-site consultations',
@@ -116,7 +112,7 @@ export const commitments = [
   },
   {
     title: 'Transparent pricing',
-    body: 'Up-front, itemized quotes. No hidden fees, no surprise add-ons on install day.',
+    body: 'Itemized in writing before we start, so you see what each piece costs.',
   },
   {
     title: 'Clean, damage-free installs',
@@ -239,6 +235,15 @@ export const services = [
   },
 ];
 
+
+/** Sentence-case display names for the home services (titles above stay as-is for JSON-LD). */
+export const homeServiceLabels: Record<string, string> = {
+  'tv-mounting': 'TV mounting',
+  'home-theater': 'Home theater',
+  'whole-home-audio': 'Whole-home audio',
+  'smart-home': 'Smart home',
+  networks: 'Home Wi-Fi and networks',
+};
 
 export const serviceAreas = [
   {

@@ -1,0 +1,30 @@
+---
+/** Questions as a short list; tap one to read the answer (keeps pages short). */
+interface Props {
+  items: { q: string; a: string }[];
+  heading?: string;
+  lede?: string;
+  alt?: boolean;
+}
+const { items, heading = 'Questions owners ask first', lede, alt = false } = Astro.props;
+---
+
+<section class:list={['section', { 'section--alt': alt }]} aria-labelledby="faq-title">
+  <div class="container faq">
+    <div class="faq-head">
+      <h2 class="h2" id="faq-title">{heading}</h2>
+      {lede && <p class="lede">{lede}</p>}
+      <slot />
+    </div>
+    <div class="faq-list">
+      {
+        items.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

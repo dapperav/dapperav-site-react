@@ -1,29 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ClosetPair from '../components/ClosetPair.astro';
-import PictureBand from '../components/PictureBand.astro';
-import PageHero from '../components/PageHero.astro';
-import FortBendPair from '../components/FortBendPair.astro';
-import { site } from '../data/site';
+import Hero from '../components/Hero.astro';
+import { industries } from '../data/industries';
 ---
 
 <Layout title="Page not found | Dapper AV" description="That page doesn't exist. Head back to Dapper AV Solutions.">
-  <PageHero
-    lines={['Wrong cable.', 'Page not found.']}
-    support={`The page you wanted has moved or never existed. Head home, or call or text ${site.phone}.`}
-    primary={{ href: '/', label: 'Back to home' }}
-    secondary={{ href: '/quote/', label: 'Book a free site survey' }}
-  />
-
-  <ClosetPair heading="This is what a wrong turn looks like." />
-
-  <PictureBand />
-
-  <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
-    <div class="page-wrap section-pad">
-      <h2 class="font-display h-section">Still in Fort Bend.</h2>
-      <p class="intro-lead mt-6">You're on the right site, just the wrong page. <a href="/" class="link-plain">Start from home</a>.</p>
-      <FortBendPair />
-    </div>
-  </section>
+  <Hero
+    center
+    page={false}
+    lead="Wrong cable."
+    main="Page not found."
+    lede={`The page you wanted has moved or never existed. Head home or book a survey.`}
+    actions={[
+      { href: '/', label: 'Back to home', arrow: true },
+      { href: `/quote/?service=${encodeURIComponent('Commercial AV')}`, label: 'Book a free site survey', variant: 'ghost' },
+    ]}
+  >
+    <nav class="lost-links" aria-label="Popular pages">
+      <ul class="chips">
+        <li><a class="pill" href="/business/">For business</a></li>
+        <li><a class="pill" href="/services/">For homes</a></li>
+        {industries.slice(0, 3).map((i) => <li><a class="pill" href={`/business/${i.slug}/`}>{i.name}</a></li>)}
+      </ul>
+    </nav>
+  </Hero>
 </Layout>

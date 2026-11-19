@@ -1,0 +1,16 @@
+{
+  "license": "Unsplash License (https://unsplash.com/license): free for commercial use, no credit required. Not Dapper AV jobs; never caption them as installs.",
+  "downloaded": "2026-11-19",
+  "photos": {
+    "switch-ports.jpg": "https://images.unsplash.com/photo-1546124404-9e7e3cac2ec1",
+    "cable-runs.jpg": "https://images.unsplash.com/photo-1744868562210-fffb7fa882d9",
+    "patch-panel.jpg": "https://images.unsplash.com/photo-1594915854088-2128db6a8db5",
+    "meeting-room.jpg": "https://images.unsplash.com/photo-1764810815228-b7f9432eec5c",
+    "sports-bar.jpg": "https://images.unsplash.com/photo-1709131121957-87cb1a693e82",
+    "bar-tv-wall.jpg": "https://images.unsplash.com/photo-1732321264210-06e9fa05c2da",
+    "pole-cameras.jpg": "https://images.unsplash.com/photo-1758461265346-db7c11c0cde7"
+  },
+  "video": {
+    "public/video/cables-loop.(webm|mp4|jpg)": "https://www.pexels.com/video/7140937/ (Pexels License, free, no credit required; re-encoded to 1280px, no audio)"
+  }
+}

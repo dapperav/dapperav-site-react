@@ -77,7 +77,7 @@ export const areas: Area[] = [
     county: 'Harris / Fort Bend County',
     headline: 'Commercial AV & IT in Katy, TX',
     blurb:
-      "Katy's commercial growth runs along I-10 and the Grand Parkway, from LaCenterra at Cinco Ranch to the new centers going up farther west. Restaurants, offices and retail get TV walls, music, business Wi-Fi and cameras from one local installer who also runs IT.",
+      "Katy's commercial growth runs along I-10 and the Grand Parkway, from LaCenterra at Cinco Ranch to the new centers going up farther west. Restaurants, offices and retail get TV walls, music, business Wi-Fi and cameras from one local company that also runs IT.",
     homeBlurb:
       "Katy's newer construction is a gift for clean installs — pre-wired media niches, open floor plans, and attics that make in-wall cable runs straightforward. We turn builder-grade living rooms in Cinco Ranch and Cane Island into proper theaters and get Wi-Fi to the upstairs game room without a single visible wire.",
     neighborhoods: ['Cinco Ranch', 'Cane Island', 'Firethorne', 'Seven Meadows', 'Grand Lakes'],

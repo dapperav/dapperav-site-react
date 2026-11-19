@@ -1,16 +1,14 @@
 ---
-/** Business pages — same system as the homepage (taste-skill, "Type and nothing else"). */
+/** One page per kind of business buyer. Light hero with what the survey checks; installs on espresso. */
 import Layout from '../../layouts/Layout.astro';
-import ClosetPair from '../../components/ClosetPair.astro';
-import PictureBand from '../../components/PictureBand.astro';
-import PageHero from '../../components/PageHero.astro';
-import OwnerPanel from '../../components/OwnerPanel.astro';
-import Staircase from '../../components/Staircase.astro';
-import Letter from '../../components/Letter.astro';
-import FaqSection from '../../components/FaqSection.astro';
+import Hero from '../../components/Hero.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import FilmScene from '../../components/FilmScene.astro';
+import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { industries } from '../../data/industries';
 import { site } from '../../data/site';
+import { areas } from '../../data/areas';
 
 export function getStaticPaths() {
   return industries.map((industry) => ({ params: { slug: industry.slug }, props: { industry } }));
@@ -18,7 +16,7 @@ export function getStaticPaths() {
 
 const { industry } = Astro.props;
 const others = industries.filter((i) => i.slug !== industry.slug);
-// Cost question answered honestly from the price drivers — no invented dollar figures
+// Cost question answered honestly from the price drivers: no invented dollar figures
 const faqs = [
   {
     q: industry.costQuestion,
@@ -32,73 +30,149 @@ const faqs = [
 const isIT = industry.slug === 'networks-wifi' || industry.slug === 'structured-cabling';
 const quoteHref = `/quote/?service=${encodeURIComponent(isIT ? 'Managed IT / Networking (Business)' : 'Commercial AV')}`;
 
+// The scene from the brand film that plays for this kind of business (broken, he passes, fixed).
+type Scene = { kind: 'bar' | 'menu' | 'office' | 'home' | 'shop' | 'ladder'; credit: string; label: string };
+const sceneFor: Record<string, Scene> = {
+  'restaurants-bars': { kind: 'bar', credit: 'TVs & sound', label: 'Illustration: a bar of blank screens lights up with the game and the crowd cheers' },
+  'offices-conference-rooms': { kind: 'office', credit: 'Meeting rooms', label: 'Illustration: an office meeting where the loading spinner turns into a check as the Wi-Fi comes on' },
+  'retail-showrooms': { kind: 'shop', credit: 'Security cameras', label: 'Illustration: a storefront whose loose security camera snaps into place' },
+  'digital-signage': { kind: 'menu', credit: 'Menu boards', label: 'Illustration: three blank screens over a bar come on as menu boards' },
+  'networks-wifi': { kind: 'office', credit: 'Business Wi-Fi', label: 'Illustration: an office where the Wi-Fi comes on and the spinner turns into a check' },
+  'structured-cabling': { kind: 'ladder', credit: 'Cabling', label: 'Illustration: the installer on a ladder running cable, inside a gold circle' },
+};
+const scene = sceneFor[industry.slug] ?? sceneFor['networks-wifi'];
+
+const pageUrl = `${site.url}/business/${industry.slug}/`;
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
+  '@id': `${pageUrl}#service`,
   name: industry.headline,
+  url: pageUrl,
   serviceType: isIT ? 'Business network and cabling installation' : 'Commercial audio visual installation',
   provider: { '@id': `${site.url}/#business` },
-  areaServed: { '@type': 'AdministrativeArea', name: 'Fort Bend County, TX' },
-  description: industry.intro,
+  audience: { '@type': 'BusinessAudience', audienceType: 'Businesses' },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Fort Bend County, TX' },
+    ...areas.map((a) => ({ '@type': 'City', name: `${a.city}, TX` })),
+  ],
+  description: industry.metaDescription,
+  offers: {
+    '@type': 'Offer',
+    name: 'Free site survey',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'A free 30 to 45 minute on-site survey, then an itemized custom quote.',
+  },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Business', item: `${site.url}/business/` },
+    { '@type': 'ListItem', position: 3, name: industry.name, item: pageUrl },
+  ],
 };
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
+const check = 'M4 12.5l5 5L20 6.5';
 ---
 
-<Layout title={industry.metaTitle} description={industry.metaDescription} extraSchema={[serviceSchema, faqSchema]}>
-  <PageHero
-    lines={industry.heroLines}
-    support={industry.metaDescription}
-    primary={{ href: quoteHref, label: 'Book a free site survey' }}
-    secondary={{ href: site.phoneHref, label: `Call ${site.phone}` }}
-  />
+<Layout title={industry.metaTitle} description={industry.metaDescription} extraSchema={[serviceSchema, faqSchema, breadcrumbSchema]}>
+  <Hero
+    tone="light"
+    alt
+    main={`${industry.heroLines[0]} ${industry.heroLines[1]}`}
+    lede={`${industry.metaDescription} Afterward, the same company supports it, not a ticket line.`}
+    actions={[
+      { href: quoteHref, label: 'Book a free site survey', arrow: true },
+      { href: '/business/#care-plans', label: 'See the care plans', variant: 'ghost' },
+    ]}
+  >
+    <Crumbs slot="crumbs" items={[{ href: '/business/', label: 'Business' }, { label: industry.name }]} />
+    <aside slot="aside" class="bezel bezel--light hero-card" aria-labelledby="checks-title">
+      <div class="bezel-core">
+        <h2 class="side-title" id="checks-title">What the free survey checks</h2>
+        <ul class="checklist checklist--light">
+          {industry.costDrivers.map((d) => <li>{d}</li>)}
+        </ul>
+        <p class="side-note">These are also what move the price. You get them itemized, line by line, before anything is installed.</p>
+      </div>
+    </aside>
+  </Hero>
 
-  <section class="chapter bg-gold text-espresso" data-field="#f0b010" data-ink="#3b1005">
-    <div class="page-wrap section-pad">
-      <h2 class="font-display h-section">What I install.</h2>
-      <p class="intro-lead mt-8">{industry.intro}</p>
-      <ul class="install-list font-display">
+  <section class="section on-dark pinstripe" aria-labelledby="installs-title">
+    <div class="container installs">
+      <div>
+        <h2 class="h2" id="installs-title">What we install</h2>
+        <p class="lede">{industry.intro}</p>
+      </div>
+      <ul class="install-grid">
         {
-          industry.installs.map((x) => (
-            <li data-reveal>{x}</li>
+          industry.installs.map((x, i) => (
+            <li data-reveal style={`--d:${i * 50}ms`}>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d={check} /></svg>
+              <span>{x}</span>
+            </li>
           ))
         }
       </ul>
     </div>
   </section>
 
-  <ClosetPair />
-
-  <OwnerPanel reasons={industry.reasons} />
-
-  <PictureBand />
-
-  <Staircase drivers={industry.costDrivers} costQuestion={industry.costQuestion} />
-
-  <Letter field="cream" />
-
-  <FaqSection items={faqs} heading="What owners ask first." field="parchment" />
-
-  <section class="chapter bg-cream text-espresso" data-field="#f7f0e0" data-ink="#3b1005">
-    <div class="page-wrap section-pad">
-      <h2 class="font-display h-section">More for business.</h2>
-      <div class="big-links">
-        {
-          others.map((o) => (
-            <a href={`/business/${o.slug}/`}>{o.name}</a>
-          ))
-        }
-        <a href="/business/#care-plans">Managed IT and care plans</a>
+  <section class="section grooves" aria-labelledby="why-title">
+    <div class="container standard">
+      <FilmScene kind={scene.kind} credit={scene.credit} label={scene.label} />
+      <div>
+        <h2 class="h2" id="why-title">Why one company</h2>
+        <ul class="reasons">
+          {
+            industry.reasons.map((r) => (
+              <li data-reveal>
+                <h3>{r.title}</h3>
+                <p>{r.body}</p>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </section>
 
-  <CtaBand line1="Let's look at" line2="your space." href={quoteHref} />
+  <Faq items={faqs} heading="What owners ask first" lede="Straight answers. Anything else, ask during the survey.">
+    <div class="stack-actions">
+      <a class="btn btn--secondary" href={quoteHref}>Book a free site survey</a>
+    </div>
+  </Faq>
+
+  <section class="section section--paper-2" aria-labelledby="more-title">
+    <div class="container">
+      <h2 class="h3" id="more-title">More for business</h2>
+      <ul class="chips more-chips">
+        {
+          others.map((o) => (
+            <li>
+              <a class="pill" href={`/business/${o.slug}/`}>
+                {o.name}
+              </a>
+            </li>
+          ))
+        }
+        <li><a class="pill" href="/business/#care-plans">Managed IT and care plans</a></li>
+      </ul>
+      <p class="more-serving">
+        Serving {areas.map((a, i) => (
+          <>
+            <a class="text-link" href={`/areas/${a.slug}/`}>{a.city}</a>{i < areas.length - 2 ? ', ' : i === areas.length - 2 ? ' and ' : '.'}
+          </>
+        ))}
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title="Let's look at your space" href={quoteHref} />
 </Layout>

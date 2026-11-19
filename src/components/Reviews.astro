@@ -1,0 +1,105 @@
+---
+/**
+ * The real Google reviews, word for word, from reviews.json (nightly sync).
+ * mode="both": the lead review in a bezel + the second on espresso. mode="one": one review set large.
+ */
+import reviewsData from '../data/reviews.json';
+
+interface Props {
+  mode?: 'both' | 'one';
+  author?: string;
+  heading?: string;
+  alt?: boolean;
+}
+const { mode = 'both', author, heading = 'What clients say on Google', alt = false } = Astro.props;
+type Review = { author: string; rating: number; text: string; when: string };
+const reviews = ((reviewsData.reviews as Review[]) ?? []).filter((r) => r.rating >= 4 && r.text);
+const kind = (r: Review) => (/business/i.test(r.text) ? 'Business' : 'Home');
+const lead = reviews.find((r) => r.author.startsWith('Kenneth')) ?? reviews[0];
+const second = reviews.find((r) => r !== lead);
+const one = reviews.find((r) => author && r.author.startsWith(author)) ?? lead;
+const mapsUrl = `https://www.google.com/maps/place/?q=place_id:${reviewsData.placeId}`;
+const stars = [0, 20, 40, 60, 80];
+---
+
+{
+  reviews.length > 0 && (
+    <section class:list={['section', { 'section--alt': alt }]} id="reviews" aria-labelledby="reviews-title">
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="star" viewBox="0 0 20 20">
+          <path d="M10 1.8l2.5 5.2 5.7.8-4.1 4 1 5.6L10 14.7l-5.1 2.7 1-5.6-4.1-4 5.7-.8z" />
+        </symbol>
+      </svg>
+      <div class="container">
+        {mode === 'both' ? (
+          <>
+            <div class="section-head section-head--split">
+              <div>
+                <h2 class="h2" id="reviews-title">
+                  {heading}
+                </h2>
+                <p class="lede">Every review so far, word for word.</p>
+              </div>
+              <a class="text-link" href={mapsUrl}>
+                Read them on Google
+              </a>
+            </div>
+            <div class="reviews">
+              <figure class="bezel review review--lead" data-reveal>
+                <div class="bezel-core">
+                  <p class="stars" role="img" aria-label={`${lead.rating} out of 5 stars`}>
+                    <svg viewBox="0 0 100 20" aria-hidden="true">
+                      {stars.map((x, i) => <use href="#star" x={x} width="20" height="20" class={i < Math.round(lead.rating) ? undefined : 'star-off'} />)}
+                    </svg>
+                  </p>
+                  <blockquote>
+                    <p>{lead.text}</p>
+                  </blockquote>
+                  <figcaption>
+                    <strong>{lead.author}</strong> · Google review · {kind(lead)}
+                  </figcaption>
+                </div>
+              </figure>
+              {second && (
+                <figure class="review review--dark on-dark pinstripe" data-reveal style="--d:90ms">
+                  <p class="stars" role="img" aria-label={`${second.rating} out of 5 stars`}>
+                    <svg viewBox="0 0 100 20" aria-hidden="true">
+                      {stars.map((x, i) => <use href="#star" x={x} width="20" height="20" class={i < Math.round(second.rating) ? undefined : 'star-off'} />)}
+                    </svg>
+                  </p>
+                  <blockquote>
+                    <p>{second.text}</p>
+                  </blockquote>
+                  <figcaption>
+                    <strong>{second.author}</strong> · Google review · {kind(second)}
+                  </figcaption>
+                </figure>
+              )}
+            </div>
+          </>
+        ) : (
+          <figure class="quote-block" data-reveal>
+            <h2 class="visually-hidden" id="reviews-title">
+              {heading}
+            </h2>
+            <p class="stars" role="img" aria-label={`${one.rating} out of 5 stars`}>
+              <svg viewBox="0 0 100 20" aria-hidden="true">
+                {stars.map((x, i) => <use href="#star" x={x} width="20" height="20" class={i < Math.round(one.rating) ? undefined : 'star-off'} />)}
+              </svg>
+            </p>
+            <blockquote>
+              <p>{one.text}</p>
+            </blockquote>
+            <figcaption>
+              <strong>{one.author}</strong> · Google review · {kind(one)}
+              <br />
+              <a class="text-link" href={mapsUrl}>
+                Read every review on Google
+              </a>
+            </figcaption>
+          </figure>
+        )}
+      </div>
+    </section>
+  )
+}

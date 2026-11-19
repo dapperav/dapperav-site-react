@@ -1,0 +1,94 @@
+---
+/**
+ * Page hero. tone="dark": espresso + pinstripe + gold headline (the original look).
+ * tone="light": paper + groove arcs, brown headline. The one <h1> on the page lives here
+ * (except /quote/, whose form heading is its h1). Slots: "crumbs", "aside" (side panel), default (a line under the actions).
+ */
+interface Action {
+  href: string;
+  label: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  arrow?: boolean;
+}
+interface Props {
+  tone?: 'dark' | 'light';
+  alt?: boolean;
+  page?: boolean;
+  center?: boolean;
+  lead?: string;
+  main: string;
+  lede?: string;
+  actions?: Action[];
+  id?: string;
+}
+const { tone = 'dark', alt = false, page = true, center = false, lead, main, lede, actions = [], id = 'top' } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+const dark = tone === 'dark';
+// Words are wrapped so the headline can rise word by word behind a mask (whole words, never letters).
+const words = (s?: string) => (s ? s.split(' ') : []);
+const leadWords = words(lead);
+const mainWords = words(main.replace(/Wi-Fi/g, 'Wi‑Fi'));
+const cableAt = mainWords.findIndex((w) => /^cable/i.test(w));
+---
+
+<section
+  class:list={['hero', dark ? 'on-dark pinstripe' : 'hero--light grooves', { 'hero--alt': alt, 'hero--page': page, 'hero--center': center }]}
+  id={id}
+  aria-labelledby={`${id}-title`}
+>
+  <div class:list={['container', 'hero-grid', { 'hero-grid--solo': !hasAside }]}>
+    <div class="hero-copy">
+      <slot name="crumbs" />
+      <h1 class="hero-title" id={`${id}-title`}>
+        {
+          lead && (
+            <span class="hero-title-lead">
+              {leadWords.map((w, i) => (
+                <>
+                  <span class="hw" style={`--i:${i}`}><span>{w}</span></span>{' '}
+                </>
+              ))}
+            </span>
+          )
+        }
+        <span class="hero-title-main">
+          {mainWords.map((w, i) => (
+            <>
+              {i === cableAt ? (
+                <span class="cable-anchor">
+                  <span class="hw" style={`--i:${i + leadWords.length}`}><span>{w}</span></span>
+                  <svg class="cable-line" viewBox="0 0 200 20" aria-hidden="true">
+                    <path d="M3 11 C 40 4, 72 17, 110 10 S 168 6, 184 10" />
+                    <circle cx="190" cy="10" r="5" />
+                  </svg>
+                </span>
+              ) : (
+                <span class="hw" style={`--i:${i + leadWords.length}`}><span>{w}</span></span>
+              )}
+              {i < mainWords.length - 1 && ' '}
+            </>
+          ))}
+        </span>
+      </h1>
+      {lede && <p class="hero-lede">{lede}</p>}
+      {
+        actions.length > 0 && (
+          <div class="hero-actions">
+            {actions.map((a) => (
+              <a class={`btn btn--${a.variant ?? 'primary'} btn--lg`} href={a.href}>
+                {a.label}
+                {a.arrow && (
+                  <span class="btn-orb" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        )
+      }
+      <slot />
+    </div>
+    {hasAside && <div class="hero-side"><slot name="aside" /></div>}
+  </div>
+</section>

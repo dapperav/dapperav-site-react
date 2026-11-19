@@ -23,7 +23,9 @@ export default defineConfig({
     '/areas/the-woodlands': '/',
     '/areas/spring': '/areas/katy/',
     '/contact': '/quote/',
-    '/portfolio': '/work/',
+    '/portfolio': '/business/',
+    // the install-photo page was removed (2026-11-19)
+    '/work': '/business/',
     '/pricing': '/services/',
     '/calculator': '/quote/',
     '/services/home-theater': '/services/',

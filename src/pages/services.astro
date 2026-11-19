@@ -1,58 +1,34 @@
 ---
-/** Home services — same system as the homepage (taste-skill, "Type and nothing else"). */
-import { Image } from 'astro:assets';
+/** Homes: honest starting prices, three bundles, FAQs. */
 import Layout from '../layouts/Layout.astro';
-import fireplaceMount from '../assets/gallery/fireplace-mount.jpg';
-import hifiRack from '../assets/gallery/hifi-rack.jpg';
-import PictureBand from '../components/PictureBand.astro';
-import FortBendPair from '../components/FortBendPair.astro';
-import PageHero from '../components/PageHero.astro';
-import BigList from '../components/BigList.astro';
-import FaqSection from '../components/FaqSection.astro';
+import FilmScene from '../components/FilmScene.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { site, services, faqs } from '../data/site';
+import { site, services, faqs, homeServiceLabels } from '../data/site';
 
 const residential = services.filter((s) => s.category === 'residential');
 const homeQuote = (s: string) => `/quote/?service=${encodeURIComponent(s)}`;
+// map each home service to the quote form option it pre-selects
+const quoteFor: Record<string, string> = {
+  'tv-mounting': 'TV Mounting & Installation',
+  'home-theater': 'Home Theater',
+  'whole-home-audio': 'Whole Home Audio',
+  'smart-home': 'Smart Home Automation',
+  networks: 'Network & Wi-Fi',
+};
+const label = homeServiceLabels;
 
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 
 const packages = [
-  {
-    name: 'Basic TV mount',
-    price: 'From $150',
-    features: ['Single TV wall mount, up to 65"', 'Basic cable management', 'Level and secure install', 'Tested before I leave'],
-  },
-  {
-    name: 'Premium TV package',
-    price: 'From $250',
-    features: [
-      'Any size TV',
-      'Cables hidden inside the wall',
-      'Soundbar mounted and set up',
-      'Universal remote programmed',
-      'Outlet relocated if needed',
-    ],
-  },
-  {
-    name: 'Smart home bundle',
-    price: 'From $500',
-    features: [
-      'The premium TV package',
-      'Smart home hub set up',
-      'Voice control',
-      'Smart lighting, three switches',
-      'Streaming devices tuned',
-    ],
-  },
+  { name: 'Basic TV mount', price: 'From $150', features: ['Single TV wall mount, up to 65"', 'Basic cable management', 'Level and secure install', 'Tested before we leave'] },
+  { name: 'Premium TV package', price: 'From $250', features: ['Any size TV', 'Cables hidden inside the wall', 'Soundbar mounted and set up', 'Universal remote programmed', 'Outlet relocated if needed'] },
+  { name: 'Smart home bundle', service: 'Smart Home Automation', price: 'From $500', features: ['The premium TV package', 'Smart home hub set up', 'Voice control', 'Smart lighting, three switches', 'Streaming devices tuned'] },
 ];
 ---
 
@@ -61,90 +37,100 @@ const packages = [
   description="TV mounting from $150, home theaters, whole-home audio and smart home installs in Richmond, Katy, Sugar Land and Fort Bend County. Free consultations."
   extraSchema={[faqSchema]}
 >
-  <PageHero
-    field="parchment"
-    lines={['Your TV, mounted', 'like it belongs.']}
-    support="TV mounting, home theaters, whole-home audio and home Wi-Fi in Fort Bend County. Honest starting prices, and an itemized quote before any work begins."
-    primary={{ href: homeQuote('TV Mounting & Installation'), label: 'Get a free quote' }}
-    secondary={{ href: site.smsHref, label: 'Or text a photo of your wall' }}
-  />
+  <Hero
+    tone="light"
+    lead="TV mounting, theaters and audio at home"
+    main="Your TV, mounted like it belongs."
+    lede="Level, centered and with every wire inside the wall. Honest starting prices, and an itemized quote before any work begins."
+    actions={[
+      { href: homeQuote('TV Mounting & Installation'), label: 'Get a free quote', arrow: true },
+    ]}
+  >
+    <p class="hero-aside">For most TV mounts, the TV size and the wall type are all we need to quote it.</p>
+    <div slot="aside" class="hero-card">
+      <FilmScene kind="home" credit="Home theater" label="Illustration: a family on the couch as the dark TV lights up for movie night" />
+    </div>
+  </Hero>
 
-  <BigList
-    heading="For homes"
-    items={residential.map((s) => ({
-      id: s.id,
-      title: s.title,
-      desc: `${s.price}. ${s.blurb}`,
-      href: homeQuote(s.title),
-    }))}
-  />
-
-  <section class="chapter bg-espresso text-cream" data-field="#3b1005" data-ink="#f7f0e0">
-    <div class="page-wrap section-pad">
-      <h2 class="font-display h-section">Straight bundles, straight prices.</h2>
-      <div class="plans">
+  <section class="section section--alt" id="home-services" aria-labelledby="svc-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="svc-title">What we do at home</h2>
+        <p class="lede">Starting prices are real starting prices. The survey or a few details on the form turn them into an exact, itemized number.</p>
+      </div>
+      <div class="svc-list">
         {
-          packages.map((p) => (
-            <div data-reveal>
-              <h3 class="font-display plan-name">{p.name}</h3>
-              <p class="font-display plan-price">{p.price}</p>
-              <ul class="plan-list">
-                {p.features.map((f) => (
-                  <li>{f}</li>
-                ))}
-              </ul>
-              <a href={homeQuote(p.name)} class="btn-flat mt-8">
-                Start with this one
-              </a>
-            </div>
+          residential.map((s) => (
+            <article class="svc" id={s.id} data-reveal>
+              <div class="svc-head">
+                <h3 class="svc-title">{label[s.id] ?? s.title}</h3>
+                <p class="svc-price">{s.price}</p>
+              </div>
+              <div class="svc-body">
+                <p>{s.blurb}</p>
+                <ul class="checklist checklist--light svc-features" aria-label={`${label[s.id] ?? s.title} includes`}>
+                  {s.features.map((f) => (
+                    <li>{f}</li>
+                  ))}
+                </ul>
+                <a class="text-link" href={homeQuote(quoteFor[s.id] ?? s.title)}>
+                  Get a quote<span class="visually-hidden"> for {(label[s.id] ?? s.title).toLowerCase()}</span>
+                </a>
+              </div>
+            </article>
           ))
         }
       </div>
-      <p class="plans-note">
-        Running a business? <a href="/business/" class="link-plain text-cream">See commercial AV and managed IT</a>
-      </p>
     </div>
   </section>
 
-  <section class="chapter bg-cream text-espresso work" data-field="#f7f0e0" data-ink="#3b1005">
-    <h2 class="sr-only">Recent home installs</h2>
-    <article class="work-block">
-      <div class="work-visual work-visual--tall">
-        <Image src={fireplaceMount} alt="TV and soundbar mounted above a white mantel and tiled fireplace with no visible wires" widths={[700, 1100, 1500]} sizes="(min-width: 1024px) 58vw, 100vw" class="work-img" style="object-position: top" />
+  <section class="section on-dark pinstripe" id="bundles" aria-labelledby="bundles-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="bundles-title">Straight bundles, straight prices</h2>
+        <p class="lede">Three common jobs, priced from the start. Brick, stone or tile walls and longer cable runs add to the price, and you'll see that before we start.</p>
       </div>
-      <div class="work-cluster" data-reveal>
-        <h3 class="font-display work-title">Over-mantel TV and soundbar</h3>
-        <p class="work-desc">Dead center over the fireplace, soundbar aligned under it, every wire inside the wall.</p>
+      <div class="bezel bezel--dark plan-panel" data-reveal>
+        <div class="bezel-core">
+          {
+            packages.map((p) => (
+              <div class="plan">
+                <h3 class="plan-name">{p.name}</h3>
+                <p class="plan-price">{p.price}</p>
+                <ul class="checklist">
+                  {p.features.map((f) => (
+                    <li>{f}</li>
+                  ))}
+                </ul>
+                <a class="btn btn--ghost btn--sm" href={homeQuote(p.service ?? 'TV Mounting & Installation')}>
+                  Start with this one<span class="visually-hidden">: {p.name}</span>
+                </a>
+              </div>
+            ))
+          }
+        </div>
       </div>
-    </article>
-    <article class="work-block work-block--second">
-      <div class="work-visual">
-        <Image src={hifiRack} alt="Walnut cabinet with a Pioneer turntable, reel-to-reel tape deck and a modern Yamaha receiver" widths={[700, 1100, 1500]} sizes="(min-width: 1024px) 58vw, 100vw" class="work-img" />
-      </div>
-      <div class="work-cluster" data-reveal>
-        <h3 class="font-display work-title">Vintage hi-fi, wired for today</h3>
-        <p class="work-desc">A Pioneer turntable and reel-to-reel running through a modern Yamaha receiver. <a href="/work/">More installs</a></p>
-      </div>
-    </article>
-  </section>
-
-  <PictureBand />
-
-  <section class="chapter bg-parchment text-espresso" data-field="#efe3cb" data-ink="#3b1005">
-    <div class="page-wrap section-pad">
-      <h2 class="font-display h-section">Local, and stays local.</h2>
-      <p class="intro-lead mt-6">Richmond is home base. Every home I work in is in Fort Bend County or just next to it.</p>
-      <FortBendPair />
     </div>
   </section>
 
-  <FaqSection />
+  <Faq items={faqs} heading="Homeowner questions" lede="Prices, wires, trip fees and where we go." alt />
+
+  <section class="section section--tight" aria-label="For businesses">
+    <div class="container">
+      <div class="frost callout">
+        <div class="callout-copy">
+          <h2 class="h3">Running a business?</h2>
+          <p>Commercial AV, business Wi-Fi, cameras and managed IT are the main part of what we do.</p>
+        </div>
+        <a class="btn btn--secondary" href="/business/">Business services</a>
+      </div>
+    </div>
+  </section>
 
   <CtaBand
-    line1="Text a photo"
-    line2="of your wall."
-    support="For most TV mounts, a photo is all I need to quote it. Or book a free consultation."
+    title="Get a free quote"
+    lede="Tell us the TV size and the wall. For most mounts that is all we need, or book a free consultation and we'll come look."
     href={homeQuote('TV Mounting & Installation')}
-    cta="Get a free quote"
+    label="Get a free quote"
   />
 </Layout>

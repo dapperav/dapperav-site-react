@@ -1,0 +1,140 @@
+---
+/**
+ * Desktop: the roundel. A centred logo disc that opens into a glass pill at the top of the page,
+ * on hover and on keyboard focus, and folds back to the disc as you scroll; the survey button
+ * then parks bottom-right. Mobile: a glass dock with the logo in the middle (Home) and a Menu
+ * button that opens a bottom sheet (native <dialog>: focus trap, Esc, backdrop tap).
+ */
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { industries } from '../data/industries';
+import { areas } from '../data/areas';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = (href: string) =>
+  (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, ''))) ? 'page' : undefined;
+const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
+const arrow = 'M5 12h14M13 6l6 6-6 6';
+---
+
+<header class="site-nav at-top" id="site-nav">
+  <div class="nav-wrap">
+    <nav class="nav-shell" aria-label="Main">
+      <ul class="nav-group nav-group--left">
+        <li><a class="nav-link" href="/business/" aria-current={current('/business/')}>Business</a></li>
+        <li><a class="nav-link" href="/services/" aria-current={current('/services/')}>Homes</a></li>
+      </ul>
+      <a class="roundel" href="/" aria-label="Dapper AV Solutions, home" aria-current={current('/')}>
+        <span class="roundel-spin"><Image class="roundel-img" src={logo} alt="" width={144} loading="eager" /></span>
+      </a>
+      <ul class="nav-group nav-group--right">
+        <li><a class="nav-link" href="/business/#care-plans">Care plans</a></li>
+        <li><a class="nav-link" href="/quote/" aria-current={current('/quote/')}>Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--primary btn--sm nav-cta" href={survey}>Book a free site survey</a>
+  </div>
+</header>
+
+<a class="btn btn--primary float-cta" href={survey}>Book a free site survey</a>
+
+<nav class="dock" aria-label="Mobile">
+  <a class="dock-item" href="/business/" aria-current={current('/business/')}>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20.5V4.5h14v16"></path><path d="M3 20.5h18M9 8.5h1M14 8.5h1M9 12h1M14 12h1M10.5 20.5v-4h3v4"></path></svg>
+    Business
+  </a>
+  <a class="dock-item" href="/services/" aria-current={current('/services/')}>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"></path><path d="M6 10v9.5h12V10"></path><path d="M10 19.5v-5h4v5"></path></svg>
+    Homes
+  </a>
+  <a class="dock-item dock-home" href="/" aria-label="Dapper AV Solutions, home" aria-current={current('/')}>
+    <span class="dock-logo"><Image class="roundel-img" src={logo} alt="" width={144} loading="eager" /></span>
+    <span aria-hidden="true">Home</span>
+  </a>
+  <a class="dock-item dock-survey" href={survey} aria-current={current('/quote/')}>
+    <span class="dock-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14v15H5z"></path><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"></path></svg></span>
+    Survey
+  </a>
+  <button class="dock-item" type="button" id="menu-open" aria-haspopup="dialog" aria-controls="menu-sheet" aria-expanded="false">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h16M4 12h16M4 16.5h10"></path></svg>
+    Menu
+  </button>
+</nav>
+
+<dialog class="menu-sheet" id="menu-sheet" aria-labelledby="menu-title">
+  <div class="menu-inner">
+    <div class="menu-grabber" aria-hidden="true"></div>
+    <div class="menu-head">
+      <p class="menu-title" id="menu-title"><Image src={logo} alt="" width={72} />Dapper AV</p>
+      <button class="menu-close" type="button" data-close aria-label="Close menu">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </button>
+    </div>
+    <a class="btn btn--primary btn--lg menu-cta" href={survey}>Book a free site survey</a>
+    <ul class="menu-links">
+      {
+        [
+          ['/', 'Home'],
+          ['/business/', 'For business'],
+          ['/services/', 'For homes'],
+          ['/quote/', 'Get a quote'],
+        ].map(([href, label]) => (
+          <li>
+            <a href={href} aria-current={href === '/quote/' ? (path === '/quote' ? 'page' : undefined) : current(href)}>
+              {label}
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d={arrow} /></svg>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="menu-group">
+      <p class="label">Business pages</p>
+      <ul class="chips">
+        {industries.map((i) => <li><a class="pill" href={`/business/${i.slug}/`} aria-current={current(`/business/${i.slug}/`)}>{i.name}</a></li>)}
+      </ul>
+    </div>
+    <div class="menu-group">
+      <p class="label">Where we work</p>
+      <ul class="chips">
+        {areas.map((a) => <li><a class="pill" href={`/areas/${a.slug}/`} aria-current={current(`/areas/${a.slug}/`)}>{a.city}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // Bottom sheet: native <dialog> gives the focus trap and Esc; this adds the slide and the
+  // backdrop tap. Close animates out, then the dialog closes (exit path = entry path).
+  const sheet = document.getElementById('menu-sheet') as HTMLDialogElement | null;
+  const opener = document.getElementById('menu-open');
+  if (sheet && opener && typeof sheet.showModal === 'function') {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    let timer: number | undefined;
+    const open = () => {
+      clearTimeout(timer);
+      sheet.showModal();
+      opener.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add('is-open')));
+    };
+    const close = () => {
+      sheet.classList.remove('is-open');
+      opener.setAttribute('aria-expanded', 'false');
+      timer = window.setTimeout(() => sheet.close(), reduce.matches ? 200 : 320);
+    };
+    opener.addEventListener('click', open);
+    sheet.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      close();
+    });
+    sheet.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      if (t === sheet || t.closest('[data-close]')) close(); // backdrop tap or close button
+    });
+    sheet.addEventListener('close', () => {
+      sheet.classList.remove('is-open');
+      opener.setAttribute('aria-expanded', 'false');
+      opener.focus();
+    });
+  }
+</script>

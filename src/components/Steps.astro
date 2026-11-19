@@ -1,0 +1,23 @@
+---
+/** How a job goes: four steps (the order matters, so they are numbered). Sits on a dark field. */
+import { site } from '../data/site';
+
+const steps = [
+  { title: 'Send the request form', body: 'A few lines about the space. You hear back within one business day.' },
+  { title: 'Free site survey', body: '30–45 minutes on site. We walk the space and note every screen, drop and camera angle.' },
+  { title: 'Itemized proposal', body: 'Equipment options at honest prices, every line priced before anything is installed.' },
+  { title: 'Install, then support', body: 'Before open, after close or on weekends. Afterward the same company looks after it.' },
+];
+---
+
+<ol class="steps">
+  {
+    steps.map((s, i) => (
+      <li class="step" data-reveal style={i ? `--d:${i * 70}ms` : undefined}>
+        <span class="step-num" aria-hidden="true">{i + 1}</span>
+        <h3 class="step-title">{s.title}</h3>
+        <p>{s.body}</p>
+      </li>
+    ))
+  }
+</ol>

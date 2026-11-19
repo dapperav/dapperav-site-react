@@ -1,69 +1,76 @@
 ---
-/** Name first, ways to reach under it, links, then the picture credits and the legal line. */
+/** Roast footer: brand, ways to reach, pages, then credits for every found and gear photo. */
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
 import { site } from '../data/site';
 import { areas } from '../data/areas';
 import { industries } from '../data/industries';
-import credits from '../assets/found/credits.json';
+import found from '../assets/found/credits.json';
 
+type Credit = { title: string; creator?: string | null; license: string; licenseUrl?: string | null; page: string; via?: string | null };
+const pictures = found as Credit[];
 const year = new Date().getFullYear();
-type Credit = { title: string; creator?: string; license: string; licenseUrl?: string; page: string; via?: string };
-const pictures = credits as Credit[];
 ---
 
-<footer class="site-footer" data-field="#2b0c03" data-ink="#f7f0e0">
-  <div class="mx-auto max-w-[90rem] px-5 pt-28 pb-10 sm:px-10">
-    <p class="font-display footer-name" aria-hidden="true">Dapper AV Solutions</p>
-
-    <div class="mt-16 grid gap-14 lg:grid-cols-12">
-      <ul class="footer-places lg:col-span-5">
-        <li><a href={site.phoneHref}>{site.phone}</a></li>
-        <li><a href={site.smsHref}>Text a photo of the space</a></li>
-        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-        <li class="footer-place-note">Richmond, Texas · {site.hours}</li>
-      </ul>
-
-      <div class="grid gap-10 sm:grid-cols-3 lg:col-span-7">
-        <div>
-          <p class="footer-col-title">For business</p>
-          <ul class="footer-links">
-            <li><a href="/business/">Managed IT &amp; care plans</a></li>
-            {industries.map((i) => <li><a href={`/business/${i.slug}/`}>{i.name}</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <p class="footer-col-title">Areas</p>
-          <ul class="footer-links">
-            {areas.map((a) => <li><a href={`/areas/${a.slug}/`}>{a.city}, TX</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <p class="footer-col-title">More</p>
-          <ul class="footer-links">
-            <li><a href="/services/">For homes</a></li>
-            <li><a href="/work/">Our work</a></li>
-            <li><a href="/quote/">Book a site survey</a></li>
-            {site.socials.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.name}</a></li>)}
-          </ul>
-        </div>
-      </div>
+<footer class="footer on-dark">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Image src={logo} alt="" width={144} loading="lazy" />
+      <p class="footer-name">{site.name}</p>
+      <p>Commercial AV and managed IT for Fort Bend County businesses. Homes too. Based in Richmond, Texas.</p>
     </div>
-
-    <p class="footer-credits mt-20">
-      Pictures of Fort Bend County and the trade are not Dapper AV jobs; credits:
+    <div>
+      <h2 class="footer-head">Get in touch</h2>
+      <ul class="footer-list">
+        <li><a href="/quote/">Send a request</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>Mon–Fri 9am–5pm Central<br />Evenings and weekends by appointment</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-head">For business</h2>
+      <ul class="footer-list">
+        <li><a href="/business/">Managed IT &amp; care plans</a></li>
+        {industries.map((i) => <li><a href={`/business/${i.slug}/`}>{i.name}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-head">More</h2>
+      <ul class="footer-list">
+        <li><a href="/services/">For homes</a></li>
+        <li><a href="/quote/">Book a site survey</a></li>
+      </ul>
+      <h2 class="footer-head footer-head--gap">Where we work</h2>
+      <ul class="footer-social">
+        {areas.map((a) => <li><a href={`/areas/${a.slug}/`}>{a.city}</a></li>)}
+      </ul>
+      <ul class="footer-social">
+        {site.socials.map((s) => <li><a href={s.url} rel="noopener">{s.name}</a></li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <details class="footer-credits-wrap">
+      <summary>Photo credits</summary>
+    <p class="footer-credits">
+      Photos of Fort Bend County are other people's pictures, used under their licences:
       {
         pictures.map((p, i) => (
           <>
-            <a href={p.page}>{p.title}</a>
-            {p.creator ? ` by ${p.creator}` : ''}, {p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : p.license}{p.via ? `, via ${p.via}` : ''}
-            {i < pictures.length - 1 ? '; ' : '.'}
+            {' '}<a href={p.page}>{p.title}</a>
+            {p.creator ? ` by ${p.creator}` : ''}, {p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : p.license}
+            {p.via ? `, via ${p.via}` : ''}
+            {i < pictures.length - 1 ? ';' : '.'}
           </>
         ))
       }
+      {' '}Every install photo that says it is a Dapper AV job is one.
     </p>
-
-    <div class="mt-10 flex flex-wrap items-center justify-between gap-4 text-[0.9375rem]">
-      <p>© {year} {site.name}</p>
-      <a href="#main" class="footer-top">Back to top</a>
-    </div>
+    </details>
+  </div>
+  <div class="container footer-legal">
+    <p>© {year} {site.name}, Richmond, Texas.</p>
+    <a href="/privacy/">Privacy</a>
+    <a href="#main">Back to top</a>
   </div>
 </footer>

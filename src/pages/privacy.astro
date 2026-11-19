@@ -1,0 +1,67 @@
+---
+/** Privacy policy in plain words: what the site collects (the request form, Google Analytics) and why. */
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import { site } from '../data/site';
+const updated = 'November 19, 2026';
+---
+
+<Layout
+  title="Privacy Policy | Dapper AV"
+  description="How Dapper AV Solutions handles the details you send through the request form and what the site measures."
+>
+  <Hero tone="light" lead="Privacy policy" main="What we collect, and why." lede={`Last updated ${updated}.`} />
+
+  <section class="section">
+    <div class="container legal">
+      <h2 class="h3">What you send us</h2>
+      <p>
+        When you use the request form we receive what you type into it: your name, a phone number or email, an optional
+        business name, the service you picked, and any details you add. The form is delivered to our inbox by Web3Forms, a
+        form-delivery service. We use these details only to answer your request, schedule a site survey and send your
+        quote.
+      </p>
+
+      <h2 class="h3">What we don't do</h2>
+      <p>
+        We don't sell your details, share them with marketers or add you to a newsletter. We don't send marketing email
+        unless you ask for it.
+      </p>
+
+      <h2 class="h3">What the site measures</h2>
+      <p>
+        The site uses Google Analytics to count visits and see which pages are useful, and it records when a request is
+        sent (without your name or contact details). Google Analytics sets cookies in your browser for this. You can block
+        or delete them in your browser settings, and the site works the same without them.
+      </p>
+
+      <h2 class="h3">How long we keep it</h2>
+      <p>
+        Requests stay in our email for as long as they're useful for the job, its warranty and its support. If you'd like
+        yours deleted, email <a class="text-link" href={`mailto:${site.email}`}>{site.email}</a> and we will.
+      </p>
+
+      <h2 class="h3">Questions</h2>
+      <p>
+        Email <a class="text-link" href={`mailto:${site.email}`}>{site.email}</a>. Dapper AV Solutions is based in
+        Richmond, Texas.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    max-width: 44rem;
+  }
+  .legal h2 {
+    margin-top: var(--space-7);
+  }
+  .legal h2:first-child {
+    margin-top: 0;
+  }
+  .legal p {
+    margin-top: var(--space-3);
+    line-height: 1.65;
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+/**
+ * "Pick your kind of space": radio pills; the panel shows what the free survey checks there
+ * (the cost drivers from industries.ts; homes from the FAQ copy). Every panel is rendered on the
+ * server and only the chosen one is shown, so it works without JS and stays crawlable.
+ * The choice lives in the URL (?space=) so reload and sharing keep it.
+ */
+import { industries } from '../data/industries';
+
+const labels: Record<string, [string, string]> = {
+  'restaurants-bars': ['Restaurant or bar', 'restaurant or bar'],
+  'offices-conference-rooms': ['Office', 'office or conference room'],
+  'retail-showrooms': ['Retail or showroom', 'retail or showroom'],
+  'digital-signage': ['Signage & menu boards', 'signage & menu boards'],
+  'networks-wifi': ['Wi-Fi & network', 'Wi-Fi & network'],
+  'structured-cabling': ['New build cabling', 'new build cabling'],
+};
+const isIT = (slug: string) => slug === 'networks-wifi' || slug === 'structured-cabling';
+const spaces = [
+  ...industries.map((i) => ({
+    key: i.slug,
+    pill: labels[i.slug]?.[0] ?? i.name,
+    name: labels[i.slug]?.[1] ?? i.name.toLowerCase(),
+    list: i.costDrivers,
+    href: `/business/${i.slug}/`,
+    more: `More on ${i.name.charAt(0).toLowerCase()}${i.name.slice(1)}`,
+    survey: `/quote/?service=${encodeURIComponent(isIT(i.slug) ? 'Managed IT / Networking (Business)' : 'Commercial AV')}`,
+  })),
+  {
+    key: 'home',
+    pill: 'Home',
+    name: 'home',
+    list: [
+      'The wall: drywall, brick, stone or tile',
+      'TV size, and the right mount for it',
+      'Whether power and cables can run inside the wall',
+      'Where the soundbar, speakers and components go',
+      'Wi-Fi coverage where you actually watch and listen',
+    ],
+    href: '/services/',
+    more: 'More on home services',
+    survey: `/quote/?service=${encodeURIComponent('TV Mounting & Installation')}`,
+  },
+];
+---
+
+<div class="picker" data-picker>
+  <fieldset class="picker-choices">
+    <legend class="picker-legend">Pick your kind of space</legend>
+    <div class="picker-pills">
+      {
+        spaces.map((s, i) => (
+          <label class="pill">
+            <input type="radio" name="space" value={s.key} checked={i === 0} />
+            {s.pill}
+          </label>
+        ))
+      }
+    </div>
+    <p class="picker-aside">Not on the list? <a class="text-link" href="/quote/">Send the form</a> with a sentence about the space.</p>
+  </fieldset>
+
+  <div class="bezel bezel--dark picker-panel">
+    <div class="bezel-core" id="picker-out" aria-live="polite">
+      {
+        spaces.map((s, i) => (
+          <div data-space={s.key} hidden={i !== 0}>
+            <h3 class="picker-title">
+              What the survey checks: <span>{s.name}</span>
+            </h3>
+            <ul class="checklist">
+              {s.list.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+            <p class="picker-note">These are also what move the price. You get them itemized after the survey, before anything is installed.</p>
+            <div class="picker-actions">
+              <a class="btn btn--primary" href={s.survey}>Book a free site survey</a>
+              <a class="text-link" href={s.href}>{s.more}</a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector('[data-picker]');
+  const out = document.getElementById('picker-out');
+  if (root && out) {
+    const panels = [...out.querySelectorAll<HTMLElement>('[data-space]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    let timer: number | undefined;
+    const show = (key: string) => panels.forEach((p) => (p.hidden = p.dataset.space !== key));
+    const choose = (key: string) => {
+      clearTimeout(timer);
+      const url = new URL(location.href);
+      url.searchParams.set('space', key);
+      history.replaceState(null, '', url);
+      // Short blur cross-fade so the two lists never read as one; instant with reduced motion.
+      out.classList.add('is-swapping');
+      timer = window.setTimeout(
+        () => {
+          show(key);
+          out.classList.remove('is-swapping');
+        },
+        reduce.matches ? 0 : 160
+      );
+    };
+    const inputs = [...root.querySelectorAll<HTMLInputElement>('input[name="space"]')];
+    inputs.forEach((input) => input.addEventListener('change', () => choose(input.value)));
+    const initial = new URLSearchParams(location.search).get('space');
+    const match = inputs.find((i) => i.value === initial);
+    if (match) {
+      match.checked = true;
+      show(match.value);
+    }
+  }
+</script>

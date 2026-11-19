@@ -1,0 +1,27 @@
+---
+/** A photo of gear or a kind of space we work on. Captioned as the equipment, never as a job. */
+import { Image } from 'astro:assets';
+import { gear, type GearKey } from '../data/gear';
+
+interface Props {
+  item: GearKey;
+  shape?: 'tall' | 'wide' | 'square';
+  sizes?: string;
+  caption?: string;
+  class?: string;
+  reveal?: boolean;
+}
+const { item, shape = 'wide', sizes = '(min-width: 1024px) 45vw, 100vw', caption, class: cls, reveal = true } = Astro.props;
+const g = gear[item];
+---
+
+<figure class:list={['photo', `photo--${shape}`, cls]} data-reveal={reveal ? '' : undefined}>
+  <div class="photo-frame">
+    <Image src={g.image} alt={g.alt} widths={[480, 800, 1200]} sizes={sizes} style={g.pos ? `object-position: ${g.pos}` : undefined} />
+  </div>
+  <figcaption>
+    <strong>{g.name}.</strong>
+    <span>{caption ?? g.note}</span>
+    <span class="photo-credit">Stock photo, not a Dapper AV job.</span>
+  </figcaption>
+</figure>
