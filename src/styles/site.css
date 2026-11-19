@@ -1301,3 +1301,64 @@ label.pill {
 .facts--big dt {
   margin-top: var(--space-1);
 }
+
+/* ═══ The film's dapper installer walks through the homepage hero once ═══ */
+.hero-walker {
+  display: none;
+}
+.hero-grid {
+  position: relative;
+  z-index: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-walker {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    display: block;
+    height: clamp(7.5rem, 22vh, 12.5rem);
+    aspect-ratio: 1;
+    background: color-mix(in srgb, var(--color-accent) 70%, transparent);
+    -webkit-mask: url(/film/walk.png) 0 0 / 800% 100% no-repeat;
+    mask: url(/film/walk.png) 0 0 / 800% 100% no-repeat;
+    pointer-events: none;
+    animation:
+      walker-cross 6s linear 1.3s both,
+      walker-stride 0.62s steps(8) 1.3s 10 both;
+  }
+  /* arriving from another page: he has already been seen, so he does not walk again */
+  .vt-arrived .hero-walker {
+    display: none;
+  }
+}
+@keyframes walker-cross {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+@keyframes walker-stride {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+  to {
+    -webkit-mask-position: 114.2857% 0;
+    mask-position: 114.2857% 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+  /* a narrow screen is crossed in fewer strides, so the feet don't slide; he walks on the first
+     screen, just above the dock, because the hero runs taller than a phone */
+  .js .hero-walker {
+    top: calc(100svh - 7rem - 9rem);
+    bottom: auto;
+    height: 7rem;
+    animation:
+      walker-cross 3.4s linear 1.3s both,
+      walker-stride 0.62s steps(8) 1.3s 6 both;
+  }
+}

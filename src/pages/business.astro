@@ -2,7 +2,7 @@
 /** Business hub: who we work with, what we run, the care plans. */
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import GearPhoto from '../components/GearPhoto.astro';
+import FilmScene from '../components/FilmScene.astro';
 import IndustryLedger from '../components/IndustryLedger.astro';
 import Steps from '../components/Steps.astro';
 import Reviews from '../components/Reviews.astro';
@@ -27,8 +27,8 @@ const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networ
     ]}
   >
     <p class="hero-aside">Care plans are month to month. Pricing is custom-quoted after the free survey. <a class="text-link" href="#care-plans">See the three plans</a>.</p>
-    <div slot="aside" class="bezel bezel--dark hero-card">
-      <GearPhoto item="runs" shape="tall" reveal={false} sizes="(min-width: 1024px) 30vw, 90vw" />
+    <div slot="aside" class="hero-card">
+      <FilmScene kind="office" credit="Managed IT" label="Illustration: an office where the Wi-Fi comes on and the spinner turns into a check" />
     </div>
   </Hero>
 

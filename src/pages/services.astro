@@ -1,6 +1,7 @@
 ---
 /** Homes: honest starting prices, three bundles, FAQs. */
 import Layout from '../layouts/Layout.astro';
+import FilmScene from '../components/FilmScene.astro';
 import Hero from '../components/Hero.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -46,6 +47,9 @@ const packages = [
     ]}
   >
     <p class="hero-aside">For most TV mounts, the TV size and the wall type are all we need to quote it.</p>
+    <div slot="aside" class="hero-card">
+      <FilmScene kind="home" credit="Home theater" label="Illustration: a family on the couch as the dark TV lights up for movie night" />
+    </div>
   </Hero>
 
   <section class="section section--alt" id="home-services" aria-labelledby="svc-title">

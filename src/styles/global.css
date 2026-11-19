@@ -39,22 +39,25 @@ main {
 ::view-transition-group(page) {
   animation: none;
 }
+/* the brand film's whip pan: the old page whips out left with a smear, the new one lands from the right */
 ::view-transition-old(page) {
-  animation: vt-leave 160ms cubic-bezier(0.55, 0, 1, 0.45) both;
+  animation: vt-leave 200ms cubic-bezier(0.55, 0, 1, 0.45) both;
 }
 ::view-transition-new(page) {
-  animation: vt-land 380ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
+  animation: vt-land 420ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both;
 }
 @keyframes vt-leave {
   to {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateX(-9%);
+    filter: blur(10px);
   }
 }
 @keyframes vt-land {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateX(9%);
+    filter: blur(10px);
   }
 }
 @media (prefers-reduced-motion: reduce) {

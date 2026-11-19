@@ -3,11 +3,10 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import GearPhoto from '../../components/GearPhoto.astro';
+import FilmScene from '../../components/FilmScene.astro';
 import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { industries } from '../../data/industries';
-import type { GearKey } from '../../data/gear';
 import { site } from '../../data/site';
 import { areas } from '../../data/areas';
 
@@ -31,16 +30,17 @@ const faqs = [
 const isIT = industry.slug === 'networks-wifi' || industry.slug === 'structured-cabling';
 const quoteHref = `/quote/?service=${encodeURIComponent(isIT ? 'Managed IT / Networking (Business)' : 'Commercial AV')}`;
 
-// Which photo stands in for this kind of job (gear or a kind of space, never presented as the job).
-const gearFor: Record<string, { item: GearKey; caption: string }> = {
-  'restaurants-bars': { item: 'bar', caption: 'TV walls, zoned sound and a guest network kept apart from the POS: the core of a bar install.' },
-  'offices-conference-rooms': { item: 'meeting', caption: 'One display, one camera, one cable or tap to start, and the network behind it planned at the same time.' },
-  'retail-showrooms': { item: 'camera', caption: 'Cameras that record locally, so there are no per-camera cloud fees.' },
-  'digital-signage': { item: 'barTv', caption: 'Screens mounted level, wired out of sight and fed by a connection that stays up.' },
-  'networks-wifi': { item: 'ports', caption: 'Wired backhaul for every UniFi access point, with every port numbered and documented.' },
-  'structured-cabling': { item: 'panel', caption: 'Every drop ends on a numbered patch panel port, labeled and documented at closeout.' },
+// The scene from the brand film that plays for this kind of business (broken, he passes, fixed).
+type Scene = { kind: 'bar' | 'menu' | 'office' | 'home' | 'shop' | 'ladder'; credit: string; label: string };
+const sceneFor: Record<string, Scene> = {
+  'restaurants-bars': { kind: 'bar', credit: 'TVs & sound', label: 'Illustration: a bar of blank screens lights up with the game and the crowd cheers' },
+  'offices-conference-rooms': { kind: 'office', credit: 'Meeting rooms', label: 'Illustration: an office meeting where the loading spinner turns into a check as the Wi-Fi comes on' },
+  'retail-showrooms': { kind: 'shop', credit: 'Security cameras', label: 'Illustration: a storefront whose loose security camera snaps into place' },
+  'digital-signage': { kind: 'menu', credit: 'Menu boards', label: 'Illustration: three blank screens over a bar come on as menu boards' },
+  'networks-wifi': { kind: 'office', credit: 'Business Wi-Fi', label: 'Illustration: an office where the Wi-Fi comes on and the spinner turns into a check' },
+  'structured-cabling': { kind: 'ladder', credit: 'Cabling', label: 'Illustration: the installer on a ladder running cable, inside a gold circle' },
 };
-const g = gearFor[industry.slug] ?? gearFor['networks-wifi'];
+const scene = sceneFor[industry.slug] ?? sceneFor['networks-wifi'];
 
 const pageUrl = `${site.url}/business/${industry.slug}/`;
 const serviceSchema = {
@@ -126,7 +126,7 @@ const check = 'M4 12.5l5 5L20 6.5';
 
   <section class="section grooves" aria-labelledby="why-title">
     <div class="container standard">
-      <GearPhoto item={g.item} caption={g.caption} shape={g.item === 'runs' ? 'tall' : 'wide'} sizes="(min-width: 1024px) 50vw, 100vw" />
+      <FilmScene kind={scene.kind} credit={scene.credit} label={scene.label} />
       <div>
         <h2 class="h2" id="why-title">Why one company</h2>
         <ul class="reasons">
