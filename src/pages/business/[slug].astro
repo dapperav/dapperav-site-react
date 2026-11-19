@@ -30,14 +30,14 @@ const faqs = [
 const isIT = industry.slug === 'networks-wifi' || industry.slug === 'structured-cabling';
 const quoteHref = `/quote/?service=${encodeURIComponent(isIT ? 'Managed IT / Networking (Business)' : 'Commercial AV')}`;
 
-// Which credited gear photo stands in for this kind of job (equipment, never presented as the job).
+// Which photo stands in for this kind of job (gear or a kind of space, never presented as the job).
 const gearFor: Record<string, { item: GearKey; caption: string }> = {
-  'restaurants-bars': { item: 'sonos', caption: 'Background music by zone is part of most bar and dining-room installs; Sonos is one of the systems I use.' },
-  'offices-conference-rooms': { item: 'ap', caption: 'Office Wi-Fi on UniFi access points, placed for your floor plan and managed afterward.' },
-  'retail-showrooms': { item: 'sonos', caption: 'Background music zoned for the floor, the counter and the offices.' },
-  'digital-signage': { item: 'switch', caption: 'Signage fails when the player loses its connection. Every screen gets a labeled, wired run where it can.' },
-  'networks-wifi': { item: 'ap', caption: 'The UniFi access points I install and manage, placed and tuned for your floor plan.' },
-  'structured-cabling': { item: 'switch', caption: 'Labeled, documented and handed over at closeout: the standard for every rack I touch.' },
+  'restaurants-bars': { item: 'bar', caption: 'TV walls, zoned sound and a guest network kept apart from the POS: the core of a bar install.' },
+  'offices-conference-rooms': { item: 'meeting', caption: 'One display, one camera, one cable or tap to start, and the network behind it planned at the same time.' },
+  'retail-showrooms': { item: 'camera', caption: 'Cameras that record locally, so there are no per-camera cloud fees.' },
+  'digital-signage': { item: 'barTv', caption: 'Screens mounted level, wired out of sight and fed by a connection that stays up.' },
+  'networks-wifi': { item: 'ports', caption: 'Wired backhaul for every UniFi access point, with every port numbered and documented.' },
+  'structured-cabling': { item: 'panel', caption: 'Every drop ends on a numbered patch panel port, labeled and documented at closeout.' },
 };
 const g = gearFor[industry.slug] ?? gearFor['networks-wifi'];
 
@@ -102,7 +102,7 @@ const check = 'M4 12.5l5 5L20 6.5';
 
   <section class="section grooves" aria-labelledby="why-title">
     <div class="container standard">
-      <GearPhoto item={g.item} caption={g.caption} shape={g.item === 'ap' ? 'tall' : 'wide'} sizes="(min-width: 1024px) 50vw, 100vw" />
+      <GearPhoto item={g.item} caption={g.caption} shape={g.item === 'runs' ? 'tall' : 'wide'} sizes="(min-width: 1024px) 50vw, 100vw" />
       <div>
         <h2 class="h2" id="why-title">Why one installer</h2>
         <ul class="reasons">

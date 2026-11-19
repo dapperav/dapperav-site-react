@@ -6,10 +6,9 @@ import { site } from '../data/site';
 import { areas } from '../data/areas';
 import { industries } from '../data/industries';
 import found from '../assets/found/credits.json';
-import gearCredits from '../../design-system/gear/credits.json';
 
 type Credit = { title: string; creator?: string | null; license: string; licenseUrl?: string | null; page: string; via?: string | null };
-const pictures = [...(gearCredits as Credit[]), ...(found as Credit[])];
+const pictures = found as Credit[];
 const year = new Date().getFullYear();
 ---
 
@@ -56,8 +55,7 @@ const year = new Date().getFullYear();
     <details class="footer-credits-wrap">
       <summary>Photo credits</summary>
     <p class="footer-credits">
-      Photos of equipment and of Fort Bend County are not Dapper AV jobs; they are other people's pictures, used
-      under their licences:
+      Photos of Fort Bend County are other people's pictures, used under their licences:
       {
         pictures.map((p, i) => (
           <>

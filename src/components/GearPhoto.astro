@@ -1,5 +1,5 @@
 ---
-/** A credited photo of gear I install. Captioned as the equipment, never as a job. */
+/** A photo of gear or a kind of space I work on. Captioned as the equipment, never as a job. */
 import { Image } from 'astro:assets';
 import { gear, type GearKey } from '../data/gear';
 
@@ -22,8 +22,6 @@ const g = gear[item];
   <figcaption>
     <strong>{g.name}.</strong>
     <span>{caption ?? g.note}</span>
-    <span class="photo-credit">
-      Gear photo, not a Dapper AV job: <a href={g.credit.page}>{g.credit.creator}</a>, <a href={g.credit.licenseUrl}>{g.credit.license}</a>.
-    </span>
+    <span class="photo-credit">Stock photo, not a Dapper AV job.</span>
   </figcaption>
 </figure>
