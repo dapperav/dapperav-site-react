@@ -166,8 +166,8 @@ https://dapperav.com, same description/tagline.
 
 - **2026-11-19** — Google Business Profile categories: primary "Home cinema installation" → "Audio visual
   consultant" (Google has no AV-installer category); added "Computer networking service" and "Computer
-  support and services"; kept "Home cinema installation" as additional. The GBP description is still the
-  old residential one ("Your Home Theater installation destination") — rewrite it next.
+  support and services"; kept "Home cinema installation" as additional. Description rewritten
+  commercial-first (705/750 chars, site facts only, no phone/prices): "Dapper AV Solutions installs and looks after the technology local businesses run on across Fort Bend County: TV walls and sound for restaurants and bars, meeting-room AV for offices, displays and digital signage for retail, UniFi business Wi-Fi and networks, cameras, structured cabling and Microsoft 365. Every job starts with a free 30–45 minute site survey and an itemized quote, and installs are scheduled around your hours: before open, after close or on weekends. Afterward, month-to-month care plans keep it all running, supported by the same company that installed it. Serving Richmond, Rosenberg, Fulshear, Sugar Land, Stafford and Katy. Homes too: TV mounting, home theater and whole-home audio."
 - **2026-11-19** — Google Business Profile hours changed from M–F 8–6 to M–F 9–5 (Sat/Sun closed) to
   match the site; submitted via Business Profile Manager (Google review pending at the time).
 - **2026-11-19** — SITE REDESIGN SHIPPED (branch `concept/taste`, squash-merged). Long session with Mark;
@@ -310,7 +310,7 @@ https://dapperav.com, same description/tagline.
 2. **Real commercial photos (Mark):** 5–10 phone photos of commercial work he likes (racks, TV walls,
    cameras). They replace stock and drawings and fix the "few pictures" gap. Real jobs only.
 3. **Hours on listings (Mark):** Google Business Profile is updated to 9–5. Facebook and Nextdoor still
-   say M–F 8–6. The GBP description is still residential; rewrite it commercial-first.
+   say M–F 8–6, and their descriptions are still residential; reuse the GBP description text.
 4. **Case studies + reviews:** ask 2–3 business clients to be named/quoted; review ask after every
    job via dapperav.com/review. Target ~5 Google reviews → apply for **Google LSA**.
 5. **GSC (Mark):** resubmit `sitemap-index.xml`; URL Inspection → Request indexing on /business/*,
