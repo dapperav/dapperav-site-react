@@ -235,7 +235,11 @@ html {
   padding: var(--space-5) var(--space-2);
   border-radius: var(--radius-field);
   text-decoration: none;
-  transition: background-color var(--dur-base) var(--ease-out);}
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    scale var(--dur-fast) var(--ease-out);}
+.ledger-row:active {
+  scale: 0.985;}
 @media (min-width: 900px) {
   .ledger-row {
     grid-template-columns: 11rem minmax(0, 5fr) minmax(0, 6fr) auto;
@@ -255,6 +259,10 @@ html {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--radius-field);
+  clip-path: inset(0 round var(--radius-field));
+  transition:
+    scale var(--dur-base) var(--ease-land),
+    clip-path var(--dur-base) var(--ease-land);
 }
 .ledger-name {
   grid-column: 2;
@@ -285,7 +293,7 @@ html {
   background: var(--color-bg-alt);
   color: var(--color-ink);
   transition:
-    transform var(--dur-base) var(--ease-spring),
+    transform var(--dur-base) var(--ease-land),
     background-color var(--dur-base) var(--ease-out);}
 @media (min-width: 900px) {
   .ledger-arrow {
@@ -308,7 +316,17 @@ html {
     background: var(--color-accent);
     color: var(--color-on-accent);
     transform: translateX(4px);}
+  .ledger-row:hover .ledger-thumb {
+    scale: 1.06;
+    clip-path: inset(2.83% round calc(var(--radius-field) / 1.06));}
 }
+.ledger-row:focus-visible .ledger-arrow {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  transform: translateX(4px);}
+.ledger-row:focus-visible .ledger-thumb {
+  scale: 1.06;
+  clip-path: inset(2.83% round calc(var(--radius-field) / 1.06));}
 .section--alt .ledger-arrow {
   background: var(--cream-50);}
 .section--alt .ledger-row:hover {
@@ -379,9 +397,34 @@ html {
   font-size: 1.5rem;
   line-height: 1;
   color: var(--color-accent-ink, var(--gold-700));
-  transition: transform 0.2s ease;}
+  transition: transform var(--dur-base) var(--ease-land);}
 .faq-list details[open] summary::after {
   transform: rotate(45deg);}
+/* Answers open smoothly where the browser can size to auto (Chromium 131+); elsewhere they snap.
+   The one sanctioned height animation (an accordion), and the answer text rides a 6px move. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports selector(::details-content) {
+    .faq-list {
+      interpolate-size: allow-keywords;}
+    .faq-list details::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size var(--dur-base) var(--ease-land),
+        content-visibility var(--dur-base) allow-discrete;}
+    .faq-list details[open]::details-content {
+      block-size: auto;}
+    .faq-list details > p {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition:
+        opacity 200ms var(--ease-out),
+        transform var(--dur-base) var(--ease-land);}
+    .faq-list details[open] > p {
+      opacity: 1;
+      transform: none;}
+  }
+}
 .faq-list details > p {
   padding-bottom: var(--space-5);
   max-width: 38rem;
@@ -755,6 +798,17 @@ html {
   color: var(--color-ink-muted);}
 .form-state {
   margin-top: var(--space-7);}
+/* the success (or error) panel arrives by rising into place when the form swaps it in */
+@media (prefers-reduced-motion: no-preference) {
+  .form-state {
+    transition:
+      opacity 250ms var(--ease-out),
+      translate var(--dur-enter) var(--ease-land);
+    @starting-style {
+      opacity: 0;
+      translate: 0 16px;}
+  }
+}
 .form-state-title {
   font-family: var(--font-display);
   font-size: 2rem;
@@ -976,7 +1030,7 @@ button.dock-item {
   min-width: 0;}
 @media (prefers-reduced-motion: no-preference) {
   .js .hero-side {
-    animation: rise 800ms var(--ease-out) 380ms both;}
+    animation: rise var(--dur-enter) var(--ease-land) 500ms both;}
   .js .hero-side .hero-card {
     animation: none;}
 }

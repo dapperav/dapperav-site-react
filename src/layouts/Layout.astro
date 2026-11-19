@@ -69,7 +69,11 @@ const jsonLd = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <script is:inline>document.documentElement.classList.add('js')</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Arriving through a view transition, the header is carried over: skip the disc's load spin.
+      addEventListener('pagereveal', (e) => e.viewTransition && document.documentElement.classList.add('vt-arrived'));
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -137,6 +141,15 @@ const jsonLd = {
       }
 
       // 2. Reveals: once only, then forgotten. Content is visible without JS (see .js gate in CSS).
+      //    Section openers stagger their parts (heading, then text, then the rest) 80ms apart.
+      //    Anything already on screen at load is left alone so nothing blinks out and back.
+      for (const group of document.querySelectorAll('.section-head, .faq-head, .owner-copy, .facts--big, .biz-list, .cta-inner')) {
+        [...group.children].forEach((el, i) => {
+          if (el.hasAttribute('data-reveal') || el.getBoundingClientRect().top < innerHeight) return;
+          el.setAttribute('data-reveal', '');
+          el.style.setProperty('--d', `${Math.min(i, 6) * 80}ms`);
+        });
+      }
       const revealed = document.querySelectorAll('[data-reveal]');
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver(

@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Owner from '../components/Owner.astro';
+import FilmButton from '../components/FilmButton.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site } from '../data/site';
@@ -39,6 +40,7 @@ const lines: Record<string, string> = {
       { href: '/business/', label: 'Business services', variant: 'ghost' },
     ]}
   >
+    <FilmButton />
     <p class="hero-aside">
       Homeowner? <a class="text-link" href="/services/">See home services</a>.
     </p>

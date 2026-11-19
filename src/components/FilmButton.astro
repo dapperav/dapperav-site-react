@@ -1,0 +1,148 @@
+---
+/**
+ * "Watch the film": opens the brand film (made with motionmaxxing) in a dialog, sound on,
+ * only when the visitor asks for it. Adds no page length.
+ * Files: public/video/brand-film.mp4 (+ brand-film.jpg poster), copied from
+ * brand-assets/launch-film/silhouette/final-index.mp4 once that film is final.
+ */
+interface Props {
+  label?: string;
+}
+const { label = 'Watch the 22-second film' } = Astro.props;
+---
+
+<button class="film-open" type="button" aria-haspopup="dialog" aria-controls="film-dialog">
+  <span class="film-play" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"></path></svg>
+  </span>
+  {label}
+</button>
+
+<dialog class="film-dialog" id="film-dialog" aria-label="Dapper AV Solutions film">
+  <button class="film-close" type="button" aria-label="Close the film" data-film-close>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+  </button>
+  <video class="film-video" controls playsinline preload="none" poster="/video/brand-film.jpg">
+    <source src="/video/brand-film.mp4" type="video/mp4" />
+  </video>
+</dialog>
+
+<style>
+  .film-open {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 44px;
+    margin-top: var(--space-5);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-ink-inverse);
+    font: inherit;
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+  }
+  .film-play {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .film-play svg {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 2px;
+    fill: currentColor;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .film-open:hover .film-play {
+      transform: scale(1.08);
+    }
+  }
+  .film-open:active .film-play {
+    transform: scale(0.94);
+  }
+
+  .film-dialog {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-card);
+    background: var(--brown-950);
+    overflow: hidden;
+  }
+  .film-dialog::backdrop {
+    background: color-mix(in srgb, var(--brown-950) 88%, transparent);
+  }
+  .film-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--brown-950);
+  }
+  .film-close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--cream-50);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .film-close svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  /* arrives decelerating from slightly oversize, leaves by shrinking (motionmaxxing grammar) */
+  @media (prefers-reduced-motion: no-preference) {
+    .film-dialog[open] {
+      animation: film-in 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .film-dialog[open]::backdrop {
+      animation: film-dim 240ms ease-out;
+    }
+  }
+  @keyframes film-in {
+    from {
+      opacity: 0;
+      transform: scale(1.04);
+    }
+  }
+  @keyframes film-dim {
+    from {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById('film-dialog') as HTMLDialogElement | null;
+  const video = dialog?.querySelector('video');
+  document.querySelector('.film-open')?.addEventListener('click', () => {
+    if (!dialog || !video) return;
+    dialog.showModal();
+    video.play().catch(() => {});
+  });
+  const close = () => dialog?.close();
+  dialog?.querySelector('[data-film-close]')?.addEventListener('click', close);
+  // a click on the dimmed area outside the film closes it
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) close();
+  });
+  dialog?.addEventListener('close', () => video?.pause());
+</script>

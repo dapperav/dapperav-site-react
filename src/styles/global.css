@@ -18,9 +18,44 @@
   --font-sans: var(--font-body);
 }
 
-/* Cross-document view transitions: a soft cross-fade between pages where supported. */
+/* Cross-document view transitions (Chromium; other browsers just navigate).
+   The header, dock and parked button are named, so they hold still while the page changes under them.
+   The old page leaves accelerating and a little up; the new one lands decelerating from 12px below. */
 @view-transition {
   navigation: auto;
+}
+.site-nav {
+  view-transition-name: site-nav;
+}
+.dock {
+  view-transition-name: dock;
+}
+.float-cta {
+  view-transition-name: float-cta;
+}
+main {
+  view-transition-name: page;
+}
+::view-transition-group(page) {
+  animation: none;
+}
+::view-transition-old(page) {
+  animation: vt-leave 160ms cubic-bezier(0.55, 0, 1, 0.45) both;
+}
+::view-transition-new(page) {
+  animation: vt-land 380ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
+}
+@keyframes vt-leave {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes vt-land {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),

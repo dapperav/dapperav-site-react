@@ -331,7 +331,9 @@ label.pill {
   transition:
     opacity 200ms var(--ease-out) 100ms,
     transform 300ms var(--ease-out) 100ms,
-    background-color var(--dur-base) var(--ease-out);}
+    background-color var(--dur-base) var(--ease-out),
+    scale var(--dur-fast) var(--ease-out),
+    translate var(--dur-base) var(--ease-land);}
 
 /* Open state: at the top of the page, on hover, or when keyboard focus is inside */
 .site-nav.at-top .nav-shell::before,
@@ -356,7 +358,9 @@ label.pill {
     opacity 200ms var(--ease-out) 60ms,
     transform 300ms var(--ease-drawer),
     visibility 0s,
-    background-color var(--dur-base) var(--ease-out);}
+    background-color var(--dur-base) var(--ease-out),
+    scale var(--dur-fast) var(--ease-out),
+    translate var(--dur-base) var(--ease-land);}
 /* 1. Tablets and other touch screens have no hover: keep the pill open so the links and phone
       stay reachable after scrolling (phones use the dock instead). */
 @media (hover: none) and (min-width: 768px) {
@@ -381,6 +385,9 @@ label.pill {
       animation-timeline: scroll(root block);}
   }
 }
+/* a page reached through a view transition keeps the header still: no second spin-up */
+.vt-arrived .roundel-spin {
+  animation: none;}
 @keyframes spin-up {
   from {
     transform: rotate(-360deg) scale(0.92);
@@ -408,18 +415,23 @@ label.pill {
     opacity: 0;
     visibility: hidden;
     transform: translateY(12px);
+    /* leaves accelerating, shorter than it arrives */
     transition:
-      opacity 200ms var(--ease-out),
-      transform 300ms var(--ease-out),
-      visibility 0s linear 300ms,
-      background-color var(--dur-base) var(--ease-out);}
+      opacity var(--dur-leave) var(--ease-leave),
+      transform var(--dur-leave) var(--ease-leave),
+      visibility 0s linear var(--dur-leave),
+      background-color var(--dur-base) var(--ease-out),
+      scale var(--dur-fast) var(--ease-out),
+      translate var(--dur-base) var(--ease-land);}
   body.is-scrolled .float-cta {
     opacity: 1;
     visibility: visible;
     transform: none;
     transition:
       opacity 250ms var(--ease-out),
-      transform 300ms var(--ease-out),
+      transform var(--dur-enter) var(--ease-land),
+      scale var(--dur-fast) var(--ease-out),
+      translate var(--dur-base) var(--ease-land),
       visibility 0s,
       background-color var(--dur-base) var(--ease-out);}
 }
@@ -503,7 +515,7 @@ label.pill {
   margin-right: calc(var(--space-3) * -1);
   border-radius: 50%;
   background: color-mix(in srgb, var(--brown-800) 12%, transparent);
-  transition: transform var(--dur-base) var(--ease-spring);}
+  transition: transform var(--dur-base) var(--ease-land);}
 @media (hover: hover) and (pointer: fine) {
   .btn:hover .btn-orb {
     transform: translateX(3px);}
@@ -532,30 +544,79 @@ label.pill {
   margin-top: 1px;
   color: var(--color-accent);}
 
-/* Hero entrance: the one load choreography on the page */
+/* Headline words: each is a masked slot; the word rises into it from just below and settles from
+   1.04x (lands decelerating, nothing grows from zero). Whole words 70ms apart, never letters. */
+.hw {
+  display: inline-block;}
+.hw > span {
+  display: inline-block;}
+/* Signature: a gold cable runs under "cable." and ends in its jack. Drawn once, by unmasking. */
+.cable-anchor {
+  position: relative;
+  display: inline-block;}
+.cable-line {
+  position: absolute;
+  left: -0.02em;
+  top: calc(100% - 0.02em);
+  width: calc(100% + 0.1em);
+  height: auto;
+  overflow: visible;
+  pointer-events: none;}
+.cable-line path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3.5;
+  stroke-linecap: round;}
+.cable-line circle {
+  fill: var(--color-accent);}
+.hero--light .cable-line path {
+  stroke: var(--color-accent-ink);}
+.hero--light .cable-line circle {
+  fill: var(--color-accent-ink);}
+
+/* Hero entrance: the one load choreography on the page, then stillness */
 @media (prefers-reduced-motion: no-preference) {
-  .js .hero-title-lead,
-  .js .hero-title-main,
+  .js .hw {
+    clip-path: inset(-0.2em -0.3em -0.32em -0.3em);}
+  .js .hw > span {
+    animation: word-in var(--dur-enter) var(--ease-land) both;
+    animation-delay: calc(60ms + var(--i, 0) * 70ms);}
+  .js .cable-line {
+    animation: cable-draw 650ms var(--ease-land) 760ms both;}
+  /* arriving from another page the visitor has seen the move once: same rise, tighter rhythm */
+  .vt-arrived .hw > span {
+    animation-delay: calc(var(--i, 0) * 45ms);}
   .js .hero-lede,
   .js .hero-actions,
   .js .hero-aside,
+  .js .film-open,
   .js .hero-card {
-    animation: rise 400ms var(--ease-out) both;}
-  .js .hero-title-main {
-    animation-delay: 90ms;}
+    animation: rise var(--dur-enter) var(--ease-land) both;}
+  .js .film-open {
+    animation-delay: 560ms;}
   .js .hero-lede {
-    animation-delay: 180ms;}
+    animation-delay: 420ms;}
   .js .hero-actions {
-    animation-delay: 260ms;}
+    animation-delay: 520ms;}
   .js .hero-aside {
-    animation-delay: 320ms;}
+    animation-delay: 600ms;}
   .js .hero-card {
-    animation-delay: 380ms;}
+    animation-delay: 500ms;}
+}
+@keyframes word-in {
+  from {
+    transform: translateY(1.4em) scale(1.04);}
+}
+@keyframes cable-draw {
+  from {
+    clip-path: inset(-60% 100% -60% -2%);}
+  to {
+    clip-path: inset(-60% -2% -60% -2%);}
 }
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
     filter: blur(4px);}
 }
 
@@ -619,7 +680,11 @@ label.pill {
   padding: var(--space-4) var(--space-2);
   text-decoration: none;
   border-radius: var(--radius-field);
-  transition: background-color var(--dur-base) var(--ease-out);}
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    scale var(--dur-fast) var(--ease-out);}
+.biz-row:active {
+  scale: 0.985;}
 .biz-name {
   font-size: 1.25rem;
   font-weight: var(--weight-semibold);
@@ -632,6 +697,11 @@ label.pill {
   height: 4.5rem;
   object-fit: cover;
   border-radius: var(--radius-field);
+  /* hover zoom stays inside the thumb: scale up and clip back to the same box (no wrapper needed) */
+  clip-path: inset(0 round var(--radius-field));
+  transition:
+    scale var(--dur-base) var(--ease-land),
+    clip-path var(--dur-base) var(--ease-land);
 }
 .biz-name {
   grid-column: 2;
@@ -661,6 +731,16 @@ label.pill {
   .biz-row:hover .biz-arrow {
     transform: translateX(4px);}
 }
+.biz-row:focus-visible .biz-arrow {
+  transform: translateX(4px);}
+@media (hover: hover) and (pointer: fine) {
+  .biz-row:hover .biz-thumb {
+    scale: 1.08;
+    clip-path: inset(3.7% round calc(var(--radius-field) / 1.08));}
+}
+.biz-row:focus-visible .biz-thumb {
+  scale: 1.08;
+  clip-path: inset(3.7% round calc(var(--radius-field) / 1.08));}
 
 .homes {
   display: flex;
@@ -1070,19 +1150,74 @@ label.pill {
     background: var(--color-bg);}
 }
 
-/* ═══ Scroll reveal (only hides content when JS runs) ═══ */
+/* ═══ Scroll reveal (only hides content when JS runs) ═══
+   Things arrive by moving (opacity only rides along), once, decelerating; siblings 50-80ms apart. */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
     transition:
       opacity 250ms var(--ease-out) var(--d, 0ms),
-      transform 300ms var(--ease-out) var(--d, 0ms);}
-  
+      transform var(--dur-enter) var(--ease-land) var(--d, 0ms);}
   .js [data-reveal].is-in {
     opacity: 1;
     transform: none;}
-  
+  /* photos unmask instead: the frame opens from a smaller window while the picture settles from 1.06x */
+  .js .photo[data-reveal] {
+    opacity: 1;
+    transform: none;}
+  .js .photo[data-reveal] .photo-frame {
+    clip-path: inset(7% 7% 7% 7% round var(--radius-card));
+    transition: clip-path 600ms var(--ease-land) var(--d, 0ms);}
+  .js .photo[data-reveal] .photo-frame img {
+    scale: calc(var(--photo-rest, 1) * 1.06);
+    transition: scale 700ms var(--ease-land) var(--d, 0ms);}
+  .js .photo[data-reveal] figcaption {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 250ms var(--ease-out) calc(var(--d, 0ms) + 120ms),
+      transform var(--dur-enter) var(--ease-land) calc(var(--d, 0ms) + 120ms);}
+  .js .photo[data-reveal].is-in .photo-frame {
+    clip-path: inset(0 0 0 0 round var(--radius-card));}
+  .js .photo[data-reveal].is-in .photo-frame img {
+    scale: var(--photo-rest, 1);}
+  .js .photo[data-reveal].is-in figcaption {
+    opacity: 1;
+    transform: none;}
+  .js .bezel .photo[data-reveal] .photo-frame,
+  .js .bezel .photo[data-reveal].is-in .photo-frame {
+    --radius-card: calc(24px - var(--bezel-pad));}
+}
+
+/* ═══ Scroll-linked (CSS scroll-driven where supported, static elsewhere) ═══ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* photographs drift a few percent against the scroll inside their frame (oversized 8% so no edge shows) */
+    .photo-frame {
+      --photo-rest: 1.08;}
+    .photo-frame img {
+      scale: var(--photo-rest);
+      animation: photo-drift linear both;
+      animation-timeline: view();}
+    /* the closing cable loop eases in from slightly wide as the band comes up */
+    .cta-video {
+      animation: cta-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;}
+  }
+}
+@keyframes photo-drift {
+  from {
+    translate: 0 -3%;}
+  to {
+    translate: 0 3%;}
+}
+@keyframes cta-settle {
+  from {
+    transform: scale(1.12);}
+  to {
+    transform: scale(1);}
 }
 
 
@@ -1156,4 +1291,16 @@ label.pill {
   font-size: clamp(1.75rem, 3.4vw, 2.75rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
+}
+
+/* owner facts: the number reads first, its label sits under it (a label above reads as an eyebrow) */
+.facts--big div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.facts--big dd {
+  margin-top: 0;
+}
+.facts--big dt {
+  margin-top: var(--space-1);
 }

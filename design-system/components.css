@@ -24,10 +24,14 @@
   transition:
     background-color var(--dur-base) var(--ease-out),
     color var(--dur-base) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
+    scale var(--dur-fast) var(--ease-out),
+    translate var(--dur-base) var(--ease-land);
 }
+/* Press and lift use the individual scale/translate properties so they compose with any
+   transform a component already owns (nav-cta, float-cta show and hide). */
 .btn:active {
-  transform: scale(var(--btn-press-scale));
+  scale: var(--btn-press-scale);
+  transition-duration: var(--dur-base), var(--dur-base), 100ms, var(--dur-base);
 }
 .btn:focus-visible {
   outline: 2px solid var(--color-focus);
@@ -37,7 +41,8 @@
 .btn[aria-disabled='true'] {
   opacity: 0.55;
   cursor: not-allowed;
-  transform: none;
+  scale: none;
+  translate: none;
 }
 
 .btn--sm {
@@ -55,6 +60,12 @@
 }
 .btn--primary:hover {
   background: var(--btn-primary-bg-hover);
+}
+/* the primary action lifts 2px under a fine pointer: flat, no shadow */
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    translate: 0 -2px;
+  }
 }
 .btn--secondary {
   background: var(--btn-secondary-bg);
@@ -138,6 +149,11 @@
   font-family: var(--font-body);
   font-size: 1rem; /* 16px: no iOS zoom */
 }
+.field {
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-land);
+}
 .field:focus {
   outline: none;
   border-color: var(--field-border-focus);
@@ -149,7 +165,9 @@
   .pill {
     transition: none;
   }
-  .btn:active {
-    transform: none;
+  .btn:active,
+  .btn--primary:hover {
+    scale: none;
+    translate: none;
   }
 }

@@ -84,10 +84,17 @@
 
   /* motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* land decelerates (most travel in the first quarter, long tail); leave accelerates. No overshoot:
+     the site spends zero springs (motionmaxxing R1.4/R1.5). --ease-spring kept as an alias of land. */
+  --ease-land: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-leave: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-spring: var(--ease-land);
   --dur-fast: 150ms;
   --dur-base: 250ms;
   --dur-slow: 600ms;
+  --dur-enter: 400ms; /* every entrance */
+  --dur-leave: 180ms; /* exits are shorter than entries */
+  --stagger: 80ms;
 
   /* ── 3. COMPONENT: buttons ───────────────────────────────────────────── */
   --btn-radius: var(--radius-control);
