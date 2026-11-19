@@ -3,7 +3,6 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Sleeve from '../components/Sleeve.astro';
-import GearPhoto from '../components/GearPhoto.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site, services, faqs, homeServiceLabels } from '../data/site';
@@ -21,7 +20,6 @@ const quoteFor: Record<string, string> = {
 };
 const label = homeServiceLabels;
 const fireplace = gallery.find((g) => g.title.startsWith('Over-mantel')) ?? gallery[0];
-const hifi = gallery.find((g) => g !== fireplace);
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -114,23 +112,6 @@ const packages = [
             ))
           }
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section grooves" aria-labelledby="audio-title">
-    <div class="container standard">
-      {
-        hifi && (
-          <ul class="sleeves sleeves--solo">
-            <Sleeve item={hifi} title="Vintage hi-fi, wired for today" caption="A Pioneer turntable and reel-to-reel running through a modern Yamaha receiver." />
-          </ul>
-        )
-      }
-      <div>
-        <h2 class="h2" id="audio-title">Music in every room</h2>
-        <p class="lede">In-ceiling and in-wall speakers, the patio, and the gear you already love, wired into one system you control from your phone.</p>
-        <GearPhoto item="sonos" shape="wide" class="photo--inline" sizes="(min-width: 1024px) 35vw, 100vw" />
       </div>
     </div>
   </section>

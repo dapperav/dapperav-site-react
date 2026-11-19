@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import GearPhoto from '../components/GearPhoto.astro';
 import IndustryLedger from '../components/IndustryLedger.astro';
-import Owner from '../components/Owner.astro';
 import Steps from '../components/Steps.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -139,16 +138,6 @@ const capabilities = [
     </div>
   </section>
 
-  <Owner
-    heading="One person for AV and IT"
-    lede="I'm Mark Immler. I've installed AV for 18 years and run managed IT for five, and I'm an IT director by day. You get my cell number, not a ticket queue."
-    reasons={[
-      { title: 'One vendor for AV and IT', body: 'TVs, sound, Wi-Fi, cameras and Microsoft 365 from one person, so nobody points at another vendor when something breaks.' },
-      { title: 'Owner-operated', body: 'No call center and no subcontractor roulette. The person who surveys is the person who installs.' },
-      { title: 'Month to month', body: 'Care plans have no long contract. They earn their keep or you cancel.' },
-    ]}
-  />
-
   <section class="section on-dark pinstripe" id="process" aria-labelledby="process-title">
     <div class="container">
       <div class="section-head">
@@ -156,20 +145,6 @@ const capabilities = [
         <p class="lede">Scheduled around your hours: before open, after close or on a weekend.</p>
       </div>
       <Steps />
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="standard-title">
-    <div class="container standard standard--flip">
-      <GearPhoto item="switch" sizes="(min-width: 1024px) 55vw, 100vw" />
-      <div>
-        <h2 class="h2" id="standard-title">What you get at closeout</h2>
-        <p class="lede">A network you can hand to anyone: labeled cables, separated traffic, and notes on what went where. Then a care plan, if you want one, so it stays that way.</p>
-        <div class="stack-actions">
-          <a class="btn btn--secondary" href={managedSurvey}>Book a free site survey</a>
-          <a class="text-link" href="/business/networks-wifi/">How I build business networks</a>
-        </div>
-      </div>
     </div>
   </section>
 

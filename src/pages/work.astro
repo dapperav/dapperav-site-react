@@ -3,7 +3,6 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Sleeve from '../components/Sleeve.astro';
-import GearPhoto from '../components/GearPhoto.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site } from '../data/site';
@@ -19,7 +18,7 @@ const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
   <Hero
     lead="Real installs, photographed on the job"
     main="Rooms I've dressed up."
-    lede="Every photo under “Recent installs” is a Dapper AV job in a Fort Bend County home. The gear photos further down are credited and are not my jobs."
+    lede="Every photo here is a Dapper AV job in a Fort Bend County home."
     actions={[{ href: survey, label: 'Book a free site survey', arrow: true }, { href: site.smsHref, label: 'Text me a photo of your space', variant: 'ghost' }]}
   />
 
@@ -35,20 +34,6 @@ const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
       <p class="work-note">
         Every one of these is mine. New installs go up as jobs finish. Want to see something like your space? Ask during the survey.
       </p>
-    </div>
-  </section>
-
-  <section class="section section--alt" id="gear" aria-labelledby="gear-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="h2" id="gear-title">The gear that goes in</h2>
-        <p class="lede">These three are photos of equipment I install, taken by other people and credited under each one. They are not my jobs.</p>
-      </div>
-      <div class="gear-grid">
-        <GearPhoto item="switch" sizes="(min-width: 768px) 55vw, 100vw" />
-        <GearPhoto item="ap" shape="tall" sizes="(min-width: 768px) 40vw, 100vw" />
-        <GearPhoto item="sonos" sizes="(min-width: 768px) 48vw, 100vw" />
-      </div>
     </div>
   </section>
 

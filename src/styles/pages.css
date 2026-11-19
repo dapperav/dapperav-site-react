@@ -73,11 +73,11 @@ html {
 /* ── Inner-page heroes ── */
 .hero--page {
   min-height: auto;
-  padding-block: var(--space-8) var(--space-9);
+  padding-block: var(--space-7) var(--space-8);
 }
 @media (min-width: 768px) {
   .hero--page {
-    padding-block: 10rem var(--space-9);
+    padding-block: 8rem var(--space-8);
   }
 }
 @media (min-width: 1024px) {
@@ -416,7 +416,7 @@ html {
   margin-top: var(--space-3);
 }
 
-/* ── FAQ: question and answer side by side, nothing hidden ── */
+/* ── FAQ: questions listed, answers open on tap ── */
 .faq {
   display: grid;
   gap: var(--space-7);
@@ -424,7 +424,7 @@ html {
 @media (min-width: 1024px) {
   .faq {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    gap: var(--space-9);
+    gap: var(--space-8);
   }
   .faq-head {
     position: sticky;
@@ -432,16 +432,21 @@ html {
     align-self: start;
   }
 }
-.faq-list > div {
-  display: grid;
-  gap: var(--space-2);
-  padding-block: var(--space-6);
+.faq-list > details {
   border-bottom: 1px solid var(--hairline-light);
 }
-.faq-list > div:first-child {
+.faq-list > details:first-child {
   border-top: 1px solid var(--hairline-light);
 }
-.faq-list dt {
+.faq-list summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 44px;
+  padding-block: var(--space-4);
+  cursor: pointer;
+  list-style: none;
   font-family: var(--font-display);
   font-size: clamp(1.1875rem, 1.6vw, 1.375rem);
   font-weight: var(--weight-semibold);
@@ -449,7 +454,23 @@ html {
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
-.faq-list dd {
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.faq-list summary::after {
+  content: '+';
+  flex: none;
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-accent-ink, var(--gold-700));
+  transition: transform 0.2s ease;
+}
+.faq-list details[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq-list details > p {
+  padding-bottom: var(--space-5);
   max-width: 38rem;
   color: var(--color-ink-muted);
   text-wrap: pretty;
@@ -690,7 +711,7 @@ html {
 .svc {
   display: grid;
   gap: var(--space-4) var(--space-6);
-  padding: var(--space-7) var(--space-2);
+  padding: var(--space-5) var(--space-2);
   border-bottom: 1px solid var(--hairline-light);
   scroll-margin-top: 8rem;
 }
@@ -1006,8 +1027,20 @@ html {
 }
 
 /* ── Footer credits ── */
+.footer-credits-wrap {
+  margin-top: var(--space-6);
+  font-size: 0.8125rem;
+  color: var(--color-ink-inverse-muted);
+}
+.footer-credits-wrap summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--color-ink-inverse);
+}
 .footer-credits {
-  margin-top: var(--space-7);
+  margin-top: var(--space-2);
   max-width: 60ch;
   font-size: 0.8125rem;
   line-height: 1.6;

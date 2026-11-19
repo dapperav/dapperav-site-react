@@ -6,9 +6,6 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import GearPhoto from '../components/GearPhoto.astro';
-import Steps from '../components/Steps.astro';
-import SurveyPicker from '../components/SurveyPicker.astro';
 import Sleeve from '../components/Sleeve.astro';
 import Owner from '../components/Owner.astro';
 import Reviews from '../components/Reviews.astro';
@@ -28,7 +25,6 @@ const lines: Record<string, string> = {
   'networks-wifi': 'UniFi networks planned like an IT department would: segmented and documented.',
   'structured-cabling': 'One sub for data, Wi-Fi, cameras, TVs and speakers. Labeled at closeout.',
 };
-const check = 'M4 12.5l5 5L20 6.5';
 ---
 
 <Layout
@@ -124,45 +120,6 @@ const check = 'M4 12.5l5 5L20 6.5';
     </div>
   </section>
 
-  <section class="section" id="standard" aria-labelledby="standard-title">
-    <div class="container standard">
-      <GearPhoto item="switch" sizes="(min-width: 1024px) 55vw, 100vw" />
-      <div>
-        <h2 class="h2" id="standard-title">Labeled, documented, handed over.</h2>
-        <p class="lede">The difference between a tidy install and the usual closet shows up the first time something breaks.</p>
-        <ul class="standard-list">
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d={check}></path></svg>
-            <span><strong>Every cable labeled</strong>, so a dead port is a quick fix instead of an afternoon.</span>
-          </li>
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d={check}></path></svg>
-            <span><strong>Separate networks</strong> for the POS, cameras, staff and guests.</span>
-          </li>
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d={check}></path></svg>
-            <span><strong>Documentation at closeout</strong>: what went where, and who to call. (Me.)</span>
-          </li>
-        </ul>
-        <div class="stack-actions">
-          <a class="btn btn--secondary" href="/business/networks-wifi/">Business Wi-Fi &amp; networks</a>
-          <a class="text-link" href="/business/structured-cabling/">Structured cabling</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section on-dark pinstripe process" id="process" aria-labelledby="process-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="h2" id="process-title">How a job goes</h2>
-        <p class="lede">Four steps, the same for a bar on game day or a living-room TV.</p>
-      </div>
-      <Steps />
-      <SurveyPicker />
-    </div>
-  </section>
-
   <section class="section grooves" id="work" aria-labelledby="work-title">
     <div class="container work">
       <div class="work-head">
@@ -178,7 +135,7 @@ const check = 'M4 12.5l5 5L20 6.5';
 
   <Owner />
 
-  <Reviews />
+  <Reviews mode="one" />
 
   <CtaBand href={survey} />
 </Layout>

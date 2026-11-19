@@ -1,5 +1,5 @@
 ---
-/** Questions and answers side by side: nothing hidden behind accordions. */
+/** Questions as a short list; tap one to read the answer (keeps pages short). */
 interface Props {
   items: { q: string; a: string }[];
   heading?: string;
@@ -16,15 +16,15 @@ const { items, heading = 'Questions owners ask first', lede, alt = false } = Ast
       {lede && <p class="lede">{lede}</p>}
       <slot />
     </div>
-    <dl class="faq-list">
+    <div class="faq-list">
       {
         items.map((f) => (
-          <div>
-            <dt>{f.q}</dt>
-            <dd>{f.a}</dd>
-          </div>
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
         ))
       }
-    </dl>
+    </div>
   </div>
 </section>
