@@ -13,7 +13,7 @@ export const site = {
   smsHref: 'sms:+19728241303',
   email: 'contact@dapperav.com',
   serviceArea: 'Richmond, TX & surrounding Fort Bend County',
-  hours: 'Mon–Fri 8am–6pm · Evenings & weekends by appointment',
+  hours: 'Mon–Fri 9am–5pm Central · Evenings & weekends by appointment',
   socials: [
     { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=100072242138329' },
     { name: 'Instagram', url: 'https://www.instagram.com/dapper_av_solutions/' },

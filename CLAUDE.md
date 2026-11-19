@@ -98,7 +98,7 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
 | Thing | Detail |
 |---|---|
 | Quote form | Web3Forms → contact@dapperav.com. Honeypot + validation; falls back loudly to phone/email if unconfigured. Tested end-to-end. |
-| Google Business Profile | Mark's personal gmail (mgioftx@). Place ID `ChIJu1Q7sb3Sk6gRbGDmkUJWSq4`. Hours M–F 8–6, 10 service-area cities. |
+| Google Business Profile | Mark's personal gmail (mgioftx@). Place ID `ChIJu1Q7sb3Sk6gRbGDmkUJWSq4`. Hours M–F 8–6 (site changed to 9–5 Central on 2026-11-19; GBP still needs updating by Mark), 10 service-area cities. |
 | Review auto-sync | `.github/workflows/sync-reviews.yml` nightly ~6am CT → `scripts/sync-reviews.mjs` → Places API (New) → `src/data/reviews.json` → commits + deploys itself. Home ReviewsSection renders only when written 4–5★ reviews exist. API key in repo secret `GOOGLE_PLACES_API_KEY` (GCP "My First Project", trial). Secret gotcha: PS pipe once added a BOM — set with `--body $var`, strip non-ASCII. |
 | GA4 | `G-JDBM052Y1B`, on every page. |
 | Search Console | Meta-tag verification live; sitemap-index.xml serves 200. GSC's SPA blocks Claude's browser tools — GSC UI clicks need Mark. |
