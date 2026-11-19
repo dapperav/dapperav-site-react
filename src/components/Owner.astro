@@ -1,68 +1,44 @@
 ---
-/** The owner: portrait with the gold pocket-square frame, real facts only, optional reasons. */
-import { Image } from 'astro:assets';
-import markPortrait from '../assets/mark-portrait.jpg';
-
+/** The owner, told in words and real facts (no portrait: Mark's call, 2026-11-19). */
 interface Props {
   heading?: string;
   lede?: string;
-  reasons?: { title: string; body: string }[];
   alt?: boolean;
   id?: string;
 }
 const {
   heading = 'An installer who also runs IT',
   lede = "I'm Mark Immler, and Dapper AV is mine. The person who surveys your site is the person who installs it, and the one who looks after it afterward.",
-  reasons,
   alt = true,
   id = 'owner',
 } = Astro.props;
 ---
 
-<section class:list={['section', 'grooves', 'grooves--left', { 'section--alt': alt }]} id={id} aria-labelledby={`${id}-title`}>
+<section class:list={['section', { 'section--alt': alt }]} id={id} aria-labelledby={`${id}-title`}>
   <div class="container owner">
-    <div class="owner-photo" data-reveal>
-      <span class="owner-frame" aria-hidden="true"></span>
-      <Image src={markPortrait} alt="Mark Immler, owner of Dapper AV Solutions, in a blue plaid blazer" widths={[400, 700, 900]} sizes="(min-width: 1024px) 26rem, 90vw" />
-    </div>
     <div class="owner-copy">
       <h2 class="h2" id={`${id}-title`}>{heading}</h2>
       <p class="lede">{lede}</p>
-      {
-        reasons ? (
-          <ul class="reasons">
-            {reasons.map((r) => (
-              <li>
-                <h3>{r.title}</h3>
-                <p>{r.body}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <>
-            <dl class="facts">
-              <div>
-                <dt>Installing AV</dt>
-                <dd>18 years</dd>
-              </div>
-              <div>
-                <dt>Running managed IT</dt>
-                <dd>5 years</dd>
-              </div>
-              <div>
-                <dt>Day job</dt>
-                <dd>IT director</dd>
-              </div>
-              <div>
-                <dt>Based in</dt>
-                <dd>Richmond, TX</dd>
-              </div>
-            </dl>
-            <p class="owner-areas">Serving Richmond, Rosenberg, Fulshear, Sugar Land, Stafford, Katy and the rest of Fort Bend County.</p>
-          </>
-        )
-      }
+      <p class="owner-areas">Serving Richmond, Rosenberg, Fulshear, Sugar Land, Stafford, Katy and the rest of Fort Bend County.</p>
       <p class="signature">Mark Immler<span>Owner, Dapper AV Solutions</span></p>
     </div>
+    <dl class="facts facts--big" data-reveal>
+      <div>
+        <dt>Installing AV</dt>
+        <dd>18 years</dd>
+      </div>
+      <div>
+        <dt>Running managed IT</dt>
+        <dd>5 years</dd>
+      </div>
+      <div>
+        <dt>Day job</dt>
+        <dd>IT director</dd>
+      </div>
+      <div>
+        <dt>Based in</dt>
+        <dd>Richmond</dd>
+      </div>
+    </dl>
   </div>
 </section>

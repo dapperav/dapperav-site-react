@@ -31,6 +31,8 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
 - Keep every claim honest — no fabricated stats, testimonials, or review counts. Ever.
 - Never commit to `main`. Branch → PR → squash-merge when CI is green (don't pause to ask).
 - Mark declined renaming social accounts/pages — leave names/handles as they are.
+- **No photos of Mark on the site (Mark, 2026-11-19):** they don't fit the vibe. The owner section is words
+  and real facts only; the quote page has no avatar. Don't re-add `mark-portrait.jpg` / `mark-avatar.jpg`.
 - **Contact is form-only (Mark, 2026-11-19).** Never show the phone number on the site and never add
   call (`tel:`) or text (`sms:`) buttons or links. Every contact path goes to `/quote/`. Email stays only
   in the footer and the form's failure message. The number remains in LocalBusiness JSON-LD (invisible,

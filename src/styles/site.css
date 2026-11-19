@@ -880,27 +880,9 @@ html:not(.js) .sleeve-disc {
   align-items: center;}
 @media (min-width: 1024px) {
   .owner {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
     gap: var(--space-9);}
-  .owner-photo {
-    width: min(100%, 26rem);}
-}
-.owner-photo {
-  position: relative;
-  width: min(60%, 26rem);
-  margin-inline: auto;}
-.owner-photo img {
-  position: relative;
-  width: calc(100% - 12px);
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border-radius: var(--radius-card);}
-/* the offset gold frame: the pocket square */
-.owner-frame {
-  position: absolute;
-  inset: 12px 0 -12px 12px;
-  border: 2px solid var(--color-accent);
-  border-radius: var(--radius-card);}
+  }
 .facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1219,3 +1201,17 @@ html:not(.js) .sleeve-disc {
 /* homepage: the three promises under "For your business" */
 .biz-promises {
   margin-block: var(--space-5);}
+
+/* owner facts at display size, in place of a portrait */
+.facts--big {
+  margin-top: 0;
+  gap: var(--space-5) var(--space-6);
+}
+.facts--big div {
+  padding: 0;
+}
+.facts--big dd {
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}

@@ -3,9 +3,7 @@
  * Quote / site survey. Restyled only: every form element id, input name and the inline script
  * below are load-bearing (Web3Forms submit, ?service= pre-select, business mode, GA4 generate_lead).
  */
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import markAvatar from '../assets/mark-avatar.jpg';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
 ---
 
@@ -115,7 +113,6 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
         <div class="bezel-core">
           <div class="aside-block">
             <div class="aside-owner">
-              <Image src={markAvatar} alt="Mark Immler, owner of Dapper AV Solutions" widths={[160, 320]} sizes="4.5rem" />
               <div>
                 <p class="aside-owner-name">Mark Immler</p>
                 <p>Owner, not a call center</p>
