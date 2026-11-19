@@ -20,7 +20,6 @@ import { industries } from '../data/industries';
       <ul class="chips">
         <li><a class="pill" href="/business/">For business</a></li>
         <li><a class="pill" href="/services/">For homes</a></li>
-        <li><a class="pill" href="/work/">Our work</a></li>
         {industries.slice(0, 3).map((i) => <li><a class="pill" href={`/business/${i.slug}/`}>{i.name}</a></li>)}
       </ul>
     </nav>

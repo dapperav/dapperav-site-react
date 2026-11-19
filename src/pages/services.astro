@@ -1,12 +1,10 @@
 ---
-/** Homes: a real install in the hero, honest starting prices, three bundles, the hi-fi sleeve, FAQs. */
+/** Homes: honest starting prices, three bundles, FAQs. */
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import Sleeve from '../components/Sleeve.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site, services, faqs, homeServiceLabels } from '../data/site';
-import { gallery } from '../data/gallery';
 
 const residential = services.filter((s) => s.category === 'residential');
 const homeQuote = (s: string) => `/quote/?service=${encodeURIComponent(s)}`;
@@ -19,7 +17,6 @@ const quoteFor: Record<string, string> = {
   networks: 'Network & Wi-Fi',
 };
 const label = homeServiceLabels;
-const fireplace = gallery.find((g) => g.title.startsWith('Over-mantel')) ?? gallery[0];
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -46,20 +43,16 @@ const packages = [
     lede="Level, centered and with every wire inside the wall. Honest starting prices, and an itemized quote before any work begins."
     actions={[
       { href: homeQuote('TV Mounting & Installation'), label: 'Get a free quote', arrow: true },
-      { href: '/work/', label: 'See real installs', variant: 'ghost' },
     ]}
   >
     <p class="hero-aside">For most TV mounts, the TV size and the wall type are all I need to quote it.</p>
-    <ul slot="aside" class="sleeves sleeves--hero">
-      <Sleeve item={fireplace} title="Over-mantel TV and soundbar" caption="Dead center over the fireplace, soundbar aligned under it, every wire inside the wall." eager sizes="(min-width: 1024px) 28vw, 80vw" />
-    </ul>
   </Hero>
 
   <section class="section section--alt" id="home-services" aria-labelledby="svc-title">
     <div class="container">
       <div class="section-head">
         <h2 class="h2" id="svc-title">What I do at home</h2>
-        <p class="lede">Starting prices are real starting prices. The survey or a photo turns them into an exact, itemized number.</p>
+        <p class="lede">Starting prices are real starting prices. The survey or a few details on the form turn them into an exact, itemized number.</p>
       </div>
       <div class="svc-list">
         {

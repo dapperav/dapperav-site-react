@@ -62,7 +62,7 @@ html {
   padding-block: var(--space-7) var(--space-8);}
 @media (min-width: 768px) {
   .hero--page {
-    padding-block: 8rem var(--space-8);}
+    padding-block: 10rem var(--space-8);}
 }
 @media (min-width: 1024px) {
   .hero-grid--solo {
@@ -542,11 +542,8 @@ html {
     grid-column: 2 / span 6;}
 }
 
-/* ── Work page ── */
-.sleeves--big .sleeve-title {
-  font-size: clamp(1.375rem, 2.2vw, 1.75rem);}
-.sleeves--big .sleeve-caption {
-  font-size: var(--text-body);}
+
+
 .work-note {
   max-width: 40rem;
   margin-top: var(--space-6);
@@ -966,15 +963,9 @@ button.dock-item {
   margin-top: var(--space-5);}
 .section.section--tight {
   padding-block: var(--space-8);}
-.sleeves--hero,
-.sleeves--solo {
-  grid-template-columns: minmax(0, 1fr);
-  padding-bottom: 0;}
-.sleeves--hero {
-  width: min(100%, 26rem);
-  margin-inline: auto;}
-.sleeves--solo {
-  width: min(100%, 30rem);}
+
+
+
 .photo--inline {
   margin-top: var(--space-7);}
 .lost-links {

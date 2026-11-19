@@ -28,7 +28,7 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
         <span class="roundel-spin"><Image class="roundel-img" src={logo} alt="" width={144} loading="eager" /></span>
       </a>
       <ul class="nav-group nav-group--right">
-        <li><a class="nav-link" href="/work/" aria-current={current('/work/')}>Our work</a></li>
+        <li><a class="nav-link" href="/business/#care-plans">Care plans</a></li>
         <li><a class="nav-link" href="/quote/" aria-current={current('/quote/')}>Contact</a></li>
       </ul>
     </nav>
@@ -43,9 +43,9 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
     <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20.5V4.5h14v16"></path><path d="M3 20.5h18M9 8.5h1M14 8.5h1M9 12h1M14 12h1M10.5 20.5v-4h3v4"></path></svg>
     Business
   </a>
-  <a class="dock-item" href="/work/" aria-current={current('/work/')}>
-    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect><path d="M3.5 15l5-4.5 4 3.5 3-2.5 5 4"></path></svg>
-    Work
+  <a class="dock-item" href="/services/" aria-current={current('/services/')}>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"></path><path d="M6 10v9.5h12V10"></path><path d="M10 19.5v-5h4v5"></path></svg>
+    Homes
   </a>
   <a class="dock-item dock-home" href="/" aria-label="Dapper AV Solutions, home" aria-current={current('/')}>
     <span class="dock-logo"><Image class="roundel-img" src={logo} alt="" width={144} loading="eager" /></span>
@@ -77,7 +77,6 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
           ['/', 'Home'],
           ['/business/', 'For business'],
           ['/services/', 'For homes'],
-          ['/work/', 'Our work'],
           ['/quote/', 'Get a quote'],
         ].map(([href, label]) => (
           <li>

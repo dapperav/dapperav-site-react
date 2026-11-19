@@ -1,8 +1,14 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   Dapper AV site layer: concept 01, "Original, remastered".
-   Espresso + cream + gold, Fraunces + Inter, glass only on the nav / dock / hero cards,
-   pinstripe on dark fields, groove arcs on light, roundel nav, record-sleeve gallery.
-   Buttons, pills and fields come from design-system/components.css untouched; this file
+   Dapper AV site layer: concept 01,
+"Original,
+remastered".
+   Espresso + cream + gold,
+Fraunces + Inter,
+glass only on the nav / dock / hero cards,
+pinstripe on dark fields,
+groove arcs on light,
+roundel nav,
+pills and fields come from design-system/components.css untouched; this file
    lays out sections and pages and adds concept tokens. Colors only via tokens.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -111,7 +117,6 @@ label.pill {
 .hero-title,
 .step-title,
 .picker-title,
-.sleeve-title,
 .biz-name,
 .signature,
 .footer-name,
@@ -447,8 +452,7 @@ label.pill {
     grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
     gap: var(--space-9);}
 }
-@media (min-width: 768px) {
-  }
+
 .hero-title {
   margin-top: var(--space-6);
   font-weight: var(--weight-semibold);
@@ -797,10 +801,7 @@ label.pill {
     transform: none;}
 }
 
-/* ═══ Record sleeves ═══ */
-.work {
-  display: grid;
-  gap: var(--space-8);}
+
 @media (min-width: 1024px) {
   .work {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
@@ -813,65 +814,16 @@ label.pill {
 .work-head .text-link {
   display: inline-block;
   margin-top: var(--space-6);}
-.sleeves {
-  display: grid;
-  gap: var(--space-7);}
-@media (min-width: 768px) {
-  .sleeves {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-6);
-    padding-bottom: var(--space-8);}
-  /* staggered like records leaning in a bin */
-  .sleeve:nth-child(2) {
-    transform: translateY(var(--space-8));}
-}
-.sleeve-box {
-  position: relative;
-  aspect-ratio: 1;
-  isolation: isolate;}
-.sleeve-cover {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: calc(var(--radius-card) - 8px);
-  transition: transform 300ms var(--ease-out);}
-/* The disc hides behind the sleeve and slides out when the sleeve scrolls into view
-   (and a little further on hover). Accent only: you never see more than a third of it. */
-.sleeve-disc {
-  position: absolute;
-  top: 7%;
-  left: 7%;
-  width: 86%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  transform: translateX(0) rotate(0deg);
-  transition: transform 400ms var(--ease-out);
-  display: none;
-}
-.sleeve.is-in .sleeve-disc,
-html:not(.js) .sleeve-disc {
-  transform: translateX(12%) rotate(40deg);}
-@media (hover: hover) and (pointer: fine) {
-  .sleeve:hover .sleeve-disc {
-    transform: translateX(15%) rotate(70deg);}
-  .sleeve:hover .sleeve-cover {
-    transform: translateX(-2%);}
-}
-.sleeve figcaption {
-  display: grid;
-  justify-items: start;
-  gap: var(--space-2);
-  margin-top: var(--space-5);
-  padding-right: 14%;}
-.sleeve-title {
-  font-size: 1.25rem;
-  font-weight: var(--weight-semibold);
-  line-height: 1.25;}
-.sleeve-caption {
-  font-size: var(--text-small);
-  color: var(--color-ink-muted);}
+
+
+
+
+
+
+
+
+
+
 
 /* ═══ Owner ═══ */
 .owner {
@@ -1126,19 +1078,13 @@ html:not(.js) .sleeve-disc {
     transition:
       opacity 250ms var(--ease-out) var(--d, 0ms),
       transform 300ms var(--ease-out) var(--d, 0ms);}
-  .js .sleeve:nth-child(2)[data-reveal] {
-    transform: translateY(calc(var(--space-8) + 12px));}
+  
   .js [data-reveal].is-in {
     opacity: 1;
     transform: none;}
-  .js .sleeve:nth-child(2)[data-reveal].is-in {
-    transform: translateY(var(--space-8));}
+  
 }
-@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
-  .js .sleeve:nth-child(2)[data-reveal],
-  .js .sleeve:nth-child(2)[data-reveal].is-in {
-    transform: none;}
-}
+
 
 /* ═══ Reduced motion / transparency / contrast ═══ */
 @media (prefers-reduced-motion: reduce) {
@@ -1149,20 +1095,16 @@ html:not(.js) .sleeve-disc {
     transform: none;
     transition-property: opacity, visibility;}
   .nav-shell::before,
-  .nav-group,
-  .nav-cta,
-  .float-cta,
-  .sleeve-cover,
-  .sleeve-disc,
-  .biz-arrow,
-  .btn-orb {
+.nav-group,
+.nav-cta,
+.float-cta,
+.biz-arrow,
+.btn-orb {
     transition-property: opacity, visibility;}
   .nav-group,
   .nav-cta {
     transform: none;}
-  .sleeve-disc,
-  .sleeve.is-in .sleeve-disc {
-    transform: translateX(12%);}
+  
 }
 @media (prefers-reduced-transparency: reduce) {
   .nav-shell::before,
