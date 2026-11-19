@@ -31,7 +31,6 @@ const dark = tone === 'dark';
   id={id}
   aria-labelledby={`${id}-title`}
 >
-  {dark && <div class="hero-grooves" aria-hidden="true" />}
   <div class:list={['container', 'hero-grid', { 'hero-grid--solo': !hasAside }]}>
     <div class="hero-copy">
       <slot name="crumbs" />

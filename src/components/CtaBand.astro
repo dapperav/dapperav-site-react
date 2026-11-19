@@ -1,5 +1,9 @@
 ---
-/** The dark close at the end of every page. */
+/**
+ * The dark close at the end of every page, over a muted loop of patch cables in a switch
+ * (Pexels clip 7140937, free license, no credit required; background footage, not a Dapper AV job).
+ * Reduced motion: the loop never plays and the poster frame shows instead.
+ */
 import { site } from '../data/site';
 
 interface Props {
@@ -18,8 +22,11 @@ const {
 } = Astro.props;
 ---
 
-<section class="cta on-dark pinstripe" aria-labelledby="cta-title">
-  <div class="hero-grooves hero-grooves--cta" aria-hidden="true"></div>
+<section class="cta on-dark" aria-labelledby="cta-title">
+  <video class="cta-video" muted loop playsinline preload="none" poster="/video/cables-loop.jpg" aria-hidden="true" tabindex="-1">
+    <source src="/video/cables-loop.webm" type="video/webm" />
+    <source src="/video/cables-loop.mp4" type="video/mp4" />
+  </video>
   <div class="container cta-inner">
     <h2 class="h2 cta-title" id="cta-title">{title}</h2>
     <p class="lede">{lede}</p>
@@ -29,3 +36,17 @@ const {
     </div>
   </div>
 </section>
+
+<script>
+  // Play only while the band is on screen, and never when the visitor asked for less motion.
+  const video = document.querySelector<HTMLVideoElement>('.cta-video');
+  if (video && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { rootMargin: '200px' },
+    ).observe(video);
+  }
+</script>
