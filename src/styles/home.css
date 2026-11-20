@@ -340,3 +340,159 @@ body:has(.home-page) .site-nav.at-top .nav-cta {
 .home-glass-light .text-link {
   color: var(--color-ink);
 }
+
+/* ═══ Shared calm-layout pieces for /business and /services (mockup) ═══ */
+.home-hero-film {
+  max-width: 40rem;
+  margin: var(--space-7) auto 0;
+}
+
+/* plan / bundle cards: three across, one radius, one padding */
+.home-plans {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 900px) {
+  .home-plans {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.home-plan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(var(--space-5), 3vw, var(--space-6));
+  border-radius: var(--radius-card);
+  background: var(--color-bg-dark);
+  color: var(--color-ink-inverse);
+  text-align: left;
+}
+.home-plan h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-h3);
+}
+.home-plan--light {
+  background: var(--color-bg-alt);
+  color: var(--color-ink);
+}
+.section--alt .home-plan--light {
+  background: var(--cream-50);
+}
+.home-cta-row .lede {
+  margin: 0;
+}
+.home-plan-price {
+  font-family: var(--font-display);
+  font-size: var(--type-number);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: var(--tracking-h2);
+  color: var(--color-accent-ink);
+}
+.home-plan .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+.home-support {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding: clamp(var(--space-5), 3vw, var(--space-6));
+  border-radius: var(--radius-card);
+  background: var(--color-bg-alt);
+  text-align: left;
+}
+@media (min-width: 900px) {
+  .home-support {
+    grid-template-columns: minmax(0, 0.8fr) repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+.home-support h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+}
+.home-support p {
+  color: var(--color-ink-muted);
+}
+.home-support strong {
+  color: var(--color-ink);
+}
+
+/* home service cards: title + price, blurb, what's included, one link */
+.home-svc {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 700px) {
+  .home-svc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .home-svc {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.home-svc-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(var(--space-5), 3vw, var(--space-6));
+  border-radius: var(--radius-card);
+  background: var(--cream-50);
+  text-align: left;
+}
+.home-svc-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.home-svc-head h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-h3);
+}
+.home-svc-price {
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent-ink);
+  white-space: nowrap;
+}
+.home-svc-card > p {
+  color: var(--color-ink-muted);
+}
+.home-svc-card .text-link {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* single door card, centred (the "Running a business?" / "At home?" cross-link) */
+.home-door-solo {
+  max-width: 52rem;
+  margin-inline: auto;
+}
+.section--alt .home-step {
+  background: var(--cream-50);
+}
+
+.home-svc-card--dark {
+  background: var(--color-bg-dark);
+  color: var(--color-ink-inverse);
+}
+.home-svc-card--dark h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+}
+.home-svc-card.home-svc-card--dark > p {
+  color: var(--color-ink-inverse-muted);
+}
+.home-svc-card--dark .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}

@@ -166,6 +166,13 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — /business and /services moved to the same calm card layout (Mark approved real mockups).
+  /business: centred hero + office film card, industry photo cards, three care-plan cards + "How support works"
+  card, job steps, DocMap, review + facts, closing band. /services: centred light hero + home film card, five
+  service cards with live "From" prices + a "Not on the list?" card, three bundle cards, FAQ (FAQPage schema
+  kept), "Running a business?" card, closing band. Homepage sections are now shared components
+  (`IndustryCards`, `JobSteps`, `ProofRow`). Removed: `Steps.astro`, `Reviews.astro` and the unused plan /
+  svc / callout / review / step CSS. Pre-existing dead code left alone: `SurveyPicker.astro` (on no page).
 - **2026-11-20** — NEW HOMEPAGE: Option 1 "Calm, one column" (Mark picked it from two real mockups). Centred hero
   with one gold button (the nav's hanging button waits until you scroll), then "For your business, or your home"
   as two door cards (business: survey / itemized price / care plans + booking; home: TV mounting, theater, audio
@@ -359,9 +366,9 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-0. **Site upgrade:** brand system + new homepage (Option 1) are live (2026-11-20). Possible next: apply the
-   same calm, card-first layout to /business and /services; Mark's real install photos would replace the
-   stock pictures in the industry cards. Branch `mockup/homepage-options` (Option 2) can be deleted.
+0. **Site upgrade:** brand system, new homepage, /business and /services are live in the calm card layout
+   (2026-11-20). Possible next: the six industry pages and six city pages in the same layout; Mark's real
+   install photos to replace the stock pictures in the industry cards.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.

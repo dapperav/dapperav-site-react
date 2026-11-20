@@ -1,0 +1,34 @@
+---
+/** How a job goes: four step cards and one booking button. */
+interface Props { href?: string; heading?: string; alt?: boolean; }
+const { href = `/quote/?service=${encodeURIComponent('Commercial AV')}`, heading = 'How a job goes', alt = false } = Astro.props;
+const steps = [
+  { title: 'Send the request form', body: 'A few lines about the space. You hear back within one business day.' },
+  { title: 'Free site survey', body: '30–45 minutes on site. We walk the space and note every screen, drop and camera angle.' },
+  { title: 'Itemized proposal', body: 'Equipment options at honest prices, every line priced before anything is installed.' },
+  { title: 'Install, then support', body: 'Before open, after close or on weekends. Afterward the same company looks after it.' },
+];
+---
+
+<section class:list={["section", { "section--alt": alt }]} id="how" aria-labelledby="how-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="how-title">{heading}</h2>
+      <p class="lede">Scheduled around your hours: before open, after close or on a weekend.</p>
+    </div>
+    <ol class="home-steps">
+      {
+        steps.map((s, i) => (
+          <li class="home-step">
+            <span class="home-step-num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="home-cta-row">
+      <a class="btn btn--primary btn--lg" href={href}>Book a free site survey</a>
+    </div>
+  </div>
+</section>
