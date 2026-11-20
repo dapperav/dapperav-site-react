@@ -164,6 +164,14 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — Social profiles aligned with the site. Facebook intro (230/255): "Commercial AV and
+  managed IT for Fort Bend County businesses: TV walls and sound, meeting rooms, digital signage, UniFi
+  Wi-Fi and networks, cameras and cabling. Free site survey and itemized quote at dapperav.com/quote.
+  Homes too." (old intro ended with the phone number; FB hours still can't show without a street
+  address). Nextdoor description (484/500, the GBP text shortened, no phone, no "owner-operated") and
+  hours M–F 9–5, Sat/Sun closed. Not changed: FB + Nextdoor cover banners (residential services + phone
+  number), FB contact phone and "In-Home Service" category, Nextdoor categories ("Home theatre
+  installer", "Home audio and video specialist"), and Mark's own pinned Nextdoor post.
 - **2026-11-19** — Google Business Profile categories: primary "Home cinema installation" → "Audio visual
   consultant" (Google has no AV-installer category); added "Computer networking service" and "Computer
   support and services"; kept "Home cinema installation" as additional. Description rewritten
@@ -309,8 +317,10 @@ https://dapperav.com, same description/tagline.
    COI on request" to /business.
 2. **Real commercial photos (Mark):** 5–10 phone photos of commercial work he likes (racks, TV walls,
    cameras). They replace stock and drawings and fix the "few pictures" gap. Real jobs only.
-3. **Hours on listings (Mark):** Google Business Profile is updated to 9–5. Facebook and Nextdoor still
-   say M–F 8–6, and their descriptions are still residential; reuse the GBP description text.
+3. **Social banners and categories:** GBP, Facebook and Nextdoor text and hours now match the site.
+   Still residential: the FB/Nextdoor cover banner (lists TV Mounting · Home Theater… and the phone
+   number; regenerate from brand-assets/dapperav-cover-1640.png's HTML), FB category "In-Home Service",
+   Nextdoor categories.
 4. **Case studies + reviews:** ask 2–3 business clients to be named/quoted; review ask after every
    job via dapperav.com/review. Target ~5 Google reviews → apply for **Google LSA**.
 5. **GSC (Mark):** resubmit `sitemap-index.xml`; URL Inspection → Request indexing on /business/*,
