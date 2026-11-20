@@ -116,8 +116,9 @@
   --glass-dark-edge: color-mix(in srgb, var(--cream-50) 14%, transparent);
   --glass-dark-shine: inset 0 1px 0 color-mix(in srgb, var(--cream-50) 22%, transparent);
   --glass-dark-filter: blur(24px) saturate(160%);
-  --glass-light: color-mix(in srgb, var(--cream-50) 62%, transparent);
-  --glass-light-edge: color-mix(in srgb, white 60%, transparent);
+  /* Cream base, not Paper: Paper over the Ink hero mixed to a cold grey-pink (Mark, 2026-11-20) */
+  --glass-light: color-mix(in srgb, var(--cream-200) 80%, transparent);
+  --glass-light-edge: color-mix(in srgb, var(--cream-50) 55%, transparent);
   --glass-light-shadow: 0 8px 32px rgb(42 12 3 / 0.14);
   --glass-light-filter: blur(20px) saturate(180%);
 

@@ -166,6 +166,8 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — Light glass warmed (Mark: nav looked grey): `--glass-light` is now Cream 80% (was Paper
+  62%), edge Paper 55%. Affects the nav pill and the phone dock.
 - **2026-11-20** — BRAND SYSTEM SHIPPED (branch `feat/brand-system`; Variant A scope + Mark's follow-up:
   more glass, hover animations, cleaner palette with two accents). `design-system/tokens.css` = palette v2
   (Ink, Night, Cocoa, Cream, Paper + Gold = booking only, **Patina #2a6f69** = text links/info, **Rust
