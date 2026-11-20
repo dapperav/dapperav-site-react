@@ -3,8 +3,9 @@
 import { Image } from 'astro:assets';
 import { industries } from '../data/industries';
 import { gear, industryThumb } from '../data/gear';
-interface Props { heading?: string; lede?: string; alt?: boolean; }
-const { heading = 'Who we work with', lede = 'Six kinds of business, each with its own page: what we install there and what moves the price.', alt = true } = Astro.props;
+interface Props { heading?: string; lede?: string; alt?: boolean; exclude?: string; }
+const { heading = 'Who we work with', lede = 'Six kinds of business, each with its own page: what we install there and what moves the price.', alt = true, exclude } = Astro.props;
+const shown = industries.filter((i) => i.slug !== exclude);
 const lines: Record<string, string> = {
   'restaurants-bars': 'TV walls, zoned music and a POS network kept apart from guest Wi-Fi.',
   'offices-conference-rooms': 'Meeting rooms that start on the first try, and the Microsoft 365 behind them.',
@@ -23,7 +24,7 @@ const lines: Record<string, string> = {
     </div>
     <ul class="home-grid">
       {
-        industries.map((i) => (
+        shown.map((i) => (
           <li>
             <a class="home-card link-card" href={`/business/${i.slug}/`}>
               <div class="home-card-media">

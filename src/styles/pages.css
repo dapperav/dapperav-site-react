@@ -45,8 +45,7 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);}
-.section--paper-2 {
-  background: var(--cream-200);}
+
 .section-head .lede + .stack-actions {
   margin-top: var(--space-5);}
 
@@ -116,32 +115,10 @@ html {
 /* hero side panels */
 .bezel--light .bezel-core {
   background: var(--color-bg-alt);}
-.side-title {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  text-wrap: balance;}
-.side-note {
-  margin-top: var(--space-5);
-  padding-top: var(--space-5);
-  font-size: var(--text-small);
-  color: var(--color-ink-muted);}
-.on-dark .side-note {
-  border-top-color: var(--hairline-dark);
-  color: var(--color-ink-inverse-muted);}
+
 .checklist--light li::before {
   border-color: var(--color-accent-ink);
   background: var(--color-accent-ink);}
-.facts--dark {
-  border-top-color: var(--hairline-dark);}
-.facts--dark div {
-  border-bottom-color: var(--hairline-dark);}
-.facts--dark dt {
-  color: var(--color-ink-inverse-muted);}
-.facts--dark dd {
-  font-size: var(--type-h3);}
 
 /* ── Photos: framed media with honest captions ── */
 .photo-frame {
@@ -174,8 +151,7 @@ html {
   color: inherit;}
 .photo--tall .photo-frame {
   aspect-ratio: 4 / 5;}
-.photo--wide .photo-frame {
-  aspect-ratio: 3 / 2;}
+
 .photo--square .photo-frame {
   aspect-ratio: 1;}
 .bezel .photo-frame {
@@ -186,14 +162,9 @@ html {
   padding: 0 var(--space-4) var(--space-3);}
 
 /* ── Proof of standards (photo + list) ── */
-.standard {
-  display: grid;
-  gap: var(--space-7);
-  align-items: center;}
+
 @media (min-width: 1024px) {
-  .standard {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--space-9);}
+  
   .standard--flip {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);}
   .standard--flip > :first-child {
@@ -217,58 +188,7 @@ html {
   font-weight: var(--weight-semibold);}
 
 /* ── Ledger: destinations at poster scale ── */
-.ledger {}
-.ledger li {}
-.ledger-row {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
-  gap: var(--space-2) var(--space-6);
-  align-items: center;
-  padding: var(--space-5) var(--space-2);
-  border-radius: var(--radius-field);
-  text-decoration: none;}
-@media (min-width: 900px) {
-  .ledger-row {
-    grid-template-columns: 11rem minmax(0, 5fr) minmax(0, 6fr) auto;
-    padding: var(--space-4);}
-}
-.ledger-name {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  text-wrap: balance;}
-.ledger-thumb {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: var(--radius-field);
-  clip-path: inset(0 round var(--radius-field));
-  transition:
-    scale var(--dur-base) var(--ease-land),
-    clip-path var(--dur-base) var(--ease-land);
-}
-.ledger-name {
-  grid-column: 2;
-}
-.ledger-line {
-  grid-column: 2;
-  font-size: var(--text-small);
-  line-height: 1.55;
-  color: var(--color-ink-muted);}
-@media (min-width: 900px) {
-  .ledger-thumb {
-    grid-row: 1;
-    aspect-ratio: 4 / 3;
-  }
-  .ledger-line {
-    grid-column: 3;
-    grid-row: 1;
-    font-size: var(--text-body);}
-}
+
 .ledger-arrow {
   grid-column: 3;
   grid-row: 1 / span 2;
@@ -296,28 +216,9 @@ html {
   stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;}
-@media (hover: hover) and (pointer: fine) {
-  .ledger-row:hover {
-    background: color-mix(in srgb, var(--cream-200) 55%, transparent);}
-  .ledger-row:hover .ledger-arrow {
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    transform: translateX(4px);}
-  .ledger-row:hover .ledger-thumb {
-    scale: 1.06;
-    clip-path: inset(2.83% round calc(var(--radius-field) / 1.06));}
-}
-.ledger-row:focus-visible .ledger-arrow {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  transform: translateX(4px);}
-.ledger-row:focus-visible .ledger-thumb {
-  scale: 1.06;
-  clip-path: inset(2.83% round calc(var(--radius-field) / 1.06));}
+
 .section--alt .ledger-arrow {
   background: var(--cream-50);}
-.section--alt .ledger-row:hover {
-  background: color-mix(in srgb, var(--cream-50) 55%, transparent);}
 
 /* ── Definition lists (capabilities) ── */
 .defs {
@@ -420,51 +321,11 @@ html {
 
 /* ── Plans / bundles: one panel split three ways, the marked one in words + gold edge ── */
 
-
 /* ── Installs on dark ── */
-.installs {
-  display: grid;
-  gap: var(--space-7);}
-@media (min-width: 1024px) {
-  .installs {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-9);}
-}
-.install-grid {
-  display: grid;
-  gap: 0 var(--space-6);}
-@media (min-width: 640px) {
-  .install-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));}
-}
-.install-grid li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-3);
-  padding-block: var(--space-5);
-  line-height: 1.5;}
-.install-grid .icon {
-  color: var(--color-accent);}
 
 /* ── Reasons ── */
-.reasons {
-  display: grid;
-  gap: var(--space-6);
-  margin-top: var(--space-7);}
-.reasons li {
-  display: grid;
-  gap: var(--space-2);
-  padding-top: var(--space-5);}
-.reasons h3 {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  line-height: 1.25;}
-.reasons p {
-  color: var(--color-ink-muted);}
 
 /* ── One review, set large ── */
-
 
 /* ── Gear wall ── */
 .gear-grid {
@@ -483,7 +344,6 @@ html {
   .gear-grid > :nth-child(3) {
     grid-column: 2 / span 6;}
 }
-
 
 .work-note {
   max-width: 40rem;
@@ -506,7 +366,6 @@ html {
 
 /* ── Service rows with prices (Homes) ── */
 
-
 .svc-title {
   font-family: var(--font-display);
   font-size: var(--type-h3);
@@ -515,38 +374,10 @@ html {
   letter-spacing: -0.02em;
   text-wrap: balance;}
 
-
 /* ── Callout ── */
 
-
 /* ── Area pages ── */
-.area-intro {
-  display: grid;
-  gap: var(--space-7);
-  align-items: start;}
-@media (min-width: 1024px) {
-  .area-intro {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--space-9);}
-}
-.area-blurb {
-  font-family: var(--font-display);
-  font-size: var(--type-lead);
-  font-weight: 500;
-  line-height: 1.38;
-  letter-spacing: -0.015em;
-  text-wrap: pretty;}
-.area-blurb + p {
-  margin-top: var(--space-5);
-  color: var(--color-ink-muted);}
-.area-homes {
-  display: grid;
-  gap: var(--space-7);}
-@media (min-width: 1024px) {
-  .area-homes {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    gap: var(--space-9);}
-}
+
 .label {
   margin-bottom: var(--space-3);
   font-size: var(--text-small);
@@ -862,11 +693,9 @@ button.dock-item {
   margin-top: var(--space-6);}
 .footer-social + .footer-social {
   margin-top: var(--space-4);}
-.more-chips {
-  margin-top: var(--space-5);}
+
 .section.section--tight {
   padding-block: var(--space-8);}
-
 
 .photo--inline {
   margin-top: var(--space-7);}
@@ -879,8 +708,7 @@ button.dock-item {
 @media (prefers-reduced-motion: no-preference) {
   .js .hero-side {
     animation: rise var(--dur-enter) var(--ease-land) 500ms both;}
-  .js .hero-side .hero-card {
-    animation: none;}
+  
 }
 
 /* ── Round 1 fixes ── */
@@ -896,9 +724,7 @@ button.dock-item {
 .hero--page .hero-title-main {
   max-width: 18em;
   font-size: var(--type-h1);}
-.installs .lede {
-  font-size: var(--type-lead);
-  line-height: 1.6;}
+
 @media (max-width: 1023px) {
   .hero-side .photo--tall .photo-frame {
     aspect-ratio: 4 / 3;}
@@ -908,14 +734,11 @@ button.dock-item {
   letter-spacing: -0.02em;
   font-variation-settings: 'SOFT' 50, 'WONK' 0;}
 
-
 /* ── break-ui fixes ── */
 /* grid children may shrink below their min-content (long words, selects, 320px phones, 200% text) */
 .quote-grid > *,
 .hero-grid > *,
-.installs > *,
-.split > *,
-.standard > * {
+.split > * {
   min-width: 0;}
 .hero-title,
 .quote-title,
@@ -932,36 +755,21 @@ button.dock-item {
     inset 0 0 0 1px color-mix(in srgb, var(--brown-800) 10%, transparent),
     var(--inner-light),
     0 8px 28px color-mix(in srgb, var(--brown-800) 16%, transparent);}
-.facts--dark dd {
-  font-size: var(--type-h3);}
+
 .stars .star-off {
   opacity: 0.25;}
 
-
-@media (max-width: 1023px) {
-  .standard > .photo {
-    order: 2;
-  }
-}
-
 @media (max-width: 899px) {
   /* phones: photo, name and arrow on one line; the description runs full width under them */
-  .ledger-row {
-    column-gap: var(--space-4);
-  }
-  .ledger-thumb {
-    grid-row: 1;
-  }
+  
+  
   .ledger-arrow {
     grid-row: 1;
   }
-  .ledger-line {
-    grid-column: 1 / -1;
-  }
+  
 }
 
 /* ── care plans: how support works ── */
-
 
 /* plan lists stack from the top, whatever the neighbouring column holds */
 

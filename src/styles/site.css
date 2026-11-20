@@ -508,12 +508,6 @@ label.pill {
     translate: 5px 0;}
 }
 
-.hero-card {}
-.hero-card-title {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-h3);}
 .hero-card-list {
   display: grid;
   gap: var(--space-5);
@@ -568,8 +562,7 @@ label.pill {
     animation: cable-draw 650ms var(--ease-land) 300ms both;}
   .js .hero-lede,
   .js .hero-actions,
-  .js .hero-aside,
-  .js .hero-card {
+  .js .hero-aside {
     animation: rise var(--dur-enter) var(--ease-land) both;}
   .js .hero-lede {
     animation-delay: 420ms;}
@@ -577,8 +570,7 @@ label.pill {
     animation-delay: 520ms;}
   .js .hero-aside {
     animation-delay: 600ms;}
-  .js .hero-card {
-    animation-delay: 500ms;}
+  
 }
 @keyframes cable-draw {
   from {
@@ -626,7 +618,6 @@ label.pill {
 }
 
 /* ═══ Process + picker ═══ */
-
 
 .picker {
   display: grid;
@@ -711,7 +702,6 @@ label.pill {
     transform: none;}
 }
 
-
 @media (min-width: 1024px) {
   .work {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
@@ -725,24 +715,7 @@ label.pill {
   display: inline-block;
   margin-top: var(--space-6);}
 
-
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: var(--space-7);}
-.facts div {
-  padding: var(--space-4) var(--space-4) var(--space-4) 0;}
-.facts dt {
-  font-size: var(--text-small);
-  color: var(--color-ink-muted);}
-.facts dd {
-  margin-top: var(--space-1);
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  letter-spacing: -0.01em;}
 /* ═══ Reviews ═══ */
-
 
 .stars {
   margin-bottom: var(--space-4);}
@@ -750,7 +723,6 @@ label.pill {
   width: 6.25rem;
   height: 1.25rem;
   fill: var(--color-accent);}
-
 
 /* ═══ Close ═══ */
 .cta {
@@ -976,7 +948,6 @@ label.pill {
     transform: scale(1);}
 }
 
-
 /* ═══ Reduced motion / transparency / contrast ═══ */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -1000,7 +971,7 @@ label.pill {
   .nav-shell::before,
   .dock {
     background: var(--cream-100);}
-  .hero-card,
+  
   .bezel--dark {
     background: var(--brown-900);}
 }
