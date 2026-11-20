@@ -613,3 +613,163 @@ body:has(.home-page) .site-nav.at-top .nav-cta {
   justify-content: center;
   margin-top: var(--space-4);
 }
+
+/* ═══ Quote page (calm layout) ═══ */
+.quote-head {
+  margin-bottom: var(--space-7);
+}
+.quote-card {
+  padding: clamp(var(--space-5), 3vw, var(--space-7));
+  border-radius: var(--radius-card);
+  background: var(--color-bg-alt);
+}
+.quote-aside-card {
+  padding: clamp(var(--space-5), 3vw, var(--space-6));
+  border-radius: var(--radius-card);
+  background: var(--color-bg-dark);
+  color: var(--color-ink-inverse);
+}
+.quote-aside-card .aside-list,
+.quote-aside-card .aside-owner p:last-child {
+  color: var(--color-ink-inverse-muted);
+}
+.quote-aside-card .aside-list a,
+.quote-aside-card strong {
+  color: var(--color-ink-inverse);
+}
+.quote-aside-card .aside-block + .aside-block {
+  border-top: 1px solid var(--hairline-dark);
+}
+
+/* ═══ Glass pass (2026-11-20): glass only where something moves or sits underneath ═══ */
+
+/* 1. Close band: a dark glass panel over the moving cable loop */
+.cta-panel {
+  display: grid;
+  justify-items: center;
+  max-width: 52rem;
+  margin-inline: auto;
+  padding: clamp(var(--space-6), 5vw, var(--space-8)) clamp(var(--space-5), 5vw, var(--space-8));
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--brown-950) 62%, transparent);
+  -webkit-backdrop-filter: var(--glass-dark-filter);
+  backdrop-filter: var(--glass-dark-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-dark-edge), var(--glass-dark-shine), 0 32px 64px rgb(10 3 1 / 0.45);
+}
+
+/* 2. Industry cards: a light glass arrow floats on the picture */
+.home-card-media {
+  position: relative;
+}
+.home-card-chip {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--glass-light);
+  -webkit-backdrop-filter: var(--glass-light-filter);
+  backdrop-filter: var(--glass-light-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-light-edge), var(--glass-light-shadow);
+  color: var(--color-ink);
+  transition: translate var(--dur-hover) var(--ease-land), scale var(--dur-hover) var(--ease-land);
+}
+.home-card-chip svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-card:hover .home-card-chip {
+    translate: 0 -3px;
+    scale: 1.06;
+  }
+}
+
+/* 3. City picture: the caption sits on the photo in dark glass */
+.home-photo {
+  position: relative;
+  padding: var(--space-3);
+}
+.home-photo .home-photo-cap {
+  position: absolute;
+  left: calc(var(--space-3) * 2);
+  right: calc(var(--space-3) * 2);
+  bottom: calc(var(--space-3) * 2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-field);
+  background: var(--glass-dark);
+  -webkit-backdrop-filter: var(--glass-dark-filter);
+  backdrop-filter: var(--glass-dark-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-dark-edge), var(--glass-dark-shine);
+  color: var(--color-ink-inverse-muted);
+}
+.home-photo .home-photo-cap strong {
+  color: var(--color-ink-inverse);
+}
+/* on phones the caption would cover half the picture: it sits under it instead */
+@media (max-width: 639px) {
+  .home-photo .home-photo-cap {
+    position: static;
+    margin-top: var(--space-3);
+  }
+}
+
+/* fallbacks: solid surfaces when blur is unsupported or the visitor asked for less transparency / more contrast */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cta-panel,
+  .home-photo .home-photo-cap {
+    background: var(--brown-950);
+  }
+  .home-card-chip {
+    background: var(--cream-50);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .cta-panel,
+  .home-photo .home-photo-cap {
+    background: var(--brown-950);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .home-card-chip {
+    background: var(--cream-50);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@media (prefers-contrast: more) {
+  .cta-panel,
+  .home-photo .home-photo-cap {
+    background: var(--brown-950);
+    box-shadow: inset 0 0 0 2px var(--cream-50);
+  }
+  .home-card-chip {
+    background: var(--cream-50);
+    box-shadow: inset 0 0 0 2px var(--brown-800);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-card-chip {
+    transition: none;
+  }
+}
+
+/* industry cards on a Paper section get a Cream card so they don't melt into the ground */
+.section:not(.section--alt) .home-card {
+  background: var(--color-bg-alt);
+}
+/* the quote page is the booking form: the nav's hanging booking button would repeat its heading */
+body:has(.quote-page) .nav-cta {
+  display: none;
+}
+.quote-card .form-tip {
+  background: var(--cream-50);
+}

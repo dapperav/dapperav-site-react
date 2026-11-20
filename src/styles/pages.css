@@ -414,19 +414,6 @@ html {
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
   text-wrap: balance;}
-.quote-lead {
-  max-width: 36rem;
-  margin-top: var(--space-5);
-  font-size: var(--text-lead);
-  line-height: 1.45;
-  color: var(--color-ink-muted);
-  text-wrap: pretty;}
-.quote-lead a {
-  font-weight: var(--weight-semibold);
-  color: var(--color-ink);
-  white-space: nowrap;}
-.form-card {
-  margin-top: var(--space-7);}
 .form-grid {
   display: grid;
   gap: var(--space-5);}
@@ -699,10 +686,6 @@ button.dock-item {
 
 .photo--inline {
   margin-top: var(--space-7);}
-.lost-links {
-  margin-top: var(--space-7);}
-.lost-links .chips {
-  justify-content: center;}
 .hero-side {
   min-width: 0;}
 @media (prefers-reduced-motion: no-preference) {

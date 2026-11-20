@@ -1,27 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import { industries } from '../data/industries';
+import IndustryCards from '../components/IndustryCards.astro';
+import '../styles/home.css';
 ---
 
 <Layout title="Page not found | Dapper AV" description="That page doesn't exist. Head back to Dapper AV Solutions.">
-  <Hero
-    center
-    page={false}
-    lead="Wrong cable."
-    main="Page not found."
-    lede={`The page you wanted has moved or never existed. Head home or book a survey.`}
-    actions={[
-      { href: `/quote/?service=${encodeURIComponent('Commercial AV')}`, label: 'Book a free site survey', arrow: true },
-      { href: '/', label: 'Back to home', variant: 'ghost' },
-    ]}
-  >
-    <nav class="lost-links" aria-label="Popular pages">
-      <ul class="chips">
-        <li><a class="pill" href="/business/">For business</a></li>
-        <li><a class="pill" href="/services/">For homes</a></li>
-        {industries.slice(0, 3).map((i) => <li><a class="pill" href={`/business/${i.slug}/`}>{i.name}</a></li>)}
-      </ul>
-    </nav>
-  </Hero>
+  <div class="home-page">
+    <Hero
+      center
+      page={false}
+      lead="Wrong cable."
+      main="Page not found."
+      lede="The page you wanted has moved or never existed. Head home, book a survey or pick your kind of business below."
+      actions={[
+        { href: `/quote/?service=${encodeURIComponent('Commercial AV')}`, label: 'Book a free site survey', arrow: true },
+        { href: '/', label: 'Back to home', variant: 'ghost' },
+      ]}
+    >
+      <p class="hero-aside">At home? <a class="text-link" href="/services/">See home services</a>.</p>
+    </Hero>
+
+    <IndustryCards heading="Popular pages" lede="Six kinds of business, each with what we install there and what moves the price." alt={false} />
+  </div>
 </Layout>

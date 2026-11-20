@@ -5,23 +5,27 @@
  */
 import Layout from '../layouts/Layout.astro';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
+import '../styles/home.css';
 ---
 
 <Layout
   title="Request a Free Site Survey or Quote | Dapper AV"
   description="Free site survey and itemized quote for commercial AV, networks and managed IT, or home AV, in Fort Bend County. Reply within one business day."
 >
-  <section class="quote-page grooves" aria-labelledby="quote-title">
-    <div class="container quote-grid">
-      <div>
+  <section class="quote-page" aria-labelledby="quote-title">
+    <div class="container">
+      <div class="home-head quote-head">
         <h1 class="quote-title" id="quote-title">Book a free site survey</h1>
-        <p class="quote-lead">
+        <p class="lede">
           Tell us about the space. We reply within one business day to set a time for
           a free 30–45 minute visit.
         </p>
-
-        <div class="bezel bezel--light form-card">
-          <div class="bezel-core">
+      </div>
+    </div>
+    <div class="container quote-grid">
+      <div>
+        <div class="quote-card">
+          <div>
             <form id="quote-form" novalidate>
               <div class="form-grid">
                 <div>
@@ -109,8 +113,8 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
         </div>
       </div>
 
-      <aside class="quote-aside frost" aria-label="About the reply">
-        <div class="bezel-core">
+      <aside class="quote-aside quote-aside-card on-dark" aria-label="About the reply">
+        <div>
           <div class="aside-block">
             <div class="aside-owner">
               <div>

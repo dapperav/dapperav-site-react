@@ -207,10 +207,6 @@ label.pill {
   backdrop-filter: var(--glass-dark-filter);
   box-shadow: inset 0 0 0 1px var(--glass-dark-edge), var(--glass-dark-shine), 0 24px 48px rgb(10 3 1 / 0.35);}
 
-/* Frosted card on light ground: no backdrop blur (nothing to blur over flat paper) */
-.frost {
-  border-radius: var(--radius-card);
-  background: var(--cream-100);}
 
 .icon {
   width: 1.375rem;
@@ -745,7 +741,7 @@ label.pill {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: color-mix(in srgb, var(--brown-950) 74%, transparent);
+  background: color-mix(in srgb, var(--brown-950) 45%, transparent);
 }
 .cta-inner {
   display: grid;
