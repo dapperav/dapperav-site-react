@@ -79,7 +79,7 @@ const serviceSchema = {
           picture && (
             <figure class="home-photo">
               <Image src={picture.image} alt={picture.alt} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 52rem, 100vw" />
-              <figcaption>
+              <figcaption class="home-photo-cap on-dark">
                 <strong>{picture.caption}</strong>{' '}
                 Not a Dapper AV job: <a class="text-link" href={picture.c.page}>{picture.c.creator}</a>, <a class="text-link" href={picture.c.licenseUrl}>{picture.c.license}</a>.
               </figcaption>

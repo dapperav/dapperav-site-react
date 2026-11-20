@@ -1,6 +1,6 @@
 ---
 /**
- * The dark close at the end of every page, over a muted loop of patch cables in a switch
+ * The dark close at the end of every page: a dark glass panel over a muted loop of patch cables in a switch
  * (Pexels clip 7140937, free license, no credit required; background footage, not a Dapper AV job).
  * Reduced motion: the loop never plays and the poster frame shows instead.
  */
@@ -27,11 +27,13 @@ const {
     <source src="/video/cables-loop.mp4" type="video/mp4" />
   </video>
   <div class="container cta-inner">
-    <h2 class="h2 cta-title" id="cta-title">{title}</h2>
-    <p class="lede">{lede}</p>
-    <div class="cta-actions">
-      <a class="btn btn--primary btn--lg" href={href}>{label}</a>
-      {secondary && <a class="btn btn--ghost btn--lg" href={secondary.href}>{secondary.label}</a>}
+    <div class="cta-panel">
+      <h2 class="h2 cta-title" id="cta-title">{title}</h2>
+      <p class="lede">{lede}</p>
+      <div class="cta-actions">
+        <a class="btn btn--primary btn--lg" href={href}>{label}</a>
+        {secondary && <a class="btn btn--ghost btn--lg" href={secondary.href}>{secondary.label}</a>}
+      </div>
     </div>
   </div>
 </section>
