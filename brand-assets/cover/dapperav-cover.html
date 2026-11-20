@@ -1,0 +1,97 @@
+<!doctype html>
+<!--
+  Facebook / Nextdoor cover, commercial-first (2026-11-20). Rendered at 820x312 CSS px, 2x = 1640x624:
+  node brand-assets/cover/render.mjs
+  Content stays inside the centre 640 px (Facebook's phone crop) and clear of the bottom-left corner,
+  where both sites lay the profile picture over the cover. No phone number (contact is form-only).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@500&display=block" rel="stylesheet" />
+<style>
+  html, body { margin: 0; }
+  body {
+    width: 820px;
+    height: 312px;
+    position: relative;
+    overflow: hidden;
+    background: #531b0a; /* brand brown, the site's hero field */
+    color: #faf5ea;
+    font-family: Inter, system-ui, sans-serif;
+  }
+  .copy {
+    position: absolute;
+    left: 226px;
+    top: 46%;
+    transform: translateY(-50%);
+  }
+  .name {
+    margin: 0;
+    font-family: Fraunces, serif;
+    font-weight: 600;
+    font-size: 46px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .line {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0 0;
+    font-family: Fraunces, serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.1;
+    color: #f1b71c;
+  }
+  /* the site's signature: a gold cable drawn under the line, ending in a jack */
+  .cable {
+    position: absolute;
+    left: -2px;
+    right: -14px;
+    bottom: -14px;
+    height: 14px;
+  }
+  .services {
+    margin: 26px 0 0;
+    font-size: 13.5px;
+    letter-spacing: 0.01em;
+    color: #f2dfbb;
+  }
+  .where {
+    margin: 8px 0 0;
+    font-size: 13.5px;
+    color: #f1b71c;
+  }
+  /* Nextdoor lays the page name and Fave button over the bottom-left, so its version sits higher */
+  .nextdoor .copy {
+    top: 33%;
+  }
+  /* the brand film's installer, walking through */
+  .walker {
+    position: absolute;
+    right: 6px;
+    bottom: 0;
+    width: 210px;
+    height: 210px;
+  }
+</style>
+</head>
+<body>
+  <script>if (location.search === '?nextdoor') document.body.classList.add('nextdoor');</script>
+  <div class="copy">
+    <p class="name">Dapper AV Solutions</p>
+    <p class="line">
+      Commercial AV &amp; managed IT
+      <svg class="cable" viewBox="0 0 400 14" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M2 6 C 90 12, 190 1, 300 7 S 380 9, 388 7" fill="none" stroke="#f1b71c" stroke-width="2.4" stroke-linecap="round" />
+        <circle cx="391" cy="7" r="4" fill="#f1b71c" />
+      </svg>
+    </p>
+    <p class="services">TV walls · Sound · Business Wi-Fi · Cameras · Cabling · Care plans</p>
+    <p class="where">Fort Bend County, TX · dapperav.com</p>
+  </div>
+  <img class="walker" src="walker-gold.png" alt="" />
+</body>
+</html>
