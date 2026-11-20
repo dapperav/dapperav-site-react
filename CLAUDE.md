@@ -166,6 +166,14 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — /quote and 404 moved to the calm card layout, plus a glass pass (Mark approved mockups).
+  /quote: centred heading, form in one Cream card beside a dark sticky card (contact, next steps, service area);
+  the nav's hanging booking button is hidden there; every form id/name and the script are unchanged. 404: dark
+  hero + the six industry cards ("Popular pages"). Glass only where something sits underneath: the CtaBand
+  content is a dark glass panel over the cable loop (scrim 74% → 45%), a light glass arrow chip on every industry
+  card photo, and the city photo caption in dark glass over the picture (under it below 640px). Fallbacks for no
+  backdrop-filter, reduced transparency and more contrast. Industry cards on Paper sections now get a Cream card.
+  Deleted `.frost`, `.form-card`, `.quote-lead`, `.lost-links`.
 - **2026-11-20** — The six industry pages (/business/*) and six city pages (/areas/*) moved to the calm card
   layout (Mark approved real mockups). Industry: centred hero + film scene, "What we install" as six check cards,
   three "Why one company" cards + a dark "What the free survey checks" card, JobSteps, FAQ, ProofRow, then the
@@ -374,9 +382,8 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-0. **Site upgrade:** brand system and the calm card layout are live on every main page (home, /business,
-   /services, six industry pages, six city pages; 2026-11-20). Not yet in the layout: /quote, 404 and
-   privacy. Next: Mark's real install photos to replace the stock pictures in the industry cards.
+0. **Site upgrade:** brand system, the calm card layout and the glass pass are live on every page except
+   privacy (2026-11-20). Next: Mark's real install photos to replace the stock pictures in the industry cards.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.
