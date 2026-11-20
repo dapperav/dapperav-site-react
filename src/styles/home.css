@@ -1,0 +1,342 @@
+/* Homepage (Option 1, "Calm, one column", 2026-11-20). Everything reads the brand tokens; nothing here is a new colour, size or radius. */
+
+/* one gold button on the first screen: the nav's hanging button waits until you scroll */
+body:has(.home-page) .site-nav.at-top .nav-cta {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.home-head {
+  max-width: 46rem;
+  margin: 0 auto var(--space-7);
+  text-align: center;
+}
+.home-head .lede {
+  margin-inline: auto;
+}
+.home-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+/* ── Doors: business or home ── */
+.home-doors {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 900px) {
+  .home-doors {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.home-door {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(var(--space-5), 3vw, var(--space-7));
+  border-radius: var(--radius-card);
+  text-align: left;
+}
+.home-door-title {
+  font-family: var(--font-display);
+  font-size: var(--type-h2);
+  font-weight: var(--weight-semibold);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-h2);
+}
+.home-door p {
+  color: var(--color-ink-muted);
+  max-width: 34rem;
+}
+.home-door--biz {
+  background: var(--color-bg-dark);
+  color: var(--color-ink-inverse);
+}
+.home-door--biz p {
+  color: var(--color-ink-inverse-muted);
+}
+.home-door--home {
+  background: var(--color-bg-alt);
+  color: var(--color-ink);
+}
+.home-door-list {
+  display: grid;
+  gap: var(--space-3);
+}
+.home-door-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--hairline-light);
+}
+.home-door--biz .home-door-list li {
+  border-bottom-color: var(--hairline-dark);
+}
+.home-door-list strong {
+  font-weight: var(--weight-semibold);
+}
+.home-door-list span {
+  color: var(--color-accent-ink);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+.home-door--biz .home-door-list span,
+.home-glass-dark .home-door-list span {
+  color: var(--color-accent);
+}
+.home-door-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+
+/* ── Industries: a 3 x 2 grid of link cards ── */
+.home-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 640px) {
+  .home-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .home-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.home-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-5);
+  border-radius: var(--radius-card);
+  background: var(--cream-50);
+  color: inherit;
+  text-decoration: none;
+}
+.home-card-media {
+  overflow: hidden;
+  border-radius: var(--radius-field);
+}
+.home-card-media img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: scale var(--dur-base) var(--ease-land);
+}
+.home-card h3 {
+  padding-inline: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-h3);
+}
+.home-card p {
+  padding-inline: var(--space-3);
+  color: var(--color-ink-muted);
+}
+.home-card-go {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding: var(--space-2) var(--space-3) 0;
+  font-weight: var(--weight-semibold);
+  color: var(--color-info);
+}
+.home-card-go svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: translate var(--dur-hover) var(--ease-land);
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-card:hover .home-card-media img {
+    scale: 1.06;
+  }
+  .home-card:hover .home-card-go svg {
+    translate: 5px 0;
+  }
+}
+
+/* ── How a job goes: four step cards ── */
+.home-steps {
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 700px) {
+  .home-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .home-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.home-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-5);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-alt);
+  text-align: left;
+}
+.home-step-num {
+  font-family: var(--font-display);
+  font-size: var(--type-number);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--color-accent-ink);
+  font-variant-numeric: tabular-nums;
+}
+.home-step h3 {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-h3);
+}
+.home-step p {
+  color: var(--color-ink-muted);
+}
+
+/* ── Proof: one review card + one facts card ── */
+.home-proof {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 1024px) {
+  .home-proof {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+}
+.home-quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: clamp(var(--space-5), 3vw, var(--space-7));
+  border-radius: var(--radius-card);
+  background: var(--cream-50);
+}
+.home-quote blockquote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--type-lead);
+  line-height: 1.45;
+}
+.home-quote figcaption {
+  font-size: var(--type-small);
+  color: var(--color-ink-muted);
+}
+.home-quote figcaption strong {
+  color: var(--color-ink);
+}
+.home-stars {
+  color: var(--color-accent-ink);
+  letter-spacing: 0.15em;
+}
+.home-facts {
+  display: grid;
+  gap: var(--space-5);
+  align-content: center;
+  padding: clamp(var(--space-5), 3vw, var(--space-7));
+  border-radius: var(--radius-card);
+  background: var(--color-bg-dark);
+  color: var(--color-ink-inverse);
+}
+.home-facts dd {
+  font-family: var(--font-display);
+  font-size: var(--type-number);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: var(--tracking-h2);
+}
+.home-facts dt {
+  margin-top: var(--space-2);
+  font-size: var(--type-small);
+  color: var(--color-ink-inverse-muted);
+}
+.home-facts div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/* ── Option 2 hero: headline over two glass doors ── */
+.home-hero2 {
+  min-height: auto;
+  padding-block: var(--space-8);
+}
+@media (min-width: 768px) {
+  .home-hero2 {
+    padding-block: 9rem var(--space-8);
+  }
+}
+.home-hero2 .hero-title-main {
+  max-width: none;
+}
+.home-hero2 .home-doors {
+  margin-top: var(--space-7);
+}
+.home-glass-dark {
+  background: var(--glass-dark);
+  -webkit-backdrop-filter: var(--glass-dark-filter);
+  backdrop-filter: var(--glass-dark-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-dark-edge), var(--glass-dark-shine), 0 24px 48px rgb(10 3 1 / 0.35);
+  color: var(--color-ink-inverse);
+}
+.home-glass-dark p {
+  color: var(--color-ink-inverse-muted);
+}
+.home-glass-dark .home-door-list li {
+  border-bottom-color: var(--hairline-dark);
+}
+.home-glass-light {
+  background: var(--glass-light);
+  -webkit-backdrop-filter: var(--glass-light-filter);
+  backdrop-filter: var(--glass-light-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-light-edge), var(--glass-light-shadow);
+  color: var(--color-ink);
+}
+.home-glass-light .text-link {
+  color: var(--color-info);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .home-glass-dark {
+    background: var(--brown-950);
+    backdrop-filter: none;
+  }
+  .home-glass-light {
+    background: var(--cream-200);
+    backdrop-filter: none;
+  }
+}
+
+/* equal-height cards in each grid row */
+.home-grid li {
+  display: flex;
+}
+.home-grid .home-card {
+  flex: 1;
+}
+/* text on light glass over Ink needs full Ink for contrast (Cocoa and Patina drop near 4:1 there) */
+.home-glass-light p,
+.home-glass-light .text-link {
+  color: var(--color-ink);
+}

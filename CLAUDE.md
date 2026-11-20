@@ -166,6 +166,12 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — NEW HOMEPAGE: Option 1 "Calm, one column" (Mark picked it from two real mockups). Centred hero
+  with one gold button (the nav's hanging button waits until you scroll), then "For your business, or your home"
+  as two door cards (business: survey / itemized price / care plans + booking; home: TV mounting, theater, audio
+  with live "From" prices + Get a free quote), the six industries as a 3×2 photo-card grid, "How a job goes" as
+  four step cards, a review card + facts card, closing band. Styles in `src/styles/home.css`, sections in
+  `src/components/HomeSections.astro`. Removed: the dark business panel, `Owner.astro` and their CSS.
 - **2026-11-20** — Patina darkened #2a6f69 → #276660: the old value was 4.47:1 on Cream sections (under WCAG AA 4.5:1); now 5.1:1 on Cream, 6.1:1 on Paper. Homepage layout mockups (Options 1 and 2) live on branch `mockup/homepage-options` at /mockup/option-1/ and /mockup/option-2/ (not deployed).
 - **2026-11-20** — Light glass warmed (Mark: nav looked grey): `--glass-light` is now Cream 80% (was Paper
   62%), edge Paper 55%. Affects the nav pill and the phone dock.
@@ -353,9 +359,9 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-0. **Site upgrade, next step (Mark):** the brand system + Variant A are live (2026-11-20). Decide whether
-   to go on to Variant B (Showroom) or C (Native); check GA4's phone/desktop split before choosing C. The
-   A/B/C pitch decks still show the old palette; the Brand System deck is current.
+0. **Site upgrade:** brand system + new homepage (Option 1) are live (2026-11-20). Possible next: apply the
+   same calm, card-first layout to /business and /services; Mark's real install photos would replace the
+   stock pictures in the industry cards. Branch `mockup/homepage-options` (Option 2) can be deleted.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.

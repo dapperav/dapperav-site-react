@@ -189,7 +189,6 @@
 }
 /* link cards: the whole card is one link; it lifts, casts a soft shadow, its picture zooms */
 .link-card,
-.biz-row,
 .ledger-row {
   transition:
     background-color var(--dur-base) var(--ease-out),
@@ -203,13 +202,8 @@
     translate: 0 -4px;
     box-shadow: var(--shadow-card-hover);
   }
-  .biz-row:hover {
-    translate: 0 -4px;
-    box-shadow: 0 18px 40px rgb(10 3 1 / 0.35);
-  }
 }
 .link-card:active,
-.biz-row:active,
 .ledger-row:active {
   scale: var(--btn-press-scale);
 }
@@ -285,7 +279,6 @@
   .pill,
   .btn-arrow,
   .link-card,
-  .biz-row,
   .ledger-row {
     transition-property: background-color, color, box-shadow;
   }
@@ -295,8 +288,6 @@
   .pill:active,
   .link-card:hover,
   .link-card:active,
-  .biz-row:hover,
-  .biz-row:active,
   .ledger-row:hover,
   .ledger-row:active,
   .btn:hover .btn-arrow {
