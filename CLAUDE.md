@@ -166,6 +166,20 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — UI/UX audit of the live site + Apple-led upgrade pitch (nothing changed on the site).
+  Audit (main @ PR 54 + headless captures): 31 font-size values (6 from tokens); one booking action
+  under 5 labels (Book a free site survey / Start with a site survey / Get a free quote / Get a quote /
+  Start with this one), gold on some pages and brown on industry pages; 7 card styles on 5 radii
+  (2/4/6/12/24px); headlines masked and sections hidden until scroll reveals (a load capture of
+  /business shows 4 of 6 industry rows blank). Three pitch decks (Claude Slides artifacts, private):
+  **A Tailored** (same look + Apple craft: glass header bar, type roles, press feedback, springs, ~2 days)
+  https://claude.ai/artifact/XDwMbb9qY5G1q2wgRBuzBY · **B Showroom** (survey as a lit hero object,
+  bento industries, snapping chapters, ~5 days) https://claude.ai/artifact/WhPbMMUnRKYpn7UPogLzih ·
+  **C Native** (iOS large titles, Business/Homes switch, quote as a sheet / side panel, ~7 days)
+  https://claude.ai/artifact/HLsGv61gKMF2qASssyoHzd. Editable **Brand System** deck (6 rules, palette,
+  8 type roles, buttons + states, full CTA inventory with proposed labels, pills, 3 card types, motion)
+  https://claude.ai/artifact/1om6AxWXxo8nxg2GAVCRqc. Proposed labels: businesses "Book a free site
+  survey", homes "Get a free quote", form "Send request", browsing "See …"; gold = booking only.
 - **2026-11-20** — Social categories commercial-first. Facebook: "Information Technology Company ·
   Commercial & Industrial · In-Home Service" (was "In-Home Service" only; FB has no AV-installer category,
   "Audio Visual Equipment Store" would read as retail). Nextdoor: "IT Services & Computer Repair" first
@@ -321,6 +335,10 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
+0. **Site upgrade decision (Mark):** pick variant A, B or C and edit/approve the Brand System deck
+   (links in the 2026-11-20 changelog entry). Then Claude applies the brand system to
+   `design-system/tokens.css` + `components.css` and every page (Variant A's fixes come first in all
+   three), and re-runs the taste-skill gate. Before choosing C, check GA4's phone/desktop split.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.
