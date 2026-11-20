@@ -111,8 +111,6 @@ label.pill {
 .hero-title,
 .step-title,
 .picker-title,
-.biz-name,
-.signature,
 .footer-name,
 .review blockquote {
   font-family: var(--font-display);
@@ -629,95 +627,6 @@ label.pill {
   background: var(--color-accent);}
 }
 
-/* ═══ Services ═══ */
-.biz {
-  display: grid;
-  gap: var(--space-7);
-  padding: clamp(var(--space-5), 4vw, var(--space-8));
-  border-radius: var(--radius-card);}
-@media (min-width: 1024px) {
-  .biz {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-8);}
-}
-.biz-intro p {
-  max-width: 30rem;
-  margin: var(--space-4) 0 var(--space-6);
-  color: var(--color-ink-inverse-muted);}
-.biz-list {}
-.biz-list li {}
-.biz-row {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
-  column-gap: var(--space-4);
-  align-items: center;
-  min-height: 44px;
-  padding: var(--space-4) var(--space-2);
-  text-decoration: none;
-  border-radius: var(--radius-field);}
-.biz-name {
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  line-height: 1.2;
-  letter-spacing: -0.01em;}
-.biz-thumb {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  width: 4.5rem;
-  height: 4.5rem;
-  object-fit: cover;
-  border-radius: var(--radius-field);
-  /* hover zoom stays inside the thumb: scale up and clip back to the same box (no wrapper needed) */
-  clip-path: inset(0 round var(--radius-field));
-  transition:
-    scale var(--dur-base) var(--ease-land),
-    clip-path var(--dur-base) var(--ease-land);
-}
-.biz-name {
-  grid-column: 2;
-  align-self: end;
-}
-.biz-line {
-  grid-column: 2;
-  align-self: start;
-  margin-top: var(--space-1);
-  font-size: var(--text-small);
-  line-height: 1.5;
-  color: var(--color-ink-inverse-muted);}
-.biz-arrow {
-  grid-column: 3;
-  grid-row: 1 / span 2;
-  width: 1.25rem;
-  height: 1.25rem;
-  fill: none;
-  stroke: var(--color-accent);
-  stroke-width: 1.75;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform var(--dur-base) var(--ease-out);}
-@media (hover: hover) and (pointer: fine) {
-  .biz-row:hover {
-    background: color-mix(in srgb, var(--cream-50) 8%, transparent);}
-  .biz-row:hover .biz-arrow {
-    transform: translateX(4px);}
-}
-.biz-row:focus-visible .biz-arrow {
-  transform: translateX(4px);}
-@media (hover: hover) and (pointer: fine) {
-  .biz-row:hover .biz-thumb {
-    scale: 1.08;
-    clip-path: inset(3.7% round calc(var(--radius-field) / 1.08));}
-}
-.biz-row:focus-visible .biz-thumb {
-  scale: 1.08;
-  clip-path: inset(3.7% round calc(var(--radius-field) / 1.08));}
-
-
-
-
-
-
-
 /* ═══ Process + picker ═══ */
 .steps {
   display: grid;
@@ -858,16 +767,6 @@ label.pill {
 
 
 
-/* ═══ Owner ═══ */
-.owner {
-  display: grid;
-  gap: var(--space-6);
-  align-items: center;}
-@media (min-width: 1024px) {
-  .owner {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    gap: var(--space-9);}
-  }
 .facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -883,24 +782,6 @@ label.pill {
   font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;}
-.owner-areas {
-  max-width: 36rem;
-  margin-top: var(--space-5);
-  color: var(--color-ink-muted);}
-.signature {
-  margin-top: var(--space-6);
-  font-size: var(--type-h3);
-  font-style: italic;
-  font-weight: 500;}
-.signature span {
-  display: block;
-  margin-top: var(--space-1);
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  font-style: normal;
-  font-weight: var(--weight-regular);
-  color: var(--color-ink-muted);}
-
 /* ═══ Reviews ═══ */
 .reviews {
   display: grid;
@@ -1181,7 +1062,6 @@ label.pill {
 .nav-group,
 .nav-cta,
 .float-cta,
-.biz-arrow,
 .btn-orb {
     transition-property: opacity, visibility;}
   .nav-group,
@@ -1222,35 +1102,6 @@ label.pill {
     display: inline-block;
     padding-block: 10px;
     margin-block: -10px;}
-}
-/* homepage: the three promises under "For your business" */
-.biz-promises {
-  margin-block: var(--space-5);}
-
-/* owner facts at display size, in place of a portrait */
-.facts--big {
-  margin-top: 0;
-  gap: var(--space-5) var(--space-6);
-}
-.facts--big div {
-  padding: 0;
-}
-.facts--big dd {
-  font-size: var(--type-number);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-/* owner facts: the number reads first, its label sits under it (a label above reads as an eyebrow) */
-.facts--big div {
-  display: flex;
-  flex-direction: column-reverse;
-}
-.facts--big dd {
-  margin-top: 0;
-}
-.facts--big dt {
-  margin-top: var(--space-1);
 }
 
 /* ═══ The film's dapper installer walks through the homepage hero once ═══ */
