@@ -14,12 +14,6 @@ pills and fields come from design-system/components.css untouched; this file
 
 /* ── Concept tokens: every value maps back to a brand token ── */
 :root {
-  --glass-light: color-mix(in srgb, var(--cream-50) 62%, transparent);
-  --glass-light-2: color-mix(in srgb, var(--cream-50) 38%, transparent);
-  --glass-light-edge: color-mix(in srgb, var(--cream-50) 75%, transparent);
-  --glass-dark: color-mix(in srgb, var(--cream-100) 8%, transparent);
-  --glass-dark-2: color-mix(in srgb, var(--cream-100) 3%, transparent);
-  --glass-dark-edge: color-mix(in srgb, var(--cream-100) 16%, transparent);
   --hairline-dark: color-mix(in srgb, var(--cream-100) 14%, transparent);
   --hairline-light: color-mix(in srgb, var(--brown-800) 14%, transparent);
   --pinstripe-ink: color-mix(in srgb, var(--cream-100) 4.5%, transparent);
@@ -28,7 +22,7 @@ pills and fields come from design-system/components.css untouched; this file
   --shadow-dark: 0 18px 50px color-mix(in srgb, var(--brown-950) 55%, transparent);
   --inner-light: inset 0 1px 0 color-mix(in srgb, var(--cream-50) 70%, transparent);
   --inner-dark: inset 0 1px 0 color-mix(in srgb, var(--cream-100) 14%, transparent);
-  --bezel-pad: 6px;
+  --bezel-pad: 0px; /* the double bezel is retired: one layer per card */
   --dock-h: 4.25rem;
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);}
 
@@ -128,13 +122,13 @@ label.pill {
   font-size: var(--text-h2);
   font-weight: var(--weight-semibold);
   line-height: 1.05;
-  letter-spacing: var(--tracking-display);
+  letter-spacing: var(--tracking-h2);
   text-wrap: balance;}
 .h3 {
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
-  line-height: 1.1;
-  letter-spacing: -0.02em;}
+  line-height: 1.2;
+  letter-spacing: var(--tracking-h3);}
 .lede {
   max-width: 38rem;
   margin-top: var(--space-4);
@@ -146,14 +140,14 @@ label.pill {
   color: var(--color-ink-inverse-muted);}
 .text-link {
   font-weight: var(--weight-semibold);
-  color: var(--color-accent-ink);
+  color: var(--color-info); /* gold is for booking; links are Patina */
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.25em;
   text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
   transition: text-decoration-color var(--dur-base) var(--ease-out);}
 .on-dark .text-link {
-  color: var(--color-accent);}
+  color: var(--color-info-inverse);}
 @media (hover: hover) and (pointer: fine) {
   .text-link:hover {
     text-decoration-color: currentColor;}
@@ -202,20 +196,20 @@ label.pill {
   top: auto;
   bottom: -18rem;}
 
-/* Double bezel: a glass plate sitting in a tray (outer shell + inner core) */
+/* Cards (class names kept from the old double bezel; now ONE layer per card).
+   .bezel--dark = feature card in dark glass; .bezel--light = content card (pages.css). */
 .bezel {
-  padding: var(--bezel-pad);
-  border-radius: var(--radius-card);
-  background: var(--glass-light-2);}
+  border-radius: var(--radius-card);}
 .bezel-core {
   height: 100%;
-  border-radius: calc(var(--radius-card) - var(--bezel-pad));
-  background: var(--glass-light);
-  padding: clamp(var(--space-5), 3vw, var(--space-7));}
-.bezel--dark {
-  background: var(--glass-dark-2);}
+  border-radius: var(--radius-card);
+  background: var(--color-bg-alt);
+  padding: clamp(var(--space-5), 3vw, var(--space-6));}
 .bezel--dark .bezel-core {
-  background: var(--glass-dark);}
+  background: var(--glass-dark);
+  -webkit-backdrop-filter: var(--glass-dark-filter);
+  backdrop-filter: var(--glass-dark-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-dark-edge), var(--glass-dark-shine), 0 24px 48px rgb(10 3 1 / 0.35);}
 
 /* Frosted card on light ground: no backdrop blur (nothing to blur over flat paper) */
 .frost {
@@ -262,8 +256,10 @@ label.pill {
   position: absolute;
   inset: 14px 0;
   border-radius: var(--radius-control);
-  background: var(--cream-50);
-  box-shadow: inset 0 0 0 1px var(--glass-light-edge), var(--inner-light);
+  background: var(--glass-light);
+  -webkit-backdrop-filter: var(--glass-light-filter);
+  backdrop-filter: var(--glass-light-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-light-edge), var(--glass-light-shadow);
   clip-path: inset(0 calc(50% - 2.5rem) round var(--radius-control));
   opacity: 0;
   transition:
@@ -476,7 +472,7 @@ label.pill {
 }
 .hero-title-lead {
   display: block;
-  font-size: clamp(1.5rem, 3vw, 2.75rem);
+  font-size: var(--type-h2);
   line-height: 1.15;
   letter-spacing: -0.02em;
   font-weight: 500;
@@ -485,7 +481,7 @@ label.pill {
   display: block;
   margin-top: var(--space-2);
   max-width: 11.5em;
-  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-size: var(--type-display);
   line-height: var(--leading-tight);
   color: var(--color-accent);
   text-wrap: balance;}
@@ -506,27 +502,22 @@ label.pill {
   font-size: var(--text-small);
   color: var(--color-ink-inverse-muted);}
 
-/* Button-in-button trailing arrow: content inside .btn, the button itself is untouched */
+/* Trailing arrow inside a button (the circle "orb" is retired: every primary button looks the same) */
 .btn-orb {
   display: inline-grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
-  margin-right: calc(var(--space-3) * -1);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--brown-800) 12%, transparent);
-  transition: transform var(--dur-base) var(--ease-land);}
+  transition: translate var(--dur-hover) var(--ease-land);}
 @media (hover: hover) and (pointer: fine) {
   .btn:hover .btn-orb {
-    transform: translateX(3px);}
+    translate: 5px 0;}
 }
 
 .hero-card {}
 .hero-card-title {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
-  letter-spacing: -0.01em;}
+  letter-spacing: var(--tracking-h3);}
 .hero-card-list {
   display: grid;
   gap: var(--space-5);
@@ -574,18 +565,11 @@ label.pill {
 .hero--light .cable-line circle {
   fill: var(--color-accent-ink);}
 
-/* Hero entrance: the one load choreography on the page, then stillness */
+/* Hero entrance: the headline is painted at load (never masked); only the gold cable draws in,
+   and the supporting lines settle 16px upward while already visible. */
 @media (prefers-reduced-motion: no-preference) {
-  .js .hw {
-    clip-path: inset(-0.2em -0.3em -0.32em -0.3em);}
-  .js .hw > span {
-    animation: word-in var(--dur-enter) var(--ease-land) both;
-    animation-delay: calc(60ms + var(--i, 0) * 70ms);}
   .js .cable-line {
-    animation: cable-draw 650ms var(--ease-land) 760ms both;}
-  /* arriving from another page the visitor has seen the move once: same rise, tighter rhythm */
-  .vt-arrived .hw > span {
-    animation-delay: calc(var(--i, 0) * 45ms);}
+    animation: cable-draw 650ms var(--ease-land) 300ms both;}
   .js .hero-lede,
   .js .hero-actions,
   .js .hero-aside,
@@ -600,10 +584,6 @@ label.pill {
   .js .hero-card {
     animation-delay: 500ms;}
 }
-@keyframes word-in {
-  from {
-    transform: translateY(1.4em) scale(1.04);}
-}
 @keyframes cable-draw {
   from {
     clip-path: inset(-60% 100% -60% -2%);}
@@ -612,9 +592,7 @@ label.pill {
 }
 @keyframes rise {
   from {
-    opacity: 0;
-    transform: translateY(16px);
-    filter: blur(4px);}
+    transform: translateY(16px);}
 }
 
 /* ═══ Brands ═══ */
@@ -631,7 +609,7 @@ label.pill {
   gap: var(--space-3) var(--space-6);
   margin-top: var(--space-4);
   font-family: var(--font-display);
-  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  font-size: var(--type-lead);
   font-weight: 500;}
 .brands-list li {
   display: flex;
@@ -676,14 +654,9 @@ label.pill {
   min-height: 44px;
   padding: var(--space-4) var(--space-2);
   text-decoration: none;
-  border-radius: var(--radius-field);
-  transition:
-    background-color var(--dur-base) var(--ease-out),
-    scale var(--dur-fast) var(--ease-out);}
-.biz-row:active {
-  scale: 0.985;}
+  border-radius: var(--radius-field);}
 .biz-name {
-  font-size: 1.25rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.2;
   letter-spacing: -0.01em;}
@@ -724,7 +697,7 @@ label.pill {
   transition: transform var(--dur-base) var(--ease-out);}
 @media (hover: hover) and (pointer: fine) {
   .biz-row:hover {
-    background: var(--glass-dark);}
+    background: color-mix(in srgb, var(--cream-50) 8%, transparent);}
   .biz-row:hover .biz-arrow {
     transform: translateX(4px);}
 }
@@ -764,13 +737,13 @@ label.pill {
   padding-top: var(--space-5);}
 .step-num {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   color: var(--color-accent);
   font-variant-numeric: tabular-nums;}
 .step-title {
   margin-top: var(--space-2);
-  font-size: 1.25rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.25;}
 .step p {
@@ -796,7 +769,7 @@ label.pill {
 .picker-legend {
   padding: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.1;
   letter-spacing: -0.02em;}
@@ -813,7 +786,7 @@ label.pill {
 .picker-panel {
   min-width: 0;}
 .picker-title {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.25;}
 .picker-title span {
@@ -907,7 +880,7 @@ label.pill {
 .facts dd {
   margin-top: var(--space-1);
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;}
 .owner-areas {
@@ -916,7 +889,7 @@ label.pill {
   color: var(--color-ink-muted);}
 .signature {
   margin-top: var(--space-6);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-style: italic;
   font-weight: 500;}
 .signature span {
@@ -938,7 +911,7 @@ label.pill {
     grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);}
 }
 .review blockquote p {
-  font-size: clamp(1.1875rem, 1.6vw, 1.375rem);
+  font-size: var(--type-lead);
   font-style: italic;
   line-height: 1.5;
   letter-spacing: -0.005em;
@@ -1030,7 +1003,7 @@ label.pill {
   width: 4.5rem;}
 .footer-name {
   margin-top: var(--space-4);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);}
 .footer-brand p:last-child {
   max-width: 22rem;
@@ -1077,7 +1050,10 @@ label.pill {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: end;
   border-radius: var(--radius-card);
-  background: var(--cream-50);}
+  background: var(--glass-light);
+  -webkit-backdrop-filter: var(--glass-light-filter);
+  backdrop-filter: var(--glass-light-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-light-edge), var(--glass-light-shadow);}
 @media (min-width: 768px) {
   .dock {
     display: none;}
@@ -1090,7 +1066,7 @@ label.pill {
   gap: 2px;
   min-height: var(--dock-h);
   padding: var(--space-2) 2px var(--space-2);
-  font-size: 0.8125rem;
+  font-size: var(--type-small);
   font-weight: var(--weight-semibold);
   color: var(--color-ink-muted);
   text-decoration: none;
@@ -1130,17 +1106,13 @@ label.pill {
     background: var(--color-bg);}
 }
 
-/* ═══ Scroll reveal (only hides content when JS runs) ═══
-   Things arrive by moving (opacity only rides along), once, decelerating; siblings 50-80ms apart. */
+/* ═══ Scroll reveal: content is NEVER hidden waiting for an animation (Brand System rule).
+   Things are visible from first paint and only settle 16px upward as they arrive; siblings 50-80ms apart. */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
-    opacity: 0;
     transform: translateY(16px);
-    transition:
-      opacity 250ms var(--ease-out) var(--d, 0ms),
-      transform var(--dur-enter) var(--ease-land) var(--d, 0ms);}
+    transition: transform var(--dur-enter) var(--ease-land) var(--d, 0ms);}
   .js [data-reveal].is-in {
-    opacity: 1;
     transform: none;}
   /* photos unmask instead: the frame opens from a smaller window while the picture settles from 1.06x */
   .js .photo[data-reveal] {
@@ -1153,17 +1125,13 @@ label.pill {
     scale: calc(var(--photo-rest, 1) * 1.06);
     transition: scale 700ms var(--ease-land) var(--d, 0ms);}
   .js .photo[data-reveal] figcaption {
-    opacity: 0;
     transform: translateY(12px);
-    transition:
-      opacity 250ms var(--ease-out) calc(var(--d, 0ms) + 120ms),
-      transform var(--dur-enter) var(--ease-land) calc(var(--d, 0ms) + 120ms);}
+    transition: transform var(--dur-enter) var(--ease-land) calc(var(--d, 0ms) + 120ms);}
   .js .photo[data-reveal].is-in .photo-frame {
     clip-path: inset(0 0 0 0 round var(--radius-card));}
   .js .photo[data-reveal].is-in .photo-frame img {
     scale: var(--photo-rest, 1);}
   .js .photo[data-reveal].is-in figcaption {
-    opacity: 1;
     transform: none;}
   .js .bezel .photo[data-reveal] .photo-frame,
   .js .bezel .photo[data-reveal].is-in .photo-frame {
@@ -1268,7 +1236,7 @@ label.pill {
   padding: 0;
 }
 .facts--big dd {
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  font-size: var(--type-number);
   line-height: 1.05;
   letter-spacing: -0.02em;
 }

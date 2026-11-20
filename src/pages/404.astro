@@ -12,8 +12,8 @@ import { industries } from '../data/industries';
     main="Page not found."
     lede={`The page you wanted has moved or never existed. Head home or book a survey.`}
     actions={[
-      { href: '/', label: 'Back to home', arrow: true },
-      { href: `/quote/?service=${encodeURIComponent('Commercial AV')}`, label: 'Book a free site survey', variant: 'ghost' },
+      { href: `/quote/?service=${encodeURIComponent('Commercial AV')}`, label: 'Book a free site survey', arrow: true },
+      { href: '/', label: 'Back to home', variant: 'ghost' },
     ]}
   >
     <nav class="lost-links" aria-label="Popular pages">
