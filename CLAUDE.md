@@ -166,6 +166,14 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — The six industry pages (/business/*) and six city pages (/areas/*) moved to the calm card
+  layout (Mark approved real mockups). Industry: centred hero + film scene, "What we install" as six check cards,
+  three "Why one company" cards + a dark "What the free survey checks" card, JobSteps, FAQ, ProofRow, then the
+  other five industries as photo cards (`IndustryCards exclude=`). City: centred hero, intro card beside a facts
+  card, the credited local picture (Richmond, Sugar Land only, still captioned "Not a Dapper AV job"), the six
+  industry cards, one home-services card with starting prices and neighbourhoods, JobSteps, nearby cities.
+  Service/FAQPage/Breadcrumb schema unchanged. Deleted `IndustryLedger.astro` and the CSS only the old
+  templates used (ledger, install grid, reasons, area intro/homes, side card, facts--dark, paper-2, photo--wide).
 - **2026-11-20** — /business and /services moved to the same calm card layout (Mark approved real mockups).
   /business: centred hero + office film card, industry photo cards, three care-plan cards + "How support works"
   card, job steps, DocMap, review + facts, closing band. /services: centred light hero + home film card, five
@@ -366,9 +374,9 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-0. **Site upgrade:** brand system, new homepage, /business and /services are live in the calm card layout
-   (2026-11-20). Possible next: the six industry pages and six city pages in the same layout; Mark's real
-   install photos to replace the stock pictures in the industry cards.
+0. **Site upgrade:** brand system and the calm card layout are live on every main page (home, /business,
+   /services, six industry pages, six city pages; 2026-11-20). Not yet in the layout: /quote, 404 and
+   privacy. Next: Mark's real install photos to replace the stock pictures in the industry cards.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.

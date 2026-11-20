@@ -1,16 +1,18 @@
 ---
-/** City pages: business first (ledger of the six business pages), homes second, nearby cities. */
+/** City pages in the calm one-column card layout (2026-11-20): business first, homes second, nearby cities. */
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import IndustryLedger from '../../components/IndustryLedger.astro';
+import IndustryCards from '../../components/IndustryCards.astro';
+import JobSteps from '../../components/JobSteps.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { areas } from '../../data/areas';
 import { site, services, homeServiceLabels } from '../../data/site';
 import courthouse from '../../assets/found/fort-bend-county-courthouse-richmond-texas-dsc.jpg';
 import brazos from '../../assets/found/brazos-river-south-of-sugar-land-texas.jpg';
 import found from '../../assets/found/credits.json';
+import '../../styles/home.css';
 
 export function getStaticPaths() {
   return areas.map((area) => ({ params: { slug: area.slug }, props: { area } }));
@@ -20,6 +22,7 @@ const { area } = Astro.props;
 const residential = services.filter((s) => s.category === 'residential');
 const nearby = areas.filter((a) => a.slug !== area.slug);
 const surveyHref = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
+const homeQuote = `/quote/?service=${encodeURIComponent('TV Mounting & Installation')}`;
 
 // A found (credited) local picture only where it actually shows that city. Never presented as a job.
 const credit = (file: string) => found.find((f) => f.file.endsWith(file))!;
@@ -46,101 +49,90 @@ const serviceSchema = {
   description={`Commercial AV, business networks and cameras for ${area.city}, TX businesses, plus TV mounting and home theater. Free site surveys.`}
   extraSchema={[serviceSchema]}
 >
-  <Hero
-    lead="Commercial AV and IT in"
-    main={`${area.city}, Texas.`}
-    lede={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by a local company. Homes too.`}
-    actions={[
-      { href: surveyHref, label: 'Book a free site survey', arrow: true },
-      { href: '/business/', label: 'See business services', variant: 'ghost' },
-    ]}
-  >
-    <Crumbs slot="crumbs" items={[{ href: '/', label: 'Home' }, { label: `${area.city}, TX` }]} />
-    <aside slot="aside" class="bezel bezel--dark hero-card" aria-labelledby="local-title">
-      <div class="bezel-core">
-        <h2 class="hero-card-title" id="local-title">Local to {area.city}</h2>
-        <dl class="facts facts--dark">
-          <div><dt>Based in</dt><dd>Richmond, TX</dd></div>
-          <div><dt>County</dt><dd>{area.county.replace(' County', '')}</dd></div>
-          <div><dt>Free site survey</dt><dd>30–45 min</dd></div>
-          <div><dt>Reply</dt><dd>1 business day</dd></div>
-        </dl>
-      </div>
-    </aside>
-  </Hero>
+  <div class="home-page">
+    <Hero
+      center={true}
+      lead="Commercial AV and IT in"
+      main={`${area.city}, Texas.`}
+      lede={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by a local company.`}
+      actions={[{ href: surveyHref, label: 'Book a free site survey', arrow: true }]}
+    >
+      <Crumbs slot="crumbs" items={[{ href: '/', label: 'Home' }, { label: `${area.city}, TX` }]} />
+      <p class="hero-aside">Homes too. <a class="text-link" href="#homes">See home services</a>.</p>
+    </Hero>
 
-  <section class="section grooves" aria-labelledby="intro-title">
-    <div class="container area-intro">
-      <div>
-        <h2 class="visually-hidden" id="intro-title">Working in {area.city}</h2>
-        <p class="area-blurb">{area.blurb}</p>
-        <p>Every job starts with a free site survey and ends with an itemized proposal, so you see each line before anything is installed.</p>
-      </div>
-      {
-        picture && (
-          <figure class="photo photo--wide" data-reveal>
-            <div class="photo-frame">
-              <Image src={picture.image} alt={picture.alt} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 38vw, 100vw" />
-            </div>
-            <figcaption>
-              <strong>{picture.caption}</strong>
-              <span class="photo-credit">
-                Not a Dapper AV job: <a href={picture.c.page}>{picture.c.creator}</a>, <a href={picture.c.licenseUrl}>{picture.c.license}</a>.
-              </span>
-            </figcaption>
-          </figure>
-        )
-      }
-    </div>
-  </section>
-
-  <section class="section section--alt" aria-labelledby="biz-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="h2" id="biz-title">For businesses in {area.city}</h2>
-        <p class="lede">Custom-quoted after a free site survey. Installed around your hours, then looked after under a month-to-month care plan if you want one.</p>
-      </div>
-      <IndustryLedger />
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="homes-title">
-    <div class="container area-homes">
-      <div>
-        <h2 class="h2" id="homes-title">Homes in {area.city}, too</h2>
-        <p class="lede">{area.homeBlurb}</p>
-      </div>
-      <div>
-        <div class="group">
-          <p class="label">Neighborhoods we work in</p>
-          <ul class="chips">{area.neighborhoods.map((n) => <li class="pill pill--static">{n}</li>)}</ul>
+    <section class="section" aria-labelledby="intro-title">
+      <div class="container">
+        <div class="home-proof">
+          <div class="home-intro">
+            <h2 class="h3" id="intro-title">Working in {area.city}</h2>
+            <p class="home-intro-lead">{area.blurb}</p>
+            <p>Every job starts with a free site survey and ends with an itemized proposal, so you see each line before anything is installed.</p>
+          </div>
+          <dl class="home-facts">
+            <div><dt>Based in Fort Bend County</dt><dd>Richmond</dd></div>
+            <div><dt>Free site survey</dt><dd>30–45 min</dd></div>
+            <div><dt>Reply</dt><dd>1 business day</dd></div>
+          </dl>
         </div>
-        <div class="group">
-          <p class="label">Home services, with honest starting prices</p>
-          <ul class="chips">
+        {
+          picture && (
+            <figure class="home-photo">
+              <Image src={picture.image} alt={picture.alt} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 52rem, 100vw" />
+              <figcaption>
+                <strong>{picture.caption}</strong>{' '}
+                Not a Dapper AV job: <a class="text-link" href={picture.c.page}>{picture.c.creator}</a>, <a class="text-link" href={picture.c.licenseUrl}>{picture.c.license}</a>.
+              </figcaption>
+            </figure>
+          )
+        }
+      </div>
+    </section>
+
+    <IndustryCards
+      heading={`For businesses in ${area.city}`}
+      lede="Custom-quoted after a free site survey. Installed around your hours, then looked after under a month-to-month care plan if you want one."
+    />
+
+    <section class="section" id="homes" aria-labelledby="homes-title">
+      <div class="container">
+        <div class="home-head">
+          <h2 class="h2" id="homes-title">Homes in {area.city}, too</h2>
+          <p class="lede">{area.homeBlurb}</p>
+        </div>
+        <div class="home-door home-door--home home-door-solo">
+          <h3 class="home-door-title">Home services</h3>
+          <ul class="home-door-list">
             {
               residential.map((s) => (
                 <li>
-                  <a class="pill" href={`/services/#${s.id}`}>
-                    {homeServiceLabels[s.id] ?? s.title}, {s.price?.toLowerCase()}
-                  </a>
+                  <a class="text-link" href={`/services/#${s.id}`}>{homeServiceLabels[s.id] ?? s.title}</a>
+                  <span>{s.price}</span>
                 </li>
               ))
             }
           </ul>
+          <p class="label">Neighborhoods we work in</p>
+          <ul class="chips">{area.neighborhoods.map((n) => <li class="pill pill--static">{n}</li>)}</ul>
+          <div class="home-door-actions">
+            <a class="btn btn--ghost" href={homeQuote}>Get a free quote</a>
+            <a class="text-link" href="/services/">See home services</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section--paper-2 section--tight" aria-labelledby="nearby-title">
-    <div class="container">
-      <h2 class="h3" id="nearby-title">Also nearby</h2>
-      <ul class="chips more-chips">
-        {nearby.map((a) => <li><a class="pill" href={`/areas/${a.slug}/`}>{a.city}, TX</a></li>)}
-      </ul>
-    </div>
-  </section>
+    <JobSteps href={surveyHref} alt={true} />
 
-  <CtaBand title={`Let's look at your ${area.city} space`} href={surveyHref} />
+    <section class="section section--tight" aria-labelledby="nearby-title">
+      <div class="container home-nearby">
+        <h2 class="h3" id="nearby-title">Also nearby</h2>
+        <ul class="chips">
+          {nearby.map((a) => <li><a class="pill" href={`/areas/${a.slug}/`}>{a.city}, TX</a></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <CtaBand title={`Let's look at your ${area.city} space`} href={surveyHref} />
+  </div>
 </Layout>

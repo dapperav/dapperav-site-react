@@ -188,8 +188,7 @@
   background: var(--cream-50);
 }
 /* link cards: the whole card is one link; it lifts, casts a soft shadow, its picture zooms */
-.link-card,
-.ledger-row {
+.link-card {
   transition:
     background-color var(--dur-base) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out),
@@ -197,14 +196,12 @@
     scale var(--dur-fast) var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .link-card:hover,
-  .ledger-row:hover {
+  .link-card:hover {
     translate: 0 -4px;
     box-shadow: var(--shadow-card-hover);
   }
 }
-.link-card:active,
-.ledger-row:active {
+.link-card:active {
   scale: var(--btn-press-scale);
 }
 
@@ -278,8 +275,7 @@
   .btn,
   .pill,
   .btn-arrow,
-  .link-card,
-  .ledger-row {
+  .link-card {
     transition-property: background-color, color, box-shadow;
   }
   .btn:active,
@@ -288,8 +284,6 @@
   .pill:active,
   .link-card:hover,
   .link-card:active,
-  .ledger-row:hover,
-  .ledger-row:active,
   .btn:hover .btn-arrow {
     scale: none;
     translate: none;
