@@ -166,6 +166,7 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — Patina darkened #2a6f69 → #276660: the old value was 4.47:1 on Cream sections (under WCAG AA 4.5:1); now 5.1:1 on Cream, 6.1:1 on Paper. Homepage layout mockups (Options 1 and 2) live on branch `mockup/homepage-options` at /mockup/option-1/ and /mockup/option-2/ (not deployed).
 - **2026-11-20** — Light glass warmed (Mark: nav looked grey): `--glass-light` is now Cream 80% (was Paper
   62%), edge Paper 55%. Affects the nav pill and the phone dock.
 - **2026-11-20** — BRAND SYSTEM SHIPPED (branch `feat/brand-system`; Variant A scope + Mark's follow-up:
