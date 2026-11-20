@@ -35,8 +35,6 @@ select.field {
   color: var(--color-ink-muted);}
 html {
   scrollbar-color: var(--brown-600) var(--cream-100);}
-.on-dark .text-link {
-  color: var(--color-accent);}
 .stack-actions {
   display: flex;
   flex-wrap: wrap;
@@ -47,12 +45,8 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);}
-.on-dark .pill {
-  --pill-bg: color-mix(in srgb, var(--cream-100) 10%, transparent);
-  --pill-bg-hover: color-mix(in srgb, var(--cream-100) 18%, transparent);
-  --pill-fg: var(--color-ink-inverse);}
 .section--paper-2 {
-  background: var(--cream-100);}
+  background: var(--cream-200);}
 .section-head .lede + .stack-actions {
   margin-top: var(--space-5);}
 
@@ -120,13 +114,11 @@ html {
   color: var(--color-ink-inverse);}
 
 /* hero side panels */
-.bezel--light {
-  background: color-mix(in srgb, var(--cream-200) 70%, transparent);}
 .bezel--light .bezel-core {
-  background: var(--cream-50);}
+  background: var(--color-bg-alt);}
 .side-title {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -149,7 +141,7 @@ html {
 .facts--dark dt {
   color: var(--color-ink-inverse-muted);}
 .facts--dark dd {
-  font-size: 1.25rem;}
+  font-size: var(--type-h3);}
 
 /* ── Photos: framed media with honest captions ── */
 .photo-frame {
@@ -176,7 +168,7 @@ html {
 .on-dark .photo figcaption strong {
   color: var(--color-ink-inverse);}
 .photo-credit {
-  font-size: 0.8125rem;
+  font-size: var(--type-small);
   overflow-wrap: anywhere;}
 .photo-credit a {
   color: inherit;}
@@ -234,12 +226,7 @@ html {
   align-items: center;
   padding: var(--space-5) var(--space-2);
   border-radius: var(--radius-field);
-  text-decoration: none;
-  transition:
-    background-color var(--dur-base) var(--ease-out),
-    scale var(--dur-fast) var(--ease-out);}
-.ledger-row:active {
-  scale: 0.985;}
+  text-decoration: none;}
 @media (min-width: 900px) {
   .ledger-row {
     grid-template-columns: 11rem minmax(0, 5fr) minmax(0, 6fr) auto;
@@ -247,7 +234,7 @@ html {
 }
 .ledger-name {
   font-family: var(--font-display);
-  font-size: clamp(1.375rem, 2.4vw, 2rem);
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -344,7 +331,7 @@ html {
   padding-block: var(--space-6);}
 .defs dt {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -383,7 +370,7 @@ html {
   cursor: pointer;
   list-style: none;
   font-family: var(--font-display);
-  font-size: clamp(1.1875rem, 1.6vw, 1.375rem);
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -457,7 +444,7 @@ html {
 
 .plan-name {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.15;
   letter-spacing: -0.015em;}
@@ -466,7 +453,7 @@ html {
 .plan-price {
   margin-top: var(--space-3);
   font-family: var(--font-display);
-  font-size: 2.25rem;
+  font-size: var(--type-number);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.02em;
   color: var(--color-accent);
@@ -525,7 +512,7 @@ html {
   padding-top: var(--space-5);}
 .reasons h3 {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.25;}
 .reasons p {
@@ -538,7 +525,7 @@ html {
   text-align: center;}
 .quote-block blockquote p {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-size: var(--type-lead);
   font-style: italic;
   font-weight: 500;
   line-height: 1.4;
@@ -614,7 +601,7 @@ html {
   gap: var(--space-3);}
 .svc-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -627,8 +614,6 @@ html {
   text-wrap: pretty;}
 .svc-body .chips {
   margin-top: var(--space-4);}
-.svc-body .pill--static {
-  background: var(--cream-100);}
 .svc-body .text-link {
   display: inline-block;
   margin-top: var(--space-5);}
@@ -664,7 +649,7 @@ html {
 }
 .area-blurb {
   font-family: var(--font-display);
-  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  font-size: var(--type-lead);
   font-weight: 500;
   line-height: 1.38;
   letter-spacing: -0.015em;
@@ -689,13 +674,6 @@ html {
   color: var(--color-ink-inverse-muted);}
 .group + .group {
   margin-top: var(--space-6);}
-.chips .pill--static {
-  background: var(--cream-100);}
-.section--alt .chips .pill--static,
-.section--alt .chips a.pill {
-  background: var(--cream-50);}
-.section--alt .chips a.pill:hover {
-  background: var(--cream-300);}
 
 /* ── Quote page ── */
 .quote-page {
@@ -754,7 +732,7 @@ html {
   font-weight: var(--weight-regular);
   color: var(--color-ink-muted);}
 .field:user-invalid {
-  border-color: var(--brown-800);}
+  border-color: var(--color-danger);}
 .form-tip {
   display: flex;
   gap: var(--space-3);
@@ -800,7 +778,7 @@ html {
 }
 .form-state-title {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: var(--type-h2);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.02em;}
 .form-state p + p {
@@ -821,7 +799,7 @@ html {
   object-fit: cover;}
 .aside-owner-name {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);}
 .aside-owner p:last-child {
   font-size: var(--text-small);
@@ -838,7 +816,7 @@ html {
   overflow-wrap: anywhere;}
 .aside-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);}
 .aside-steps {
   counter-reset: s;}
@@ -862,7 +840,7 @@ html {
 /* ── Footer credits ── */
 .footer-credits-wrap {
   margin-top: var(--space-6);
-  font-size: 0.8125rem;
+  font-size: var(--type-small);
   color: var(--color-ink-inverse-muted);}
 .footer-credits-wrap summary {
   display: inline-flex;
@@ -873,7 +851,7 @@ html {
 .footer-credits {
   margin-top: var(--space-2);
   max-width: 60ch;
-  font-size: 0.8125rem;
+  font-size: var(--type-small);
   line-height: 1.6;
   color: var(--color-ink-inverse-muted);}
 .footer-credits a,
@@ -939,7 +917,7 @@ button.dock-item {
   align-items: center;
   gap: var(--space-3);
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);}
 .menu-title img {
   width: 2.25rem;
@@ -974,7 +952,7 @@ button.dock-item {
   justify-content: space-between;
   min-height: 52px;
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;
   text-decoration: none;}
@@ -1033,12 +1011,12 @@ button.dock-item {
     0 8px 28px color-mix(in srgb, var(--brown-800) 14%, transparent);}
 /* inner-page heroes: the headline stays on two lines at desktop width */
 .hero--page .hero-title-lead {
-  font-size: clamp(1.25rem, 2vw, 1.75rem);}
+  font-size: var(--type-lead);}
 .hero--page .hero-title-main {
   max-width: 18em;
-  font-size: clamp(2.25rem, 4.4vw, 4rem);}
+  font-size: var(--type-h1);}
 .installs .lede {
-  font-size: 1.125rem;
+  font-size: var(--type-lead);
   line-height: 1.6;}
 @media (max-width: 1023px) {
   .hero-side .photo--tall .photo-frame {
@@ -1046,7 +1024,7 @@ button.dock-item {
 }
 .svc-price {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   color: var(--color-accent-ink);}
 .quote-title {
@@ -1084,7 +1062,7 @@ button.dock-item {
     var(--inner-light),
     0 8px 28px color-mix(in srgb, var(--brown-800) 16%, transparent);}
 .facts--dark dd {
-  font-size: 1.125rem;}
+  font-size: var(--type-h3);}
 .stars .star-off {
   opacity: 0.25;}
 .svc-body > p,
@@ -1131,7 +1109,7 @@ button.dock-item {
 }
 .support-title {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: var(--type-h3);
   font-weight: var(--weight-semibold);
   color: var(--color-ink-inverse);
 }

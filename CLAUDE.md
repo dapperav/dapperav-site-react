@@ -166,6 +166,21 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — BRAND SYSTEM SHIPPED (branch `feat/brand-system`; Variant A scope + Mark's follow-up:
+  more glass, hover animations, cleaner palette with two accents). `design-system/tokens.css` = palette v2
+  (Ink, Night, Cocoa, Cream, Paper + Gold = booking only, **Patina #2a6f69** = text links/info, **Rust
+  #a8431f** = form errors; old Espresso/Light Cream/Tan/Gold Hover kept only as aliases), eight type roles
+  (`--type-display/h1/h2/h3/number/lead/body/small/label`; old `--text-*` point at them; every hard-coded
+  size in site.css/pages.css now uses a role), glass tokens (dark: Night 55% blur 24; light: Paper 62% blur 20).
+  `components.css`: buttons lift 3px + shadow + arrow slide on hover (mouse only), pills lift + 104% pop on
+  select, link cards (`.biz-row`, `.ledger-row`, `.link-card`) lift 4px + shadow + picture zoom, `.glass-dark`
+  / `.glass-light` with reduce-transparency / contrast fallbacks. Glass now on: nav pill, mobile dock, hero
+  and picker/plan feature cards (the double bezel is retired: one layer per card). Content is never hidden
+  any more: the hero headline is painted at load (only the gold cable draws), scroll reveals only move 16px.
+  CTA labels unified per the Brand System deck (Book a free site survey / Get a free quote / Send request /
+  See …; gold = booking; industry-page booking button now gold; 404 primary is booking; phone menu "Get a
+  quote" → "Contact"). Not done: Variant B/C structure, full-width header bar (the roundel pill stays).
+  Correction to the audit: the 2/4/6px radii are inside the FilmScene drawings, not UI cards.
 - **2026-11-20** — UI/UX audit of the live site + Apple-led upgrade pitch (nothing changed on the site).
   Audit (main @ PR 54 + headless captures): 31 font-size values (6 from tokens); one booking action
   under 5 labels (Book a free site survey / Start with a site survey / Get a free quote / Get a quote /
@@ -335,10 +350,9 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-0. **Site upgrade decision (Mark):** pick variant A, B or C and edit/approve the Brand System deck
-   (links in the 2026-11-20 changelog entry). Then Claude applies the brand system to
-   `design-system/tokens.css` + `components.css` and every page (Variant A's fixes come first in all
-   three), and re-runs the taste-skill gate. Before choosing C, check GA4's phone/desktop split.
+0. **Site upgrade, next step (Mark):** the brand system + Variant A are live (2026-11-20). Decide whether
+   to go on to Variant B (Showroom) or C (Native); check GA4's phone/desktop split before choosing C. The
+   A/B/C pitch decks still show the old palette; the Brand System deck is current.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.

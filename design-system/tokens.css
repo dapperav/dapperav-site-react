@@ -3,25 +3,34 @@
    Three tiers: BRAND (raw values, logo-verified) → SEMANTIC (purpose) → COMPONENT.
    Components and pages may only reference SEMANTIC or COMPONENT tokens, never raw hex.
    Brand colors sampled from src/assets/logo.png on 2026-11-18 (median of each ink).
+   Palette v2 (2026-11-20, Brand System deck): five neutrals + Gold (book) + Patina (info) + Rust (attention).
    ═══════════════════════════════════════════════════════════════════════════ */
 
 :root {
   /* ── 1. BRAND: raw palette ────────────────────────────────────────────── */
-  --brand-brown: #531b0a; /* logo brown (measured) — primary ink, dark fields */
-  --brand-gold: #f1b71c; /* logo gold (measured) — the one accent */
-  --brand-cream: #f2dfbb; /* logo cream lettering (measured) — warm light field */
+  --brand-brown: #531b0a; /* Ink: logo brown (measured) — text on light, dark fields */
+  --brand-gold: #f1b71c; /* Gold: logo gold (measured) — booking only */
+  --brand-cream: #f2dfbb; /* Cream: logo cream lettering (measured) — alt fields, pills, cards */
+  --brand-patina: #2a6f69; /* Patina: IT topics, text links, info (5.4:1 on Paper) */
+  --brand-rust: #a8431f; /* Rust: errors, required marks, alerts (5.5:1 on Paper) */
 
-  --brown-950: #2a0c03; /* deepest roast — footer, overlays */
-  --brown-900: #3b1005; /* deep espresso — alternate dark field */
+  --brown-950: #2a0c03; /* Night — footer, the field behind glass */
   --brown-800: var(--brand-brown);
-  --brown-600: #6b4a33; /* cocoa — secondary text on light (≥6:1) */
-  --gold-500: var(--brand-gold);
-  --gold-400: #f6c94e; /* gold hover (lighter, stays on-brand) */
-  --gold-700: #7a5200; /* gold as TEXT on light grounds (≥5.2:1 on every light field) */
-  --cream-50: #faf5ea; /* paper — default page ground */
-  --cream-100: #f7f0e0; /* light alt ground */
+  --brown-600: #6b4a33; /* Cocoa — secondary text on light (≥6:1) */
+  --cream-50: #faf5ea; /* Paper — page ground, text on dark */
   --cream-200: var(--brand-cream);
-  --cream-300: #e7cfa1; /* hairlines / form borders on light */
+  --gold-500: var(--brand-gold);
+  --gold-700: #7a5200; /* gold as TEXT on light grounds (≥5.2:1) */
+  --patina-500: var(--brand-patina);
+  --patina-300: #8fd0c6; /* Patina on dark (7.9:1 on Ink) */
+  --rust-500: var(--brand-rust);
+  --rust-300: #f0a58a; /* Rust on dark (6.9:1 on Ink) */
+
+  /* Retired in palette v2, kept as aliases so nothing breaks: */
+  --brown-900: var(--brown-950); /* was Deep Espresso */
+  --cream-100: var(--cream-50); /* was Light Cream */
+  --cream-300: color-mix(in srgb, var(--brown-800) 14%, var(--cream-50)); /* was Tan Line: now an Ink hairline */
+  --gold-400: color-mix(in srgb, var(--gold-500) 80%, var(--cream-50)); /* was Gold Hover */
 
   --font-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
   --font-body: 'Inter Variable', 'Inter', 'Segoe UI', system-ui, sans-serif;
@@ -31,30 +40,48 @@
   --color-bg-alt: var(--cream-200);
   --color-bg-dark: var(--brown-800);
   --color-bg-deep: var(--brown-950);
-  --color-ink: var(--brown-800); /* 12.6:1 on paper */
+  --color-ink: var(--brown-800); /* 12.7:1 on Paper */
   --color-ink-muted: var(--brown-600);
-  --color-ink-inverse: var(--cream-100); /* on brown: 12.1:1 */
-  --color-ink-inverse-muted: #e3d0b2;
+  --color-ink-inverse: var(--cream-50); /* on Ink: 12.7:1 */
+  --color-ink-inverse-muted: #e3d0b2; /* a Cream tint for secondary text on dark */
   --color-accent: var(--gold-500);
   --color-accent-hover: var(--gold-400);
   --color-accent-ink: var(--gold-700);
-  --color-on-accent: var(--brown-800); /* text on gold: 7.5:1 */
+  --color-on-accent: var(--brown-800); /* Ink on Gold: 7.6:1 */
+  --color-info: var(--patina-500);
+  --color-info-inverse: var(--patina-300);
+  --color-danger: var(--rust-500);
+  --color-danger-inverse: var(--rust-300);
   --color-border: var(--cream-300);
   --color-focus: var(--brown-800);
   --color-focus-inverse: var(--gold-500);
 
-  /* type scale — fluid, five steps + display */
-  --text-display: clamp(3rem, 9vw, 9rem);
-  --text-h1: clamp(2.5rem, 6vw, 5.5rem);
-  --text-h2: clamp(2rem, 4vw, 3.5rem);
-  --text-lead: clamp(1.25rem, 1.8vw, 1.625rem);
-  --text-body: 1.0625rem;
-  --text-small: 1rem;
+  /* type roles — eight roles, nothing else (Brand System deck, slide "Eight type roles") */
+  --type-display: clamp(3rem, 7vw, 6rem); /* 96 / 48px: the homepage headline only */
+  --type-h1: clamp(2.5rem, 5vw, 4.5rem); /* 72 / 40px: page titles */
+  --type-h2: clamp(2rem, 3.4vw, 3rem); /* 48 / 32px: section headings */
+  --type-h3: clamp(1.375rem, 1.6vw, 1.5rem); /* 24 / 22px: card, plan, step, FAQ titles */
+  --type-number: var(--type-h2); /* facts such as 18 years */
+  --type-lead: clamp(1.1875rem, 1.6vw, 1.375rem); /* 22 / 19px */
+  --type-body: 1.0625rem; /* 17px */
+  --type-small: 0.9375rem; /* 15px: captions, footer, form help */
+  --type-label: 1rem; /* 16px: buttons */
+  --type-label-sm: 0.9375rem; /* 15px: pills, nav, field labels */
+  --tracking-display: -0.035em;
+  --tracking-h1: -0.03em;
+  --tracking-h2: -0.02em;
+  --tracking-h3: -0.01em;
+  --tracking-label: 0.01em;
+  /* older names, now pointing at the roles */
+  --text-display: var(--type-display);
+  --text-h1: var(--type-h1);
+  --text-h2: var(--type-h2);
+  --text-lead: var(--type-lead);
+  --text-body: var(--type-body);
+  --text-small: var(--type-small);
   --leading-tight: 1.02;
   --leading-snug: 1.2;
   --leading-body: 1.6;
-  --tracking-display: -0.03em;
-  --tracking-label: 0.02em;
   --weight-regular: 400;
   --weight-semibold: 600;
 
@@ -73,23 +100,36 @@
   --page-max: 80rem;
   --page-gutter: clamp(1.25rem, 4vw, 2.5rem);
 
-  /* shape — ONE radius per role */
-  --radius-control: 999px; /* every button, pill, chip, input-group */
-  --radius-card: 24px; /* panels, cards, media */
-  --radius-field: 12px; /* text inputs, selects, textareas */
+  /* shape — three radii */
+  --radius-control: 999px; /* every button, pill, chip */
+  --radius-card: 24px; /* cards, panels, photos */
+  --radius-field: 12px; /* fields, thumbnails, anything inside a card */
 
-  /* elevation — tinted to the brand brown, never grey */
+  /* elevation — tinted to the brand brown, never grey; shadows only on hover or floating layers */
   --shadow-1: 0 1px 2px rgb(83 27 10 / 0.08), 0 4px 12px rgb(83 27 10 / 0.08);
   --shadow-2: 0 8px 24px rgb(83 27 10 / 0.14), 0 24px 48px rgb(83 27 10 / 0.12);
+  --shadow-hover: 0 12px 26px rgb(83 27 10 / 0.24);
+  --shadow-card-hover: 0 18px 40px rgb(83 27 10 / 0.18);
+
+  /* glass — one material, two weights (Brand System deck, slide "Glass") */
+  --glass-dark: color-mix(in srgb, var(--brown-950) 55%, transparent);
+  --glass-dark-edge: color-mix(in srgb, var(--cream-50) 14%, transparent);
+  --glass-dark-shine: inset 0 1px 0 color-mix(in srgb, var(--cream-50) 22%, transparent);
+  --glass-dark-filter: blur(24px) saturate(160%);
+  --glass-light: color-mix(in srgb, var(--cream-50) 62%, transparent);
+  --glass-light-edge: color-mix(in srgb, white 60%, transparent);
+  --glass-light-shadow: 0 8px 32px rgb(42 12 3 / 0.14);
+  --glass-light-filter: blur(20px) saturate(180%);
 
   /* motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  /* land decelerates (most travel in the first quarter, long tail); leave accelerates. No overshoot:
-     the site spends zero springs (motionmaxxing R1.4/R1.5). --ease-spring kept as an alias of land. */
+  /* land decelerates (most travel in the first quarter, long tail); leave accelerates. */
   --ease-land: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-leave: cubic-bezier(0.55, 0, 1, 0.45);
   --ease-spring: var(--ease-land);
+  --ease-pop: cubic-bezier(0.34, 1.4, 0.64, 1); /* the one small overshoot: a pill being selected */
   --dur-fast: 150ms;
+  --dur-hover: 200ms;
   --dur-base: 250ms;
   --dur-slow: 600ms;
   --dur-enter: 400ms; /* every entrance */
@@ -100,7 +140,7 @@
   --btn-radius: var(--radius-control);
   --btn-font: var(--font-body);
   --btn-weight: var(--weight-semibold);
-  --btn-font-size: 1rem;
+  --btn-font-size: var(--type-label);
   --btn-h-sm: 44px; /* never below the 44px touch target */
   --btn-h-md: 48px;
   --btn-h-lg: 56px;
@@ -112,30 +152,31 @@
   --btn-primary-bg-hover: var(--color-accent-hover);
   --btn-primary-fg: var(--color-on-accent);
   --btn-secondary-bg: var(--color-bg-dark);
-  --btn-secondary-bg-hover: var(--brown-900);
+  --btn-secondary-bg-hover: color-mix(in srgb, var(--brown-800) 86%, var(--cream-50));
   --btn-secondary-fg: var(--color-ink-inverse);
   --btn-ghost-fg: currentColor;
   --btn-ghost-border: currentColor;
   --btn-border-w: 1.5px;
   --btn-press-scale: 0.97;
+  --btn-lift: -3px;
 
   /* ── 3. COMPONENT: pills (chips, filters, tags) ──────────────────────── */
   --pill-radius: var(--radius-control);
   --pill-h: 44px; /* interactive chips */
   --pill-h-static: 32px; /* non-interactive tags */
   --pill-px: var(--space-4);
-  --pill-font-size: var(--text-small);
+  --pill-font-size: var(--type-label-sm);
   --pill-weight: var(--weight-semibold);
   --pill-bg: var(--color-bg-alt);
   --pill-fg: var(--color-ink);
-  --pill-bg-hover: var(--cream-300);
+  --pill-bg-hover: color-mix(in srgb, var(--brown-800) 8%, var(--cream-200));
   --pill-bg-selected: var(--color-accent);
   --pill-fg-selected: var(--color-on-accent);
 
   /* ── 3. COMPONENT: form fields ───────────────────────────────────────── */
   --field-h: 48px;
   --field-radius: var(--radius-field);
-  --field-bg: #fffcf5;
+  --field-bg: var(--cream-50);
   --field-border: var(--color-border);
   --field-border-focus: var(--color-ink);
 }

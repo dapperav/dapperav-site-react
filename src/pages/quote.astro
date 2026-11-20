@@ -84,7 +84,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
               <p id="qf-hint" class="form-hint hidden" role="alert"></p>
 
               <div class="form-submit">
-                <button type="submit" id="qf-submit" class="btn btn--primary btn--lg">Send my quote request</button>
+                <button type="submit" id="qf-submit" class="btn btn--primary btn--lg">Send request</button>
                 <p>We only use your details to answer this request. No newsletters, no spam.</p>
               </div>
             </form>
@@ -240,7 +240,7 @@ import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../d
       errorBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Send my quote request';
+      submitBtn.textContent = 'Send request';
     }
   });
 </script>
