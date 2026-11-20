@@ -109,10 +109,8 @@ label.pill {
 .h2,
 .h3,
 .hero-title,
-.step-title,
 .picker-title,
-.footer-name,
-.review blockquote {
+.footer-name {
   font-family: var(--font-display);
   font-variation-settings: 'SOFT' 50, 'WONK' 0;
   font-optical-sizing: auto;}
@@ -628,37 +626,7 @@ label.pill {
 }
 
 /* ═══ Process + picker ═══ */
-.steps {
-  display: grid;
-  gap: var(--space-6);
-  counter-reset: step;}
-@media (min-width: 640px) {
-  .steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));}
-}
-@media (min-width: 1024px) {
-  .steps {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-7);}
-}
-.step {
-  position: relative;
-  padding-top: var(--space-5);}
-.step-num {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  color: var(--color-accent);
-  font-variant-numeric: tabular-nums;}
-.step-title {
-  margin-top: var(--space-2);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  line-height: 1.25;}
-.step p {
-  margin-top: var(--space-2);
-  font-size: var(--text-small);
-  color: var(--color-ink-inverse-muted);}
+
 
 .picker {
   display: grid;
@@ -758,15 +726,6 @@ label.pill {
   margin-top: var(--space-6);}
 
 
-
-
-
-
-
-
-
-
-
 .facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -783,47 +742,15 @@ label.pill {
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;}
 /* ═══ Reviews ═══ */
-.reviews {
-  display: grid;
-  gap: var(--space-5);
-  align-items: start;}
-@media (min-width: 1024px) {
-  .reviews {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);}
-}
-.review blockquote p {
-  font-size: var(--type-lead);
-  font-style: italic;
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-  text-wrap: pretty;}
-.review figcaption {
-  margin-top: var(--space-5);
-  font-size: var(--text-small);
-  color: var(--color-ink-muted);}
-.review figcaption strong {
-  color: var(--color-ink);}
+
+
 .stars {
   margin-bottom: var(--space-4);}
 .stars svg {
   width: 6.25rem;
   height: 1.25rem;
   fill: var(--color-accent);}
-.review--lead .stars svg {
-  fill: var(--color-accent);
-  stroke: var(--color-accent-ink);
-  stroke-width: 0.6;}
-.review--dark {
-  padding: clamp(var(--space-5), 3vw, var(--space-7));
-  border-radius: var(--radius-card);}
-@media (min-width: 1024px) {
-  .review--dark {
-    margin-top: var(--space-9);}
-}
-.review--dark figcaption {
-  color: var(--color-ink-inverse-muted);}
-.review--dark figcaption strong {
-  color: var(--color-ink-inverse);}
+
 
 /* ═══ Close ═══ */
 .cta {

@@ -419,62 +419,7 @@ html {
   text-wrap: pretty;}
 
 /* ── Plans / bundles: one panel split three ways, the marked one in words + gold edge ── */
-.plan-panel {
-  margin-top: var(--space-8);}
-.plan-panel > .bezel-core {
-  display: grid;
-  padding: 0;}
-@media (min-width: 900px) {
-  .plan-panel > .bezel-core {
-    grid-template-columns: repeat(3, minmax(0, 1fr));}
-}
-.plan {
-  display: flex;
-  flex-direction: column;
-  padding: clamp(var(--space-5), 3vw, var(--space-7));}
-.plan:first-child {
-  border-top: 0;}
-@media (min-width: 900px) {
-  .plan {
-    border-top: 0;}
-  .plan:first-child {
-    border-left: 0;}
-  
-}
 
-.plan-name {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  line-height: 1.15;
-  letter-spacing: -0.015em;}
-
-
-.plan-price {
-  margin-top: var(--space-3);
-  font-family: var(--font-display);
-  font-size: var(--type-number);
-  font-weight: var(--weight-semibold);
-  letter-spacing: -0.02em;
-  color: var(--color-accent);
-  font-variant-numeric: tabular-nums;}
-.plan .checklist {
-  flex: 1;
-  margin-top: var(--space-5);
-  font-size: var(--text-small);}
-.plan .btn {
-  align-self: flex-start;
-  margin-top: var(--space-6);}
-.plan-foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4) var(--space-6);
-  margin-top: var(--space-7);}
-.plan-foot p {
-  max-width: 36rem;
-  color: var(--color-ink-inverse-muted);}
 
 /* ── Installs on dark ── */
 .installs {
@@ -519,30 +464,7 @@ html {
   color: var(--color-ink-muted);}
 
 /* ── One review, set large ── */
-.quote-block {
-  max-width: 54rem;
-  margin-inline: auto;
-  text-align: center;}
-.quote-block blockquote p {
-  font-family: var(--font-display);
-  font-size: var(--type-lead);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
-  text-wrap: balance;}
-.quote-block figcaption {
-  margin-top: var(--space-5);
-  font-size: var(--text-small);
-  color: var(--color-ink-muted);}
-.quote-block figcaption strong {
-  color: var(--color-ink);}
-.quote-block .stars {
-  display: flex;
-  justify-content: center;}
-.quote-block .text-link {
-  display: inline-block;
-  margin-top: var(--space-4);}
+
 
 /* ── Gear wall ── */
 .gear-grid {
@@ -561,7 +483,6 @@ html {
   .gear-grid > :nth-child(3) {
     grid-column: 2 / span 6;}
 }
-
 
 
 .work-note {
@@ -584,21 +505,8 @@ html {
 }
 
 /* ── Service rows with prices (Homes) ── */
-.svc-list {}
-.svc {
-  display: grid;
-  gap: var(--space-4) var(--space-6);
-  padding: var(--space-5) var(--space-2);
-  scroll-margin-top: 8rem;}
-@media (min-width: 900px) {
-  .svc {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);}
-}
-.svc-head {
-  display: grid;
-  justify-items: start;
-  align-content: start;
-  gap: var(--space-3);}
+
+
 .svc-title {
   font-family: var(--font-display);
   font-size: var(--type-h3);
@@ -606,36 +514,10 @@ html {
   line-height: 1.1;
   letter-spacing: -0.02em;
   text-wrap: balance;}
-.svc-price {
-  font-variant-numeric: tabular-nums;}
-.svc-body > p {
-  max-width: 40rem;
-  color: var(--color-ink-muted);
-  text-wrap: pretty;}
-.svc-body .chips {
-  margin-top: var(--space-4);}
-.svc-body .text-link {
-  display: inline-block;
-  margin-top: var(--space-5);}
-.svc:target {
-  border-radius: var(--radius-field);
-  background: color-mix(in srgb, var(--gold-500) 12%, transparent);}
+
 
 /* ── Callout ── */
-.callout {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-5);
-  padding: clamp(var(--space-5), 3vw, var(--space-7));}
-.callout-copy {
-  flex: 1 1 26rem;
-  min-width: 0;}
-.callout p {
-  max-width: 38rem;
-  margin-top: var(--space-2);
-  color: var(--color-ink-muted);}
+
 
 /* ── Area pages ── */
 .area-intro {
@@ -986,7 +868,6 @@ button.dock-item {
   padding-block: var(--space-8);}
 
 
-
 .photo--inline {
   margin-top: var(--space-7);}
 .lost-links {
@@ -1022,21 +903,11 @@ button.dock-item {
   .hero-side .photo--tall .photo-frame {
     aspect-ratio: 4 / 3;}
 }
-.svc-price {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  color: var(--color-accent-ink);}
+
 .quote-title {
   letter-spacing: -0.02em;
   font-variation-settings: 'SOFT' 50, 'WONK' 0;}
-.svc-features {
-  gap: var(--space-2) var(--space-6);
-  font-size: var(--text-small);}
-@media (min-width: 640px) {
-  .svc-features {
-    grid-template-columns: repeat(2, minmax(0, 1fr));}
-}
+
 
 /* ── break-ui fixes ── */
 /* grid children may shrink below their min-content (long words, selects, 320px phones, 200% text) */
@@ -1065,10 +936,7 @@ button.dock-item {
   font-size: var(--type-h3);}
 .stars .star-off {
   opacity: 0.25;}
-.svc-body > p,
-.callout p,
-.svc-features {
-  max-width: 34rem;}
+
 
 @media (max-width: 1023px) {
   .standard > .photo {
@@ -1093,37 +961,7 @@ button.dock-item {
 }
 
 /* ── care plans: how support works ── */
-.support {
-  display: grid;
-  gap: var(--space-3);
-  margin-top: var(--space-6);
-  padding: var(--space-6);
-  border-radius: var(--radius-card);
-  background: color-mix(in srgb, var(--cream-50) 8%, transparent);
-}
-@media (min-width: 1024px) {
-  .support {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-    align-items: start;
-  }
-}
-.support-title {
-  font-family: var(--font-display);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);
-  color: var(--color-ink-inverse);
-}
-.support-list {
-  display: grid;
-  gap: var(--space-2);
-  color: var(--color-ink-inverse-muted);
-}
-.support-list strong {
-  color: var(--color-ink-inverse);
-}
+
 
 /* plan lists stack from the top, whatever the neighbouring column holds */
-.plan .checklist {
-  align-content: start;
-  grid-auto-rows: max-content;
-}
+
