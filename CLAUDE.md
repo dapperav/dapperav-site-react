@@ -166,6 +166,11 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — Social categories commercial-first. Facebook: "Information Technology Company ·
+  Commercial & Industrial · In-Home Service" (was "In-Home Service" only; FB has no AV-installer category,
+  "Audio Visual Equipment Store" would read as retail). Nextdoor: "IT Services & Computer Repair" first
+  (shows under the page name), then "Home audio and video specialist", "Home theatre installer" (no
+  commercial AV category exists there).
 - **2026-11-20** — New commercial-first cover banner (brand-assets/cover/) live on Facebook and Nextdoor,
   replacing the residential one that listed TV Mounting · Home Theater… and the phone number.
 - **2026-11-20** — Social profiles aligned with the site. Facebook intro (230/255): "Commercial AV and
@@ -321,9 +326,9 @@ https://dapperav.com, same description/tagline.
    COI on request" to /business.
 2. **Real commercial photos (Mark):** 5–10 phone photos of commercial work he likes (racks, TV walls,
    cameras). They replace stock and drawings and fix the "few pictures" gap. Real jobs only.
-3. **Social categories:** GBP, Facebook and Nextdoor text, hours and banners now match the site. Still
-   residential: FB category "In-Home Service" and Nextdoor categories ("Home theatre installer" shows
-   under the name on the cover).
+3. **Listings are aligned:** GBP, Facebook and Nextdoor text, hours, banners and categories match the site
+   (2026-11-20). Left as-is on purpose: the phone number in FB/Nextdoor/GBP contact info, Mark's pinned
+   Nextdoor post.
 4. **Case studies + reviews:** ask 2–3 business clients to be named/quoted; review ask after every
    job via dapperav.com/review. Target ~5 Google reviews → apply for **Google LSA**.
 5. **GSC (Mark):** resubmit `sitemap-index.xml`; URL Inspection → Request indexing on /business/*,
