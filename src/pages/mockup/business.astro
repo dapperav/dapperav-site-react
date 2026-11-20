@@ -1,0 +1,75 @@
+---
+/** MOCKUP, not live: /business in the calm, one-column card layout. */
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import FilmScene from '../../components/FilmScene.astro';
+import IndustryCards from '../../components/IndustryCards.astro';
+import JobSteps from '../../components/JobSteps.astro';
+import DocMap from '../../components/DocMap.astro';
+import ProofRow from '../../components/ProofRow.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { carePlans, support } from '../../data/site';
+import '../../styles/home.css';
+
+const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`;
+---
+
+<Layout title="Mockup: /business, calm cards | Dapper AV" description="Business page layout mockup (not live).">
+  <div class="home-page">
+    <Hero
+      center={true}
+      lead="Managed IT, networks and commercial AV"
+      main="Your IT department."
+      lede="Wi-Fi, cameras, cabling, Microsoft 365 and AV for Fort Bend County restaurants, offices and shops. Installed around your hours, supported when something breaks."
+      actions={[{ href: managedSurvey, label: 'Book a free site survey', arrow: true }]}
+    >
+      <p class="hero-aside">Care plans are month to month. <a class="text-link" href="#care-plans">See care plans</a>.</p>
+      <div class="home-hero-film">
+        <FilmScene kind="office" credit="Managed IT" label="Illustration: an office where the Wi-Fi comes on and the spinner turns into a check" />
+      </div>
+    </Hero>
+
+    <IndustryCards lede="Six kinds of business, each with its own page: what we install there, what moves the price and what owners ask first." />
+
+    <section class="section" id="care-plans" aria-labelledby="plans-title">
+      <div class="container">
+        <div class="home-head">
+          <h2 class="h2" id="plans-title">A care plan built around your site</h2>
+          <p class="lede">After the free survey we put together what your building needs from these three areas, priced in writing, month to month.</p>
+        </div>
+        <div class="home-plans">
+          {
+            carePlans.map((plan) => (
+              <div class="home-plan on-dark">
+                <h3>{plan.name}</h3>
+                <ul class="checklist">
+                  {plan.features.map((f) => (
+                    <li>{f}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+        <div class="home-support">
+          <h3>How support works</h3>
+          <p><strong>{support.channels}</strong></p>
+          <p>Support hours: {support.hours}.</p>
+          <p>{support.emergency}</p>
+        </div>
+        <div class="home-cta-row">
+          <p class="lede">Month to month. No long contract.</p>
+          <a class="btn btn--primary btn--lg" href={managedSurvey}>Book a free site survey</a>
+        </div>
+      </div>
+    </section>
+
+    <JobSteps href={managedSurvey} heading="How a business job goes" alt={true} />
+
+    <DocMap />
+
+    <ProofRow />
+
+    <CtaBand title="Let's look at your building" href={managedSurvey} />
+  </div>
+</Layout>
