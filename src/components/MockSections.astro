@@ -1,0 +1,106 @@
+---
+/** Shared sections for the homepage layout mockups: industries grid, how a job goes, proof. */
+import { Image } from 'astro:assets';
+import reviewsData from '../data/reviews.json';
+import { industries } from '../data/industries';
+import { gear, industryThumb } from '../data/gear';
+
+const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
+const lines: Record<string, string> = {
+  'restaurants-bars': 'TV walls, zoned music and a POS network kept apart from guest Wi-Fi.',
+  'offices-conference-rooms': 'Meeting rooms that start on the first try, and the Microsoft 365 behind them.',
+  'retail-showrooms': 'Flush-mounted displays, background music and cameras you own.',
+  'digital-signage': 'Screens, players and a connection that keeps them on.',
+  'networks-wifi': 'UniFi networks planned like an IT department would: segmented and documented.',
+  'structured-cabling': 'One sub for data, Wi-Fi, cameras, TVs and speakers. Labeled at closeout.',
+};
+const steps = [
+  { title: 'Send the request form', body: 'A few lines about the space. You hear back within one business day.' },
+  { title: 'Free site survey', body: '30–45 minutes on site. We walk the space and note every screen, drop and camera angle.' },
+  { title: 'Itemized proposal', body: 'Equipment options at honest prices, every line priced before anything is installed.' },
+  { title: 'Install, then support', body: 'Before open, after close or on weekends. Afterward the same company looks after it.' },
+];
+const review = (reviewsData.reviews as { author: string; rating: number; text: string }[]).find((r) => r.author.startsWith('Micaela'));
+const mapsUrl = `https://www.google.com/maps/place/?q=place_id:${reviewsData.placeId}`;
+---
+
+<section class="section section--alt" id="industries" aria-labelledby="industries-title">
+  <div class="container">
+    <div class="mk-head">
+      <h2 class="h2" id="industries-title">Who we work with</h2>
+      <p class="lede">Six kinds of business, each with its own page: what we install there and what moves the price.</p>
+    </div>
+    <ul class="mk-grid">
+      {
+        industries.map((i) => (
+          <li>
+            <a class="mk-card link-card" href={`/business/${i.slug}/`}>
+              <div class="mk-card-media">
+                <Image src={gear[industryThumb[i.slug]].image} alt="" widths={[400, 800]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" />
+              </div>
+              <h3>{i.name.replace(/Wi-Fi/g, 'Wi‑Fi')}</h3>
+              <p>{lines[i.slug] ?? i.installs[0]}</p>
+              <span class="mk-card-go">
+                See what we install
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="how" aria-labelledby="how-title">
+  <div class="container">
+    <div class="mk-head">
+      <h2 class="h2" id="how-title">How a job goes</h2>
+      <p class="lede">Scheduled around your hours: before open, after close or on a weekend.</p>
+    </div>
+    <ol class="mk-steps">
+      {
+        steps.map((s, i) => (
+          <li class="mk-step">
+            <span class="mk-step-num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="mk-cta-row">
+      <a class="btn btn--primary btn--lg" href={survey}>Book a free site survey</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="proof" aria-labelledby="proof-title">
+  <div class="container">
+    <div class="mk-head">
+      <h2 class="h2" id="proof-title">AV and IT under one roof</h2>
+      <p class="lede">Founded by Mark Immler. The survey, the install and the support all come from Dapper AV, never a subcontractor.</p>
+    </div>
+    <div class="mk-proof">
+      {
+        review && (
+          <figure class="mk-quote">
+            <span class="mk-stars" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote>
+              <p>{review.text}</p>
+            </blockquote>
+            <figcaption>
+              <strong>{review.author}</strong> · Google review · Business ·{' '}
+              <a class="text-link" href={mapsUrl}>Read every review on Google</a>
+            </figcaption>
+          </figure>
+        )
+      }
+      <dl class="mk-facts">
+        <div><dt>Installing AV</dt><dd>18 years</dd></div>
+        <div><dt>Running managed IT</dt><dd>5 years</dd></div>
+        <div><dt>Based in Fort Bend County</dt><dd>Richmond</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
