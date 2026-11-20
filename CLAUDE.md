@@ -119,10 +119,12 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
 
 - `brand-assets/dapperav-avatar-1024.png` — roundel logo on brand cream, square. Used on FB,
   IG, Nextdoor profile photos.
-- `brand-assets/dapperav-cover-1640.png` — 1640×624 espresso banner (pinstripes, groove arcs,
-  gold-ringed logo, tagline, services, contact line). Used as FB + Nextdoor cover.
-- Regenerate: the banner was rendered from an HTML file styled like the site and captured with
-  headless Chrome (`--headless --screenshot --force-device-scale-factor=2 --window-size=820,312`).
+- `brand-assets/cover/` — commercial-first cover banner (2026-11-20): `dapperav-cover.html` (source) →
+  `node brand-assets/cover/render.mjs` → `dapperav-cover-1640.{png,jpg}` (Facebook) and
+  `dapperav-cover-nextdoor-1640.{png,jpg}` (text sits higher, because Nextdoor lays the page name and
+  Fave button over the bottom-left). Flat brand brown, name + "Commercial AV & managed IT" with the gold
+  cable, services, "Fort Bend County, TX · dapperav.com" (no phone), the film's gold walking installer.
+  Uploaded via the clipboard → injected textarea → DataTransfer method (see memory).
 - Owner photos: `src/assets/mark-portrait.jpg` / `mark-avatar.jpg`
   (sources in `C:\Users\MarkImmler\Pictures\Headshots\Mark Immler\`).
 
@@ -164,6 +166,8 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-20** — New commercial-first cover banner (brand-assets/cover/) live on Facebook and Nextdoor,
+  replacing the residential one that listed TV Mounting · Home Theater… and the phone number.
 - **2026-11-20** — Social profiles aligned with the site. Facebook intro (230/255): "Commercial AV and
   managed IT for Fort Bend County businesses: TV walls and sound, meeting rooms, digital signage, UniFi
   Wi-Fi and networks, cameras and cabling. Free site survey and itemized quote at dapperav.com/quote.
@@ -317,10 +321,9 @@ https://dapperav.com, same description/tagline.
    COI on request" to /business.
 2. **Real commercial photos (Mark):** 5–10 phone photos of commercial work he likes (racks, TV walls,
    cameras). They replace stock and drawings and fix the "few pictures" gap. Real jobs only.
-3. **Social banners and categories:** GBP, Facebook and Nextdoor text and hours now match the site.
-   Still residential: the FB/Nextdoor cover banner (lists TV Mounting · Home Theater… and the phone
-   number; regenerate from brand-assets/dapperav-cover-1640.png's HTML), FB category "In-Home Service",
-   Nextdoor categories.
+3. **Social categories:** GBP, Facebook and Nextdoor text, hours and banners now match the site. Still
+   residential: FB category "In-Home Service" and Nextdoor categories ("Home theatre installer" shows
+   under the name on the cover).
 4. **Case studies + reviews:** ask 2–3 business clients to be named/quoted; review ask after every
    job via dapperav.com/review. Target ~5 Google reviews → apply for **Google LSA**.
 5. **GSC (Mark):** resubmit `sitemap-index.xml`; URL Inspection → Request indexing on /business/*,
