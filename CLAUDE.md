@@ -166,6 +166,17 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-21** — Fun pass 2 (Mark approved mockups). (1) `TvPlanner.astro` on /services: place (living room,
+  above a fireplace, bedroom, outdoor patio, media room), distance + wall sliders, TV size (suggest or 43–98"),
+  wall, mount, wires/soundbar; drawn to ONE scale (22 ft frame) so a wider wall grows the wall, not shrinks the
+  TV; "Get a quote for this" fills the quote form via the new `?details=` param (quote.astro sets the message
+  textarea as plain text). Shows only "starts at $150". (2) `.page-cable` in Layout: gold scroll-progress cable
+  on the left edge (≥1100px, scroll-timeline browsers only). (3) `AreaMap.astro`: schematic Fort Bend + Katy map
+  (Brazos, I-69, I-10) on the homepage and on every city page (replaces "Also nearby" pills); straight-line miles
+  from Richmond computed from coordinates (not drive times). (4) `MusicZones.astro` on restaurants-bars (no
+  sound). (5) `ClosetHotspots.astro` on structured-cabling: dots on a STOCK patch-panel photo, captioned not a
+  Dapper AV job — re-place the dots when Mark's own rack photo replaces it. (6) Footer logo x5 clicks → cable
+  label "Labeled at closeout · DAV".
 - **2026-11-21** — UniFi-style interactive pass (Mark liked ui.com; borrowed interaction patterns only, never
   Ubiquiti's photos, renders or app screenshots) + ALL silhouette film scenes removed (Mark: "kinda ruin the
   vibe"). (1) `HeroTabs.astro` in the homepage hero: six industry pills swap the industry's photo (gear.ts
@@ -416,7 +427,8 @@ https://dapperav.com, same description/tagline.
 0. **Site upgrade:** brand system, the calm card layout and the glass pass are live on every page, and the
    footer is rebuilt (2026-11-21). Nextdoor hours still say M–F 8–6: change to 9–5 at business.nextdoor.com
    (Mark's login; Claude can drive the browser once he's signed in). Next: Mark's real install photos to replace the stock pictures in the industry cards, and a real
-   before/after of ONE job to replace the two found photos in CableSlider (then it may say before/after).
+   before/after of ONE job to replace the two found photos in CableSlider (then it may say before/after), and a
+   photo of his own rack for ClosetHotspots (move the dots onto it).
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.

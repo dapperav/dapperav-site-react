@@ -7,6 +7,7 @@ import Crumbs from '../../components/Crumbs.astro';
 import IndustryCards from '../../components/IndustryCards.astro';
 import JobSteps from '../../components/JobSteps.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import AreaMap from '../../components/AreaMap.astro';
 import { areas } from '../../data/areas';
 import { site, services, homeServiceLabels } from '../../data/site';
 import courthouse from '../../assets/found/fort-bend-county-courthouse-richmond-texas-dsc.jpg';
@@ -20,7 +21,6 @@ export function getStaticPaths() {
 
 const { area } = Astro.props;
 const residential = services.filter((s) => s.category === 'residential');
-const nearby = areas.filter((a) => a.slug !== area.slug);
 const surveyHref = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
 const homeQuote = `/quote/?service=${encodeURIComponent('TV Mounting & Installation')}`;
 
@@ -125,14 +125,7 @@ const serviceSchema = {
 
     <JobSteps href={surveyHref} alt={true} />
 
-    <section class="section section--tight" aria-labelledby="nearby-title">
-      <div class="container home-nearby">
-        <h2 class="h3" id="nearby-title">Also nearby</h2>
-        <ul class="chips">
-          {nearby.map((a) => <li><a class="pill" href={`/areas/${a.slug}/`}>{a.city}, TX</a></li>)}
-        </ul>
-      </div>
-    </section>
+    <AreaMap current={area.slug} heading="Also nearby" />
 
     <CtaBand title={`Let's look at your ${area.city} space`} href={surveyHref} />
   </div>

@@ -14,10 +14,11 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="footer on-dark">
+  <span class="footer-egg" aria-hidden="true">Labeled at closeout · DAV</span>
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <Image src={logo} alt="" width={144} loading="lazy" />
+        <Image src={logo} alt="" width={144} loading="lazy" data-egg />
         <div>
           <p class="footer-name">{site.name}</p>
           <p class="footer-tag">Commercial AV and managed IT for Fort Bend County businesses. Homes too.</p>
@@ -83,3 +84,20 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<script>
+  // five quick clicks on the footer logo: the cable along the footer wiggles and shows its label
+  const logo = document.querySelector<HTMLElement>('[data-egg]');
+  const footer = document.querySelector<HTMLElement>('.footer');
+  let hits: number[] = [];
+  logo?.addEventListener('click', () => {
+    const now = Date.now();
+    hits = [...hits.filter((t) => now - t < 2000), now];
+    if (hits.length < 5 || !footer) return;
+    hits = [];
+    footer.classList.remove('egg');
+    void footer.offsetWidth;
+    footer.classList.add('egg');
+    setTimeout(() => footer.classList.remove('egg'), 4000);
+  });
+</script>

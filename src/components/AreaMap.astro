@@ -1,0 +1,93 @@
+---
+/**
+ * Where we work: a drawn (schematic, not to survey scale) map of Fort Bend County and Katy, with the Brazos,
+ * I-69 and I-10 for bearings. Hover or tap a city to light the route from Richmond and see its straight-line
+ * distance; each city links to its page. `current` marks the city page you're on.
+ */
+import { areas } from '../data/areas';
+interface Props { current?: string; heading?: string }
+const { current, heading = 'Where we work' } = Astro.props;
+
+// positions from each city's latitude/longitude; miles are straight-line from Richmond, rounded
+const pos: Record<string, { x: number; y: number; miles: number }> = {
+  richmond: { x: 255, y: 314, miles: 0 },
+  rosenberg: { x: 196, y: 344, miles: 3 },
+  fulshear: { x: 82, y: 183, miles: 11 },
+  katy: { x: 177, y: 72, miles: 15 },
+  'sugar-land': { x: 412, y: 269, miles: 8 },
+  stafford: { x: 509, y: 274, miles: 12 },
+};
+const home = pos.richmond;
+const route = (p: { x: number; y: number }) => {
+  const mx = (home.x + p.x) / 2;
+  const my = Math.min(home.y, p.y) - 40;
+  return `M${home.x} ${home.y} Q${mx} ${my} ${p.x} ${p.y}`;
+};
+---
+
+<section class="section" id="where-we-work" aria-labelledby="map-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="map-title">{heading}</h2>
+      <p class="lede">Based in Richmond. Tap a city to see how close it is and what we do there.</p>
+    </div>
+    <div class="amap" data-amap>
+      <div class="amap-stage">
+        <svg class="amap-svg" viewBox="0 0 600 420" aria-hidden="true">
+          <path class="amap-county" d="M30 120 L150 40 L330 60 L590 150 L585 330 L470 405 L250 410 L90 360 L25 250 Z" />
+          <path class="amap-river" d="M40 200 C120 250 170 300 225 332 S300 362 360 342 S450 382 565 405" />
+          <path class="amap-road" d="M140 365 L196 344 L255 314 L412 269 L509 274 L595 245" />
+          <path class="amap-road" d="M10 76 L300 68 L595 58" />
+          <text class="amap-note" x="455" y="372">Brazos River</text>
+          <text class="amap-note" x="545" y="240">I-69</text>
+          <text class="amap-note" x="560" y="52">I-10</text>
+          {
+            areas
+              .filter((a) => a.slug !== 'richmond')
+              .map((a) => <path class="amap-route" data-route={a.slug} d={route(pos[a.slug])} pathLength="100" />)
+          }
+        </svg>
+        {
+          areas.map((a) => {
+            const p = pos[a.slug];
+            return (
+              <a
+                class:list={['amap-city', { 'is-home': a.slug === 'richmond', 'is-current': a.slug === current }]}
+                href={`/areas/${a.slug}/`}
+                data-city={a.slug}
+                data-line={a.slug === 'richmond' ? 'Home base. Most jobs are a short drive from here.' : `About ${p.miles} miles from Richmond, as the crow flies.`}
+                style={`--x:${(p.x / 600) * 100}%;--y:${(p.y / 420) * 100}%`}
+                aria-current={a.slug === current ? 'page' : undefined}
+              >
+                <span class="amap-dot" aria-hidden="true" />
+                <span class="amap-name">{a.city}</span>
+              </a>
+            );
+          })
+        }
+      </div>
+      <p class="amap-caption" aria-live="polite"><strong>Richmond.</strong> Home base. Most jobs are a short drive from here.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-amap]').forEach((root) => {
+    const caption = root.querySelector<HTMLElement>('.amap-caption')!;
+    const show = (a: HTMLAnchorElement) => {
+      const slug = a.dataset.city!;
+      root.querySelectorAll('.amap-route').forEach((r) => r.classList.toggle('is-on', r.getAttribute('data-route') === slug));
+      root.querySelectorAll('.amap-city').forEach((c) => c.classList.toggle('is-hot', c === a));
+      caption.innerHTML = '';
+      const b = document.createElement('strong');
+      b.textContent = `${a.querySelector('.amap-name')!.textContent}. `;
+      caption.append(b, a.dataset.line!);
+    };
+    root.querySelectorAll<HTMLAnchorElement>('.amap-city').forEach((a) => {
+      a.addEventListener('mouseenter', () => show(a));
+      a.addEventListener('focus', () => show(a));
+    });
+    const cur = root.querySelector<HTMLAnchorElement>('.amap-city.is-current');
+    if (cur) show(cur);
+  });
+</script>

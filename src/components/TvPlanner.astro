@@ -1,0 +1,194 @@
+---
+/**
+ * Plan your TV. Pick where it's going (living room, above a fireplace, bedroom, outdoor patio, media room),
+ * how far you sit, how wide the wall is, the TV size (or let us suggest one), the wall, the mount and extras.
+ * The drawing is to ONE scale (the frame is 22 ft x 12.4 ft of room): a wider wall grows the wall, never shrinks
+ * the TV. "Get a quote for this" carries every answer into the quote form (?details=). Only the published
+ * starting price is shown; nothing here is a total.
+ */
+import { services } from '../data/site';
+const tv = services.find((s) => s.id === 'tv-mounting')!;
+const places = [
+  { id: 'living', label: 'Living room' },
+  { id: 'fireplace', label: 'Above a fireplace' },
+  { id: 'bedroom', label: 'Bedroom' },
+  { id: 'patio', label: 'Outdoor patio' },
+  { id: 'media', label: 'Media room' },
+];
+const sizes = ['Suggest one', '43"', '50"', '55"', '65"', '75"', '85"', '98"'];
+const walls = ['Drywall', 'Brick', 'Stone', 'Tile', 'Siding', 'Not sure'];
+const mounts = ['Fixed', 'Tilting', 'Full-motion'];
+---
+
+<section class="section" id="tv-planner" aria-labelledby="tvp-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="tvp-title">Plan your TV</h2>
+      <p class="lede">Tell us where it's going and we'll draw it to scale, then send your answers with the quote request.</p>
+    </div>
+    <div class="tvp" data-tvp>
+      <div class="tvp-stage" data-place="living" data-wall="drywall" aria-hidden="true">
+        <div class="tvp-sky"></div>
+        <div class="tvp-wallrect"></div>
+        <div class="tvp-dim"><span></span></div>
+        <div class="tvp-eave"></div>
+        <div class="tvp-floor"></div>
+        <div class="tvp-furn tvp-console"></div>
+        <div class="tvp-furn tvp-fire"><span class="tvp-mantel"></span><span class="tvp-firebox"></span></div>
+        <div class="tvp-furn tvp-dresser"></div>
+        <div class="tvp-furn tvp-planter"></div>
+        <div class="tvp-furn tvp-sconce tvp-sconce--l"></div>
+        <div class="tvp-furn tvp-sconce tvp-sconce--r"></div>
+        <div class="tvp-wire"></div>
+        <div class="tvp-outlet"></div>
+        <div class="tvp-tv"><span class="tvp-size"></span></div>
+        <div class="tvp-bar"></div>
+      </div>
+
+      <div class="tvp-controls">
+        <div class="tvp-group">
+          <span class="tvp-label">Where's it going?</span>
+          <div class="tvp-pills" role="group" aria-label="Where the TV is going">
+            {places.map((p, n) => <button class="pill" type="button" data-pick="place" data-value={p.id} aria-pressed={n === 0 ? 'true' : 'false'}>{p.label}</button>)}
+          </div>
+        </div>
+        <label class="tvp-group">
+          <span class="tvp-label">You sit about <strong data-out="dist">10 ft</strong> away</span>
+          <input type="range" min="5" max="20" step="1" value="10" data-in="dist" />
+        </label>
+        <label class="tvp-group">
+          <span class="tvp-label">The wall is about <strong data-out="wall">12 ft</strong> wide</span>
+          <input type="range" min="4" max="20" step="1" value="12" data-in="wall" />
+        </label>
+        <div class="tvp-group">
+          <span class="tvp-label">TV size</span>
+          <div class="tvp-pills" role="group" aria-label="TV size">
+            {sizes.map((s, n) => <button class="pill pill--sm" type="button" data-pick="size" data-value={n === 0 ? 'auto' : s.replace('"', '')} aria-pressed={n === 0 ? 'true' : 'false'}>{s}</button>)}
+          </div>
+        </div>
+        <div class="tvp-group">
+          <span class="tvp-label">Wall</span>
+          <div class="tvp-pills" role="group" aria-label="Wall type">
+            {walls.map((w, n) => <button class="pill pill--sm" type="button" data-pick="wall" data-value={w} aria-pressed={n === 0 ? 'true' : 'false'}>{w}</button>)}
+          </div>
+        </div>
+        <div class="tvp-group">
+          <span class="tvp-label">Mount</span>
+          <div class="tvp-pills" role="group" aria-label="Mount type">
+            {mounts.map((m, n) => <button class="pill pill--sm" type="button" data-pick="mount" data-value={m} aria-pressed={n === 0 ? 'true' : 'false'}>{m}</button>)}
+          </div>
+        </div>
+        <div class="tvp-pills" role="group" aria-label="Extras">
+          <button class="pill pill--sm" type="button" data-toggle="wires" aria-pressed="true">Hide the wires</button>
+          <button class="pill pill--sm" type="button" data-toggle="bar" aria-pressed="false">Add a soundbar</button>
+        </div>
+        <p class="tvp-result" aria-live="polite"></p>
+        <p class="tvp-note"></p>
+        <p class="tvp-price">TV mounting starts at {tv.price.replace('From ', '')}. Brick, stone, fireplaces, outdoor mounts and in-wall wiring add to that, itemized before we start.</p>
+        <a class="btn btn--primary" href="/quote/" data-quote>Get a quote for this</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const SIZES = [43, 50, 55, 65, 75, 85, 98];
+  const TW = 0.8716, TH = 0.4903; // 16:9 width / height per inch of diagonal
+  const FRAME_W = 22, FRAME_H = 12.375, FLOOR = 1; // the drawing shows 22 ft x 12.4 ft of room; floor strip 1 ft
+  const WALL_H = 9;
+
+  // where the TV's centre sits (ft off the floor), the default wall and mount, and one honest line per place
+  const PLACE: Record<string, { center: number; wall: string; mount: string; name: string; note: string }> = {
+    living: { center: 3.6, wall: 'Drywall', mount: 'Fixed', name: 'living room', note: 'Mounted with the center of the screen near eye level when you sit down.' },
+    fireplace: { center: 6.4, wall: 'Stone', mount: 'Tilting', name: 'above a fireplace', note: 'Above a fireplace the TV sits higher, so a tilting or pull-down mount brings it closer to eye level. We check heat and what is behind the stone before drilling.' },
+    bedroom: { center: 4.9, wall: 'Drywall', mount: 'Tilting', name: 'bedroom', note: 'Usually a little higher, tilted down toward the bed.' },
+    patio: { center: 4.6, wall: 'Siding', mount: 'Full-motion', name: 'outdoor patio', note: 'Outdoors needs an outdoor-rated TV and a weather-rated mount, with power and signal run safely.' },
+    media: { center: 3.6, wall: 'Drywall', mount: 'Fixed', name: 'media room', note: 'Big screen, dark walls and the sound wired in. Ask us about a full home theater.' },
+  };
+
+  // largest common size no bigger than ~0.6 x the distance (the ~30° rule) that fits in 80% of the wall
+  function suggest(distFt: number, wallFt: number) {
+    const ok = SIZES.filter((s) => s <= Math.min(distFt * 12 * 0.6, (wallFt * 12 * 0.8) / TW));
+    return ok.length ? ok[ok.length - 1] : null;
+  }
+  console.assert(suggest(10, 12) === 65 && suggest(8, 12) === 55 && suggest(10, 3) === null, 'tv planner sizing');
+
+  document.querySelectorAll<HTMLElement>('[data-tvp]').forEach((root) => {
+    const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const stage = $('.tvp-stage');
+    const dist = $<HTMLInputElement>('[data-in="dist"]');
+    const wall = $<HTMLInputElement>('[data-in="wall"]');
+    const state = { place: 'living', size: 'auto', wall: 'Drywall', mount: 'Fixed', wires: true, bar: false };
+    const pct = (ft: number, of: number) => `${(ft / of) * 100}%`;
+
+    const press = (group: string, value: string) =>
+      root.querySelectorAll<HTMLButtonElement>(`[data-pick="${group}"]`).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value === value)));
+
+    function update() {
+      const d = Number(dist.value), w = Number(wall.value);
+      $('[data-out="dist"]').textContent = `${d} ft`;
+      $('[data-out="wall"]').textContent = `${w} ft`;
+      const sug = suggest(d, w);
+      const size = state.size === 'auto' ? sug ?? 43 : Number(state.size);
+      const tvW = (size * TW) / 12, tvH = (size * TH) / 12; // feet
+      const place = PLACE[state.place];
+
+      stage.dataset.place = state.place;
+      stage.dataset.wall = state.wall.toLowerCase().replace(' ', '-');
+      stage.classList.toggle('wires-hidden', state.wires);
+      stage.classList.toggle('has-bar', state.bar);
+      const s = stage.style;
+      s.setProperty('--wall-w', pct(w, FRAME_W));
+      s.setProperty('--wall-h', pct(WALL_H, FRAME_H));
+      s.setProperty('--floor', pct(FLOOR, FRAME_H));
+      s.setProperty('--tv-w', pct(tvW, FRAME_W));
+      s.setProperty('--tv-h', pct(tvH, FRAME_H));
+      s.setProperty('--tv-bottom', pct(FLOOR + place.center - tvH / 2, FRAME_H));
+      s.setProperty('--tv-top-ft', String(FLOOR + place.center + tvH / 2));
+      s.setProperty('--ft-x', pct(1, FRAME_W));
+      s.setProperty('--ft-y', pct(1, FRAME_H));
+      $('.tvp-size').textContent = `${size}"`;
+      $('.tvp-dim span').textContent = `${w} ft wall`;
+
+      const tooWide = tvW > w * 0.95;
+      const bigForSeat = size > d * 12 * 0.75;
+      let msg: string;
+      if (tooWide) msg = `<strong>A ${size}" TV is wider than that wall.</strong> Tell us the space and we'll suggest options.`;
+      else if (state.size === 'auto' && sug === null) msg = `<strong>That wall is tight</strong> for a TV at ${d} ft. Tell us the space and we'll suggest options.`;
+      else if (state.size === 'auto') msg = `<strong>About a ${size}" TV</strong>, roughly ${tvW.toFixed(1)} ft wide, suits ${d} ft away on a ${w} ft wall.`;
+      else msg = `<strong>A ${size}" TV</strong> is about ${tvW.toFixed(1)} ft wide${bigForSeat ? `, big for ${d} ft away (we'd suggest about ${sug ?? 43}")` : `, comfortable at ${d} ft`}.`;
+      $('.tvp-result').innerHTML = msg;
+      $('.tvp-note').textContent = place.note;
+
+      const details = `TV planner: ${place.name}, ${state.size === 'auto' ? `about a ${size}"` : `a ${size}"`} TV, sitting about ${d} ft away, ${w} ft wall, ${state.wall.toLowerCase()} wall, ${state.mount.toLowerCase()} mount${state.wires ? ', wires hidden in the wall' : ''}${state.bar ? ', plus a soundbar' : ''}.`;
+      $<HTMLAnchorElement>('[data-quote]').href = `/quote/?service=${encodeURIComponent('TV Mounting & Installation')}&details=${encodeURIComponent(details)}`;
+    }
+
+    root.querySelectorAll<HTMLButtonElement>('[data-pick]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const g = b.dataset.pick as 'place' | 'size' | 'wall' | 'mount';
+        state[g] = b.dataset.value!;
+        press(g, state[g]);
+        // a new place brings its usual wall and mount; both stay changeable
+        if (g === 'place') {
+          state.wall = PLACE[state.place].wall;
+          state.mount = PLACE[state.place].mount;
+          press('wall', state.wall);
+          press('mount', state.mount);
+        }
+        update();
+      }),
+    );
+    root.querySelectorAll<HTMLButtonElement>('[data-toggle]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const k = b.dataset.toggle as 'wires' | 'bar';
+        state[k] = !state[k];
+        b.setAttribute('aria-pressed', String(state[k]));
+        update();
+      }),
+    );
+    dist.addEventListener('input', update);
+    wall.addEventListener('input', update);
+    update();
+  });
+</script>

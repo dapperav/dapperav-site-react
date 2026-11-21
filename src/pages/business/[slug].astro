@@ -10,6 +10,8 @@ import ProofRow from '../../components/ProofRow.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import CableSlider from '../../components/CableSlider.astro';
 import WifiToy from '../../components/WifiToy.astro';
+import MusicZones from '../../components/MusicZones.astro';
+import ClosetHotspots from '../../components/ClosetHotspots.astro';
 import { industries } from '../../data/industries';
 import { site } from '../../data/site';
 import { areas } from '../../data/areas';
@@ -115,6 +117,8 @@ const check = 'M4 12.5l5 5L20 6.5';
     </section>
 
     {industry.slug === 'structured-cabling' && <CableSlider />}
+    {industry.slug === 'structured-cabling' && <ClosetHotspots />}
+    {industry.slug === 'restaurants-bars' && <MusicZones />}
     {industry.slug === 'networks-wifi' && <WifiToy />}
 
     <section class="section" aria-labelledby="why-title">
