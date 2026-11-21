@@ -1,0 +1,60 @@
+---
+/**
+ * Tap-to-explain: gold dots on a cabling photo, each opening one line about what makes a closet tidy.
+ * The photo is STOCK (Unsplash), captioned as not a Dapper AV job. Swap in Mark's own rack photo when he has
+ * one, and re-place the dots on what is actually in it.
+ */
+import { Image } from 'astro:assets';
+import photo from '../assets/stock/patch-panel.jpg';
+
+// positions are percentages of the photo, placed on what is really in this picture
+const spots = [
+  { x: 49, y: 15, title: 'Every run labeled', body: 'Numbered at both ends, so anyone can trace a cable without pulling it.' },
+  { x: 56, y: 20, title: 'Bundled and strapped', body: 'Runs grouped and strapped together, never left hanging loose.' },
+  { x: 47, y: 35, title: 'Horizontal managers', body: 'Each row of cables rests on a bar instead of hanging over the ports below.' },
+  { x: 92, y: 62, title: 'Vertical manager', body: 'Cables drop down a channel at the side, not across the front of the rack.' },
+  { x: 37, y: 63, title: 'Connections in order', body: 'Each connection seated port by port, matching the documentation.' },
+];
+---
+
+<section class="section" aria-labelledby="spots-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="spots-title">What makes a closet tidy</h2>
+      <p class="lede">Tap a gold dot.</p>
+    </div>
+    <figure class="spots" data-spots>
+      <div class="spots-frame">
+        <Image src={photo} alt="Close-up of a patch panel: numbered labels, yellow cables strapped in bundles, horizontal cable managers and a vertical manager on the right" widths={[700, 1100, 1600]} sizes="(min-width: 900px) 56rem, 100vw" />
+        {
+          spots.map((s, n) => (
+            <div class="spot" style={`--x:${s.x}%;--y:${s.y}%`}>
+              <button class="spot-dot" type="button" aria-expanded="false" aria-controls={`spot-${n}`} style={`--n:${n}`}>
+                <span class="visually-hidden">{s.title}</span>
+              </button>
+              <div class="spot-card" id={`spot-${n}`} role="note" hidden>
+                <strong>{s.title}</strong>
+                <p>{s.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <figcaption>Stock photo of a patch panel, not a Dapper AV job. It shows the standard we work to.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-spots]').forEach((root) => {
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('.spot-dot')];
+    const open = (d: HTMLButtonElement | null) =>
+      dots.forEach((x) => {
+        const on = x === d && x.getAttribute('aria-expanded') !== 'true';
+        x.setAttribute('aria-expanded', String(on));
+        document.getElementById(x.getAttribute('aria-controls')!)!.hidden = !on;
+      });
+    dots.forEach((d) => d.addEventListener('click', () => open(d)));
+    root.addEventListener('keydown', (e) => e.key === 'Escape' && open(null));
+  });
+</script>

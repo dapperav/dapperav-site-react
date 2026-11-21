@@ -1,0 +1,73 @@
+---
+/**
+ * Zoned music toy (no sound): a sample restaurant floor plan with four zones. Tap a zone to turn its music on
+ * or off and set each zone's level; level bars dance in the zones that are playing (still under reduced motion).
+ */
+const zones = [
+  { id: 'bar', name: 'Bar', on: true, v: 7, x: 4, y: 6, w: 38, h: 50 },
+  { id: 'dining', name: 'Dining room', on: true, v: 4, x: 44, y: 6, w: 52, h: 50 },
+  { id: 'patio', name: 'Patio', on: true, v: 8, x: 44, y: 60, w: 52, h: 34 },
+  { id: 'restrooms', name: 'Restrooms', on: false, v: 3, x: 4, y: 60, w: 38, h: 34 },
+];
+---
+
+<section class="section" aria-labelledby="zones-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="zones-title">Music by zone</h2>
+      <p class="lede">Loud at the bar, low in the dining room, off in the restrooms. Tap a zone, then set its level. (No sound plays here.)</p>
+    </div>
+    <div class="mz" data-mz>
+      <div class="mz-plan">
+        {
+          zones.map((z) => (
+            <button
+              class:list={['mz-zone', { 'mz-zone--out': z.id === 'patio' }]}
+              type="button"
+              data-zone={z.id}
+              aria-pressed={z.on ? 'true' : 'false'}
+              style={`--x:${z.x}%;--y:${z.y}%;--w:${z.w}%;--h:${z.h}%;--v:${z.v}`}
+            >
+              <span class="mz-name">{z.name}</span>
+              <span class="mz-bars" aria-hidden="true">
+                {[0, 1, 2, 3, 4].map((i) => <i style={`--i:${i}`} />)}
+              </span>
+              <span class="mz-state" />
+            </button>
+          ))
+        }
+      </div>
+      <div class="mz-levels">
+        {
+          zones.map((z) => (
+            <label class="mz-level">
+              <span>{z.name}</span>
+              <input type="range" min="1" max="10" value={z.v} data-level={z.id} aria-label={`${z.name} level`} />
+            </label>
+          ))
+        }
+      </div>
+      <p class="mz-read" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-mz]').forEach((root) => {
+    const zones = [...root.querySelectorAll<HTMLButtonElement>('[data-zone]')];
+    const read = root.querySelector<HTMLElement>('.mz-read')!;
+    const update = () => {
+      zones.forEach((z) => (z.querySelector('.mz-state')!.textContent = z.getAttribute('aria-pressed') === 'true' ? 'On' : 'Off'));
+      const on = zones.filter((z) => z.getAttribute('aria-pressed') === 'true').length;
+      read.textContent = `Music is on in ${on} of ${zones.length} zones, each at its own level, from one controller behind the bar.`;
+    };
+    zones.forEach((z) => z.addEventListener('click', () => {
+      z.setAttribute('aria-pressed', String(z.getAttribute('aria-pressed') !== 'true'));
+      update();
+    }));
+    root.querySelectorAll<HTMLInputElement>('[data-level]').forEach((r) =>
+      r.addEventListener('input', () => root.querySelector<HTMLElement>(`[data-zone="${r.dataset.level}"]`)!.style.setProperty('--v', r.value)),
+    );
+    update();
+  });
+</script>

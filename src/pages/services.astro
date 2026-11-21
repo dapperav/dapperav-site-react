@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import TvPlanner from '../components/TvPlanner.astro';
 import { services, faqs, homeServiceLabels } from '../data/site';
 import '../styles/home.css';
 
@@ -81,6 +82,8 @@ const packages = [
         </div>
       </div>
     </section>
+
+    <TvPlanner />
 
     <section class="section" id="bundles" aria-labelledby="bundles-title">
       <div class="container">

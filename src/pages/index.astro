@@ -9,6 +9,7 @@ import CtaBand from '../components/CtaBand.astro';
 import HomeSections from '../components/HomeSections.astro';
 import HeroTabs from '../components/HeroTabs.astro';
 import RackMap from '../components/RackMap.astro';
+import AreaMap from '../components/AreaMap.astro';
 import { services } from '../data/site';
 import '../styles/home.css';
 
@@ -74,6 +75,7 @@ const shortName: Record<string, string> = { 'tv-mounting': 'TV mounting', 'home-
     <RackMap />
 
     <HomeSections />
+    <AreaMap />
     <CtaBand href={survey} />
   </div>
 </Layout>

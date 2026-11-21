@@ -173,6 +173,8 @@ import OpenNow from '../components/OpenNow.astro';
     const match = opts.find((o) => o.value === preselect) ?? opts.find((o) => p.includes(o.value.toLowerCase().split(' ')[0]));
     select.value = match ? match.value : 'Other';
   }
+  const details = new URLSearchParams(location.search).get('details');
+  if (details && !form.elements.message.value) form.elements.message.value = details.slice(0, 500);
 
   // Business visitors get business wording instead of the homeowner TV-mount tips.
   const homePlaceholder = form.elements.message.placeholder;
