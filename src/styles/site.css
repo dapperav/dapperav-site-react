@@ -757,65 +757,118 @@ label.pill {
   gap: var(--space-3);
   margin-top: var(--space-7);}
 
-/* ═══ Footer ═══ */
+/* ═══ Footer (2026-11-21): brand + reach, four link columns, one legal line ═══ */
 .footer {
   background: var(--color-bg-deep);
   padding-block: var(--space-8) var(--space-5);
-  font-size: var(--text-small);}
-.footer-grid {
+  font-size: var(--text-small);
+  color: var(--color-ink-inverse-muted);}
+.footer a,
+.footer summary {
+  color: var(--color-ink-inverse);
+  text-decoration: none;
+  overflow-wrap: anywhere;}
+@media (hover: hover) and (pointer: fine) {
+  .footer a:hover,
+  .footer summary:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;}
+}
+.footer-top {
+  display: grid;
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--hairline-dark);}
+@media (min-width: 768px) {
+  .footer-top {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;}
+  .footer-reach {
+    text-align: right;}
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);}
+.footer-brand img {
+  flex: none;
+  width: 3.5rem;}
+.footer-name {
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+  line-height: 1.1;
+  color: var(--color-ink-inverse);}
+.footer-tag {
+  max-width: 28rem;
+  margin-top: var(--space-1);}
+.footer-mail {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--type-lead);
+  font-weight: var(--weight-semibold);}
+.footer-cols {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6) var(--space-5);}
-/* phones: brand and contact full width, the two link lists side by side */
-.footer-grid > :nth-child(-n + 2) {
+  gap: var(--space-6) var(--space-5);
+  padding-block: var(--space-6);}
+/* phones: the long business list gets the full width so its links never wrap */
+.footer-cols > :first-child {
   grid-column: 1 / -1;}
 @media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1.6fr 1.2fr 1fr 1fr;}
-  .footer-grid > :nth-child(-n + 2) {
+  .footer-cols {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;}
+  .footer-cols > :first-child {
     grid-column: auto;}
 }
-.footer-brand img {
-  width: 4.5rem;}
-.footer-name {
-  margin-top: var(--space-4);
-  font-size: var(--type-h3);
-  font-weight: var(--weight-semibold);}
-.footer-brand p:last-child {
-  max-width: 22rem;
-  margin-top: var(--space-2);
-  color: var(--color-ink-inverse-muted);}
 .footer-head {
   font-size: var(--text-small);
   font-weight: var(--weight-semibold);
   color: var(--color-accent);}
 .footer-list {
-  display: grid;
-  gap: var(--space-2);
-  margin-top: var(--space-4);
-  color: var(--color-ink-inverse-muted);}
+  margin-top: var(--space-2);}
+/* 44px rows for thumbs; a mouse gets a tighter 2rem list */
 .footer-list a,
-.footer-social a {
-  color: var(--color-ink-inverse);
-  text-decoration: none;
-  overflow-wrap: anywhere;}
-.footer-list span {
-  color: var(--color-ink-inverse-muted);}
-.footer-social {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
-  margin-top: var(--space-5);}
+.footer-legal > a,
+.footer-credits-wrap summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;}
 @media (hover: hover) and (pointer: fine) {
-  .footer-list a:hover,
-  .footer-social a:hover {
-    text-decoration: underline;
-    text-underline-offset: 0.25em;}
+  .footer-list a {
+    min-height: 2rem;}
 }
 .footer-legal {
-  margin-top: var(--space-6);
-  padding-top: var(--space-5);
-  color: var(--color-ink-inverse-muted);}
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline-dark);}
+.footer-legal > p {
+  flex: 1 1 100%;
+  padding-block: var(--space-2);}
+@media (min-width: 768px) {
+  .footer-legal > p {
+    flex: 1 1 auto;}
+}
+.footer-credits-wrap summary {
+  cursor: pointer;
+  list-style: none;}
+.footer-credits-wrap summary::-webkit-details-marker {
+  display: none;}
+.footer-credits-wrap[open] {
+  order: 10;
+  flex-basis: 100%;}
+.footer-credits {
+  max-width: 60ch;
+  margin-bottom: var(--space-3);
+  line-height: 1.6;}
+@media (min-width: 768px) {
+  .footer {
+    padding-bottom: calc(var(--space-6) + 4.5rem); /* clear the parked survey button */
+  }
+}
 
 /* ═══ Mobile dock ═══ */
 .dock {
@@ -984,13 +1037,6 @@ label.pill {
 }
 
 /* ═══ Tap targets (audit 2026-11-19) ═══ */
-.footer-list a,
-.footer-social a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;}
-.footer-list {
-  gap: 0;}
 @media (max-width: 767px) {
   .text-link {
     display: inline-block;
