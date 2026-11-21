@@ -1,0 +1,131 @@
+---
+/**
+ * 404 toy: "Patch yourself back in." Drag the loose cable into a port; the port's link light comes on
+ * and you go there. Every port is a real link, so a click, a tap or the keyboard works too.
+ */
+const ports = [
+  { href: '/', label: 'Home' },
+  { href: '/business/', label: 'For business' },
+  { href: '/services/', label: 'For homes' },
+];
+---
+
+<section class="section" aria-labelledby="patch-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="patch-title">Patch yourself back in</h2>
+      <p class="lede">Drag the loose cable into a port. Or just tap one.</p>
+    </div>
+    <div class="patch" data-patch>
+      <svg class="patch-wire" aria-hidden="true"><path /></svg>
+      <span class="patch-anchor" aria-hidden="true"></span>
+      <span class="patch-plug" aria-hidden="true" data-plug></span>
+      <ul class="patch-ports">
+        {
+          ports.map((p) => (
+            <li>
+              <a class="patch-port" href={p.href} data-port>
+                <span class="patch-jack" aria-hidden="true"><span class="patch-light" /></span>
+                <span class="patch-label">{p.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-patch]');
+  if (box) {
+    const plug = box.querySelector<HTMLElement>('[data-plug]')!;
+    const path = box.querySelector<SVGPathElement>('.patch-wire path')!;
+    const anchor = box.querySelector<HTMLElement>('.patch-anchor')!;
+    const ports = [...box.querySelectorAll<HTMLAnchorElement>('[data-port]')];
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let home = { x: 0, y: 0 };
+    let pos = { x: 0, y: 0 };
+    let drag: { dx: number; dy: number } | null = null;
+
+    const rel = (el: Element) => {
+      const b = box.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return { x: r.left - b.left + r.width / 2, y: r.top - b.top + r.height / 2 };
+    };
+    // the wire sags like a real cable: more slack the closer the plug is to the anchor
+    function draw() {
+      const a = rel(anchor);
+      const dist = Math.hypot(pos.x - a.x, pos.y - a.y);
+      const sag = Math.max(30, 140 - dist * 0.25);
+      const mx = (a.x + pos.x) / 2;
+      const my = Math.max(a.y, pos.y) + sag;
+      path.setAttribute('d', `M${a.x} ${a.y} Q${mx} ${my} ${pos.x} ${pos.y}`);
+      plug.style.translate = `${pos.x}px ${pos.y}px`;
+    }
+    function reset() {
+      const a = rel(anchor);
+      home = { x: a.x + Math.min(box.clientWidth * 0.28, 220), y: a.y + 40 };
+      pos = { ...home };
+      draw();
+    }
+    function springHome() {
+      if (still) return reset();
+      const from = { ...pos };
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const k = Math.min(1, (t - t0) / 450);
+        const e = 1 - Math.pow(1 - k, 3);
+        pos = { x: from.x + (home.x - from.x) * e, y: from.y + (home.y - from.y) * e };
+        draw();
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    function nearest() {
+      let best: { el: HTMLAnchorElement; d: number } | null = null;
+      for (const el of ports) {
+        const j = rel(el.querySelector('.patch-jack')!);
+        const d = Math.hypot(j.x - pos.x, j.y - pos.y);
+        if (!best || d < best.d) best = { el, d };
+      }
+      return best && best.d < 56 ? best.el : null;
+    }
+
+    plug.addEventListener('pointerdown', (e) => {
+      plug.setPointerCapture(e.pointerId);
+      const b = box.getBoundingClientRect();
+      drag = { dx: e.clientX - b.left - pos.x, dy: e.clientY - b.top - pos.y };
+      box.classList.add('is-dragging');
+    });
+    plug.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const b = box.getBoundingClientRect();
+      pos = {
+        x: Math.min(Math.max(e.clientX - b.left - drag.dx, 12), b.width - 12),
+        y: Math.min(Math.max(e.clientY - b.top - drag.dy, 12), b.height - 12),
+      };
+      ports.forEach((p) => p.classList.toggle('is-near', p === nearest()));
+      draw();
+    });
+    const drop = () => {
+      if (!drag) return;
+      drag = null;
+      box.classList.remove('is-dragging');
+      const hit = nearest();
+      ports.forEach((p) => p.classList.remove('is-near'));
+      if (!hit) return springHome();
+      const j = rel(hit.querySelector('.patch-jack')!);
+      pos = j;
+      draw();
+      hit.classList.add('is-linked');
+      setTimeout(() => (location.href = hit.href), still ? 0 : 650);
+    };
+    plug.addEventListener('pointerup', drop);
+    plug.addEventListener('pointercancel', drop);
+    // show the wire before measuring it: hidden elements measure as zero
+    box.classList.add('is-ready');
+    addEventListener('resize', reset);
+    reset();
+  }
+</script>

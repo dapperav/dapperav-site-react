@@ -14,7 +14,6 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const current = (href: string) =>
   (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, ''))) ? 'page' : undefined;
 const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
-const arrow = 'M5 12h14M13 6l6 6-6 6';
 ---
 
 <header class="site-nav at-top" id="site-nav">
@@ -82,7 +81,6 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
           <li>
             <a href={href} aria-current={href === '/quote/' ? (path === '/quote' ? 'page' : undefined) : current(href)}>
               {label}
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d={arrow} /></svg>
             </a>
           </li>
         ))

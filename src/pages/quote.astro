@@ -6,6 +6,7 @@
 import Layout from '../layouts/Layout.astro';
 import { site, serviceAreas, quoteFormOptions, WEB3FORMS_ACCESS_KEY } from '../data/site';
 import '../styles/home.css';
+import OpenNow from '../components/OpenNow.astro';
 ---
 
 <Layout
@@ -125,6 +126,7 @@ import '../styles/home.css';
             <ul class="aside-list">
               <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
               <li>{site.hours}</li>
+              <li><OpenNow /></li>
             </ul>
           </div>
           <div class="aside-block">

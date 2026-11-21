@@ -166,6 +166,20 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-21** — No arrows, depth, curves and six fun pieces (Mark approved each mockup).
+  ARROWS: removed everywhere (hero buttons, industry-card glass chip and "See what we install" arrow, phone
+  menu rows). DEPTH: tokens `--depth-light/-light-sm/-dark/-dark-sheen/-button` in tokens.css; every card rests
+  on a warm shadow, dark cards get a top sheen, the gold button sits on a glow, dark heroes get an overhead light.
+  CURVES (end of site.css): the dark hero hangs down as a bowl with gold piping; cream bands rise at the top and
+  hang at the bottom (paper bands stay flat); the CtaBand and footer rise as domes (footer has gold piping).
+  FUN: (1) the hero's gold cable draws in from the centre on load + a cream cable label from Hero's new `tag`
+  prop; footer cable glows on scroll-in. (2) `OpenNow.astro` office-hours light (footer + quote aside): green
+  Mon–Fri 9–5 Central, amber otherwise; ignores holidays. (3) `PatchPanel.astro` on 404: drag the cable into a
+  port to navigate (ports are plain links too). (4) JobSteps is now a server rack; link lights come on as each
+  unit scrolls in. (5) `CableSlider.astro` on /business/structured-cabling/: messy closet vs dressed rack, two
+  credited found photos of different places, captioned "Not Dapper AV jobs" — never call them before/after.
+  (6) `WifiToy.astro` on /business/networks-wifi/: drag access points over a sample floor plan, labeled as an
+  illustration. All motion is off under prefers-reduced-motion.
 - **2026-11-21** — Privacy page in the calm card layout (centred page hero, dark "short version" checklist, one
   Cream card with a row per topic; policy text unchanged) and a rebuilt footer: brand + email/hours on top, four
   labelled columns (For business, For homes, Where we work, Follow), one legal line (© · Privacy · Photo credits ·
@@ -390,7 +404,8 @@ https://dapperav.com, same description/tagline.
 
 0. **Site upgrade:** brand system, the calm card layout and the glass pass are live on every page, and the
    footer is rebuilt (2026-11-21). Nextdoor hours still say M–F 8–6: change to 9–5 at business.nextdoor.com
-   (Mark's login; Claude can drive the browser once he's signed in). Next: Mark's real install photos to replace the stock pictures in the industry cards.
+   (Mark's login; Claude can drive the browser once he's signed in). Next: Mark's real install photos to replace the stock pictures in the industry cards, and a real
+   before/after of ONE job to replace the two found photos in CableSlider (then it may say before/after).
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.

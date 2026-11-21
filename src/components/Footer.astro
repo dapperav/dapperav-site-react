@@ -6,6 +6,7 @@ import { site } from '../data/site';
 import { areas } from '../data/areas';
 import { industries } from '../data/industries';
 import found from '../assets/found/credits.json';
+import OpenNow from './OpenNow.astro';
 
 type Credit = { title: string; creator?: string | null; license: string; licenseUrl?: string | null; page: string; via?: string | null };
 const pictures = found as Credit[];
@@ -25,6 +26,7 @@ const year = new Date().getFullYear();
       <div class="footer-reach">
         <a class="footer-mail" href={`mailto:${site.email}`}>{site.email}</a>
         <p>Mon–Fri 9am–5pm Central. Evenings and weekends by appointment.</p>
+        <OpenNow />
       </div>
     </div>
 

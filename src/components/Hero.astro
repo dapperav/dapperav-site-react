@@ -8,7 +8,6 @@ interface Action {
   href: string;
   label: string;
   variant?: 'primary' | 'secondary' | 'ghost';
-  arrow?: boolean;
 }
 interface Props {
   tone?: 'dark' | 'light';
@@ -20,8 +19,10 @@ interface Props {
   lede?: string;
   actions?: Action[];
   id?: string;
+  /** a cable label on the gold hem (dark heroes only), e.g. the page's name */
+  tag?: string;
 }
-const { tone = 'dark', alt = false, page = true, center = false, lead, main, lede, actions = [], id = 'top' } = Astro.props;
+const { tone = 'dark', alt = false, page = true, center = false, lead, main, lede, actions = [], id = 'top', tag } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 const dark = tone === 'dark';
 // Words are wrapped so the headline can rise word by word behind a mask (whole words, never letters).
@@ -77,11 +78,6 @@ const cableAt = mainWords.findIndex((w) => /^cable/i.test(w));
             {actions.map((a) => (
               <a class={`btn btn--${a.variant ?? 'primary'} btn--lg`} href={a.href}>
                 {a.label}
-                {a.arrow && (
-                  <span class="btn-orb" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                  </span>
-                )}
               </a>
             ))}
           </div>
@@ -91,4 +87,5 @@ const cableAt = mainWords.findIndex((w) => /^cable/i.test(w));
     </div>
     {hasAside && <div class="hero-side"><slot name="aside" /></div>}
   </div>
+  {tag && dark && <span class="hero-tag" aria-hidden="true">{tag}</span>}
 </section>

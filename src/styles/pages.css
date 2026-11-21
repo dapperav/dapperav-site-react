@@ -187,39 +187,6 @@ html {
 .standard-list strong {
   font-weight: var(--weight-semibold);}
 
-/* ── Ledger: destinations at poster scale ── */
-
-.ledger-arrow {
-  grid-column: 3;
-  grid-row: 1 / span 2;
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
-  background: var(--color-bg-alt);
-  color: var(--color-ink);
-  transition:
-    transform var(--dur-base) var(--ease-land),
-    background-color var(--dur-base) var(--ease-out);}
-@media (min-width: 900px) {
-  .ledger-arrow {
-    grid-column: 4;
-    grid-row: 1;}
-}
-.ledger-arrow svg,
-.menu-links svg {
-  width: 1.125rem;
-  height: 1.125rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.75;
-  stroke-linecap: round;
-  stroke-linejoin: round;}
-
-.section--alt .ledger-arrow {
-  background: var(--cream-50);}
-
 /* ── Definition lists (capabilities) ── */
 .defs {
   display: grid;
@@ -706,15 +673,6 @@ button.dock-item {
 .stars .star-off {
   opacity: 0.25;}
 
-@media (max-width: 899px) {
-  /* phones: photo, name and arrow on one line; the description runs full width under them */
-  
-  
-  .ledger-arrow {
-    grid-row: 1;
-  }
-  
-}
 
 /* ── care plans: how support works ── */
 

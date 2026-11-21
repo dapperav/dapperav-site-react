@@ -29,14 +29,10 @@ const lines: Record<string, string> = {
             <a class="home-card link-card" href={`/business/${i.slug}/`}>
               <div class="home-card-media">
                 <Image src={gear[industryThumb[i.slug]].image} alt="" widths={[400, 800]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" />
-                <span class="home-card-chip" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span>
               </div>
               <h3>{i.name.replace(/Wi-Fi/g, 'Wi‑Fi')}</h3>
               <p>{lines[i.slug] ?? i.installs[0]}</p>
-              <span class="home-card-go">
-                See what we install
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </span>
+              <span class="home-card-go">See what we install</span>
             </a>
           </li>
         ))

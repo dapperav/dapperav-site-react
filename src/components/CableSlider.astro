@@ -1,0 +1,47 @@
+---
+/**
+ * Drag to compare: a messy cable closet and a dressed, labeled rack. Both are credited found photos of
+ * two different places (NOT Dapper AV jobs) and the caption says so. Swap in Mark's own before/after
+ * of one real job when he has it, and only then call them "before" and "after".
+ */
+import { Image } from 'astro:assets';
+import closet from '../assets/found/cable-closet.jpg';
+import rack from '../assets/found/rear-of-rack-at-nersc-data-center.jpg';
+import found from '../assets/found/credits.json';
+
+type Credit = { file: string; title: string; creator?: string | null; license: string; licenseUrl?: string | null; page: string };
+const credit = (name: string) => (found as Credit[]).find((c) => c.file.endsWith(name))!;
+const c1 = credit('cable-closet.jpg');
+const c2 = credit('rear-of-rack-at-nersc-data-center.jpg');
+---
+
+<section class="section" aria-labelledby="tidy-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="tidy-title">What we find, what we leave</h2>
+      <p class="lede">Drag the handle. Every cable dressed, every run labeled at closeout.</p>
+    </div>
+    <figure class="tidy">
+      <div class="tidy-frame" data-tidy style="--pos: 50%">
+        <Image class="tidy-img" src={rack} alt="Rear of a server rack with neatly dressed, bundled cables" widths={[600, 1000, 1400]} sizes="(min-width: 900px) 52rem, 100vw" />
+        <Image class="tidy-img tidy-before" src={closet} alt="A cable closet with tangled, unlabeled cables" widths={[600, 1000]} sizes="(min-width: 900px) 52rem, 100vw" />
+        <span class="tidy-tag tidy-tag--left" aria-hidden="true">What we find</span>
+        <span class="tidy-tag tidy-tag--right" aria-hidden="true">What we leave</span>
+        <span class="tidy-handle" aria-hidden="true"></span>
+        <input class="tidy-range" type="range" min="0" max="100" value="50" aria-label="Slide between the messy closet and the tidy rack" />
+      </div>
+      <figcaption>
+        Two different places, side by side. Not Dapper AV jobs:
+        <a class="text-link" href={c1.page}>{c1.title}</a> by {c1.creator}, <a class="text-link" href={c1.licenseUrl}>{c1.license}</a>;
+        <a class="text-link" href={c2.page}>rear of a data-center rack</a> by {c2.creator}, <a class="text-link" href={c2.licenseUrl}>{c2.license}</a>.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tidy]').forEach((frame) => {
+    const range = frame.querySelector<HTMLInputElement>('.tidy-range')!;
+    range.addEventListener('input', () => frame.style.setProperty('--pos', `${range.value}%`));
+  });
+</script>
