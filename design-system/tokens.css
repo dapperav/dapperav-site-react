@@ -110,6 +110,13 @@
   --shadow-2: 0 8px 24px rgb(83 27 10 / 0.14), 0 24px 48px rgb(83 27 10 / 0.12);
   --shadow-hover: 0 12px 26px rgb(83 27 10 / 0.24);
   --shadow-card-hover: 0 18px 40px rgb(83 27 10 / 0.18);
+  /* depth (2026-11-21): resting elevation, lit from above. Light cards float on the page; dark cards
+     catch a sheen on their top edge; the gold button sits on its own glow. */
+  --depth-light: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 1px 2px rgb(83 27 10 / 0.06), 0 12px 28px -12px rgb(83 27 10 / 0.22);
+  --depth-light-sm: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 1px 2px rgb(83 27 10 / 0.06), 0 6px 14px -6px rgb(83 27 10 / 0.16);
+  --depth-dark: inset 0 1px 0 rgb(255 255 255 / 0.09), 0 2px 4px rgb(42 12 3 / 0.14), 0 28px 56px -20px rgb(42 12 3 / 0.55);
+  --depth-dark-sheen: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0) 45%);
+  --depth-button: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 1px 2px rgb(83 27 10 / 0.18), 0 8px 18px -6px rgb(241 183 28 / 0.5);
 
   /* glass — one material, two weights (Brand System deck, slide "Glass") */
   --glass-dark: color-mix(in srgb, var(--brown-950) 55%, transparent);

@@ -1,0 +1,156 @@
+---
+/**
+ * Wi-Fi toy: drag an access point around a sample floor plan and watch coverage change; walls cost signal.
+ * A deliberately simple model (distance + a flat loss per wall), labeled as an illustration, not a survey.
+ */
+---
+
+<section class="section" aria-labelledby="wifi-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="wifi-title">Where one access point reaches</h2>
+      <p class="lede">Drag the access point around this sample floor plan. Every wall costs signal. Add a second one and watch the dead corners fill in.</p>
+    </div>
+    <figure class="wifi" data-wifi>
+      <div class="wifi-stage">
+        <canvas class="wifi-canvas" aria-hidden="true"></canvas>
+        <button class="wifi-ap" type="button" data-ap="0" aria-label="Access point 1. Use the arrow keys to move it."></button>
+        <button class="wifi-ap" type="button" data-ap="1" hidden aria-label="Access point 2. Use the arrow keys to move it."></button>
+      </div>
+      <div class="wifi-bar">
+        <ul class="wifi-legend" aria-hidden="true">
+          <li><i class="s"></i>Strong</li>
+          <li><i class="u"></i>Usable</li>
+          <li><i class="w"></i>Weak</li>
+        </ul>
+        <p class="wifi-read" aria-live="polite"></p>
+        <button class="btn btn--ghost btn--sm" type="button" data-add>Add a second access point</button>
+      </div>
+      <figcaption>An illustration with a simple model. Real coverage depends on the building and what's in it, so the free site survey measures yours.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  type P = { x: number; y: number };
+  const W = 100, H = 60, CELL = 1;
+  // interior walls of a sample restaurant, in plan units (100 x 60); gaps are doorways
+  const walls: [number, number, number, number][] = [
+    [68, 0, 68, 26], [68, 26, 84, 26], [92, 26, 100, 26],
+    [20, 40, 20, 60], [0, 40, 12, 40],
+    [40, 44, 40, 60], [40, 44, 52, 44], [58, 44, 64, 44], [64, 44, 64, 60],
+  ];
+  const rooms: [string, number, number][] = [['Kitchen', 84, 12], ['Restrooms', 10, 51], ['Office', 52, 53], ['Dining room', 46, 34], ['Patio door', 88, 55]];
+  const STRONG = -58, USABLE = -67;
+
+  const cross = (a: P, b: P, c: P, d: P) => {
+    const o = (p: P, q: P, r: P) => Math.sign((q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x));
+    return o(a, b, c) !== o(a, b, d) && o(c, d, a) !== o(c, d, b);
+  };
+  const signal = (ap: P, c: P) => {
+    let s = -30 - 20 * Math.log10(Math.hypot(ap.x - c.x, ap.y - c.y) + 1);
+    for (const [x1, y1, x2, y2] of walls) if (cross(ap, c, { x: x1, y: y1 }, { x: x2, y: y2 })) s -= 7;
+    return s;
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-wifi]').forEach((root) => {
+    const canvas = root.querySelector<HTMLCanvasElement>('canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-ap]')];
+    const read = root.querySelector<HTMLElement>('.wifi-read')!;
+    const add = root.querySelector<HTMLButtonElement>('[data-add]')!;
+    const aps: P[] = [{ x: 30, y: 20 }, { x: 84, y: 46 }];
+    let count = 1;
+    const css = getComputedStyle(root);
+    const col = { wall: css.getPropertyValue('--brown-800') || '#531b0a' };
+    // patina = strong, gold = usable, rust = weak (RGBA); drawn small then scaled up smooth, like a survey heatmap
+    const tint = { s: [39, 102, 96, 150], u: [241, 183, 28, 130], w: [168, 67, 31, 105] };
+    const off = document.createElement('canvas');
+    off.width = W / CELL;
+    off.height = H / CELL;
+    const octx = off.getContext('2d')!;
+    const img = octx.createImageData(off.width, off.height);
+
+    function render() {
+      const r = canvas.getBoundingClientRect();
+      const dpr = devicePixelRatio || 1;
+      canvas.width = Math.round(r.width * dpr);
+      canvas.height = Math.round(r.height * dpr);
+      const k = (r.width / W) * dpr;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let strong = 0, total = 0;
+      for (let y = 0; y < H; y += CELL)
+        for (let x = 0; x < W; x += CELL) {
+          const c = { x: x + CELL / 2, y: y + CELL / 2 };
+          let best = -Infinity;
+          for (let i = 0; i < count; i++) best = Math.max(best, signal(aps[i], c));
+          total++;
+          if (best >= STRONG) strong++;
+          const t = best >= STRONG ? tint.s : best >= USABLE ? tint.u : tint.w;
+          img.data.set(t, ((y / CELL) * off.width + x / CELL) * 4);
+        }
+      octx.putImageData(img, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = col.wall;
+      ctx.lineCap = 'round';
+      ctx.lineWidth = 3 * dpr;
+      for (const [x1, y1, x2, y2] of walls) {
+        ctx.beginPath();
+        ctx.moveTo(x1 * k, y1 * k);
+        ctx.lineTo(x2 * k, y2 * k);
+        ctx.stroke();
+      }
+      ctx.fillStyle = col.wall;
+      ctx.font = `600 ${Math.max(10, r.width / 60) * dpr}px Inter, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      for (const [t, x, y] of rooms) ctx.fillText(t, x * k, y * k);
+      btns.forEach((b, i) => {
+        b.hidden = i >= count;
+        b.style.left = `${(aps[i].x / W) * 100}%`;
+        b.style.top = `${(aps[i].y / H) * 100}%`;
+      });
+      read.textContent = `${Math.round((strong / total) * 100)}% of this floor has a strong signal.`;
+    }
+
+    btns.forEach((b, i) => {
+      b.addEventListener('pointerdown', (e) => {
+        b.setPointerCapture(e.pointerId);
+        b.classList.add('is-dragging');
+      });
+      b.addEventListener('pointermove', (e) => {
+        if (!b.hasPointerCapture(e.pointerId)) return;
+        const r = canvas.getBoundingClientRect();
+        aps[i] = {
+          x: Math.min(Math.max(((e.clientX - r.left) / r.width) * W, 2), W - 2),
+          y: Math.min(Math.max(((e.clientY - r.top) / r.height) * H, 2), H - 2),
+        };
+        render();
+      });
+      const up = () => b.classList.remove('is-dragging');
+      b.addEventListener('pointerup', up);
+      b.addEventListener('pointercancel', up);
+      b.addEventListener('keydown', (e) => {
+        const step = e.shiftKey ? 8 : 3;
+        const d: Record<string, P> = { ArrowLeft: { x: -step, y: 0 }, ArrowRight: { x: step, y: 0 }, ArrowUp: { x: 0, y: -step }, ArrowDown: { x: 0, y: step } };
+        if (!d[e.key]) return;
+        e.preventDefault();
+        aps[i] = { x: Math.min(Math.max(aps[i].x + d[e.key].x, 2), W - 2), y: Math.min(Math.max(aps[i].y + d[e.key].y, 2), H - 2) };
+        render();
+      });
+    });
+    add.addEventListener('click', () => {
+      count = count === 1 ? 2 : 1;
+      add.textContent = count === 1 ? 'Add a second access point' : 'Back to one access point';
+      render();
+    });
+    // draw now, and again whenever the stage changes size (the observer can miss a page that loads in the background)
+    root.classList.add('is-ready');
+    render();
+    addEventListener('resize', render);
+  });
+
+  // self-check: a wall between two points costs 7 dB; open floor costs nothing extra
+  console.assert(Math.abs(signal({ x: 60, y: 10 }, { x: 76, y: 10 }) - signal({ x: 30, y: 10 }, { x: 46, y: 10 }) + 7) < 1e-9, 'wifi wall loss');
+</script>

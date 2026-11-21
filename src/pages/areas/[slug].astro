@@ -51,11 +51,12 @@ const serviceSchema = {
 >
   <div class="home-page">
     <Hero
+      tag={`${area.city}, TX`}
       center={true}
       lead="Commercial AV and IT in"
       main={`${area.city}, Texas.`}
       lede={`TV walls, sound, Wi-Fi and cameras for ${area.city} businesses, installed and looked after by a local company.`}
-      actions={[{ href: surveyHref, label: 'Book a free site survey', arrow: true }]}
+      actions={[{ href: surveyHref, label: 'Book a free site survey' }]}
     >
       <Crumbs slot="crumbs" items={[{ href: '/', label: 'Home' }, { label: `${area.city}, TX` }]} />
       <p class="hero-aside">Homes too. <a class="text-link" href="#homes">See home services</a>.</p>

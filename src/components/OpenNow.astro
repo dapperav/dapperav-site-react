@@ -1,0 +1,33 @@
+---
+/**
+ * Office-hours light: green "Open now" Mon–Fri 9–5 Central, amber "Closed" otherwise.
+ * It reads only the posted hours (not whether Mark is free), and stays hidden without JavaScript.
+ * shortcut: ignores public holidays; add a holiday list if that ever matters.
+ */
+---
+
+<p class="open-now" data-open-now hidden>
+  <span class="open-dot" aria-hidden="true"></span>
+  <span class="open-text"></span>
+</p>
+
+<script>
+  const fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: 'numeric', hourCycle: 'h23' });
+  function isOpen(d: Date) {
+    const p = Object.fromEntries(fmt.formatToParts(d).map((x) => [x.type, x.value]));
+    const h = Number(p.hour);
+    return p.weekday !== 'Sat' && p.weekday !== 'Sun' && h >= 9 && h < 17;
+  }
+  function update() {
+    const open = isOpen(new Date());
+    document.querySelectorAll<HTMLElement>('[data-open-now]').forEach((el) => {
+      el.hidden = false;
+      el.dataset.state = open ? 'open' : 'closed';
+      el.querySelector('.open-text')!.textContent = open
+        ? 'Open now, Mon–Fri 9–5 Central'
+        : "Closed now. We'll reply next business day.";
+    });
+  }
+  update();
+  setInterval(update, 60_000);
+</script>

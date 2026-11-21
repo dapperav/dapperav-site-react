@@ -1,5 +1,5 @@
 ---
-/** How a job goes: four step cards and one booking button. */
+/** How a job goes: four steps as units in a server rack (each link light comes on as it scrolls in), then one booking button. */
 interface Props { href?: string; heading?: string; alt?: boolean; }
 const { href = `/quote/?service=${encodeURIComponent('Commercial AV')}`, heading = 'How a job goes', alt = false } = Astro.props;
 const steps = [
@@ -16,13 +16,19 @@ const steps = [
       <h2 class="h2" id="how-title">{heading}</h2>
       <p class="lede">Scheduled around your hours: before open, after close or on a weekend.</p>
     </div>
-    <ol class="home-steps">
+    <ol class="rack">
       {
         steps.map((s, i) => (
-          <li class="home-step">
-            <span class="home-step-num" aria-hidden="true">{i + 1}</span>
-            <h3>{s.title}</h3>
-            <p>{s.body}</p>
+          <li class="rack-unit">
+            <span class="rack-led" aria-hidden="true" />
+            <span class="rack-num" aria-hidden="true">{i + 1}</span>
+            <div class="rack-text">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+            <span class="rack-ports" aria-hidden="true">
+              {[0, 1, 2, 3].map((k) => <i class:list={{ on: k <= i }} />)}
+            </span>
           </li>
         ))
       }
