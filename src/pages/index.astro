@@ -7,6 +7,8 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import HomeSections from '../components/HomeSections.astro';
+import HeroTabs from '../components/HeroTabs.astro';
+import RackMap from '../components/RackMap.astro';
 import { services } from '../data/site';
 import '../styles/home.css';
 
@@ -30,8 +32,8 @@ const shortName: Record<string, string> = { 'tv-mounting': 'TV mounting', 'home-
       lede="AV, Wi-Fi, cameras, cabling and managed IT for Fort Bend County businesses, from one company that also looks after it."
       actions={[{ href: survey, label: 'Book a free site survey' }]}
     >
-      <span class="hero-walker" aria-hidden="true"></span>
       <p class="hero-aside">Homeowner? <a class="text-link" href="#doors">See home services</a>.</p>
+      <HeroTabs />
     </Hero>
 
     <section class="section" id="doors" aria-labelledby="doors-title">
@@ -68,6 +70,8 @@ const shortName: Record<string, string> = { 'tv-mounting': 'TV mounting', 'home-
         </div>
       </div>
     </section>
+
+    <RackMap />
 
     <HomeSections />
     <CtaBand href={survey} />

@@ -1033,59 +1033,10 @@ label.pill {
     margin-block: -10px;}
 }
 
-/* ═══ The film's dapper installer walks through the homepage hero once ═══ */
-.hero-walker {
-  display: none;
-}
+/* hero copy sits above the hem's gold cable and label */
 .hero-grid {
   position: relative;
   z-index: 1;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .js .hero-walker {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: 0;
-    display: block;
-    height: clamp(7.5rem, 22vh, 12.5rem);
-    aspect-ratio: 1;
-    background: color-mix(in srgb, var(--color-accent) 70%, transparent);
-    -webkit-mask: url(/film/walk.png) 0 0 / 800% 100% no-repeat;
-    mask: url(/film/walk.png) 0 0 / 800% 100% no-repeat;
-    pointer-events: none;
-    animation:
-      walker-cross 6s linear 1.3s both,
-      walker-stride 0.62s steps(8) 1.3s 10 both;
-  }
-  /* arriving from another page: he has already been seen, so he does not walk again */
-  .vt-arrived .hero-walker {
-    display: none;
-  }
-}
-@keyframes walker-cross {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100vw);
-  }
-}
-@keyframes walker-stride {
-  from {
-    -webkit-mask-position: 0 0;
-    mask-position: 0 0;
-  }
-  to {
-    -webkit-mask-position: 114.2857% 0;
-    mask-position: 114.2857% 0;
-  }
-}
-@media (max-width: 767px) {
-  /* on a phone the hero runs taller than the screen and he would cross the survey card's text */
-  .js .hero-walker {
-    display: none;
-  }
 }
 
 /* ═══ Curves (2026-11-21, Mark: "too boxy"): no straight seams between brown and paper.
@@ -1703,4 +1654,439 @@ main > section:last-of-type {
 .wifi-read {
   font-weight: var(--weight-semibold);
   font-variant-numeric: tabular-nums;
+}
+
+/* ═══ UniFi-style interactive pass (2026-11-21): our brand, their interaction patterns ═══ */
+
+/* shared: a centred row of pills that act as tabs or filters */
+.pill-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.pill[aria-selected='true'] {
+  background: var(--pill-bg-selected);
+  color: var(--pill-fg-selected);
+}
+/* on a dark field the gold stays the booking button's: the chosen tab goes cream */
+.on-dark .pill[aria-selected='true'] {
+  background: var(--cream-50);
+  color: var(--color-ink);
+}
+
+/* 1. Homepage hero: industry tabs swap the drawn scene below */
+.htabs {
+  max-width: 44rem;
+  margin: var(--space-7) auto 0;
+}
+.htabs-stage {
+  margin-top: var(--space-5);
+}
+.htabs-photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  box-shadow: 0 30px 60px -28px rgb(10 3 1 / 0.7);
+}
+.htabs-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.htabs-card {
+  position: absolute;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  max-width: min(22rem, calc(100% - 2 * var(--space-4)));
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-field);
+  background: var(--glass-dark);
+  -webkit-backdrop-filter: var(--glass-dark-filter);
+  backdrop-filter: var(--glass-dark-filter);
+  box-shadow: inset 0 0 0 1px var(--glass-dark-edge), var(--glass-dark-shine);
+  text-align: left;
+}
+.htabs-card strong {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  color: var(--color-ink-inverse);
+}
+.htabs-card ul {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: var(--space-2);
+  font-size: var(--type-small);
+  color: var(--color-ink-inverse-muted);
+}
+.htabs-card li::before {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  vertical-align: middle;
+}
+@media (max-width: 639px) {
+  .htabs-card {
+    position: static;
+    max-width: none;
+    border-radius: 0;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .htabs-card {
+    background: var(--brown-950);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .htabs-card {
+    background: var(--brown-950);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+.htabs-line {
+  max-width: 34rem;
+  margin: var(--space-4) auto 0;
+  color: var(--color-ink-inverse-muted);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .htabs-panel:not([hidden]) {
+    animation: panel-in 0.45s var(--ease-land) both;
+  }
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+/* 2. One rack runs it all: gold cables from a drawn rack to everything we install */
+.rmap {
+  max-width: 64rem;
+  margin-inline: auto;
+}
+.rmap-stage {
+  position: relative;
+  aspect-ratio: 1000 / 600;
+  margin-top: var(--space-6);
+}
+.rmap-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.rmap-base,
+.rmap-lit,
+.rmap-pulse {
+  fill: none;
+  stroke-linecap: round;
+}
+.rmap-base {
+  stroke: color-mix(in srgb, var(--brown-800) 18%, transparent);
+  stroke-width: 7;
+}
+.rmap-lit {
+  stroke: var(--color-accent);
+  stroke-width: 4;
+  transition: stroke-width var(--dur-hover) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+.rmap-pulse {
+  stroke: #fff6d8;
+  stroke-width: 4;
+  stroke-dasharray: 2 98;
+  opacity: 0;
+}
+.rmap-cable.is-dim .rmap-lit {
+  opacity: 0.15;
+}
+.rmap-cable.is-active .rmap-lit {
+  stroke-width: 6;
+}
+.rmap.has-active .rmap-cable:not(.is-active) .rmap-lit {
+  opacity: 0.35;
+}
+.rmap-rack > rect {
+  fill: var(--brown-950);
+  filter: drop-shadow(0 18px 24px rgb(42 12 3 / 0.35));
+}
+.rmap-unit {
+  fill: var(--brown-800);
+}
+.rmap-port {
+  fill: #1a0702;
+}
+.rmap-led {
+  fill: #6fd3a6;
+}
+.rmap-dev {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  translate: -50% -50%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 7.5rem;
+  padding: var(--space-3) var(--space-3) 0.6rem;
+  border: 0;
+  border-radius: 16px;
+  background: var(--cream-50);
+  box-shadow: var(--depth-light);
+  color: var(--color-ink);
+  font: inherit;
+  font-size: var(--type-small);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: translate var(--dur-hover) var(--ease-land), opacity var(--dur-base) var(--ease-out), box-shadow var(--dur-hover) var(--ease-out);
+}
+.rmap-dev svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: none;
+  stroke: var(--brown-800);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rmap-dev.is-dim {
+  opacity: 0.35;
+}
+.rmap-dev.is-active {
+  box-shadow: 0 0 0 3px var(--color-accent), var(--depth-light);
+  translate: -50% calc(-50% - 4px);
+}
+.rmap-caption {
+  max-width: 40rem;
+  min-height: 3.2em;
+  margin: var(--space-5) auto 0;
+  text-align: center;
+  color: var(--color-ink-muted);
+}
+.rmap-caption strong {
+  color: var(--color-ink);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rmap.is-live .rmap-cable:not(.is-dim) .rmap-pulse {
+    opacity: 1;
+    animation: data-pulse 2.6s linear infinite;
+  }
+  .rmap.is-live .rmap-cable:nth-child(2n) .rmap-pulse {
+    animation-delay: -1.3s;
+  }
+  .rmap.is-live .rmap-cable:nth-child(3n) .rmap-pulse {
+    animation-delay: -0.6s;
+  }
+  .rmap.is-live .rmap-led {
+    animation: led-flicker 3s steps(1) infinite;
+    animation-delay: var(--d);
+  }
+}
+@keyframes data-pulse {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes led-flicker {
+  0%, 82% { opacity: 1; }
+  85% { opacity: 0.3; }
+  88% { opacity: 1; }
+}
+/* phones: drop the cables, keep the devices as a tidy grid */
+@media (max-width: 719px) {
+  .rmap-stage {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .rmap-wires {
+    display: none;
+  }
+  .rmap-dev {
+    position: static;
+    translate: none;
+    min-width: 0;
+  }
+  .rmap-dev.is-active {
+    translate: 0 -2px;
+  }
+}
+
+/* 3. Care plan tabs over a drawn screen; the active pill fills with gold while it waits its turn */
+.ctabs {
+  max-width: 52rem;
+  margin-inline: auto;
+}
+.pill--timed {
+  overflow: hidden;
+  isolation: isolate;
+}
+.pill--timed::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: var(--brown-800);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.ctabs.is-auto .pill--timed[aria-selected='true']::after {
+  animation: tab-fill 6s linear forwards;
+  animation-play-state: paused;
+}
+.ctabs.is-auto.in-view:not(:hover):not(:focus-within) .pill--timed[aria-selected='true']::after {
+  animation-play-state: running;
+}
+@keyframes tab-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+.ctabs-monitor {
+  margin-top: var(--space-6);
+}
+.ctabs-screen {
+  min-height: 17rem;
+  padding-bottom: var(--space-6);
+  overflow: hidden;
+  border: 14px solid var(--brown-950);
+  border-radius: 22px;
+  background: var(--cream-50);
+  box-shadow: var(--depth-dark);
+  text-align: left;
+}
+.ctabs-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg-alt);
+  font-size: 0.75rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+.ctabs-panel {
+  padding: var(--space-5) var(--space-6) 0;
+}
+.ctabs-panel h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+}
+.ctabs-panel ul {
+  display: grid;
+  margin-top: var(--space-3);
+}
+.ctabs-panel li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--hairline-light);
+}
+.ctabs-tick {
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--color-info) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 70% no-repeat;
+}
+.ctabs-stand {
+  display: block;
+  width: 7rem;
+  height: 2.2rem;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--brown-950), var(--brown-800));
+  clip-path: polygon(22% 0, 78% 0, 100% 100%, 0 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ctabs-panel.is-shown li {
+    animation: row-in 0.4s var(--ease-land) both;
+    animation-delay: calc(var(--k) * 0.3s + 0.15s);
+  }
+  .ctabs-panel.is-shown .ctabs-tick {
+    animation: tick-pop 0.35s var(--ease-pop) both;
+    animation-delay: calc(var(--k) * 0.3s + 0.35s);
+  }
+}
+@keyframes row-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+@keyframes tick-pop {
+  from {
+    scale: 0;
+  }
+}
+
+/* 4. Business Wi-Fi hero: a drawn access point; gold signal rings spread from it a few times, then rest */
+.wifi-puck {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 15rem;
+  margin-top: var(--space-6);
+}
+.wifi-puck span {
+  position: relative;
+  z-index: 1;
+  width: 6.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 1.6rem, var(--color-accent) 1.65rem 1.85rem, transparent 1.9rem), linear-gradient(180deg, #fffaf0, #e8dcc6);
+  box-shadow: inset 0 -3px 6px rgb(83 27 10 / 0.18), 0 18px 30px -12px rgb(10 3 1 / 0.6);
+}
+.wifi-puck::before,
+.wifi-puck::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30rem;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 22px, rgb(241 183 28 / 0.32) 23px 25px);
+  -webkit-mask: radial-gradient(circle, #000 22%, transparent 68%);
+  mask: radial-gradient(circle, #000 22%, transparent 68%);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.wifi-puck::after {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wifi-puck::before,
+  .wifi-puck::after {
+    animation: ripple 3.2s var(--ease-out) 0.6s 4 both;
+  }
+  .wifi-puck::after {
+    animation-delay: 2.2s;
+  }
+}
+@keyframes ripple {
+  from {
+    scale: 0.35;
+    opacity: 0.9;
+  }
+  to {
+    scale: 1.25;
+    opacity: 0;
+  }
 }

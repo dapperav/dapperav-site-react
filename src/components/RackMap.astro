@@ -1,0 +1,136 @@
+---
+/**
+ * "One rack runs it all": a drawn rack with gold cables out to everything we install. Pick a kind of
+ * business to light only the gear it uses; tap or hover a device to see what we do there. Small pulses
+ * run along the lit cables while the map is on screen (never under reduced motion). On phones the
+ * cables drop away and the devices become a simple grid.
+ */
+type Kind = 'restaurant' | 'office' | 'shop';
+type Device = { id: string; name: string; line: string; x: number; y: number; for: Kind[]; icon: string };
+
+// every line restates something the site already says on the industry pages
+const devices: Device[] = [
+  { id: 'tv', name: 'TV wall', line: 'Any screen shows any game, with one simple control for staff.', x: 140, y: 110, for: ['restaurant'],
+    icon: 'M3 5h18v11H3zM8 20h8M12 16v4' },
+  { id: 'menu', name: 'Menu screens', line: 'Screens, players and a connection that keeps them on.', x: 380, y: 70, for: ['restaurant', 'shop'],
+    icon: 'M3 4h8v14H3zM13 4h8v14h-8zM5 8h4M5 11h4M15 8h4M15 11h4' },
+  { id: 'music', name: 'Zoned music', line: 'Background music by zone: bar, dining room, patio, restrooms.', x: 620, y: 70, for: ['restaurant', 'shop', 'office'],
+    icon: 'M7 3h10v18H7zM12 15m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M12 7.5h.01' },
+  { id: 'wifi', name: 'Wi‑Fi', line: 'Guest Wi‑Fi that cannot reach business systems, planned for your floor.', x: 860, y: 110, for: ['restaurant', 'shop', 'office'],
+    icon: 'M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01' },
+  { id: 'cams', name: 'Cameras', line: 'Cameras you own, with health checks and footage export under a care plan.', x: 900, y: 330, for: ['restaurant', 'shop', 'office'],
+    icon: 'M3 7h13l5-3v10l-5-3H3zM7 11v6M4 17h6' },
+  { id: 'pos', name: 'Register network', line: 'The POS on its own secured network, apart from guest Wi‑Fi.', x: 850, y: 535, for: ['restaurant', 'shop'],
+    icon: 'M4 10h16v10H4zM7 4h10v6H7zM8 14h2M12 14h2M8 17h8' },
+  { id: 'meeting', name: 'Meeting room', line: 'Displays and calls that start on the first try.', x: 150, y: 535, for: ['office'],
+    icon: 'M3 4h18v10H3zM6 20l3-6M18 20l-3-6M9 18h6' },
+  { id: 'desk', name: 'PCs & printers', line: 'Printers, PCs and Microsoft 365 users set up and looked after.', x: 100, y: 330, for: ['office'],
+    icon: 'M3 4h18v12H3zM8 20h8M12 16v4' },
+];
+const filters: { id: 'all' | Kind; label: string }[] = [
+  { id: 'all', label: 'Everything' },
+  { id: 'restaurant', label: 'Restaurant or bar' },
+  { id: 'office', label: 'Office' },
+  { id: 'shop', label: 'Shop' },
+];
+
+// cables leave the rack from the nearest side and curve out to each device
+const RACK = { x: 430, y: 220, w: 140, h: 220 };
+const cable = (d: Device) => {
+  const left = d.x < 500;
+  const top = d.y < 160;
+  const sx = top ? (left ? RACK.x + 40 : RACK.x + RACK.w - 40) : left ? RACK.x : RACK.x + RACK.w;
+  const sy = top ? RACK.y : Math.min(Math.max(d.y, RACK.y + 30), RACK.y + RACK.h - 30);
+  const c1 = top ? `${sx} ${sy - 80}` : `${(sx + d.x) / 2} ${sy}`;
+  const c2 = top ? `${d.x} ${d.y + 90}` : `${(sx + d.x) / 2} ${d.y}`;
+  return `M${sx} ${sy} C${c1} ${c2} ${d.x} ${d.y}`;
+};
+const units = [0, 1, 2, 3, 4, 5];
+---
+
+<section class="section" id="rack-map" aria-labelledby="rack-map-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="rack-map-title">One rack runs it all</h2>
+      <p class="lede">Everything we install comes back to one tidy rack. Pick your kind of business, then tap anything to see what we do there.</p>
+    </div>
+    <div class="rmap" data-rmap data-filter="all">
+      <div class="pill-tabs" role="group" aria-label="Show the gear for">
+        {filters.map((f, n) => <button class="pill" type="button" data-filter={f.id} aria-pressed={n === 0 ? 'true' : 'false'}>{f.label}</button>)}
+      </div>
+      <div class="rmap-stage">
+        <svg class="rmap-wires" viewBox="0 0 1000 600" aria-hidden="true">
+          {
+            devices.map((d) => (
+              <g class="rmap-cable" data-for={d.id}>
+                <path class="rmap-base" d={cable(d)} />
+                <path class="rmap-lit" d={cable(d)} />
+                <path class="rmap-pulse" d={cable(d)} pathLength="100" />
+              </g>
+            ))
+          }
+          <g class="rmap-rack">
+            <rect x={RACK.x} y={RACK.y} width={RACK.w} height={RACK.h} rx="14" />
+            {
+              units.map((u) => (
+                <g>
+                  <rect class="rmap-unit" x={RACK.x + 14} y={RACK.y + 18 + u * 33} width={RACK.w - 28} height="26" rx="4" />
+                  <circle class="rmap-led" cx={RACK.x + 28} cy={RACK.y + 31 + u * 33} r="3.5" style={`--d:${u * 0.37}s`} />
+                  {[0, 1, 2, 3].map((p) => <rect class="rmap-port" x={RACK.x + 62 + p * 15} y={RACK.y + 25 + u * 33} width="10" height="12" rx="1.5" />)}
+                </g>
+              ))
+            }
+          </g>
+        </svg>
+        {
+          devices.map((d) => (
+            <button class="rmap-dev" type="button" data-dev={d.id} data-for={d.for.join(' ')} data-line={d.line} style={`--x:${d.x / 10}%;--y:${(d.y / 600) * 100}%`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d={d.icon} /></svg>
+              <span>{d.name}</span>
+            </button>
+          ))
+        }
+      </div>
+      <p class="rmap-caption" aria-live="polite"><strong>Tap any device.</strong> Every cable ends in the same labeled rack, so one company can look after all of it.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rmap]').forEach((root) => {
+    const devs = [...root.querySelectorAll<HTMLButtonElement>('[data-dev]')];
+    const pills = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]').values()].filter((b) => b.tagName === 'BUTTON');
+    const caption = root.querySelector<HTMLElement>('.rmap-caption')!;
+    const cableOf = (id: string) => root.querySelector<SVGGElement>(`.rmap-cable[data-for="${id}"]`)!;
+
+    function setFilter(f: string) {
+      root.dataset.filter = f;
+      pills.forEach((p) => p.setAttribute('aria-pressed', String(p.dataset.filter === f)));
+      devs.forEach((d) => {
+        const on = f === 'all' || d.dataset.for!.split(' ').includes(f);
+        d.classList.toggle('is-dim', !on);
+        cableOf(d.dataset.dev!).classList.toggle('is-dim', !on);
+      });
+    }
+    function focusDev(d: HTMLButtonElement | null) {
+      devs.forEach((x) => {
+        x.classList.toggle('is-active', x === d);
+        cableOf(x.dataset.dev!).classList.toggle('is-active', x === d);
+      });
+      root.classList.toggle('has-active', !!d);
+      if (d) caption.innerHTML = `<strong>${d.querySelector('span')!.textContent}.</strong> ${d.dataset.line}`;
+    }
+    pills.forEach((p) => p.addEventListener('click', () => setFilter(p.dataset.filter!)));
+    devs.forEach((d) => {
+      d.addEventListener('mouseenter', () => focusDev(d));
+      d.addEventListener('focus', () => focusDev(d));
+      d.addEventListener('click', () => focusDev(d));
+    });
+    root.querySelector('.rmap-stage')!.addEventListener('mouseleave', () => focusDev(null));
+
+    // pulses only run while the map is on screen
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => root.classList.toggle('is-live', e.isIntersecting), { threshold: 0.2 }).observe(root);
+    }
+  });
+</script>

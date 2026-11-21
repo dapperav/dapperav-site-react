@@ -166,6 +166,17 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-21** — UniFi-style interactive pass (Mark liked ui.com; borrowed interaction patterns only, never
+  Ubiquiti's photos, renders or app screenshots) + ALL silhouette film scenes removed (Mark: "kinda ruin the
+  vibe"). (1) `HeroTabs.astro` in the homepage hero: six industry pills swap the industry's photo (gear.ts
+  stock, shown as the kind of space) with a dark-glass panel of three installs + link. (2) `RackMap.astro` on
+  the homepage after the doors: drawn rack, gold cables to eight devices, filter pills (restaurant/office/shop),
+  hover/tap lights a cable + caption; pulses only while on screen; phones get a grid. (3) `CareTabs.astro` on
+  /business replaces the three plan columns: tabs over a drawn monitor, auto-advance every 6s only while in view,
+  pause on hover/focus, stop for good after a click, never under reduced motion. (4) `.wifi-puck` on the
+  networks-wifi hero: drawn access point, gold rings 4 times then rest. Shared `src/scripts/tabs.ts`
+  (ARIA tabs) and `src/data/industryLines.ts`. DELETED: FilmScene.astro, the homepage hero walker, public/film/*.png.
+  Industry, /business and /services heroes are text only now.
 - **2026-11-21** — No arrows, depth, curves and six fun pieces (Mark approved each mockup).
   ARROWS: removed everywhere (hero buttons, industry-card glass chip and "See what we install" arrow, phone
   menu rows). DEPTH: tokens `--depth-light/-light-sm/-dark/-dark-sheen/-button` in tokens.css; every card rests
