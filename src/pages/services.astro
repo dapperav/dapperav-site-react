@@ -2,7 +2,6 @@
 /** Homes in the calm, one-column card layout (2026-11-20): services with real starting prices, bundles, FAQs. */
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import FilmScene from '../components/FilmScene.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { services, faqs, homeServiceLabels } from '../data/site';
@@ -46,9 +45,6 @@ const packages = [
       actions={[{ href: homeQuote('TV Mounting & Installation'), label: 'Get a free quote' }]}
     >
       <p class="hero-aside">For most TV mounts, the TV size and the wall type are all we need to quote it.</p>
-      <div class="home-hero-film">
-        <FilmScene kind="home" credit="Home theater" label="Illustration: a family on the couch as the dark TV lights up for movie night" />
-      </div>
     </Hero>
 
     <section class="section section--alt" id="home-services" aria-labelledby="svc-title">

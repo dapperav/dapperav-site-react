@@ -1,0 +1,69 @@
+---
+/**
+ * What a care plan covers, as tabs over a drawn screen. The tabs advance on their own (a gold fill shows
+ * the time) only while on screen, pause on hover or focus, and stop for good once someone picks a tab.
+ * Under reduced motion they never advance. The screen lists the plan's real items; nothing on it is data.
+ */
+import { carePlans } from '../data/site';
+---
+
+<div class="ctabs" data-ctabs>
+  <div class="pill-tabs" role="tablist" aria-label="What a care plan covers">
+    {
+      carePlans.map((p, n) => (
+        <button class="pill pill--timed" type="button" role="tab" id={`ctab-${n}`} aria-controls={`cpanel-${n}`} aria-selected={n === 0 ? 'true' : 'false'} tabindex={n === 0 ? 0 : -1}>
+          {p.name}
+        </button>
+      ))
+    }
+  </div>
+  <div class="ctabs-monitor">
+    <div class="ctabs-screen">
+      <div class="ctabs-bar" aria-hidden="true">
+        <span>Care plan</span>
+        <span>Month to month</span>
+      </div>
+      {
+        carePlans.map((p, n) => (
+          <div class="ctabs-panel" role="tabpanel" id={`cpanel-${n}`} aria-labelledby={`ctab-${n}`} hidden={n !== 0}>
+            <h3>{p.name}</h3>
+            <ul>
+              {p.features.map((f, k) => (
+                <li style={`--k:${k}`}>
+                  <span class="ctabs-tick" aria-hidden="true" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <span class="ctabs-stand" aria-hidden="true"></span>
+  </div>
+</div>
+
+<script>
+  import { wireTabs } from '../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('[data-ctabs]').forEach((root) => {
+    const show = (k: number) => {
+      panels.forEach((p, i) => p.classList.toggle('is-shown', i === k));
+    };
+    const { tabs, panels, select } = wireTabs(root, (k, byUser) => {
+      if (byUser) root.classList.remove('is-auto');
+      show(k);
+    });
+    show(0);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    root.classList.add('is-auto');
+    // the active tab's gold fill is a CSS animation; when it finishes, move to the next tab
+    tabs.forEach((t, i) =>
+      t.addEventListener('animationend', (e) => {
+        if (root.classList.contains('is-auto') && (e as AnimationEvent).animationName === 'tab-fill') select((i + 1) % tabs.length);
+      }),
+    );
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => root.classList.toggle('in-view', e.isIntersecting), { threshold: 0.4 }).observe(root);
+    }
+  });
+</script>

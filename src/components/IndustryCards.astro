@@ -3,17 +3,10 @@
 import { Image } from 'astro:assets';
 import { industries } from '../data/industries';
 import { gear, industryThumb } from '../data/gear';
+import { industryLines as lines } from '../data/industryLines';
 interface Props { heading?: string; lede?: string; alt?: boolean; exclude?: string; }
 const { heading = 'Who we work with', lede = 'Six kinds of business, each with its own page: what we install there and what moves the price.', alt = true, exclude } = Astro.props;
 const shown = industries.filter((i) => i.slug !== exclude);
-const lines: Record<string, string> = {
-  'restaurants-bars': 'TV walls, zoned music and a POS network kept apart from guest Wi-Fi.',
-  'offices-conference-rooms': 'Meeting rooms that start on the first try, and the Microsoft 365 behind them.',
-  'retail-showrooms': 'Flush-mounted displays, background music and cameras you own.',
-  'digital-signage': 'Screens, players and a connection that keeps them on.',
-  'networks-wifi': 'UniFi networks planned like an IT department would: segmented and documented.',
-  'structured-cabling': 'One sub for data, Wi-Fi, cameras, TVs and speakers. Labeled at closeout.',
-};
 ---
 
 <section class:list={["section", { "section--alt": alt }]} id="industries" aria-labelledby="industries-title">

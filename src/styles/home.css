@@ -286,10 +286,6 @@ body:has(.home-page) .site-nav.at-top .nav-cta {
 }
 
 /* ═══ Shared calm-layout pieces for /business and /services (mockup) ═══ */
-.home-hero-film {
-  max-width: 40rem;
-  margin: var(--space-7) auto 0;
-}
 
 /* plan / bundle cards: three across, one radius, one padding */
 .home-plans {

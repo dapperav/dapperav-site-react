@@ -3,7 +3,6 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import FilmScene from '../../components/FilmScene.astro';
 import Faq from '../../components/Faq.astro';
 import IndustryCards from '../../components/IndustryCards.astro';
 import JobSteps from '../../components/JobSteps.astro';
@@ -35,17 +34,6 @@ const faqs = [
 const isIT = industry.slug === 'networks-wifi' || industry.slug === 'structured-cabling';
 const quoteHref = `/quote/?service=${encodeURIComponent(isIT ? 'Managed IT / Networking (Business)' : 'Commercial AV')}`;
 
-// The scene from the brand film that plays for this kind of business (broken, he passes, fixed).
-type Scene = { kind: 'bar' | 'menu' | 'office' | 'home' | 'shop' | 'ladder'; credit: string; label: string };
-const sceneFor: Record<string, Scene> = {
-  'restaurants-bars': { kind: 'bar', credit: 'TVs & sound', label: 'Illustration: a bar of blank screens lights up with the game and the crowd cheers' },
-  'offices-conference-rooms': { kind: 'office', credit: 'Meeting rooms', label: 'Illustration: an office meeting where the loading spinner turns into a check as the Wi-Fi comes on' },
-  'retail-showrooms': { kind: 'shop', credit: 'Security cameras', label: 'Illustration: a storefront whose loose security camera snaps into place' },
-  'digital-signage': { kind: 'menu', credit: 'Menu boards', label: 'Illustration: three blank screens over a bar come on as menu boards' },
-  'networks-wifi': { kind: 'office', credit: 'Business Wi-Fi', label: 'Illustration: an office where the Wi-Fi comes on and the spinner turns into a check' },
-  'structured-cabling': { kind: 'ladder', credit: 'Cabling', label: 'Illustration: the installer on a ladder running cable, inside a gold circle' },
-};
-const scene = sceneFor[industry.slug] ?? sceneFor['networks-wifi'];
 
 const pageUrl = `${site.url}/business/${industry.slug}/`;
 const serviceSchema = {
@@ -98,9 +86,13 @@ const check = 'M4 12.5l5 5L20 6.5';
     >
       <Crumbs slot="crumbs" items={[{ href: '/business/', label: 'Business' }, { label: industry.name }]} />
       <p class="hero-aside">Care plans are month to month. <a class="text-link" href="/business/#care-plans">See care plans</a>.</p>
-      <div class="home-hero-film">
-        <FilmScene kind={scene.kind} credit={scene.credit} label={scene.label} />
-      </div>
+      {
+        industry.slug === 'networks-wifi' && (
+          <div class="wifi-puck" aria-hidden="true">
+            <span />
+          </div>
+        )
+      }
     </Hero>
 
     <section class="section section--alt" aria-labelledby="installs-title">
