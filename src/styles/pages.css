@@ -537,38 +537,6 @@ html {
   font-size: 0.8125rem;
   font-weight: var(--weight-semibold);}
 
-/* ── Footer credits ── */
-.footer-credits-wrap {
-  margin-top: var(--space-6);
-  font-size: var(--type-small);
-  color: var(--color-ink-inverse-muted);}
-.footer-credits-wrap summary {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  cursor: pointer;
-  color: var(--color-ink-inverse);}
-.footer-credits {
-  margin-top: var(--space-2);
-  max-width: 60ch;
-  font-size: var(--type-small);
-  line-height: 1.6;
-  color: var(--color-ink-inverse-muted);}
-.footer-credits a,
-.footer-legal a {
-  color: var(--color-ink-inverse);
-  overflow-wrap: anywhere;}
-.footer-legal {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-3) var(--space-6);}
-@media (min-width: 768px) {
-  .footer {
-    padding-bottom: calc(var(--space-6) + 4.5rem); /* clear the parked survey button */
-  }
-}
-
 /* ── Mobile: menu button in the dock + bottom sheet ── */
 button.dock-item {
   border: 0;
@@ -676,10 +644,6 @@ button.dock-item {
   font-variant-numeric: tabular-nums;}
 
 /* ── Small layout helpers used across pages ── */
-.footer-head--gap {
-  margin-top: var(--space-6);}
-.footer-social + .footer-social {
-  margin-top: var(--space-4);}
 
 .section.section--tight {
   padding-block: var(--space-8);}

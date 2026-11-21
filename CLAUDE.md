@@ -166,6 +166,12 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-21** — Privacy page in the calm card layout (centred page hero, dark "short version" checklist, one
+  Cream card with a row per topic; policy text unchanged) and a rebuilt footer: brand + email/hours on top, four
+  labelled columns (For business, For homes, Where we work, Follow), one legal line (© · Privacy · Photo credits ·
+  Back to top). All footer CSS is now one block in site.css (the old split rules in pages.css are gone). No gold
+  button in the footer (the CtaBand above it already has one). Hours mismatch noted: site.ts/footer say Mon–Fri
+  9–5, CLAUDE.md and GBP say 8–6 — Mark to confirm which is right.
 - **2026-11-20** — /quote and 404 moved to the calm card layout, plus a glass pass (Mark approved mockups).
   /quote: centred heading, form in one Cream card beside a dark sticky card (contact, next steps, service area);
   the nav's hanging booking button is hidden there; every form id/name and the script are unchanged. 404: dark
@@ -382,8 +388,8 @@ https://dapperav.com, same description/tagline.
 
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
-0. **Site upgrade:** brand system, the calm card layout and the glass pass are live on every page except
-   privacy (2026-11-20). Next: Mark's real install photos to replace the stock pictures in the industry cards.
+0. **Site upgrade:** brand system, the calm card layout and the glass pass are live on every page, and the
+   footer is rebuilt (2026-11-21). Confirm business hours (site says 9–5, GBP says 8–6). Next: Mark's real install photos to replace the stock pictures in the industry cards.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.
