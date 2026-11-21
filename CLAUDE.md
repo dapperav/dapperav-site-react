@@ -137,7 +137,7 @@ https://dapperav.com, same description/tagline.
 |---|---|---|
 | Facebook | facebook.com/profile.php?id=100072242138329 | Avatar, cover, bio, phone, email, https URL, 6-city service area; street address removed (service-area business). Name stays lowercase "solutions" (no renames). Action button stays Send message. Hours can't display without a street address (FB rule) — acceptable. |
 | Instagram | @dapper_av_solutions | Avatar + 3-line bio ("Professional. Precise. Personal. / TV mounting · home theater · audio · smart home & networks / Fort Bend County, TX · dapperav.com/quote"). Display name stays "Dapper AV". Link editing is MOBILE-APP-ONLY — extra /quote link must be added from Mark's phone. Account needed reactivation when Mark logged in 2026-07-04. |
-| Nextdoor | nextdoor.com/page/dapper-av-solutions-rosenberg-tx | Avatar, cover, description, contact@ email, https URL, hours M–F 8–6 (Sat/Sun closed), street hidden. Managed via business.nextdoor.com (separate login from Mark's neighbor account). |
+| Nextdoor | nextdoor.com/page/dapper-av-solutions-rosenberg-tx | Avatar, cover, description, contact@ email, https URL, hours M–F 8–6 (Sat/Sun closed; STALE, should be 9–5 since 2026-11-21), street hidden. Managed via business.nextdoor.com (separate login from Mark's neighbor account). |
 
 **Browser-automation gotchas learned doing this** (details in Claude's memory:
 `feedback_browser_file_upload_via_clipboard.md`):
@@ -170,8 +170,8 @@ https://dapperav.com, same description/tagline.
   Cream card with a row per topic; policy text unchanged) and a rebuilt footer: brand + email/hours on top, four
   labelled columns (For business, For homes, Where we work, Follow), one legal line (© · Privacy · Photo credits ·
   Back to top). All footer CSS is now one block in site.css (the old split rules in pages.css are gone). No gold
-  button in the footer (the CtaBand above it already has one). Hours mismatch noted: site.ts/footer say Mon–Fri
-  9–5, CLAUDE.md and GBP say 8–6 — Mark to confirm which is right.
+  button in the footer (the CtaBand above it already has one). Hours: Mark confirmed Mon–Fri 9–5 (2026-11-21);
+  the site and GBP already say 9–5, only Nextdoor still shows 8–6.
 - **2026-11-20** — /quote and 404 moved to the calm card layout, plus a glass pass (Mark approved mockups).
   /quote: centred heading, form in one Cream card beside a dark sticky card (contact, next steps, service area);
   the nav's hanging booking button is hidden there; every form id/name and the script are unchanged. 404: dark
@@ -389,7 +389,8 @@ https://dapperav.com, same description/tagline.
 > Keep this list honest and ordered. When Mark asks "what needs to be done next?", read from here.
 
 0. **Site upgrade:** brand system, the calm card layout and the glass pass are live on every page, and the
-   footer is rebuilt (2026-11-21). Confirm business hours (site says 9–5, GBP says 8–6). Next: Mark's real install photos to replace the stock pictures in the industry cards.
+   footer is rebuilt (2026-11-21). Nextdoor hours still say M–F 8–6: change to 9–5 at business.nextdoor.com
+   (Mark's login; Claude can drive the browser once he's signed in). Next: Mark's real install photos to replace the stock pictures in the industry cards.
 1. **Insurance (Mark):** general liability first. GCs and property managers need a certificate of
    insurance before they can hire; it's the biggest blocker for commercial work. Then add "Insured,
    COI on request" to /business.
