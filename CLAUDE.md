@@ -85,7 +85,7 @@ Tool-productization ideas parked ~12 months. **Willing to spend on Google Local 
   (brown #531b0a, gold #f1b71c, cream #f2dfbb; buttons/pills/fields in `design-system/components.css`),
   Fraunces + Inter. design-taste-frontend house rules apply: flat colour, no resting shadows, no
   hairline dividers, no glass, no eyebrow labels. Desktop nav = cream pill with the roundel logo that
-  turns once with scroll; phones = bottom dock. Motion (timed with motionmaxxing's grammar: land
+  turns once with scroll; phones = slim glass top bar (logo, survey button after scrolling, Menu → bottom sheet) that hides on scroll down. NEVER bring back a bottom dock: it stacks on iOS Safari's bottom toolbar. Motion (timed with motionmaxxing's grammar: land
   decelerates, leave accelerates, no springs): headline words rise behind masks, a gold cable draws
   under "cable.", staggered section reveals, View Transitions that whip-pan between pages, and
   `FilmScene` scenes (broken → the film's silhouette installer walks through → fixed → "by Dapper AV"
@@ -165,6 +165,19 @@ https://dapperav.com, same description/tagline.
 
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
+
+- **2026-11-23** — Phone pass (Mark: "on mobile it looks kinda weird… not as responsive as I'd like").
+  (1) The bottom dock is GONE: on iOS Safari it stacked on top of Safari's own bottom toolbar and covered a
+  quarter of the hero. Phones now get `.mbar`, a slim glass pill at the top (logo + "Dapper AV", Menu; the
+  name swaps for a "Book a survey" button once the hero's button has scrolled away). It slides off while you
+  scroll down and returns on any scroll up. Menu still opens the bottom sheet. (2) Speed: gtag.js (530 KB) now
+  loads after the page's load event + idle (load event ~700ms → ~420ms on a throttled phone), and events
+  queue in dataLayer until then. Astro prefetch is on (`viewport`), and the menu's four main links prefetch
+  at load, so taps open from cache. Page whip-pan transition on phones is 260ms with no blur (was 480ms
+  with a full-screen blur, and taps are ignored while it runs). (3) Layout under 640px: pill tabs are one
+  sideways-scrolling row (they wrapped into 2–3 rows), the industry cards are a swipe row with the next
+  card peeking (homepage 11,260px → 8,846px tall), narrower rack rails, 44px hit areas on map labels and
+  photo hotspots. Inspector: same FAIL list as live minus "covered-text" (the dock covering headings).
 
 - **2026-11-21** — Fun pass 2 (Mark approved mockups). (1) `TvPlanner.astro` on /services: place (living room,
   above a fireplace, bedroom, outdoor patio, media room), distance + wall sliders, TV size (suggest or 43–98"),

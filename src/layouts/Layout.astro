@@ -101,9 +101,10 @@ const jsonLd = {
     {
       GA4_MEASUREMENT_ID && (
         <>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`} />
+          {/* gtag.js is ~530 KB to parse; loading it after the page has painted and gone idle keeps a phone's
+              first taps quick. Events queued in dataLayer before then still send once it arrives. */}
           <script
-            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA4_MEASUREMENT_ID}');`}
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA4_MEASUREMENT_ID}');addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}';document.head.appendChild(s);};window.requestIdleCallback?requestIdleCallback(go,{timeout:1500}):setTimeout(go,1200);});`}
           />
           <script is:inline>
             // Count call / text / email taps as GA4 events (mark them as key events in GA4 Admin).

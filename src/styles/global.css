@@ -19,7 +19,7 @@
 }
 
 /* Cross-document view transitions (Chromium; other browsers just navigate).
-   The header, dock and parked button are named, so they hold still while the page changes under them.
+   The header, mobile bar and parked button are named, so they hold still while the page changes under them.
    The old page leaves accelerating and a little up; the new one lands decelerating from 12px below. */
 @view-transition {
   navigation: auto;
@@ -27,8 +27,8 @@
 .site-nav {
   view-transition-name: site-nav;
 }
-.dock {
-  view-transition-name: dock;
+.mbar {
+  view-transition-name: mbar;
 }
 .float-cta {
   view-transition-name: float-cta;
@@ -58,6 +58,28 @@ main {
     opacity: 0;
     transform: translateX(9%);
     filter: blur(10px);
+  }
+}
+/* phones: the page is unresponsive to taps while a transition runs, and a full-screen blur is costly
+   on a phone GPU, so the whip pan is shorter and sharp there (about 260ms instead of 480ms) */
+@media (max-width: 767px) {
+  ::view-transition-old(page) {
+    animation: vt-leave-sm 120ms cubic-bezier(0.55, 0, 1, 0.45) both;
+  }
+  ::view-transition-new(page) {
+    animation: vt-land-sm 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes vt-leave-sm {
+  to {
+    opacity: 0;
+    transform: translateX(-6%);
+  }
+}
+@keyframes vt-land-sm {
+  from {
+    opacity: 0;
+    transform: translateX(6%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
