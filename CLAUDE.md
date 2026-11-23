@@ -166,6 +166,15 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-23** — "One rack runs it all" upgrade (Mark: had to scroll to see the filter buttons on a phone;
+  "add more value"). Phone pill rows are now an even grid with every choice visible (hero 3×2, rack 2×2,
+  care tabs 2+1); the sideways-scrolling row from the phone pass is gone. RackMap: tapping a device opens a
+  card with what we install there (lines restate `industries.ts` installs), what the survey checks, a link to
+  the industry page, and "Add to my survey". Picks build a survey list (removable chips, gold ticks on the
+  devices, gold ports on a small phone-only rack), and "Book a survey for these N" hands the list to the
+  quote form as `?details=` (e.g. "Survey list from the rack map for a restaurant or bar: TV wall, Wi‑Fi.").
+  Hover now only lights a cable; the card changes on tap.
+
 - **2026-11-23** — Phone pass (Mark: "on mobile it looks kinda weird… not as responsive as I'd like").
   (1) The bottom dock is GONE: on iOS Safari it stacked on top of Safari's own bottom toolbar and covered a
   quarter of the hero. Phones now get `.mbar`, a slim glass pill at the top (logo + "Dapper AV", Menu; the

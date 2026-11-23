@@ -1877,15 +1877,135 @@ main > section:last-of-type {
   box-shadow: 0 0 0 3px var(--color-accent), var(--depth-light);
   translate: -50% calc(-50% - 4px);
 }
-.rmap-caption {
-  max-width: 40rem;
-  min-height: 3.2em;
-  margin: var(--space-5) auto 0;
-  text-align: center;
+/* a picked device wears a small gold tick */
+.rmap-tick {
+  position: absolute;
+  top: -0.45rem;
+  right: -0.45rem;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--cream-50);
+  scale: 0;
+  transition: scale var(--dur-base) var(--ease-pop);
+}
+.rmap-tick svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: var(--color-on-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rmap-dev.is-picked .rmap-tick {
+  scale: 1;
+}
+/* under the map: the device card on the left, your survey list on the right */
+.rmap-panel {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  text-align: left;
+}
+@media (min-width: 900px) {
+  .rmap-panel {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.rmap-detail,
+.rmap-list {
+  padding: var(--space-5);
+  border-radius: var(--radius-card);
+  background: var(--cream-50);
+  box-shadow: var(--depth-light-sm);
+}
+.rmap-detail {
+  min-height: 12rem;
+}
+.rmap-hint {
   color: var(--color-ink-muted);
 }
-.rmap-caption strong {
+.rmap-hint strong {
   color: var(--color-ink);
+}
+.rmap-info-title {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-h3);
+}
+.rmap-does {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.rmap-does li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+.rmap-does li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+.rmap-check {
+  margin-top: var(--space-3);
+  color: var(--color-ink-muted);
+}
+.rmap-check strong {
+  color: var(--color-ink);
+}
+.rmap-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin-top: var(--space-4);
+}
+.rmap-list {
+  display: grid;
+  gap: var(--space-3);
+}
+.rmap-list-title {
+  font-weight: var(--weight-semibold);
+}
+.rmap-list-empty {
+  font-size: var(--type-small);
+  color: var(--color-ink-muted);
+}
+.rmap-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.rmap-chips:empty {
+  display: none;
+}
+.rmap-chip::after {
+  content: '';
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-left: 0.45rem;
+  background: currentColor;
+  -webkit-mask: linear-gradient(45deg, transparent 43%, #000 43% 57%, transparent 57%), linear-gradient(-45deg, transparent 43%, #000 43% 57%, transparent 57%); /* taste-skill-ignore: drawn x, not a fill */
+  mask: linear-gradient(45deg, transparent 43%, #000 43% 57%, transparent 57%), linear-gradient(-45deg, transparent 43%, #000 43% 57%, transparent 57%); /* taste-skill-ignore */
+}
+.rmap-book {
+  justify-self: start;
+}
+/* phones: a small rack over the device grid; each port lights for gear in view and turns gold once picked */
+.rmap-minirack {
+  display: none;
 }
 @media (prefers-reduced-motion: no-preference) {
   .rmap.is-live .rmap-cable:not(.is-dim) .rmap-pulse {
@@ -1928,12 +2048,52 @@ main > section:last-of-type {
     display: none;
   }
   .rmap-dev {
-    position: static;
+    position: relative; /* anchors the picked tick */
+    left: auto;
+    top: auto;
     translate: none;
     min-width: 0;
   }
   .rmap-dev.is-active {
     translate: 0 -2px;
+  }
+  .rmap-minirack {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    max-width: 16rem;
+    margin: var(--space-5) auto 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--depth-dark-sheen), var(--brown-800);
+    box-shadow: var(--depth-dark);
+  }
+  .rmap-minirack i {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    background: #1a0702;
+  }
+  .rmap-minirack i::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #6fd3a6;
+    box-shadow: 0 0 6px rgb(111 211 166 / 0.8);
+    transition: background-color var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+  }
+  .rmap-minirack i.is-dim::after {
+    opacity: 0.15;
+  }
+  .rmap-minirack i.is-picked {
+    background: var(--color-accent);
+  }
+  .rmap-stage {
+    margin-top: var(--space-4);
   }
 }
 
@@ -2860,29 +3020,21 @@ main > section:last-of-type {
 
 /* ═══ Phone pass (2026-11-23, Mark: "on mobile it looks kinda weird") ═══ */
 @media (max-width: 639px) {
-  /* pill tabs: one row that scrolls sideways instead of wrapping into two or three rows */
+  /* pill tabs: an even grid so every choice is visible without scrolling (Mark, 2026-11-23);
+     six choices go three across, three or four go two across, an odd last one spans the row */
   .pill-tabs {
-    contain: inline-size; /* its unwrapped width must not stretch the hero grid around it */
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    margin-inline: calc(-1 * var(--page-gutter));
-    padding: 6px var(--page-gutter);
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: var(--page-gutter);
-    scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--page-gutter), #000 calc(100% - var(--page-gutter)), transparent); /* taste-skill-ignore: edge fade hinting the row scrolls, not a fill */
-    mask-image: linear-gradient(90deg, transparent, #000 var(--page-gutter), #000 calc(100% - var(--page-gutter)), transparent); /* taste-skill-ignore */}
-  .pill-tabs::-webkit-scrollbar {
-    display: none;}
-  .pill-tabs > * {
-    flex: none;
-    scroll-snap-align: start;}
-  /* centre the row when it fits; the auto margins collapse to 0 once it overflows */
-  .pill-tabs > :first-child {
-    margin-left: auto;}
-  .pill-tabs > :last-child {
-    margin-right: auto;}
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);}
+  .pill-tabs:has(> :nth-child(6)) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));}
+  .pill-tabs:not(:has(> :nth-child(6))) > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;}
+  .pill-tabs > .pill {
+    --pill-px: 0.5rem;
+    justify-content: center;
+    min-width: 0;
+    text-align: center;}
 
   /* industry cards: a swipeable row with the next card peeking, not six full-screen cards stacked */
   ul.home-grid {
