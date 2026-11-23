@@ -357,7 +357,7 @@ html {
 
 /* ── Quote page ── */
 .quote-page {
-  padding-block: var(--space-8) var(--section-y);}
+  padding-block: calc(5.5rem + env(safe-area-inset-top, 0px)) var(--section-y); /* clears the phone top bar */}
 @media (min-width: 768px) {
   .quote-page {
     padding-top: 10rem;}
@@ -504,12 +504,7 @@ html {
   font-size: 0.8125rem;
   font-weight: var(--weight-semibold);}
 
-/* ── Mobile: menu button in the dock + bottom sheet ── */
-button.dock-item {
-  border: 0;
-  background: none;
-  font-family: inherit;
-  cursor: pointer;}
+/* ── Mobile: bottom sheet opened by the top bar's Menu button ── */
 .menu-sheet {
   position: fixed;
   inset: auto 0 0;
@@ -658,11 +653,6 @@ button.dock-item {
 .quote-title,
 .h2 {
   overflow-wrap: break-word;}
-.dock-item {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  text-align: center;
-  line-height: 1.15;}
 /* the light-field pill gets a defined edge so it never disappears on paper */
 .nav-shell::before {
   box-shadow:

@@ -10,6 +10,9 @@ export default defineConfig({
   // 'ignore' (not 'always') keeps the existing slash-less internal links working in dev.
   trailingSlash: 'ignore',
   integrations: [sitemap()],
+  // pages download in the background as their links scroll into view, so a tap opens them from cache
+  // (Astro falls back to prefetch-on-tap on Save-Data / 2G connections)
+  prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
   vite: {
     plugins: [tailwindcss()],
   },
