@@ -20,6 +20,8 @@
   }
   function update() {
     const open = isOpen(new Date());
+    // after hours, a few link lights around the site glow brighter (toys.css)
+    document.documentElement.toggleAttribute('data-after-hours', !open);
     document.querySelectorAll<HTMLElement>('[data-open-now]').forEach((el) => {
       el.hidden = false;
       el.dataset.state = open ? 'open' : 'closed';

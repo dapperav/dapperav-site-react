@@ -12,6 +12,7 @@ import '../styles/home.css';
 
 const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`;
 import CareTabs from '../components/CareTabs.astro';
+import TidyRack from '../components/TidyRack.astro';
 ---
 
 <Layout
@@ -55,6 +56,8 @@ import CareTabs from '../components/CareTabs.astro';
     <JobSteps href={managedSurvey} heading="How a business job goes" alt={true} />
 
     <DocMap />
+
+    <TidyRack />
 
     <ProofRow />
 

@@ -1,0 +1,104 @@
+---
+/**
+ * Menu-board builder: type your business name and a special, then drag the clock. The drawn screen swaps
+ * breakfast for lunch at 11 and lunch for dinner at 4 on its own, the way a scheduled menu board does.
+ * The sample menu is placeholder food, not a client. "Book a survey" sends the name and the idea to /quote/.
+ */
+const parts = [
+  { id: 'breakfast', label: 'Breakfast', from: 6, items: [['Breakfast tacos', '3.50'], ['Kolaches', '2.75'], ['Coffee', '2.25']] },
+  { id: 'lunch', label: 'Lunch', from: 11, items: [['Brisket sandwich', '12.00'], ['Chopped salad', '10.00'], ['Iced tea', '2.50']] },
+  { id: 'dinner', label: 'Dinner', from: 16, items: [['Fajita plate', '18.00'], ['Chicken-fried steak', '16.00'], ['Pecan pie', '6.00']] },
+];
+const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
+---
+
+<section class="section" aria-labelledby="menu-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="menu-title">Your menu board, on a schedule</h2>
+      <p class="lede">Put your name on it, add a special, then drag the clock. Breakfast turns into lunch at 11 and dinner at 4, with nobody on a ladder.</p>
+    </div>
+    <div class="mb" data-mb>
+      <div class="mb-tv">
+        <div class="mb-screen" data-part="lunch">
+          <p class="mb-name" data-mb-name>Your Café</p>
+          {
+            parts.map((p) => (
+              <div class="mb-menu" data-menu={p.id}>
+                <p class="mb-part">{p.label}</p>
+                <ul>
+                  {p.items.map(([n, price]) => (
+                    <li>
+                      <span>{n}</span>
+                      <span class="mb-price">${price}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+          <p class="mb-special" data-mb-special>Today: peach cobbler $5</p>
+          <p class="mb-clock" data-mb-clock aria-hidden="true">12:00 PM</p>
+        </div>
+      </div>
+      <div class="mb-controls">
+        <label class="field-label">
+          <span>Business name</span>
+          <input class="field" type="text" maxlength="26" value="Your Café" data-mb-in="name" autocomplete="organization" />
+        </label>
+        <label class="field-label">
+          <span>Today's special</span>
+          <input class="field" type="text" maxlength="34" value="Today: peach cobbler $5" data-mb-in="special" />
+        </label>
+        <label class="mb-time">
+          <span>Time of day: <strong data-mb-time>12:00 PM</strong></span>
+          <input type="range" min="360" max="1320" step="30" value="720" data-mb-range aria-label="Time of day" />
+          <span class="mb-sched" aria-hidden="true">
+            <i style="--f:0;--t:31.25">Breakfast</i><i style="--f:31.25;--t:62.5">Lunch</i><i style="--f:62.5;--t:100">Dinner</i>
+          </span>
+        </label>
+        <p class="tvp-note" aria-live="polite" data-mb-read>Showing the lunch menu.</p>
+        <a class="btn btn--primary mb-book" href={survey} data-mb-book>Book a survey for menu boards</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const fromHour = [6, 11, 16];
+  const names = ['breakfast', 'lunch', 'dinner'];
+  const partAt = (mins: number) => (mins >= fromHour[2] * 60 ? 2 : mins >= fromHour[1] * 60 ? 1 : 0);
+  const clock = (mins: number) => {
+    const h = Math.floor(mins / 60), m = mins % 60;
+    return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-mb]').forEach((root) => {
+    const screen = root.querySelector<HTMLElement>('.mb-screen')!;
+    const range = root.querySelector<HTMLInputElement>('[data-mb-range]')!;
+    const name = root.querySelector<HTMLInputElement>('[data-mb-in="name"]')!;
+    const special = root.querySelector<HTMLInputElement>('[data-mb-in="special"]')!;
+    const read = root.querySelector<HTMLElement>('[data-mb-read]')!;
+    const book = root.querySelector<HTMLAnchorElement>('[data-mb-book]')!;
+    let last = -1;
+    function update() {
+      const mins = Number(range.value);
+      const p = partAt(mins);
+      screen.dataset.part = names[p];
+      root.querySelector('[data-mb-clock]')!.textContent = clock(mins);
+      root.querySelector('[data-mb-time]')!.textContent = clock(mins);
+      root.querySelector('[data-mb-name]')!.textContent = name.value.trim() || 'Your Café';
+      const sp = root.querySelector<HTMLElement>('[data-mb-special]')!;
+      sp.textContent = special.value.trim();
+      sp.hidden = !special.value.trim();
+      if (p !== last) read.textContent = `Showing the ${names[p]} menu.`;
+      last = p;
+      const biz = name.value.trim() && name.value.trim() !== 'Your Café' ? ` for ${name.value.trim()}` : '';
+      book.href = `/quote/?service=${encodeURIComponent('Commercial AV')}&details=${encodeURIComponent(`Digital menu board${biz}, switching breakfast, lunch and dinner on a schedule.`)}`;
+    }
+    [range, name, special].forEach((el) => el.addEventListener('input', update));
+    update();
+  });
+
+  console.assert(partAt(10 * 60 + 30) === 0 && partAt(11 * 60) === 1 && partAt(16 * 60) === 2 && clock(720) === '12:00 PM' && clock(360) === '6:00 AM', 'menu schedule');
+</script>

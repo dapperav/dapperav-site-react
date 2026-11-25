@@ -37,6 +37,7 @@ const ports = [
 </section>
 
 <script>
+  import { play } from '../scripts/sound';
   const box = document.querySelector<HTMLElement>('[data-patch]');
   if (box) {
     const plug = box.querySelector<HTMLElement>('[data-plug]')!;
@@ -119,6 +120,7 @@ const ports = [
       pos = j;
       draw();
       hit.classList.add('is-linked');
+      play('click');
       setTimeout(() => (location.href = hit.href), still ? 0 : 650);
     };
     plug.addEventListener('pointerup', drop);

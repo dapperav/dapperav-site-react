@@ -166,6 +166,17 @@ https://dapperav.com, same description/tagline.
 > Add a dated entry for EVERY meaningful change (site PR, social/profile edit, Google/citation
 > change, strategy decision). Newest first.
 
+- **2026-11-25** — Fun pass 3 (Mark: "all six"): `CamPlanner` on /business/retail-showrooms/ (drag and aim
+  up to 3 cameras on a sample shop; shelves block the view; front door / register / aisles / back door turn
+  green; "Book a survey for this layout" → ?details=), `MenuBoard` on /business/digital-signage/ (type a name +
+  special, drag the clock: breakfast → lunch at 11 → dinner at 4; placeholder food, not a client),
+  `MeetingRoom` on /business/offices-conference-rooms/ ("One tap" wakes screen/camera/mics/lights; "The old way"
+  clicks through four cable troubles first; call tiles are initials only, no people drawn), `TidyRack` on
+  /business/ (drag six labeled plugs to their ports, then the bundle dresses itself straight and tied).
+  After hours (OpenNow sets `html[data-after-hours]`), link lights and the hero piping glow brighter; nothing
+  darkens. Optional sounds (`src/scripts/sound.ts`, Web Audio, no files) are OFF until a visitor turns on a
+  Sound pill; used on plug-in (tidy, 404 patch panel, rack map add) and the meeting chime. New styles live in
+  `src/styles/toys.css` (imported after pages.css). Every industry page now has one toy.
 - **2026-11-23** — "One rack runs it all" upgrade (Mark: had to scroll to see the filter buttons on a phone;
   "add more value"). Phone pill rows are now an even grid with every choice visible (hero 3×2, rack 2×2,
   care tabs 2+1); the sideways-scrolling row from the phone pass is gone. RackMap: tapping a device opens a
