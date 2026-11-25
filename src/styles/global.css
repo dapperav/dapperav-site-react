@@ -4,6 +4,7 @@
 @import '../../design-system/components.css';
 @import './site.css';
 @import './pages.css';
+@import './toys.css';
 
 /* Tailwind utilities read the same tokens (no raw hex here). */
 @theme inline {

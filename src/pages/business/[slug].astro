@@ -12,6 +12,9 @@ import CableSlider from '../../components/CableSlider.astro';
 import WifiToy from '../../components/WifiToy.astro';
 import MusicZones from '../../components/MusicZones.astro';
 import ClosetHotspots from '../../components/ClosetHotspots.astro';
+import CamPlanner from '../../components/CamPlanner.astro';
+import MenuBoard from '../../components/MenuBoard.astro';
+import MeetingRoom from '../../components/MeetingRoom.astro';
 import { industries } from '../../data/industries';
 import { site } from '../../data/site';
 import { areas } from '../../data/areas';
@@ -120,6 +123,9 @@ const check = 'M4 12.5l5 5L20 6.5';
     {industry.slug === 'structured-cabling' && <ClosetHotspots />}
     {industry.slug === 'restaurants-bars' && <MusicZones />}
     {industry.slug === 'networks-wifi' && <WifiToy />}
+    {industry.slug === 'retail-showrooms' && <CamPlanner />}
+    {industry.slug === 'digital-signage' && <MenuBoard />}
+    {industry.slug === 'offices-conference-rooms' && <MeetingRoom />}
 
     <section class="section" aria-labelledby="why-title">
       <div class="container">

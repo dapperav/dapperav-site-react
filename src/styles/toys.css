@@ -1,0 +1,655 @@
+/* ═══ Fun pass 3 (2026-11-25): camera planner, menu board, meeting room, tidy closet, sound, after hours.
+   The earlier toys live in site.css; these build on its Wi-Fi toy (.wifi-stage, .wifi-read) and pills. ═══ */
+
+/* shared: the Sound pill */
+.sound-toggle svg {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.35rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sound-toggle[aria-pressed='false'] .sound-waves {
+  opacity: 0.25;
+}
+
+/* 1. Camera planner (retail): the Wi-Fi toy's stage, with aimable cameras */
+.cam-dot {
+  position: absolute;
+  width: 2.75rem;
+  height: 2.75rem;
+  translate: -50% -50%;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+}
+.cam-dot i {
+  position: absolute;
+  inset: 0.55rem;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff, #e9e3d8);
+  box-shadow: 0 0 0 3px var(--brown-800), 0 8px 16px -6px rgb(42 12 3 / 0.55);
+  rotate: var(--a, 0deg);
+}
+/* the lens nub points where the camera looks */
+.cam-dot i::after {
+  content: '';
+  position: absolute;
+  left: 78%;
+  top: 50%;
+  width: 0.7rem;
+  height: 0.6rem;
+  translate: 0 -50%;
+  border-radius: 2px 5px 5px 2px;
+  background: var(--brown-800);
+}
+.cam-dot.is-selected i {
+  box-shadow: 0 0 0 3px var(--color-accent), 0 8px 16px -6px rgb(42 12 3 / 0.55);
+}
+.cam-dot.is-dragging {
+  cursor: grabbing;
+  scale: 1.1;
+}
+.cam-dot[hidden],
+.cam:not(.is-ready) .cam-dot {
+  display: none;
+}
+.cam-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  margin-top: var(--space-4);
+}
+.cam-aim {
+  display: grid;
+  flex: 1 1 16rem;
+  gap: var(--space-2);
+  max-width: 24rem;
+  font-weight: var(--weight-semibold);
+}
+.cam-aim input {
+  width: 100%;
+  accent-color: var(--brown-800);
+}
+.cam-buttons {
+  display: flex;
+  gap: var(--space-2);
+}
+.cam-buttons [hidden] {
+  display: none;
+}
+.cam-spots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-4);
+  font-weight: var(--weight-semibold);
+}
+.cam-spots li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-ink-muted);
+}
+.cam-spot-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--rust-500);
+  border-radius: 50%;
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.cam-spots li.is-seen {
+  color: var(--color-ink);
+}
+.cam-spots li.is-seen .cam-spot-dot {
+  border-color: var(--patina-500);
+  background: var(--patina-500);
+}
+.cam .wifi-read {
+  margin-top: var(--space-3);
+}
+.cam-book {
+  margin-top: var(--space-4);
+}
+
+/* 2. Menu board (digital signage): a drawn screen that follows the clock */
+.mb {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 68rem;
+  margin-inline: auto;
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .mb {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+.mb-tv {
+  padding: 0.6rem;
+  border-radius: 14px;
+  background: #120401;
+  box-shadow: var(--depth-light), 0 18px 30px -16px rgb(10 3 1 / 0.7);
+}
+.mb-screen {
+  container-type: inline-size;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  padding: 5cqi 6cqi 4cqi;
+  border-radius: 6px;
+  color: #fffaf0;
+  transition: background-color 600ms var(--ease-out);
+}
+.mb-screen[data-part='breakfast'] { background: #8a4a1c; }
+.mb-screen[data-part='lunch'] { background: #276660; }
+.mb-screen[data-part='dinner'] { background: #2a0c03; }
+.mb-name {
+  font-family: var(--font-display);
+  font-size: 6.4cqi;
+  font-weight: var(--weight-semibold);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+.mb-menu {
+  grid-area: 2 / 1;
+  align-self: center;
+  opacity: 0;
+  translate: 0 3cqi;
+  transition: opacity 400ms var(--ease-out), translate 400ms var(--ease-out);
+}
+.mb-screen[data-part='breakfast'] [data-menu='breakfast'],
+.mb-screen[data-part='lunch'] [data-menu='lunch'],
+.mb-screen[data-part='dinner'] [data-menu='dinner'] {
+  opacity: 1;
+  translate: 0 0;
+}
+.mb-part {
+  margin-bottom: 1.6cqi;
+  color: #fffaf0;
+  font-size: max(0.8125rem, 3.4cqi);
+  font-weight: var(--weight-semibold);
+  opacity: 0.85;
+}
+.mb-menu ul {
+  display: grid;
+  gap: 1.2cqi;
+  font-size: max(0.875rem, 4.2cqi);
+}
+.mb-menu li {
+  display: flex;
+  justify-content: space-between;
+  gap: 3cqi;
+}
+.mb-price {
+  font-variant-numeric: tabular-nums;
+}
+.mb-special {
+  justify-self: start;
+  max-width: 72%;
+  padding: 0.8cqi 2.4cqi;
+  border-radius: 1.4cqi;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: max(0.8125rem, 3.4cqi);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+.mb-special[hidden] {
+  display: none;
+}
+.mb-clock {
+  position: absolute;
+  right: 6cqi;
+  bottom: 4.4cqi;
+  font-size: max(0.8125rem, 2.8cqi);
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+.mb-controls {
+  display: grid;
+  gap: var(--space-4);
+}
+.mb-time {
+  display: grid;
+  gap: var(--space-2);
+  font-weight: var(--weight-semibold);
+}
+.mb-time input {
+  width: 100%;
+  accent-color: var(--brown-800);
+}
+.mb-sched {
+  position: relative;
+  height: 1.4rem;
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink-muted);
+}
+.mb-sched i {
+  position: absolute;
+  left: calc(var(--f) * 1%);
+  width: calc((var(--t) - var(--f)) * 1%);
+  padding-left: 0.35rem;
+  border-left: 2px solid rgb(83 27 10 / 0.25);
+  font-style: normal;
+}
+.mb-book {
+  justify-self: start;
+}
+
+/* 3. Meeting room (offices): drawn room; one tap wakes everything */
+.room {
+  max-width: 56rem;
+  margin-inline: auto;
+}
+.room-stage {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: var(--space-5);
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, #e9dcc3 0 72%, #6b3a22 72%);
+  box-shadow: var(--depth-light);
+}
+.room-stage > * {
+  position: absolute;
+}
+.room-light {
+  left: 30%;
+  top: 0;
+  width: 40%;
+  height: 2cqi;
+  border-radius: 0 0 1cqi 1cqi;
+  background: #fffaf0;
+  box-shadow: 0 0 40px 18px rgb(255 248 230 / 0.7);
+  transition: box-shadow 700ms var(--ease-out) 450ms, background-color 700ms var(--ease-out) 450ms;
+}
+.room-mic {
+  top: 4cqi;
+  width: 5cqi;
+  height: 1.4cqi;
+  border-radius: 50%;
+  background: #f4efe6;
+  box-shadow: 0 2px 0 rgb(83 27 10 / 0.25);
+  transition: box-shadow 300ms var(--ease-out) 300ms;
+}
+.room-mic--l { left: 18%; }
+.room-mic--r { right: 18%; }
+.room-screen {
+  z-index: 1;
+  left: 50%;
+  top: 9%;
+  width: 46%;
+  aspect-ratio: 16 / 9;
+  translate: -50% 0;
+  overflow: hidden;
+  border: 0.9cqi solid #120401;
+  border-radius: 1cqi;
+  background: #1a0702;
+  box-shadow: 0 2cqi 3cqi -1.5cqi rgb(10 3 1 / 0.6);
+  transition: background-color 300ms var(--ease-out);
+}
+.room-call {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8cqi;
+  height: 100%;
+  padding: 0.8cqi;
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+}
+.room-call span {
+  display: grid;
+  place-items: center;
+  border-radius: 0.8cqi;
+  background: #276660;
+  color: #fffaf0;
+  font-size: max(0.8125rem, 2.6cqi);
+  font-weight: var(--weight-semibold);
+}
+.room-call span:nth-child(2) { background: #8a4a1c; }
+.room-call span:nth-child(3) { background: #531b0a; }
+.room-call span:nth-child(4) { background: #7d5ba6; }
+.room-msg {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2cqi;
+  color: #fffaf0;
+  font-size: max(0.8125rem, 2.8cqi);
+  font-weight: var(--weight-semibold);
+  text-align: center;
+}
+/* camera bar sits just under the screen (screen top 9% + 46% wide at 16:9 = 25.9cqi tall) */
+.room-cam {
+  left: 50%;
+  top: calc(9% + 27.5cqi);
+  width: 12cqi;
+  height: 2cqi;
+  translate: -50% 0;
+  border-radius: 1cqi;
+  background: #1a0702;
+}
+.room-cam i {
+  position: absolute;
+  right: 1.2cqi;
+  top: 50%;
+  width: 0.9cqi;
+  height: 0.9cqi;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: #3a1709;
+  transition: background-color 200ms var(--ease-out) 150ms, box-shadow 200ms var(--ease-out) 150ms;
+}
+.room-table {
+  left: 50%;
+  bottom: 0;
+  width: 70%;
+  height: 26%;
+  translate: -50% 0;
+  background: linear-gradient(180deg, #8a4a2b, #5a2a15);
+  clip-path: polygon(22% 0, 78% 0, 100% 100%, 0 100%);
+}
+/* "the old way": a knot of cables on the table */
+.room-tangle {
+  left: 38%;
+  bottom: 9%;
+  width: 24%;
+  height: 10%;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 30% 40% at 30% 50%, transparent 60%, #1a0702 62% 70%, transparent 72%),
+    radial-gradient(ellipse 34% 44% at 62% 45%, transparent 60%, #1a0702 62% 70%, transparent 72%),
+    radial-gradient(ellipse 26% 36% at 48% 60%, transparent 60%, #f1b71c 62% 70%, transparent 72%); /* taste-skill-ignore: drawn cable loops */
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.room-dim {
+  inset: 0;
+  background: rgb(26 7 2 / 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms var(--ease-out) 450ms;
+}
+.room[data-mode='old'] .room-tangle { opacity: 1; }
+.room[data-state='trouble'] .room-screen { background: #1d3f8f; }
+.room[data-state='on'] .room-call { opacity: 1; }
+.room[data-state='on'] .room-cam i { background: #6fd3a6; box-shadow: 0 0 1.4cqi #6fd3a6; }
+.room[data-state='on'] .room-mic { box-shadow: 0 2px 0 rgb(83 27 10 / 0.25), 0 0 0 0.5cqi rgb(111 211 166 / 0.7); }
+.room[data-state='on'] .room-light { background: #e9dcc3; box-shadow: 0 0 12px 4px rgb(255 248 230 / 0.3); }
+.room[data-state='on'] .room-dim { opacity: 1; }
+.room-bar {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+@media (min-width: 720px) {
+  .room-bar {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+  .room-read {
+    grid-column: 1 / -1;
+  }
+}
+.room-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-4);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-muted);
+}
+.room-steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.room-steps li::before {
+  content: '';
+  flex: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: rgb(83 27 10 / 0.2);
+  transition: background-color 200ms var(--ease-out) calc(var(--i) * 150ms), box-shadow 200ms var(--ease-out) calc(var(--i) * 150ms);
+}
+.room[data-state='on'] .room-steps li {
+  color: var(--color-ink);
+}
+.room[data-state='on'] .room-steps li::before {
+  background: #2a8c5a;
+  box-shadow: 0 0 8px rgb(42 140 90 / 0.6);
+}
+.room-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.room-read {
+  min-height: 1.5em;
+  font-weight: var(--weight-semibold);
+}
+
+/* 4. Tidy this closet (/business): drag each plug to its labeled port */
+.tidy {
+  max-width: 56rem;
+  margin-inline: auto;
+}
+.tidy-stage {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 100 / 64;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--depth-dark-sheen), #3a1709;
+  box-shadow: var(--depth-dark);
+}
+@media (max-width: 639px) {
+  .tidy-stage {
+    aspect-ratio: 100 / 84;
+  }
+}
+.tidy-panel {
+  position: absolute;
+  inset: 2cqi 2cqi auto;
+  height: 19cqi;
+  border-radius: 1.6cqi;
+  background: linear-gradient(180deg, #2a2420, #120f0d);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 1cqi 2cqi rgb(0 0 0 / 0.4);
+}
+/* the panel is inset 2cqi, so a port at plan x sits at x - 2cqi inside it */
+.tidy-port {
+  position: absolute;
+  left: calc(var(--x) - 2cqi);
+  top: -2cqi;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 1.6cqi;
+  width: 15cqi;
+  height: 21cqi;
+  padding-top: 3cqi;
+  translate: -50% 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.tidy-port-label {
+  padding: 0.3cqi 1cqi;
+  border-radius: 0.6cqi;
+  background: #fffaf0;
+  color: #1a0702;
+  font-size: max(0.66rem, 2.6cqi);
+  font-weight: var(--weight-semibold);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.tidy-jack {
+  position: relative;
+  width: 7cqi;
+  height: 6cqi;
+  border-radius: 0.8cqi;
+  background: #050302;
+  box-shadow: inset 0 0 0 0.5cqi #3d3631;
+}
+.tidy-jack i {
+  position: absolute;
+  top: -1.4cqi;
+  right: 0;
+  width: 1.1cqi;
+  height: 1.1cqi;
+  border-radius: 50%;
+  background: #3a3330;
+  transition: background-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.tidy-port.is-lit .tidy-jack i {
+  background: #6fd3a6;
+  box-shadow: 0 0 1.4cqi #6fd3a6;
+}
+.tidy-port.is-wrong .tidy-jack {
+  box-shadow: inset 0 0 0 0.5cqi var(--rust-300);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tidy-port.is-wrong {
+    animation: tidy-nope 0.35s var(--ease-out);
+  }
+}
+@keyframes tidy-nope {
+  25% { translate: calc(-50% - 4px) 0; }
+  75% { translate: calc(-50% + 4px) 0; }
+}
+.tidy-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.tidy-wires path {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 5px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.45));
+}
+.tidy-ties rect {
+  fill: #fffaf0;
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+}
+.tidy.is-dressed .tidy-ties rect {
+  opacity: 0.9;
+}
+.tidy-plug {
+  position: absolute;
+  z-index: 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  translate: -50% -50%;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+}
+.tidy-plug::before {
+  content: '';
+  position: absolute;
+  inset: 0.6rem 0.75rem;
+  border-radius: 4px;
+  background: var(--c);
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.25), 0 4px 8px rgb(0 0 0 / 0.45);
+  transition: inset var(--dur-base) var(--ease-out);
+}
+.tidy-plug[aria-pressed='true']::before {
+  box-shadow: 0 0 0 3px var(--color-accent), 0 4px 8px rgb(0 0 0 / 0.45);
+}
+.tidy-plug.is-dragging {
+  z-index: 3;
+  cursor: grabbing;
+}
+.tidy-tag {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  translate: -50% -0.2rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  background: #fffaf0;
+  color: #1a0702;
+  font-size: 0.75rem;
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+.tidy-plug.is-in {
+  cursor: default;
+  pointer-events: none;
+}
+.tidy-plug.is-in::before {
+  inset: 0.9rem 1rem;
+}
+.tidy-plug.is-in .tidy-tag {
+  display: none;
+}
+.tidy:not(.is-ready) .tidy-plug {
+  display: none;
+}
+.tidy-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.tidy-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+.tidy-actions [hidden] {
+  display: none;
+}
+.tidy-done {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  margin-top: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-card);
+  background: var(--cream-50);
+  box-shadow: var(--depth-light-sm);
+}
+.tidy-done[hidden] {
+  display: none;
+}
+
+/* 5. After hours: when the office-hours light says closed, the link lights and the hero's gold piping glow
+      a little brighter, like a closet at night. Nothing gets darker, so contrast never drops. */
+html[data-after-hours] .home-page > .hero.on-dark::after {
+  box-shadow: 0 10px 26px -6px rgb(241 183 28 / 0.6);
+}
+/* filter, not box-shadow: the rack LEDs' scroll animation owns their box-shadow */
+html[data-after-hours] .rack-led,
+html[data-after-hours] .rmap-led,
+html[data-after-hours] .tidy-port.is-lit .tidy-jack i {
+  filter: drop-shadow(0 0 4px #6fd3a6);
+}
+html[data-after-hours] .open-now[data-state='closed'] .open-dot {
+  box-shadow: 0 0 0 3px rgb(240 180 41 / 0.2), 0 0 12px rgb(240 180 41 / 0.8);
+}

@@ -1,0 +1,211 @@
+---
+/**
+ * Cable-tidy game: six loose, tangled cables and a labeled patch panel. Drag each plug to its port (or tap the
+ * plug, then the port). Each port's light comes on; when all six are in, the bundle dresses itself into
+ * straight, tied runs. Different from the 404 patch panel (one cable, navigation): this one is the closet.
+ */
+import SoundToggle from './SoundToggle.astro';
+const cables = [
+  { label: 'POS', color: '#2f6fb0' },
+  { label: 'Office', color: '#2a8c5a' },
+  { label: 'Wi-Fi', color: '#f1b71c' },
+  { label: 'Camera', color: '#a8431f' },
+  { label: 'TV', color: '#7d5ba6' },
+  { label: 'Printer', color: '#e9e1d0' },
+];
+const managedSurvey = `/quote/?service=${encodeURIComponent('Managed IT / Networking (Business)')}`;
+---
+
+<section class="section section--alt" aria-labelledby="tidy-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="tidy-title">Tidy this closet</h2>
+      <p class="lede">Six loose cables, six labeled ports. Drag each plug to its port, or tap a plug and then its port.</p>
+    </div>
+    <div class="tidy" data-tidy>
+      <div class="tidy-stage">
+        <div class="tidy-panel">
+          {
+            cables.map((c, i) => (
+              <button class="tidy-port" type="button" data-port={i} style={`--x:${8.5 + i * 16.6}%`} aria-label={`${c.label} port`}>
+                <span class="tidy-port-label">{c.label}</span>
+                <span class="tidy-jack" aria-hidden="true"><i /></span>
+              </button>
+            ))
+          }
+        </div>
+        <svg class="tidy-wires" viewBox="0 0 100 64" preserveAspectRatio="none" aria-hidden="true">
+          {cables.map((c) => <path style={`--c:${c.color}`} />)}
+          <g class="tidy-ties">{[0, 1, 2].map((t) => <rect x="6" y={34 + t * 9} width="88" height="1.6" rx="0.8" />)}</g>
+        </svg>
+        {
+          cables.map((c, i) => (
+            <button class="tidy-plug" type="button" data-plug={i} style={`--c:${c.color}`} aria-pressed="false" aria-label={`${c.label} cable`}>
+              <span class="tidy-tag">{c.label}</span>
+            </button>
+          ))
+        }
+      </div>
+      <div class="tidy-bar">
+        <p class="wifi-read" aria-live="polite" data-tidy-read>0 of 6 cables patched in.</p>
+        <div class="tidy-actions">
+          <button class="pill pill--sm" type="button" data-tidy-reset hidden>Mess it up again</button>
+          <SoundToggle />
+        </div>
+      </div>
+      <div class="tidy-done" data-tidy-done hidden>
+        <p><strong>Tidy.</strong> Every cable labeled, every port documented. That's what I do to your closet.</p>
+        <a class="btn btn--primary" href={managedSurvey}>Book a free site survey</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { play } from '../scripts/sound';
+  type P = { x: number; y: number };
+  const N = 6;
+  const portX = (i: number) => 8.5 + i * 16.6;
+  const PORT_Y = 13;
+  // where each cable comes up from the floor (shuffled, so the runs cross) and where its loose plug lies
+  const entryStart = [3, 0, 5, 1, 4, 2].map(portX);
+  const loose: P[] = [
+    { x: 62, y: 46 }, { x: 28, y: 36 }, { x: 82, y: 32 }, { x: 44, y: 52 }, { x: 16, y: 50 }, { x: 70, y: 38 },
+  ];
+
+  document.querySelectorAll<HTMLElement>('[data-tidy]').forEach((root) => {
+    const stage = root.querySelector<HTMLElement>('.tidy-stage')!;
+    const paths = [...root.querySelectorAll<SVGPathElement>('.tidy-wires path')];
+    const plugs = [...root.querySelectorAll<HTMLButtonElement>('[data-plug]')];
+    const ports = [...root.querySelectorAll<HTMLButtonElement>('[data-port]')];
+    const read = root.querySelector<HTMLElement>('[data-tidy-read]')!;
+    const done = root.querySelector<HTMLElement>('[data-tidy-done]')!;
+    const reset = root.querySelector<HTMLButtonElement>('[data-tidy-reset]')!;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let pos: P[] = [], inPort: boolean[] = [], entry: number[] = [], sel = -1, moved = false, note = '';
+
+    const H = () => stage.getBoundingClientRect().height / stage.getBoundingClientRect().width * 100; // plan height
+    function draw() {
+      const h = H();
+      paths.forEach((p, i) => {
+        const ex = entry[i];
+        const { x, y } = pos[i];
+        // the floor is the bottom of the stage; the plan is 100 wide and as tall as the stage's shape
+        const d = inPort[i]
+          ? `M${ex} ${h + 2} C${ex} ${h * 0.62} ${x} ${h * 0.5} ${x} ${y + 2}`
+          : `M${ex} ${h + 2} C${ex} ${h - 16} ${x + (i % 2 ? 22 : -22)} ${y + 18} ${x} ${y + 1}`;
+        p.setAttribute('d', d);
+      });
+      root.querySelector('.tidy-wires')!.setAttribute('viewBox', `0 0 100 ${h}`);
+      plugs.forEach((b, i) => {
+        b.style.left = `${pos[i].x}%`;
+        b.style.top = `${(pos[i].y / h) * 100}%`;
+        b.classList.toggle('is-in', inPort[i]);
+        b.disabled = inPort[i];
+        b.setAttribute('aria-pressed', String(i === sel));
+      });
+      ports.forEach((p, i) => p.classList.toggle('is-lit', inPort[i]));
+      const n = inPort.filter(Boolean).length;
+      read.textContent = note || (n === N ? 'All 6 patched in. Dressing the bundle.' : `${n} of 6 cables patched in.`);
+      note = '';
+    }
+
+    function start() {
+      pos = loose.map((p) => ({ ...p }));
+      inPort = Array(N).fill(false);
+      entry = [...entryStart];
+      sel = -1;
+      root.classList.remove('is-dressed');
+      done.hidden = true;
+      reset.hidden = true;
+      draw();
+    }
+
+    function dress() {
+      // the payoff: each cable's floor entry slides under its own port, so every run goes straight up
+      const from = [...entry];
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const k = still ? 1 : Math.min(1, (t - t0) / 700);
+        const e = 1 - (1 - k) ** 3;
+        entry = from.map((f, i) => f + (portX(i) - f) * e);
+        draw();
+        if (k < 1) requestAnimationFrame(step);
+        else {
+          root.classList.add('is-dressed');
+          done.hidden = false;
+          reset.hidden = false;
+          read.textContent = 'All 6 patched in, dressed and tied.';
+          play('chime');
+        }
+      };
+      requestAnimationFrame(step);
+    }
+
+    function connect(i: number, port: number) {
+      if (i !== port) {
+        play('buzz');
+        ports[port].classList.add('is-wrong');
+        setTimeout(() => ports[port].classList.remove('is-wrong'), 400);
+        note = `That's the ${ports[port].getAttribute('aria-label')}. The ${plugs[i].getAttribute('aria-label')} goes in its own port.`;
+        read.textContent = note;
+        return false;
+      }
+      inPort[i] = true;
+      pos[i] = { x: portX(i), y: PORT_Y };
+      sel = -1;
+      play('click');
+      draw();
+      if (inPort.every(Boolean)) dress();
+      return true;
+    }
+
+    const toPlan = (e: PointerEvent): P => {
+      const r = stage.getBoundingClientRect();
+      return { x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.width) * 100 };
+    };
+    plugs.forEach((b, i) => {
+      b.addEventListener('pointerdown', (e) => {
+        b.setPointerCapture(e.pointerId);
+        moved = false;
+        b.classList.add('is-dragging');
+      });
+      b.addEventListener('pointermove', (e) => {
+        if (!b.hasPointerCapture(e.pointerId)) return;
+        const p = toPlan(e);
+        if (Math.hypot(p.x - pos[i].x, p.y - pos[i].y) > 1.5) moved = true;
+        if (!moved) return;
+        pos[i] = { x: Math.min(Math.max(p.x, 3), 97), y: Math.min(Math.max(p.y, 4), H() - 4) };
+        draw();
+      });
+      b.addEventListener('pointerup', (e) => {
+        b.classList.remove('is-dragging');
+        if (!moved) return;
+        const p = toPlan(e);
+        const near = ports.findIndex((_, k) => Math.abs(p.x - portX(k)) < 7 && p.y < PORT_Y + 9);
+        if (near >= 0 && !inPort[near] && !connect(i, near)) {
+          pos[i] = { ...loose[i] };
+          draw();
+        }
+      });
+      b.addEventListener('pointercancel', () => b.classList.remove('is-dragging'));
+      // a tap (or Enter / Space) picks the plug up; then a port puts it in
+      b.addEventListener('click', () => {
+        if (moved) return;
+        sel = sel === i ? -1 : i;
+        if (sel >= 0) read.textContent = `${b.getAttribute('aria-label')} picked up. Now choose its port.`;
+        draw();
+      });
+    });
+    ports.forEach((p, k) =>
+      p.addEventListener('click', () => {
+        if (sel < 0 || inPort[k]) return;
+        if (!connect(sel, k)) draw();
+      }),
+    );
+    reset.addEventListener('click', start);
+    root.classList.add('is-ready');
+    start();
+    addEventListener('resize', draw);
+  });
+</script>

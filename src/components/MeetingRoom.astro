@@ -1,0 +1,96 @@
+---
+/**
+ * "Start meeting": a drawn conference room. One tap wakes the screen, the camera, the ceiling mics and the
+ * lights together; "The old way" makes you click through the usual cable trouble first. Call tiles show
+ * initials only (no people drawn). Optional sounds through the shared Sound toggle.
+ */
+import SoundToggle from './SoundToggle.astro';
+const tiles = ['JM', 'AK', 'TS', 'RB'];
+const steps = ['Screen on', 'Camera framing the table', 'Ceiling mics live', 'Lights down for the screen'];
+---
+
+<section class="section" aria-labelledby="room-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="room-title">Walk in, tap, start</h2>
+      <p class="lede">Press Start meeting and the room does the rest. Then try the old way.</p>
+    </div>
+    <div class="room" data-room data-mode="tap" data-state="off">
+      <div class="pill-tabs" role="group" aria-label="Room setup">
+        <button class="pill" type="button" data-room-mode="tap" aria-pressed="true">One tap</button>
+        <button class="pill" type="button" data-room-mode="old" aria-pressed="false">The old way</button>
+      </div>
+      <div class="room-stage" aria-hidden="true">
+        <span class="room-light"></span>
+        <span class="room-mic room-mic--l"></span>
+        <span class="room-mic room-mic--r"></span>
+        <div class="room-screen">
+          <div class="room-call">{tiles.map((t) => <span>{t}</span>)}</div>
+          <p class="room-msg" data-room-msg></p>
+        </div>
+        <span class="room-cam"><i></i></span>
+        <span class="room-table"></span>
+        <span class="room-tangle"></span>
+        <span class="room-dim"></span>
+      </div>
+      <div class="room-bar">
+        <ul class="room-steps">
+          {steps.map((s, i) => <li style={`--i:${i}`}>{s}</li>)}
+        </ul>
+        <div class="room-actions">
+          <button class="btn btn--primary" type="button" data-room-go>Start meeting</button>
+          <SoundToggle />
+        </div>
+        <p class="room-read" aria-live="polite" data-room-read></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { play } from '../scripts/sound';
+  const trouble = ['No signal', 'HDMI 2? HDMI 3?', 'Where is the USB-C adapter?', 'Can everyone hear me?'];
+
+  document.querySelectorAll<HTMLElement>('[data-room]').forEach((root) => {
+    const go = root.querySelector<HTMLButtonElement>('[data-room-go]')!;
+    const msg = root.querySelector<HTMLElement>('[data-room-msg]')!;
+    const read = root.querySelector<HTMLElement>('[data-room-read]')!;
+    const modes = [...root.querySelectorAll<HTMLButtonElement>('[data-room-mode]')];
+    let tries = 0;
+
+    function reset() {
+      root.dataset.state = 'off';
+      tries = 0;
+      msg.textContent = '';
+      go.textContent = 'Start meeting';
+      read.textContent = '';
+    }
+    function start() {
+      root.dataset.state = 'on';
+      msg.textContent = '';
+      go.textContent = 'End meeting';
+      play('chime');
+      read.textContent =
+        root.dataset.mode === 'old'
+          ? `Meeting started, after ${tries + 1} tries. With one tap it is one.`
+          : 'Meeting started: screen, camera, mics and lights, all from one tap.';
+    }
+    go.addEventListener('click', () => {
+      if (root.dataset.state === 'on') return reset();
+      if (root.dataset.mode === 'tap' || tries >= trouble.length) return start();
+      root.dataset.state = 'trouble';
+      msg.textContent = trouble[tries];
+      read.textContent = `${trouble[tries]} Try again.`;
+      go.textContent = 'Try again';
+      tries++;
+      play('buzz');
+    });
+    modes.forEach((m) =>
+      m.addEventListener('click', () => {
+        modes.forEach((x) => x.setAttribute('aria-pressed', String(x === m)));
+        root.dataset.mode = m.dataset.roomMode;
+        reset();
+      }),
+    );
+  });
+</script>

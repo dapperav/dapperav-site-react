@@ -146,6 +146,7 @@ const units = [0, 1, 2, 3, 4, 5];
 </section>
 
 <script>
+  import { play } from '../scripts/sound';
   document.querySelectorAll<HTMLElement>('[data-rmap]').forEach((root) => {
     const devs = [...root.querySelectorAll<HTMLButtonElement>('[data-dev]')];
     const pills = [...root.querySelectorAll<HTMLButtonElement>('button[data-filter]')];
@@ -222,7 +223,10 @@ const units = [0, 1, 2, 3, 4, 5];
     function toggle(id: string) {
       const i = picked.indexOf(id);
       if (i >= 0) picked.splice(i, 1);
-      else picked.push(id);
+      else {
+        picked.push(id);
+        play('click');
+      }
       render();
     }
 

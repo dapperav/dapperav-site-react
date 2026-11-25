@@ -1,0 +1,216 @@
+---
+/**
+ * Camera planner: drag up to three cameras around a SAMPLE shop floor plan and aim them; each one's view
+ * fills in, and shelves and walls block it. Four spots an owner cares about turn green once a camera sees them.
+ * A simple line-of-sight model, labeled as an illustration. "Book a survey for this layout" sends the plan to /quote/.
+ */
+const survey = `/quote/?service=${encodeURIComponent('Commercial AV')}`;
+---
+
+<section class="section" aria-labelledby="cam-title">
+  <div class="container">
+    <div class="home-head">
+      <h2 class="h2" id="cam-title">Where should the cameras go?</h2>
+      <p class="lede">Drag a camera around this sample shop and aim it. Shelves and walls block the view. Try to see the front door, the register, the aisles and the back door.</p>
+    </div>
+    <figure class="cam wifi" data-cam>
+      <div class="wifi-stage cam-stage">
+        <canvas class="wifi-canvas" aria-hidden="true"></canvas>
+        {[0, 1, 2].map((i) => <button class="cam-dot" type="button" data-cam-i={i} hidden={i > 0} aria-label={`Camera ${i + 1}. Use the arrow keys to move it.`}><i /></button>)}
+      </div>
+      <div class="cam-controls">
+        <label class="cam-aim">
+          <span data-aim-label>Aim camera 1</span>
+          <input type="range" min="0" max="355" step="5" value="270" data-aim />
+        </label>
+        <div class="cam-buttons">
+          <button class="pill pill--sm" type="button" data-cam-add>Add a camera</button>
+          <button class="pill pill--sm" type="button" data-cam-remove hidden>Remove one</button>
+        </div>
+      </div>
+      <ul class="cam-spots" aria-label="Spots in view">
+        {['Front door', 'Register', 'Aisles', 'Back door'].map((s, i) => <li data-spot={i}><span class="cam-spot-dot" aria-hidden="true" />{s}<span class="visually-hidden" data-spot-state>, not in view</span></li>)}
+      </ul>
+      <p class="wifi-read" aria-live="polite" data-cam-read></p>
+      <a class="btn btn--primary cam-book" href={survey} data-cam-book>Book a survey for this layout</a>
+      <figcaption>An illustration with a simple model. Real cameras depend on the lens, the light and the mounting height, so the free site survey checks every angle in your building.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  type P = { x: number; y: number };
+  type Cam = P & { a: number };
+  const W = 100, H = 60, FOV = 100, RANGE = 52, RES = 2; // RES cells per plan unit, for smooth edges
+  // a sample shop, plan units 100 x 60. Walls (stockroom at the back right, door gap 80-88) and shelves block the view.
+  const walls: [number, number, number, number][] = [
+    [70, 0, 70, 22], [70, 22, 80, 22], [88, 22, 100, 22],
+    [10, 16, 48, 16], [10, 28, 48, 28], [10, 40, 48, 40],
+    [72, 40, 92, 40],
+  ];
+  const shelfFrom = 3; // walls[3..5] are shelves, [6] is the counter: drawn thicker
+  const spots: (P & { name: string })[] = [
+    { name: 'Front door', x: 50, y: 56 },
+    { name: 'Register', x: 84, y: 46 },
+    { name: 'Aisles', x: 28, y: 22 },
+    { name: 'Back door', x: 96, y: 6 },
+  ];
+  const labels: [string, number, number][] = [['Stockroom', 85, 12], ['Counter', 82, 37], ['Shelves', 29, 34.5]];
+
+  const cross = (a: P, b: P, c: P, d: P) => {
+    const o = (p: P, q: P, r: P) => Math.sign((q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x));
+    return o(a, b, c) !== o(a, b, d) && o(c, d, a) !== o(c, d, b);
+  };
+  const sees = (cam: Cam, c: P) => {
+    const dx = c.x - cam.x, dy = c.y - cam.y;
+    if (Math.hypot(dx, dy) > RANGE) return false;
+    const diff = Math.abs((((Math.atan2(dy, dx) * 180) / Math.PI - cam.a + 540) % 360) - 180);
+    if (diff > FOV / 2) return false;
+    for (const [x1, y1, x2, y2] of walls) if (cross(cam, c, { x: x1, y: y1 }, { x: x2, y: y2 })) return false;
+    return true;
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-cam]').forEach((root) => {
+    const canvas = root.querySelector('canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-cam-i]')];
+    const aim = root.querySelector<HTMLInputElement>('[data-aim]')!;
+    const aimLabel = root.querySelector<HTMLElement>('[data-aim-label]')!;
+    const add = root.querySelector<HTMLButtonElement>('[data-cam-add]')!;
+    const remove = root.querySelector<HTMLButtonElement>('[data-cam-remove]')!;
+    const read = root.querySelector<HTMLElement>('[data-cam-read]')!;
+    const book = root.querySelector<HTMLAnchorElement>('[data-cam-book]')!;
+    const spotEls = [...root.querySelectorAll<HTMLElement>('[data-spot]')];
+    const cams: Cam[] = [{ x: 50, y: 52, a: 270 }, { x: 60, y: 22, a: 180 }, { x: 74, y: 30, a: 0 }];
+    let count = 1, sel = 0;
+    const ink = getComputedStyle(root).getPropertyValue('--brown-800').trim() || '#531b0a';
+    const off = document.createElement('canvas');
+    off.width = W * RES;
+    off.height = H * RES;
+    const octx = off.getContext('2d')!;
+    const img = octx.createImageData(W * RES, H * RES);
+
+    function render() {
+      const r = canvas.getBoundingClientRect();
+      const dpr = devicePixelRatio || 1;
+      canvas.width = Math.round(r.width * dpr);
+      canvas.height = Math.round(r.height * dpr);
+      const k = (r.width / W) * dpr;
+      let seen = 0;
+      for (let y = 0; y < H * RES; y++)
+        for (let x = 0; x < W * RES; x++) {
+          const c = { x: (x + 0.5) / RES, y: (y + 0.5) / RES };
+          let n = 0;
+          for (let i = 0; i < count; i++) if (sees(cams[i], c)) n++;
+          if (n) seen++;
+          // patina where a camera sees, deeper where two overlap; a faint rust where nothing does
+          img.data.set(n ? [39, 102, 96, n > 1 ? 150 : 105] : [168, 67, 31, 34], (y * W * RES + x) * 4);
+        }
+      octx.putImageData(img, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = ink;
+      ctx.lineCap = 'round';
+      walls.forEach(([x1, y1, x2, y2], i) => {
+        ctx.lineWidth = (i >= shelfFrom ? 6 : 3) * dpr;
+        ctx.beginPath();
+        ctx.moveTo(x1 * k, y1 * k);
+        ctx.lineTo(x2 * k, y2 * k);
+        ctx.stroke();
+      });
+      ctx.fillStyle = ink;
+      ctx.textAlign = 'center';
+      const fs = Math.max(10, r.width / 62) * dpr;
+      ctx.font = `600 ${fs}px Inter, system-ui, sans-serif`;
+      for (const [t, x, y] of labels) ctx.fillText(t, x * k, y * k);
+      const hit = spots.map((s) => cams.slice(0, count).some((c) => sees(c, s)));
+      spots.forEach((s, i) => {
+        ctx.beginPath();
+        ctx.arc(s.x * k, s.y * k, 1.4 * k, 0, Math.PI * 2);
+        ctx.fillStyle = hit[i] ? '#276660' : '#fffaf0';
+        ctx.fill();
+        ctx.lineWidth = 2 * dpr;
+        ctx.strokeStyle = hit[i] ? '#fffaf0' : '#a8431f';
+        ctx.stroke();
+      });
+      dots.forEach((d, i) => {
+        d.hidden = i >= count;
+        d.style.left = `${(cams[i].x / W) * 100}%`;
+        d.style.top = `${(cams[i].y / H) * 100}%`;
+        d.style.setProperty('--a', `${cams[i].a}deg`);
+        d.classList.toggle('is-selected', i === sel && count > 1);
+      });
+      spotEls.forEach((el, i) => {
+        el.classList.toggle('is-seen', hit[i]);
+        el.querySelector('[data-spot-state]')!.textContent = hit[i] ? ', in view' : ', not in view';
+      });
+      const yes = spots.filter((_, i) => hit[i]).map((s) => s.name.toLowerCase());
+      const no = spots.filter((_, i) => !hit[i]).map((s) => s.name.toLowerCase());
+      const pct = Math.round((seen / (W * H * RES * RES)) * 100);
+      read.textContent = no.length
+        ? `${count === 1 ? 'One camera sees' : `${count} cameras see`} ${pct}% of the floor. Not yet in view: ${no.join(', ')}.`
+        : `${count} cameras see ${pct}% of the floor, and all four spots are covered.`;
+      const plan = `Camera plan from the shop planner: ${count} camera${count > 1 ? 's' : ''}. In view: ${yes.join(', ') || 'none'}.${no.length ? ` Not yet: ${no.join(', ')}.` : ''}`;
+      book.href = `/quote/?service=${encodeURIComponent('Commercial AV')}&details=${encodeURIComponent(plan)}`;
+      add.hidden = count >= 3;
+      remove.hidden = count <= 1;
+    }
+
+    function pick(i: number) {
+      sel = i;
+      aim.value = String(cams[i].a);
+      aimLabel.textContent = `Aim camera ${i + 1}`;
+    }
+    const clamp = (p: P) => ({ x: Math.min(Math.max(p.x, 2), W - 2), y: Math.min(Math.max(p.y, 2), H - 2) });
+
+    dots.forEach((d, i) => {
+      d.addEventListener('pointerdown', (e) => {
+        d.setPointerCapture(e.pointerId);
+        d.classList.add('is-dragging');
+        pick(i);
+        render();
+      });
+      d.addEventListener('pointermove', (e) => {
+        if (!d.hasPointerCapture(e.pointerId)) return;
+        const r = canvas.getBoundingClientRect();
+        Object.assign(cams[i], clamp({ x: ((e.clientX - r.left) / r.width) * W, y: ((e.clientY - r.top) / r.height) * H }));
+        render();
+      });
+      const up = () => d.classList.remove('is-dragging');
+      d.addEventListener('pointerup', up);
+      d.addEventListener('pointercancel', up);
+      d.addEventListener('focus', () => {
+        pick(i);
+        render();
+      });
+      d.addEventListener('keydown', (e) => {
+        const s = e.shiftKey ? 8 : 3;
+        const m: Record<string, P> = { ArrowLeft: { x: -s, y: 0 }, ArrowRight: { x: s, y: 0 }, ArrowUp: { x: 0, y: -s }, ArrowDown: { x: 0, y: s } };
+        if (!m[e.key]) return;
+        e.preventDefault();
+        Object.assign(cams[i], clamp({ x: cams[i].x + m[e.key].x, y: cams[i].y + m[e.key].y }));
+        render();
+      });
+    });
+    aim.addEventListener('input', () => {
+      cams[sel].a = Number(aim.value);
+      render();
+    });
+    add.addEventListener('click', () => {
+      count = Math.min(3, count + 1);
+      pick(count - 1);
+      render();
+    });
+    remove.addEventListener('click', () => {
+      count = Math.max(1, count - 1);
+      pick(Math.min(sel, count - 1));
+      render();
+    });
+    root.classList.add('is-ready');
+    render();
+    addEventListener('resize', render);
+  });
+
+  // self-check: a shelf between the camera and the aisle blocks it; open floor in front of the lens does not
+  console.assert(!sees({ x: 28, y: 50, a: 270 }, { x: 28, y: 22 }) && sees({ x: 28, y: 50, a: 270 }, { x: 28, y: 45 }), 'cam line of sight');
+</script>
